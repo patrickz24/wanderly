@@ -1,0 +1,156 @@
+# Wanderly local stack: Postgres + pgvector, one-shot migrations, API, web (nginx).
+#
+#   make up                     # creates .env from .env.example if missing, then the command below
+#   docker compose up --build -d --wait
+#
+# Secrets come from .env (gitignored, see .env.example); SESSION_SECRET is required. Values that
+# must match the compose topology (DATABASE_URL, PORT, TRUST_PROXY...) are set here and override
+# .env. Host ports bind to 127.0.0.1 only and can be moved with DB_PORT / API_PORT / WEB_PORT.
+
+name: wanderly
+
+x-hardening: &hardening
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+
+x-api-image: &api-image
+  image: wanderly-api:local
+  build:
+    context: .
+    dockerfile: services/api/Dockerfile
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    environment:
+      POSTGRES_DB: wanderly
+      POSTGRES_USER: wanderly
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-wanderly}
+    ports:
+      - '127.0.0.1:${DB_PORT:-5432}:5432'
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks: [backend]
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U wanderly -d wanderly']
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 10s
+    restart: unless-stopped
+    shm_size: 128mb
+    mem_limit: 1g
+    pids_limit: 200
+    # The entrypoint initialises the data directory as root, then drops to the postgres user.
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add: [CHOWN, DAC_OVERRIDE, FOWNER, SETGID, SETUID]
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/run/postgresql
+
+  migrate:
+    <<: [*api-image, *hardening]
+    # node-pg-migrate straight from the runtime image (no npm in the loop), same arguments as
+    # `npm run migrate`. Idempotent: applies pending migrations, then exits.
+    command:
+      - node
+      - ../../node_modules/node-pg-migrate/bin/node-pg-migrate.js
+      - --migrations-dir
+      - migrations
+      - --migration-file-language
+      - sql
+      - up
+    environment:
+      DATABASE_URL: postgres://wanderly:${POSTGRES_PASSWORD:-wanderly}@db:5432/wanderly
+    depends_on:
+      db:
+        condition: service_healthy
+    networks: [backend]
+    read_only: true
+    mem_limit: 256m
+    restart: 'no'
+    healthcheck:
+      disable: true
+
+  api:
+    <<: [*api-image, *hardening]
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: '3000'
+      DATABASE_URL: postgres://wanderly:${POSTGRES_PASSWORD:-wanderly}@db:5432/wanderly
+      # Requests arrive through the web container (nginx) on the private compose network.
+      TRUST_PROXY: uniquelocal
+      EMBEDDING_CACHE_DIR: /app/.cache/models
+    ports:
+      - '127.0.0.1:${API_PORT:-3000}:3000'
+    volumes:
+      # Downloaded embedding model, kept across restarts (the root filesystem is read-only).
+      - models:/app/.cache/models
+    tmpfs:
+      - /tmp
+    networks: [backend, frontend]
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    init: true
+    read_only: true
+    # Generous until the embedder footprint is measured (milestone 2).
+    mem_limit: 1g
+    pids_limit: 200
+    restart: unless-stopped
+    healthcheck:
+      test:
+        - CMD
+        - node
+        - -e
+        - "fetch('http://127.0.0.1:3000/health',{signal:AbortSignal.timeout(4000)}).then(r=>process.exit(r.ok?0:1),()=>process.exit(1))"
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+
+  web:
+    <<: *hardening
+    image: wanderly-web:local
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    ports:
+      - '127.0.0.1:${WEB_PORT:-8080}:8080'
+    tmpfs:
+      - /tmp
+    networks: [frontend]
+    depends_on:
+      api:
+        condition: service_healthy
+        # nginx resolves `api` at startup: restart it when the api container is recreated.
+        restart: true
+    read_only: true
+    mem_limit: 128m
+    pids_limit: 100
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'wget', '-q', '--spider', 'http://127.0.0.1:8080/']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  # The web container can reach the API but not the database.
+  frontend: {}
+  backend: {}
+
+volumes:
+  db-data: {}
+  models: {}
