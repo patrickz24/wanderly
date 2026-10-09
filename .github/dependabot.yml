@@ -1,0 +1,52 @@
+version: 2
+
+updates:
+  # npm workspaces share the root lockfile. Minor/patch updates are grouped into two weekly PRs;
+  # majors stay individual PRs because they need a review of the changelog.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: build(deps)
+    groups:
+      production-dependencies:
+        dependency-type: production
+        update-types: [minor, patch]
+      development-dependencies:
+        dependency-type: development
+        update-types: [minor, patch]
+
+  # Workflows and the local composite action.
+  - package-ecosystem: github-actions
+    directories:
+      - /
+      - /.github/actions/*
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: ci(deps)
+    groups:
+      github-actions:
+        patterns: ['*']
+
+  # Base images are pinned by digest: Dependabot refreshes the digests (security patches).
+  - package-ecosystem: docker
+    directories:
+      - /services/api
+      - /apps/web
+    schedule:
+      interval: weekly
+      day: monday
+    commit-message:
+      prefix: build(deps)
+    groups:
+      docker-base-images:
+        patterns: ['*']
+    ignore:
+      # Node 22 is the target runtime (.nvmrc, CI): moving to a new major is a deliberate change.
+      - dependency-name: node
+        update-types: ['version-update:semver-major']
