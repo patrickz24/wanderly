@@ -1,3 +1,4 @@
+import { ApiStatusIndicator } from './components/ApiStatusIndicator';
 import { AppHeader } from './components/AppHeader';
 import { DemoNotice } from './components/DemoNotice';
 import { PlaceholderPanel } from './components/PlaceholderPanel';
@@ -9,7 +10,7 @@ export function App() {
   return (
     <div className="flex min-h-dvh flex-col">
       <SkipLink targetId={MAIN_ID} />
-      <AppHeader />
+      <AppHeader status={<ApiStatusIndicator />} />
       <DemoNotice />
       <main
         id={MAIN_ID}

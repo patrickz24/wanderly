@@ -1,32 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
+import { hangingFetch, jsonResponse, stubFetch } from '../test/fetch';
 import { ApiError, apiRequest, getHealth, normalizeBaseUrl, resolveApiUrl } from './api';
-
-type FetchImpl = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>;
-
-function stubFetch(impl: FetchImpl) {
-  const mock = vi.fn<FetchImpl>(impl);
-  vi.stubGlobal('fetch', mock);
-  return mock;
-}
-
-function jsonResponse(body: unknown, status = 200): Response {
-  return new Response(JSON.stringify(body), {
-    status,
-    headers: { 'Content-Type': 'application/json' },
-  });
-}
-
-/** Behaves like a real fetch to a server that never answers: it only settles when aborted. */
-const hangingFetch: FetchImpl = (_input, init) =>
-  new Promise<Response>((_resolve, reject) => {
-    const abort = (): void => {
-      reject(new DOMException('The operation was aborted.', 'AbortError'));
-    };
-    if (init?.signal?.aborted === true) {
-      abort();
-    }
-    init?.signal?.addEventListener('abort', abort);
-  });
 
 const identity = (data: unknown): unknown => data;
 

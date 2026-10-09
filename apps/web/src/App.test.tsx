@@ -1,14 +1,28 @@
 import { render, screen, within } from '@testing-library/react';
-import { describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it } from 'vitest';
 import { App } from './App';
+import { hangingFetch, stubFetch } from './test/fetch';
 
 describe('App shell', () => {
+  beforeEach(() => {
+    // The header polls /health; keep it pending so these tests stay about the layout.
+    stubFetch(hangingFetch);
+  });
+
   it('exposes the banner and main landmarks', () => {
     render(<App />);
 
     const banner = screen.getByRole('banner');
     expect(within(banner).getByRole('heading', { level: 1, name: 'Wanderly' })).toBeInTheDocument();
     expect(screen.getByRole('main')).toHaveAttribute('id', 'main');
+  });
+
+  it('shows the API status in the header', () => {
+    render(<App />);
+
+    expect(within(screen.getByRole('banner')).getByRole('status')).toHaveTextContent(
+      'Checking API…',
+    );
   });
 
   it('shows the demo and privacy notice', () => {
