@@ -170,6 +170,7 @@ describe('security headers', () => {
       "default-src 'none';base-uri 'none';form-action 'none';frame-ancestors 'none'",
     );
     expect(headers['x-content-type-options']).toBe('nosniff');
+    expect(headers['x-frame-options']).toBe('DENY');
     expect(headers['strict-transport-security']).toContain('max-age=');
     expect(headers['referrer-policy']).toBe('no-referrer');
     expect(headers['cross-origin-resource-policy']).toBe('same-origin');

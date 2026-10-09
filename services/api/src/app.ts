@@ -79,6 +79,7 @@ export async function buildApp({ config, readinessProbe, logDestination }: AppDe
       },
     },
     crossOriginEmbedderPolicy: true,
+    frameguard: { action: 'deny' },
     referrerPolicy: { policy: 'no-referrer' },
   });
 
