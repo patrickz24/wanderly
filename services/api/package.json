@@ -5,7 +5,7 @@
   "type": "module",
   "description": "Wanderly API: Fastify HTTP layer, agent runtime, RAG, guardrails.",
   "scripts": {
-    "dev": "tsx watch --conditions=development src/main.ts",
+    "dev": "tsx watch --conditions=development --env-file-if-exists=../../.env src/main.ts",
     "build": "tsc -p tsconfig.build.json",
     "start": "node dist/main.js",
     "typecheck": "tsc -p tsconfig.json --noEmit",
