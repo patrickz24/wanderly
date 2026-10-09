@@ -27,13 +27,14 @@ Split `services/api/src` into four layers with dependencies pointing inwards:
 | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------------------------------------------- |
 | `domain`         | Agent loop, tool definitions and their pure logic (such as the budget calculation), guardrails, pure RAG functions (chunker, rank fusion), and **port** interfaces | Itself and Zod only. No framework, SDK or I/O. |
 | `application`    | Use cases (`SendMessage`, `IngestCorpus`, `SubmitFeedback`) that orchestrate the domain through ports                                                              | `domain`                                       |
-| `infrastructure` | **Adapters** implementing the ports: Anthropic client, Postgres repositories and retriever, local ONNX embedder, Langfuse tracer and its no-op twin                | `domain` (to implement ports), SDKs, drivers   |
+| `infrastructure` | **Adapters** implementing the ports: Anthropic client, Postgres repositories and retriever, local ONNX embedder, Langfuse tracer and its no-op twin                | The ports it implements, SDKs, drivers         |
 | `api`            | Fastify routes, plugins (errors, rate limit, cost cap, session) and SSE                                                                                            | `application`                                  |
 
 - **Ports are owned by the domain** and phrased in domain terms: `LlmPort`, `Retriever`, `Embedder`,
   `Tracer`, repositories and `Clock`. Provider-specific data that must round-trip unchanged (such
   as thinking blocks) travels through the LLM port as opaque values; the provider abstraction gets
-  its own ADR at milestone 3.
+  its own ADR at milestone 3. Operational ports that the domain never uses, such as the readiness
+  checks behind `GET /ready`, live in `application/ports` instead.
 - **One composition root**: `src/main.ts` is the only module that reads validated config,
   instantiates adapters and wires them into use cases. `buildApp` in `src/app.ts` receives its
   dependencies, so tests build the HTTP app with fakes. No DI container: wiring is plain
