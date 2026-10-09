@@ -11,7 +11,8 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       include: ['src/**/*.ts'],
-      exclude: ['src/**/*.test.ts', 'src/main.ts'],
+      // main.ts is the composition root (smoke-tested); ports are type-only interfaces.
+      exclude: ['src/**/*.test.ts', 'src/main.ts', 'src/**/ports/**'],
       reporter: ['text', 'html', 'json-summary'],
       // The pure core (domain + use cases) is gated; adapters are covered by integration tests.
       thresholds: {
