@@ -1,0 +1,3 @@
+# Raw downloads (Wikivoyage wikitext, Open-Meteo daily series): re-fetchable, pinned by
+# revision id / request URL. Only derived files (corpus, climate normals) are committed.
+raw/
