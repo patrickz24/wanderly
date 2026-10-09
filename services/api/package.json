@@ -19,6 +19,7 @@
     "@fastify/cors": "^11.3.1",
     "@fastify/helmet": "^13.1.2",
     "@fastify/rate-limit": "^11.2.1",
+    "@huggingface/transformers": "^4.3.1",
     "@wanderly/contracts": "*",
     "fastify": "^5.12.5",
     "fastify-type-provider-zod": "^7.0.0",
