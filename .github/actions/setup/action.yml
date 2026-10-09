@@ -1,0 +1,27 @@
+name: Setup Node.js and dependencies
+description: Node.js from .nvmrc with the npm cache, then a lockfile install without install scripts.
+
+inputs:
+  install:
+    description: Run `npm ci` after setting up Node.js.
+    required: false
+    default: 'true'
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v7
+      with:
+        node-version-file: .nvmrc
+        # The npm cache is only useful (and only populated) when dependencies are installed.
+        cache: ${{ inputs.install == 'true' && 'npm' || '' }}
+
+    # --ignore-scripts: the package.json `allowScripts` policy is only enforced by npm >= 11,
+    # while Node 22 bundles npm 10, which would run every install script (onnxruntime-node's
+    # postinstall downloads the CUDA provider on linux/x64). The only allowed script (esbuild)
+    # is a binary self-check: esbuild still works from its platform optional dependency.
+    - name: Install dependencies
+      if: inputs.install == 'true'
+      shell: bash
+      run: npm ci --ignore-scripts

@@ -1,0 +1,190 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+# A new push to a PR cancels its previous run; runs on main always complete (one per commit).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+# Least privilege: every job only reads the repository. No job needs a secret, so the workflow
+# also runs safely on pull requests from forks.
+permissions:
+  contents: read
+
+env:
+  FORCE_COLOR: '1'
+
+jobs:
+  lint:
+    name: Lint and format
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: ESLint
+        run: npm run lint
+      - name: Prettier
+        run: npm run format:check
+
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: TypeScript (all workspaces)
+        run: npm run typecheck
+
+  test:
+    name: Unit tests and coverage
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      # Coverage thresholds, when configured, live in each workspace's vitest config.
+      - name: Vitest (all workspaces) with coverage
+        run: npm run test --workspaces --if-present -- --coverage
+      - name: Upload coverage reports
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage
+          path: |
+            packages/*/coverage/
+            services/*/coverage/
+            apps/*/coverage/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  integration:
+    name: Integration tests (Postgres + pgvector)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_DB: wanderly
+          POSTGRES_USER: wanderly
+          POSTGRES_PASSWORD: wanderly
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U wanderly -d wanderly"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      # Throwaway CI database, not a secret.
+      DATABASE_URL: postgres://wanderly:wanderly@localhost:5432/wanderly
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: Apply migrations
+        run: npm run migrate
+      - name: Integration tests
+        run: npm run test:integration
+
+  build:
+    name: Build all workspaces
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: Build (contracts first, then api, web, evals)
+        run: npm run build
+
+  docker:
+    name: Docker image (${{ matrix.image }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - image: api
+            dockerfile: services/api/Dockerfile
+          - image: web
+            dockerfile: apps/web/Dockerfile
+    env:
+      IMAGE_REF: wanderly-${{ matrix.image }}:ci
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+      - name: Build image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: ${{ matrix.dockerfile }}
+          tags: ${{ env.IMAGE_REF }}
+          load: true
+          push: false
+          cache-from: type=gha,scope=${{ matrix.image }}
+          cache-to: type=gha,mode=max,scope=${{ matrix.image }}
+      - name: Report image size
+        run: |
+          size_bytes=$(docker image inspect "$IMAGE_REF" --format '{{.Size}}')
+          echo "### $IMAGE_REF: $((size_bytes / 1024 / 1024)) MiB (uncompressed)" >> "$GITHUB_STEP_SUMMARY"
+      # trivy-action is pinned to a full commit SHA, not a tag: its tags were force-pushed to
+      # malicious commits in the March 2026 supply-chain incident (CVE-2026-33634).
+      - name: Scan image with Trivy (fail on fixable HIGH/CRITICAL)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          version: v0.75.0
+          scan-type: image
+          image-ref: ${{ env.IMAGE_REF }}
+          format: table
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          vuln-type: os,library
+          exit-code: '1'
+
+  audit:
+    name: Dependency audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      # npm audit reads the lockfile only: no install needed.
+      - uses: ./.github/actions/setup
+        with:
+          install: 'false'
+      - name: npm audit (production dependencies)
+        run: npm audit --audit-level=high --omit=dev
+      - name: Trivy filesystem scan (dependencies and committed secrets)
+        uses: aquasecurity/trivy-action@ed142fd0673e97e23eac54620cfb913e5ce36c25 # v0.36.0
+        with:
+          version: v0.75.0
+          scan-type: fs
+          scan-ref: .
+          scanners: vuln,secret
+          format: table
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          exit-code: '1'
+
+  # eval: the LLM evaluation gate (`npm run eval` against evals/thresholds.json) is added here at
+  # milestone 5, once real baseline results exist. Deliberately not stubbed before then.
