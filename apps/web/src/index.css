@@ -1,0 +1,69 @@
+@import 'tailwindcss';
+
+/*
+ * Design tokens. Components only use these semantic names (bg-surface, text-fg-muted, ...),
+ * never raw palette colours, so light/dark is decided here and nowhere else.
+ * Text pairs meet WCAG AA (4.5:1) on canvas, surface and surface-muted in both schemes.
+ */
+@theme {
+  --color-canvas: #f8fafc;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f1f5f9;
+  --color-fg: #0f172a;
+  --color-fg-muted: #475569;
+  --color-line: #cbd5e1;
+  --color-accent: #0f766e;
+  --color-focus: #2563eb;
+  --color-success: #15803d;
+  --color-danger: #b91c1c;
+  --color-pending: #64748b;
+  --color-notice: #fffbeb;
+  --color-notice-fg: #78350f;
+  --color-notice-line: #fcd34d;
+}
+
+/* Unlayered, so it overrides the values Tailwind emits in its `theme` layer. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-canvas: #020617;
+    --color-surface: #0f172a;
+    --color-surface-muted: #1e293b;
+    --color-fg: #f1f5f9;
+    --color-fg-muted: #94a3b8;
+    --color-line: #334155;
+    --color-accent: #2dd4bf;
+    --color-focus: #60a5fa;
+    --color-success: #4ade80;
+    --color-danger: #f87171;
+    --color-pending: #94a3b8;
+    --color-notice: #451a03;
+    --color-notice-fg: #fde68a;
+    --color-notice-line: #92400e;
+  }
+}
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+
+  body {
+    @apply bg-canvas text-fg antialiased;
+  }
+
+  /* One visible focus ring for every interactive element, keyboard users only. */
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
