@@ -1,0 +1,231 @@
+# Wanderly destination list: the single input of the corpus scripts (see data/README.md).
+#
+# - id: stable kebab-case slug, used as the corpus directory name and as the POI id prefix.
+# - wikivoyage_title: canonical English Wikivoyage page title (no redirects; the fetcher rejects them).
+# - aliases: other names a traveller may type (French, local, alternative English spellings).
+# - climate_point: coordinates used for the Open-Meteo climate normals. By default the article's own
+#   Wikivoyage GeoData point. It is replaced by the GeoData point of the main gateway city when the
+#   article point is at sea (DEM elevation 0 m) or above 500 m in a destination that visitors mostly
+#   experience lower down. Elevations were read from the Open-Meteo elevation API (90 m DEM).
+# - substitution: present when the requested destination was replaced, with the reason. Rule: the
+#   page (or the page it redirects to) is missing, or is an outline whose See + Do sections hold
+#   fewer than 150 words once converted (the "almost no See/Do content" case). Word counts come
+#   from data/scripts/wikitext.ts on the revision quoted in the reason.
+# - note: present when the requested name maps to a page whose scope differs.
+destinations:
+  - id: sicily
+    name: Sicily
+    country: Italy
+    wikivoyage_title: Sicily
+    aliases: [Sicile, Sicilia]
+    climate_point:
+      lat: 38.116667
+      lon: 13.366667
+      source: 'Wikivoyage GeoData of "Palermo" (main gateway); the "Sicily" point (37.5, 14) is inland at 555 m'
+
+  - id: sardinia
+    name: Sardinia
+    country: Italy
+    wikivoyage_title: Sardinia
+    aliases: [Sardaigne, Sardegna, Sardigna]
+    climate_point:
+      lat: 39.246389
+      lon: 9.0575
+      source: 'Wikivoyage GeoData of "Cagliari" (main gateway); the "Sardinia" point (40.1, 9) is inland at 629 m'
+
+  - id: apulia
+    name: Apulia
+    country: Italy
+    wikivoyage_title: Apulia
+    aliases: [Puglia, Pouilles]
+    climate_point:
+      lat: 41.008611
+      lon: 16.512778
+      source: 'Wikivoyage GeoData of "Apulia" (334 m, on the Murge plateau)'
+
+  - id: tuscany
+    name: Tuscany
+    country: Italy
+    wikivoyage_title: Tuscany
+    aliases: [Toscane, Toscana]
+    climate_point:
+      lat: 43.35
+      lon: 11.01666667
+      source: 'Wikivoyage GeoData of "Tuscany"'
+
+  - id: seiser-alm
+    name: Seiser Alm
+    country: Italy
+    wikivoyage_title: Seiser Alm
+    aliases: [Alpe di Siusi, Alpe de Siusi, Mont Sëuc]
+    climate_point:
+      lat: 46.54111
+      lon: 11.64472
+      source: 'Wikivoyage GeoData of "Seiser Alm" (a mountain plateau: its 1,863 m point is representative)'
+    substitution:
+      requested: Dolomites
+      reason: >-
+        "Dolomites" redirects to "South Tyrol", an outline region article whose See and Do sections
+        hold 37 words in total at revision 5266223 (a name-only list of sights, empty Do). "Seiser Alm" is a usable-status rural-area article about the largest alpine plateau of
+        the South Tyrolean Dolomites, with 1,459 words of See and Do (hiking, climbing, biking,
+        skiing) and 22 listings.
+
+  - id: corsica
+    name: Corsica
+    country: France
+    wikivoyage_title: Corsica
+    aliases: [Corse, Île de Beauté]
+    climate_point:
+      lat: 41.9267
+      lon: 8.7369
+      source: 'Wikivoyage GeoData of "Ajaccio" (main gateway); the "Corsica" point (42.15, 9.0833) is in the mountains at 1,683 m'
+
+  - id: provence
+    name: Provence
+    country: France
+    wikivoyage_title: Provence-Alpes-Côte d'Azur
+    aliases: [Provence-Alpes-Côte d'Azur, PACA, Région Sud]
+    climate_point:
+      lat: 43.526304
+      lon: 5.445429
+      source: 'Wikivoyage GeoData of "Aix-en-Provence"; the "Provence-Alpes-Côte d''Azur" point (44, 6) is in the Alps at 718 m'
+    note: >-
+      Wikivoyage redirects "Provence" to the regional article "Provence-Alpes-Côte d'Azur", which also
+      covers the Côte d'Azur and the Southern Alps. Kept as the closest match.
+
+  - id: andalusia
+    name: Andalusia
+    country: Spain
+    wikivoyage_title: Andalusia
+    aliases: [Andalousie, Andalucía]
+    climate_point:
+      lat: 37.377222
+      lon: -5.986944
+      source: 'Wikivoyage GeoData of "Seville" (regional capital); the "Andalusia" point (37.46, -4.16) is at 967 m'
+
+  - id: mallorca
+    name: Mallorca
+    country: Spain
+    wikivoyage_title: Mallorca
+    aliases: [Majorca, Majorque]
+    climate_point:
+      lat: 39.624
+      lon: 2.966
+      source: 'Wikivoyage GeoData of "Mallorca"'
+
+  - id: algarve
+    name: Algarve
+    country: Portugal
+    wikivoyage_title: Algarve
+    aliases: []
+    climate_point:
+      lat: 37.014444
+      lon: -7.935278
+      source: 'Wikivoyage GeoData of "Algarve"'
+
+  - id: madeira
+    name: Madeira
+    country: Portugal
+    wikivoyage_title: Madeira
+    aliases: [Madère, Arquipélago da Madeira]
+    climate_point:
+      lat: 32.63333
+      lon: -16.9
+      source: 'Wikivoyage GeoData of "Funchal" (main gateway); the "Madeira" point (32.822, -16.834) has a DEM elevation of 0 m (sea)'
+
+  - id: azores
+    name: Azores
+    country: Portugal
+    wikivoyage_title: Azores
+    aliases: [Açores]
+    climate_point:
+      lat: 37.7333
+      lon: -25.6667
+      source: 'Wikivoyage GeoData of "Ponta Delgada" (main gateway); the "Azores" point (38.5, -28) is at sea'
+
+  - id: crete
+    name: Crete
+    country: Greece
+    wikivoyage_title: Crete
+    aliases: [Crète, Kriti, Κρήτη]
+    climate_point:
+      lat: 35.333333
+      lon: 25.133333
+      source: 'Wikivoyage GeoData of "Heraklion" (main gateway); the "Crete" point (35.21, 24.91) is in the mountains at 1,313 m'
+
+  - id: santorini
+    name: Santorini
+    country: Greece
+    wikivoyage_title: Santorini
+    aliases: [Santorin, Thira, Thera, Σαντορίνη]
+    climate_point:
+      lat: 36.4067
+      lon: 25.4333
+      source: 'Wikivoyage GeoData of "Santorini"'
+
+  - id: hvar
+    name: Hvar
+    country: Croatia
+    wikivoyage_title: Hvar
+    aliases: [Otok Hvar, Hvar Island, Lesina]
+    climate_point:
+      lat: 43.1333
+      lon: 16.7333
+      source: 'Wikivoyage GeoData of "Hvar"'
+    substitution:
+      requested: Dalmatia
+      reason: >-
+        The "Dalmatia" article is an outline whose See and Do sections hold 110 words in total at
+        revision 4989248, with no listings. "Hvar" is a usable-status article about a Dalmatian island
+        (coast, old towns, beaches, island hopping: the same trip style), with 674 words of See and Do
+        and 24 listings including priced Sleep listings.
+
+  - id: montenegro
+    name: Montenegro
+    country: Montenegro
+    wikivoyage_title: Montenegro
+    aliases: [Monténégro, Crna Gora, Црна Гора]
+    climate_point:
+      lat: 42.43
+      lon: 18.77
+      source: 'Wikivoyage GeoData of "Kotor" (coast, where most visitors stay); the "Montenegro" point (42.7833, 19.4667) is in the mountains at 1,259 m'
+
+  - id: slovenia
+    name: Slovenia
+    country: Slovenia
+    wikivoyage_title: Slovenia
+    aliases: [Slovénie, Slovenija]
+    climate_point:
+      lat: 46.05
+      lon: 14.9
+      source: 'Wikivoyage GeoData of "Slovenia"'
+
+  - id: lofoten
+    name: Lofoten
+    country: Norway
+    wikivoyage_title: Lofoten
+    aliases: [Lofoten Islands, Îles Lofoten, Lofotøyene]
+    climate_point:
+      lat: 68.333056
+      lon: 14.666389
+      source: 'Wikivoyage GeoData of "Lofoten"'
+
+  - id: scottish-highlands
+    name: Scottish Highlands
+    country: United Kingdom
+    wikivoyage_title: Scottish Highlands
+    aliases: [Highlands, Highlands écossaises, Hautes-Terres d'Écosse, A' Ghàidhealtachd]
+    climate_point:
+      lat: 57.12
+      lon: -4.71
+      source: 'Wikivoyage GeoData of "Scottish Highlands"'
+
+  - id: iceland
+    name: Iceland
+    country: Iceland
+    wikivoyage_title: Iceland
+    aliases: [Islande, Ísland]
+    climate_point:
+      lat: 64.14019
+      lon: -21.90794
+      source: 'Wikivoyage GeoData of "Reykjavík" (capital and main gateway); the "Iceland" point (65, -19) is in the interior highlands at 801 m'
