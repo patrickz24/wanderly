@@ -20,7 +20,11 @@
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "build": "npm run build --workspaces --if-present",
-    "prepare": "husky"
+    "prepare": "husky",
+    "dev:api": "npm run dev -w @wanderly/api",
+    "dev:web": "npm run dev -w @wanderly/web",
+    "migrate": "npm run migrate -w @wanderly/api",
+    "test:integration": "npm run test:integration -w @wanderly/api"
   },
   "lint-staged": {
     "*.{ts,tsx,js,mjs,cjs}": [
