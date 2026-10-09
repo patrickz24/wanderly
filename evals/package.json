@@ -1,0 +1,11 @@
+{
+  "name": "@wanderly/evals",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Offline evaluation pipeline (retrieval, agent behaviour, LLM-as-judge).",
+  "scripts": {},
+  "dependencies": {
+    "@wanderly/contracts": "*"
+  }
+}
