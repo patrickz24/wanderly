@@ -28,7 +28,8 @@ const LEVEL_LABEL: Readonly<Record<CostLevelName, string>> = {
 
 export const COST_DERIVATION =
   'Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage ' +
-  'revision in source.revision_id. An amount counts only when a currency is written next to it ' +
+  'revisions listed in documents (region guide and place articles). An amount counts only when a ' +
+  'currency is written next to it ' +
   '(or at the other end of its range). Each listing counts once, at the midpoint of its lowest and ' +
   'highest amount; the figure is the median over the listings that use the most frequent ' +
   'currency. Lodging prices are as written (per room, per bed or per person); meal prices are ' +
@@ -110,11 +111,14 @@ function costLevel(listings: readonly PricedListing[], scope: string): CostLevel
   };
 }
 
-export function deriveCosts(doc: GuideDocument): {
+/** Cost profile over every document of a destination (region guide and place articles). */
+export function deriveCosts(docs: GuideDocument | readonly GuideDocument[]): {
   costs: Costs;
   pricedListings: { sleep: number; eat: number };
 } {
-  const priced = collectPricedListings(doc);
+  const priced = (Array.isArray(docs) ? docs : [docs]).flatMap((doc: GuideDocument) =>
+    collectPricedListings(doc),
+  );
   const hasLevels = priced.some((listing) => listing.level !== null);
   const level = (name: CostLevelName): CostLevel => {
     if (!hasLevels) {
@@ -122,7 +126,7 @@ export function deriveCosts(doc: GuideDocument): {
         lodging_night: null,
         meal: null,
         notes: [
-          'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.',
+          'No document has priced listings under Budget / Mid-range / Splurge subsections: value unknown.',
         ],
       };
     }
@@ -134,7 +138,7 @@ export function deriveCosts(doc: GuideDocument): {
   return {
     costs: {
       derivation: COST_DERIVATION,
-      overall: costLevel(priced, 'in the article'),
+      overall: costLevel(priced, 'in the documents'),
       levels: { budget: level('budget'), mid: level('mid'), comfort: level('comfort') },
     },
     pricedListings: {

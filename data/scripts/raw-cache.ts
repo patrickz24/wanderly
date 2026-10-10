@@ -18,18 +18,26 @@ export const RawArticleSchema = z.strictObject({
 });
 export type RawArticle = z.infer<typeof RawArticleSchema>;
 
-export async function readRawArticle(id: string): Promise<RawArticle | null> {
-  const data = await readJsonIfExists(rawWikivoyagePath(id));
+export async function readRawArticle(
+  id: string,
+  placeId: string | null = null,
+): Promise<RawArticle | null> {
+  const file = rawWikivoyagePath(id, placeId);
+  const data = await readJsonIfExists(file);
   if (data === null) return null;
   const parsed = RawArticleSchema.safeParse(data);
   if (!parsed.success) {
-    throw new Error(`Corrupt cache ${rawWikivoyagePath(id)}: ${z.prettifyError(parsed.error)}`);
+    throw new Error(`Corrupt cache ${file}: ${z.prettifyError(parsed.error)}`);
   }
   return parsed.data;
 }
 
-export async function writeRawArticle(id: string, article: RawArticle): Promise<void> {
-  const file = rawWikivoyagePath(id);
+export async function writeRawArticle(
+  id: string,
+  placeId: string | null,
+  article: RawArticle,
+): Promise<void> {
+  const file = rawWikivoyagePath(id, placeId);
   await mkdir(path.dirname(file), { recursive: true });
   await writeFile(file, `${JSON.stringify(article, null, 2)}\n`, 'utf8');
 }

@@ -66,11 +66,26 @@ describe('deriveCosts', () => {
       lodging_night: null,
       meal: null,
       notes: [
-        'No Sleep listing in the article has a parseable price: value unknown.',
-        'No Eat listing in the article has a parseable price: value unknown.',
+        'No Sleep listing in the documents has a parseable price: value unknown.',
+        'No Eat listing in the documents has a parseable price: value unknown.',
       ],
     });
     expect(costs.levels.budget.lodging_night).toBeNull();
-    expect(costs.levels.budget.notes[0]).toMatch(/no priced listings under Budget/);
+    expect(costs.levels.budget.notes[0]).toMatch(/No document has priced listings under Budget/);
+  });
+});
+
+describe('deriveCosts over several documents', () => {
+  it('pools the priced listings of the region guide and its place articles', () => {
+    const region = convertArticle('Region', '==Sleep==\n* {{sleep|name=A|price=€40}}');
+    const town = convertArticle(
+      'Town',
+      '==Sleep==\n===Budget===\n* {{sleep|name=B|price=€20}}\n* {{sleep|name=C|price=€30}}',
+    );
+    const { costs, pricedListings } = deriveCosts([region, town]);
+    expect(pricedListings).toEqual({ sleep: 3, eat: 0 });
+    expect(costs.overall.lodging_night?.median).toBe(30);
+    expect(costs.levels.budget.lodging_night?.median).toBe(25);
+    expect(costs.levels.mid.lodging_night).toBeNull();
   });
 });

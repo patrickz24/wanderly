@@ -1,18 +1,24 @@
-/** Renders data/corpus/ATTRIBUTION.md from the guide front matter and climate files (pure). */
-import type { ClimateFile } from './climate.js';
-import type { Destination } from './destinations.js';
+/** Renders data/corpus/ATTRIBUTION.md from the documents' front matter and climate files (pure). */
 import type { GuideFrontMatter } from '@wanderly/contracts';
+import type { ClimateFile } from './climate.js';
+import type { Destination, DocumentSpec } from './destinations.js';
+import { documentFile } from './paths.js';
 
 export interface AttributionEntry {
   readonly destination: Destination;
-  readonly guide: GuideFrontMatter;
+  /** Region guide first, then place articles. */
+  readonly documents: readonly {
+    readonly spec: DocumentSpec;
+    readonly frontMatter: GuideFrontMatter;
+  }[];
   readonly climate: ClimateFile;
 }
 
 const cell = (text: string): string => text.replace(/\|/g, '\\|');
 
 export function renderAttribution(entries: readonly AttributionEntry[]): string {
-  const first = entries[0];
+  const firstGuide = entries[0]?.documents[0]?.frontMatter;
+  const firstClimate = entries[0]?.climate;
   const lines = [
     '# Corpus attribution',
     '',
@@ -20,30 +26,36 @@ export function renderAttribution(entries: readonly AttributionEntry[]): string 
     '',
     '## Wikivoyage',
     '',
-    'The travel guides in `data/corpus/<id>/guide.md` and the POIs and costs derived from them in',
-    '`facts.yaml` are adapted from English Wikivoyage articles, written by Wikivoyage contributors',
-    `(see each article's history). They are licensed under ${first?.guide.license ?? 'CC BY-SA 4.0'}`,
-    `(${first?.guide.license_url ?? 'https://creativecommons.org/licenses/by-sa/4.0/'}), as is this`,
+    'The travel guides in `data/corpus/<id>/guide.md` (region articles) and',
+    '`data/corpus/<id>/places/<place-id>.md` (articles of the cities, towns, islands and parks they',
+    'list), and the POIs and costs derived from them in `facts.yaml`, are adapted from English',
+    "Wikivoyage articles written by Wikivoyage contributors (see each article's history). They are",
+    `licensed under ${firstGuide?.license ?? 'CC BY-SA 4.0'}`,
+    `(${firstGuide?.license_url ?? 'https://creativecommons.org/licenses/by-sa/4.0/'}), as is this`,
     'adapted corpus. Changes: converted from wikitext to Markdown; images, maps, banners, navigation',
     'and status templates, references and empty sections removed; listings rendered as bullet items;',
     'POIs and price statistics extracted by script. The corpus is licensed separately from the MIT',
     'code of this repository.',
     '',
-    '| Destination | Article | Revision | Revision date | Retrieved | Licence |',
-    '| --- | --- | --- | --- | --- | --- |',
-    ...entries.map(
-      ({ destination, guide }) =>
-        `| ${cell(destination.name)} (\`${destination.id}\`) | [${cell(guide.title)}](${guide.source_url}) ` +
-        `| [${guide.revision_id}](${guide.revision_url}) | ${guide.revision_timestamp.slice(0, 10)} ` +
-        `| ${guide.retrieved_at.slice(0, 10)} | [${guide.license}](${guide.license_url}) |`,
+    '| Destination | Document | Article | Revision | Revision date | Retrieved | Licence |',
+    '| --- | --- | --- | --- | --- | --- | --- |',
+    ...entries.flatMap(({ destination, documents }) =>
+      documents.map(
+        ({ spec, frontMatter }) =>
+          `| ${cell(destination.name)} (\`${destination.id}\`) | \`${documentFile(spec.placeId)}\` ` +
+          `| [${cell(frontMatter.title)}](${frontMatter.source_url}) ` +
+          `| [${frontMatter.revision_id}](${frontMatter.revision_url}) ` +
+          `| ${frontMatter.revision_timestamp.slice(0, 10)} | ${frontMatter.retrieved_at.slice(0, 10)} ` +
+          `| [${frontMatter.license}](${frontMatter.license_url}) |`,
+      ),
     ),
     '',
     '## Open-Meteo',
     '',
-    `${first?.climate.attribution ?? ''}`,
+    `${firstClimate?.attribution ?? ''}`,
     '',
-    `Climate normals (\`facts.yaml\` → \`climate\`) are computed from daily ${first?.climate.model ?? ''}`,
-    `data, ${first?.climate.period.start ?? ''} to ${first?.climate.period.end ?? ''}, of the`,
+    `Climate normals (\`facts.yaml\` → \`climate\`) are computed from daily ${firstClimate?.model ?? ''}`,
+    `data, ${firstClimate?.period.start ?? ''} to ${firstClimate?.period.end ?? ''}, of the`,
     'Open-Meteo Historical Weather API (https://open-meteo.com/en/docs/historical-weather-api),',
     'whose free tier is for non-commercial use.',
     '',

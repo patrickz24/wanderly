@@ -1,31 +1,47 @@
 /**
- * Validates the corpus: every destination of data/destinations.yaml must have a guide.md with
- * valid front matter and a facts.yaml valid against the Zod schema, consistent with each other.
- * Prints per-destination statistics. Exits with code 1 when anything is invalid.
+ * Validates the corpus: for every destination of data/destinations.yaml, its region guide and
+ * place articles must exist with valid front matter, facts.yaml must be valid against the Zod
+ * schema and built from exactly those documents and revisions, and ATTRIBUTION.md must cite every
+ * revision. Prints per-destination statistics. Exits with code 1 when anything is invalid.
  *
  * Usage: npx tsx --conditions=development data/scripts/validate.ts
  */
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir } from 'node:fs/promises';
 import path from 'node:path';
+import {
+  type CostLevel,
+  type Facts,
+  FactsSchema,
+  type GuideFrontMatter,
+  GuideFrontMatterSchema,
+} from '@wanderly/contracts';
 import { z } from 'zod';
-import { loadDestinations } from './destinations.js';
-import { FactsSchema, GuideFrontMatterSchema } from '@wanderly/contracts';
+import {
+  type Destination,
+  type DocumentSpec,
+  destinationDocuments,
+  loadDestinations,
+} from './destinations.js';
 import { parseFrontMatter } from './front-matter.js';
-import { CORPUS_DIR, factsPath, guidePath } from './paths.js';
+import { CORPUS_DIR, documentFile, documentPath, factsPath, placesDir } from './paths.js';
 import { countContentWords } from './wikitext.js';
 import { readTextIfExists, readYamlFile } from './yaml-io.js';
 
-/** Below this many words in See + Do, a destination is flagged as thin for a demo. */
+/** Below this many words in See + Do (all documents), a destination is flagged as thin. */
 const THIN_SEE_DO_WORDS = 150;
+const THIN_POIS = 5;
 
 interface Stats {
   readonly id: string;
+  readonly documents: number;
   readonly sections: number;
   readonly words: number;
   readonly seeDoWords: number;
   readonly listings: number;
   readonly pois: number;
   readonly pricedListings: number;
+  /** Non-null cost figures (lodging_night, meal) per level: 0, 1 or 2. */
+  readonly costs: { overall: number; budget: number; mid: number; comfort: number };
   readonly climateMonths: number;
 }
 
@@ -51,64 +67,136 @@ function topLevelSections(body: string): Map<string, string> {
   return sections;
 }
 
-async function validateDestination(
-  id: string,
-  expected: { name: string; country: string },
-): Promise<{ stats: Stats | null; errors: string[] }> {
-  const errors: string[] = [];
-  const guideText = await readTextIfExists(guidePath(id));
-  if (guideText === null) return { stats: null, errors: ['guide.md is missing'] };
-  let body = '';
-  let guideRevision: number | null = null;
-  try {
-    const parsed = parseFrontMatter(guideText);
-    body = parsed.body;
-    const frontMatter = GuideFrontMatterSchema.safeParse(parsed.data);
-    if (frontMatter.success) {
-      guideRevision = frontMatter.data.revision_id;
-      if (frontMatter.data.id !== id) errors.push(`guide.md id is "${frontMatter.data.id}"`);
-    } else {
-      errors.push(`guide.md front matter: ${z.prettifyError(frontMatter.error)}`);
-    }
-  } catch (error) {
-    errors.push(`guide.md: ${error instanceof Error ? error.message : String(error)}`);
-  }
-  if (countContentWords(body) === 0) errors.push('guide.md body is empty');
+interface CheckedDocument {
+  readonly spec: DocumentSpec;
+  readonly frontMatter: GuideFrontMatter | null;
+  readonly body: string;
+}
 
-  let facts: z.infer<typeof FactsSchema> | null = null;
+async function checkDocument(spec: DocumentSpec, errors: string[]): Promise<CheckedDocument> {
+  const file = documentFile(spec.placeId);
+  const text = await readTextIfExists(documentPath(spec.destinationId, spec.placeId));
+  if (text === null) {
+    errors.push(`${file} is missing`);
+    return { spec, frontMatter: null, body: '' };
+  }
+  try {
+    const { data, body } = parseFrontMatter(text);
+    const parsed = GuideFrontMatterSchema.safeParse(data);
+    if (!parsed.success) {
+      errors.push(`${file} front matter: ${z.prettifyError(parsed.error)}`);
+      return { spec, frontMatter: null, body };
+    }
+    const frontMatter = parsed.data;
+    const expectedId = spec.placeId ?? spec.destinationId;
+    const expectedParent = spec.placeId === null ? undefined : spec.destinationId;
+    if (frontMatter.id !== expectedId) errors.push(`${file} id is "${frontMatter.id}"`);
+    if (frontMatter.parent !== expectedParent) errors.push(`${file} has a wrong parent`);
+    if (frontMatter.title !== spec.title) errors.push(`${file} is not "${spec.title}"`);
+    if (countContentWords(body) === 0) errors.push(`${file} body is empty`);
+    return { spec, frontMatter, body };
+  } catch (error) {
+    errors.push(`${file}: ${error instanceof Error ? error.message : String(error)}`);
+    return { spec, frontMatter: null, body: '' };
+  }
+}
+
+async function readFacts(id: string, errors: string[]): Promise<Facts | null> {
   try {
     const parsed = FactsSchema.safeParse(await readYamlFile(factsPath(id)));
-    if (parsed.success) facts = parsed.data;
-    else errors.push(`facts.yaml: ${z.prettifyError(parsed.error)}`);
+    if (parsed.success) return parsed.data;
+    errors.push(`facts.yaml: ${z.prettifyError(parsed.error)}`);
   } catch (error) {
     errors.push(`facts.yaml: ${error instanceof Error ? error.message : String(error)}`);
   }
-  if (facts !== null) {
-    if (facts.id !== id) errors.push(`facts.yaml id is "${facts.id}"`);
-    if (facts.name !== expected.name || facts.country !== expected.country) {
-      errors.push('facts.yaml name/country differ from destinations.yaml (rebuild facts)');
-    }
-    if (guideRevision !== null && facts.source.revision_id !== guideRevision) {
-      errors.push(
-        `facts.yaml is built from r${facts.source.revision_id} but guide.md is r${guideRevision}`,
-      );
+  return null;
+}
+
+function checkFactsAgainstDocuments(
+  destination: Destination,
+  facts: Facts,
+  documents: readonly CheckedDocument[],
+  errors: string[],
+): void {
+  if (facts.id !== destination.id) errors.push(`facts.yaml id is "${facts.id}"`);
+  if (facts.name !== destination.name || facts.country !== destination.country) {
+    errors.push('facts.yaml name/country differ from destinations.yaml (rebuild facts)');
+  }
+  const recorded = facts.documents ?? [];
+  const expected = documents.map(({ spec, frontMatter }) => ({
+    file: documentFile(spec.placeId),
+    revision: frontMatter?.revision_id ?? null,
+  }));
+  const same =
+    recorded.length === expected.length &&
+    recorded.every(
+      (document, index) =>
+        document.file === expected[index]?.file &&
+        document.revision_id === expected[index]?.revision,
+    );
+  if (!same) errors.push('facts.yaml documents differ from the Markdown files (rebuild facts)');
+}
+
+async function orphanPlaceFiles(destination: Destination): Promise<string[]> {
+  const files = await readdir(placesDir(destination.id)).catch(() => [] as string[]);
+  const expected = new Set(destination.places.map((place) => `${place.id}.md`));
+  return files.filter((file) => !expected.has(file)).map((file) => `places/${file}`);
+}
+
+const nonNullFigures = (level: CostLevel): number =>
+  Number(level.lodging_night !== null) + Number(level.meal !== null);
+
+async function validateDestination(
+  destination: Destination,
+  attribution: string | null,
+): Promise<{ stats: Stats; errors: string[] }> {
+  const errors: string[] = [];
+  const documents: CheckedDocument[] = [];
+  for (const spec of destinationDocuments(destination)) {
+    documents.push(await checkDocument(spec, errors));
+  }
+  for (const orphan of await orphanPlaceFiles(destination)) {
+    errors.push(`${orphan} is not listed in destinations.yaml`);
+  }
+  for (const { spec, frontMatter } of documents) {
+    if (attribution !== null && frontMatter !== null) {
+      if (!attribution.includes(frontMatter.revision_url)) {
+        errors.push(
+          `ATTRIBUTION.md does not cite ${documentFile(spec.placeId)} r${frontMatter.revision_id}`,
+        );
+      }
     }
   }
+  const facts = await readFacts(destination.id, errors);
+  if (facts !== null) checkFactsAgainstDocuments(destination, facts, documents, errors);
 
-  const sections = topLevelSections(body);
-  const seeDo = [sections.get('See') ?? '', sections.get('Do') ?? ''].join('\n');
+  const seeDo = documents.flatMap(({ body }) => {
+    const sections = topLevelSections(body);
+    return [sections.get('See') ?? '', sections.get('Do') ?? ''];
+  });
+  const levels = facts?.costs.levels;
   return {
     errors,
     stats: {
-      id,
-      sections: (body.match(/^#{2,6} /gm) ?? []).length,
-      words: countContentWords(body),
-      seeDoWords: countContentWords(seeDo),
+      id: destination.id,
+      documents: documents.length,
+      sections: documents.reduce(
+        (sum, { body }) => sum + (body.match(/^#{2,6} /gm) ?? []).length,
+        0,
+      ),
+      words: documents.reduce((sum, { body }) => sum + countContentWords(body), 0),
+      seeDoWords: countContentWords(seeDo.join('\n')),
       listings: facts?.extraction.listings ?? 0,
       pois: facts?.pois.length ?? 0,
       pricedListings:
         (facts?.extraction.priced_listings.sleep ?? 0) +
         (facts?.extraction.priced_listings.eat ?? 0),
+      costs: {
+        overall: facts === null ? 0 : nonNullFigures(facts.costs.overall),
+        budget: levels === undefined ? 0 : nonNullFigures(levels.budget),
+        mid: levels === undefined ? 0 : nonNullFigures(levels.mid),
+        comfort: levels === undefined ? 0 : nonNullFigures(levels.comfort),
+      },
       climateMonths: facts?.climate.months.length ?? 0,
     },
   };
@@ -117,82 +205,87 @@ async function validateDestination(
 function printTable(rows: readonly Stats[]): void {
   const header = [
     'destination',
+    'docs',
     'sections',
     'words',
     'see+do words',
     'listings',
     'POIs',
     'priced listings',
+    'costs overall',
+    'budget',
+    'mid',
+    'comfort',
     'climate months',
   ];
   const body = rows.map((row) => [
     row.id,
-    String(row.sections),
-    String(row.words),
-    String(row.seeDoWords),
-    String(row.listings),
-    String(row.pois),
-    String(row.pricedListings),
-    String(row.climateMonths),
+    ...[
+      row.documents,
+      row.sections,
+      row.words,
+      row.seeDoWords,
+      row.listings,
+      row.pois,
+      row.pricedListings,
+      row.costs.overall,
+      row.costs.budget,
+      row.costs.mid,
+      row.costs.comfort,
+      row.climateMonths,
+    ].map(String),
   ]);
   const total = [
     'TOTAL',
-    ...[1, 2, 3, 4, 5, 6].map((column) =>
+    ...[1, 2, 3, 4, 5, 6, 7].map((column) =>
       String(body.reduce((sum, row) => sum + Number(row[column] ?? 0), 0)),
     ),
-    '',
+    ...['', '', '', '', ''],
   ];
   const table = [header, ...body, total];
   const widths = header.map((_, column) =>
     Math.max(...table.map((row) => (row[column] ?? '').length)),
   );
   const line = (row: readonly string[]): string =>
-    `| ${row.map((cellText, column) => (column === 0 ? cellText.padEnd(widths[column] ?? 0) : cellText.padStart(widths[column] ?? 0))).join(' | ')} |`;
+    `| ${row
+      .map((text, column) =>
+        column === 0 ? text.padEnd(widths[column] ?? 0) : text.padStart(widths[column] ?? 0),
+      )
+      .join(' | ')} |`;
   console.log(line(header));
   console.log(
     `| ${widths.map((width, column) => (column === 0 ? '-'.repeat(width) : `${'-'.repeat(width - 1)}:`)).join(' | ')} |`,
   );
   for (const row of [...body, total]) console.log(line(row));
+  console.log(
+    '\nCost columns: non-null figures (lodging_night, meal) out of 2, overall and per level.',
+  );
 }
 
 async function main(): Promise<void> {
   const destinations = await loadDestinations();
   const errors: string[] = [];
   const rows: Stats[] = [];
+  const attribution = await readTextIfExists(path.join(CORPUS_DIR, 'ATTRIBUTION.md'));
+  if (attribution === null) errors.push('ATTRIBUTION.md is missing');
   for (const destination of destinations) {
-    const result = await validateDestination(destination.id, destination);
+    const result = await validateDestination(destination, attribution);
     errors.push(...result.errors.map((error) => `${destination.id}: ${error}`));
-    if (result.stats !== null) rows.push(result.stats);
+    rows.push(result.stats);
   }
-
   const known = new Set(destinations.map((d) => d.id));
-  const entries = await readdir(CORPUS_DIR, { withFileTypes: true });
-  for (const entry of entries) {
+  for (const entry of await readdir(CORPUS_DIR, { withFileTypes: true })) {
     if (entry.isDirectory() && !known.has(entry.name)) {
       errors.push(`${entry.name}: corpus directory not listed in destinations.yaml`);
     }
   }
-  const attribution = await readTextIfExists(path.join(CORPUS_DIR, 'ATTRIBUTION.md'));
-  if (attribution === null) {
-    errors.push('ATTRIBUTION.md is missing');
-  } else {
-    for (const destination of destinations) {
-      const guide = await readFile(guidePath(destination.id), 'utf8').catch(() => null);
-      const revision =
-        guide === null ? null : GuideFrontMatterSchema.safeParse(parseFrontMatter(guide).data);
-      if (revision?.success && !attribution.includes(revision.data.revision_url)) {
-        errors.push(
-          `${destination.id}: ATTRIBUTION.md does not cite revision ${revision.data.revision_id}`,
-        );
-      }
-    }
-  }
 
   printTable(rows);
-  const thin = rows.filter((row) => row.seeDoWords < THIN_SEE_DO_WORDS || row.pois < 5);
+  const thin = rows.filter((row) => row.seeDoWords < THIN_SEE_DO_WORDS || row.pois < THIN_POIS);
   if (thin.length > 0) {
     console.log(
-      `\nThin for a demo (see+do < ${THIN_SEE_DO_WORDS} words or < 5 POIs): ${thin.map((row) => row.id).join(', ')}`,
+      `\nThin for a demo (see+do < ${THIN_SEE_DO_WORDS} words or < ${THIN_POIS} POIs): ` +
+        thin.map((row) => row.id).join(', '),
     );
   }
   if (errors.length > 0) {

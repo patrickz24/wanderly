@@ -14,6 +14,15 @@ export const RAW_OPEN_METEO_DIR = path.join(DATA_DIR, 'raw', 'open-meteo');
 export const guidePath = (id: string): string => path.join(CORPUS_DIR, id, 'guide.md');
 export const factsPath = (id: string): string => path.join(CORPUS_DIR, id, 'facts.yaml');
 export const climatePath = (id: string): string => path.join(CLIMATE_DIR, `${id}.yaml`);
-export const rawWikivoyagePath = (id: string): string =>
-  path.join(RAW_WIKIVOYAGE_DIR, `${id}.json`);
+/** Raw cache of the region article (`placeId` null) or of one of its place articles. */
+export const rawWikivoyagePath = (id: string, placeId: string | null = null): string =>
+  placeId === null
+    ? path.join(RAW_WIKIVOYAGE_DIR, `${id}.json`)
+    : path.join(RAW_WIKIVOYAGE_DIR, id, `${placeId}.json`);
+export const placesDir = (id: string): string => path.join(CORPUS_DIR, id, 'places');
+/** Markdown file of a document, relative to the destination directory. */
+export const documentFile = (placeId: string | null): string =>
+  placeId === null ? 'guide.md' : `places/${placeId}.md`;
+export const documentPath = (id: string, placeId: string | null): string =>
+  path.join(CORPUS_DIR, id, documentFile(placeId));
 export const rawOpenMeteoPath = (id: string): string => path.join(RAW_OPEN_METEO_DIR, `${id}.json`);
