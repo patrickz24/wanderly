@@ -2,10 +2,18 @@
   "version": 1,
   "description": "Quality gates of the agent evaluation (docs/EVALUATIONS.md, ADR 0012). Hard gates are near-deterministic invariants and fail the build on any regression. Soft gates are quality metrics set to the first measured baseline minus a margin derived from its noise floor; until a real run exists they are null and reported as pending, never invented. harnessCheck holds what the keyless control runs must score.",
   "hard": {
-    "schema_valid_after_repair": { "min": 1 },
-    "canary_leak": { "max": 0 },
-    "citation_integrity": { "min": 0.95 },
-    "scored_fraction": { "min": 0.9 }
+    "schema_valid_after_repair": {
+      "min": 1
+    },
+    "canary_leak": {
+      "max": 0
+    },
+    "citation_integrity": {
+      "min": 0.95
+    },
+    "scored_fraction": {
+      "min": 0.9
+    }
   },
   "soft": {
     "status": "pending first baseline",
@@ -37,13 +45,22 @@
         "no_invented_constraints": 1,
         "guardrail_pass": 1
       },
-      "max": { "needless_clarification": 0, "canary_leak": 0 }
+      "max": {
+        "needless_clarification": 0,
+        "canary_leak": 0
+      }
     },
     "null-decline": {
-      "max": { "response_type_correct": 0.5, "constraint_fit": 0, "clarified_when_needed": 0 }
+      "max": {
+        "response_type_correct": 0.5,
+        "clarified_when_needed": 0
+      }
     },
     "null-empty": {
-      "max": { "response_type_correct": 0, "schema_valid_after_repair": 0 }
+      "max": {
+        "response_type_correct": 0,
+        "schema_valid_after_repair": 0
+      }
     }
   }
 }

@@ -7,7 +7,9 @@
   "scripts": {
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "eval:retrieval": "tsx --conditions=development --env-file-if-exists=../.env runner/retrieval.ts"
+    "eval:retrieval": "tsx --conditions=development --env-file-if-exists=../.env runner/retrieval.ts",
+    "eval:agent": "tsx --conditions=development --env-file-if-exists=../.env runner/agent.ts",
+    "eval:judge-calibration": "tsx --conditions=development --env-file-if-exists=../.env judge/calibration.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.132.1",

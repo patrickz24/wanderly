@@ -105,6 +105,8 @@ export interface CaseOutcome {
   readonly costUsd: number;
   /** Sum of the runtime's run latencies over the turns of this (successful) attempt. */
   readonly latencyMs: number;
+  /** Canary of this attempt's system prompt (to look for leaks). */
+  readonly canaryToken: string;
 }
 
 export type AttemptResult =
@@ -257,6 +259,7 @@ async function runTurns(
     usage: recorder.llmCalls.reduce((sum, logged) => addUsage(sum, logged.usage), ZERO_USAGE),
     costUsd: recorder.spentUsd,
     latencyMs: turns.reduce((sum, turn) => sum + turn.latencyMs, 0),
+    canaryToken: ports.canaryToken,
   };
   return { kind: 'scored', outcome, spentUsd: recorder.spentUsd };
 }

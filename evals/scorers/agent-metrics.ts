@@ -121,11 +121,14 @@ export function responseTypeCorrect(testCase: AgentCase, run: RunObservation): n
   return 1;
 }
 
-const OUTPUT_CONTRACT_FAILURES = new Set(['invalid_output']);
+/** The output contract was broken (also when it happened in an earlier turn: 'turn 1: invalid_output'). */
+function brokeOutputContract(reason: string | null): boolean {
+  return reason === 'invalid_output' || (reason?.endsWith(': invalid_output') ?? false);
+}
 
 export function schemaValidFirstTry(run: RunObservation): number | null {
   if (run.status === 'ok') return run.validFirstTry === true ? 1 : 0;
-  if (run.status === 'model_error' && OUTPUT_CONTRACT_FAILURES.has(run.failureReason ?? '')) {
+  if (run.status === 'model_error' && brokeOutputContract(run.failureReason)) {
     return 0;
   }
   return null;
@@ -133,7 +136,7 @@ export function schemaValidFirstTry(run: RunObservation): number | null {
 
 export function schemaValidAfterRepair(run: RunObservation): number | null {
   if (run.status === 'ok') return 1;
-  if (run.status === 'model_error' && OUTPUT_CONTRACT_FAILURES.has(run.failureReason ?? '')) {
+  if (run.status === 'model_error' && brokeOutputContract(run.failureReason)) {
     return 0;
   }
   return null;
