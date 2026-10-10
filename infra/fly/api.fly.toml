@@ -1,0 +1,79 @@
+# Fly.io configuration for the Wanderly API (private app).
+# Deploy from the repository root: `make deploy-api` (see docs/DEPLOYMENT.md).
+#
+# Topology: the API has NO public IP. It is reachable only from the web app over Flycast
+# (`wanderly-api.flycast`, a stable private IPv6 routed through the Fly proxy), which is what
+# makes auto-stop/auto-start possible for a private app. Secrets (DATABASE_URL, SESSION_SECRET,
+# ANTHROPIC_API_KEY, LANGFUSE_*) are set with `fly secrets set`, never in this file.
+
+app = "wanderly-api"
+primary_region = "cdg"
+
+# The API handles SIGTERM and SIGINT (drains, closes the pool, forces exit after 10 s).
+kill_signal = "SIGTERM"
+kill_timeout = 15
+
+[build]
+  # Resolved relative to this file by flyctl; the build context is the repository root (the
+  # directory `fly deploy` runs from).
+  dockerfile = "../../services/api/Dockerfile"
+
+[deploy]
+  # Runs once per deploy in a temporary Machine with the new image and the app's secrets,
+  # before any Machine is updated; a failure aborts the deploy. Same command as the compose
+  # `migrate` service. Neon: DATABASE_URL must be the DIRECT (non -pooler) connection string,
+  # because node-pg-migrate takes a session-level advisory lock.
+  release_command = "node ../../node_modules/node-pg-migrate/bin/node-pg-migrate.js --migrations-dir migrations --migration-file-language sql up"
+  # One Machine: replaced in place (a few seconds of unavailability; see DEPLOYMENT.md).
+  strategy = "rolling"
+
+[env]
+  NODE_ENV = "production"
+  LOG_LEVEL = "info"
+  # The only browser origin is the web app (same-origin requests still carry Origin on POST).
+  # Add a custom domain here if one is configured.
+  CORS_ORIGINS = "https://wanderly-web.fly.dev"
+  # nginx (web app) sets X-Forwarded-For to the real client IP taken from Fly-Client-IP; every
+  # hop after it (Fly proxy, Flycast, 6PN: 172.16.0.0/12, fdaa::/16) is a private address, so
+  # trusting private ranges lets Fastify resolve request.ip to that client IP.
+  TRUST_PROXY = "uniquelocal"
+  LANGFUSE_BASE_URL = "https://cloud.langfuse.com"
+
+[http_service]
+  internal_port = 3000
+  # Flycast is plain HTTP on the private network; TLS ends at the edge in front of the web app.
+  force_https = false
+  # Scale to zero when idle; the Fly proxy starts the Machine on the next Flycast request.
+  # Trade-off documented in DEPLOYMENT.md (cold start vs cost). Set min_machines_running = 1
+  # before a live demo.
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+  # Liveness, used by the proxy for routing and by rolling deploys. No database access, so the
+  # check never wakes Neon.
+  [[http_service.checks]]
+    grace_period = "30s"
+    interval = "15s"
+    method = "GET"
+    path = "/health"
+    timeout = "5s"
+
+# Readiness (database reachable + migrations applied), visible in `fly checks list`. It queries
+# Neon, so it only runs while the Machine runs (auto-stop keeps Neon's scale-to-zero working).
+[checks]
+  [checks.ready]
+    type = "http"
+    port = 3000
+    method = "get"
+    path = "/ready"
+    grace_period = "30s"
+    interval = "60s"
+    timeout = "10s"
+
+[[vm]]
+  # Measured at milestone 1 with docker stats: 33 MiB idle (Node + Fastify, no embedder).
+  # 512 MB is provisional headroom for the in-process embedding model added at milestone 2.
+  # TODO(milestone 2): re-measure idle and peak memory with the embedder loaded, then resize.
+  size = "shared-cpu-1x"
+  memory = "512mb"

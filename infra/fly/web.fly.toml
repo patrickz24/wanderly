@@ -1,0 +1,49 @@
+# Fly.io configuration for the Wanderly web app (public entry point).
+# Deploy from the repository root after the API: `make deploy-web` (see docs/DEPLOYMENT.md).
+#
+# nginx serves the React build and proxies /api, /health and /ready to the private API app over
+# Flycast. The browser only ever talks to this origin (same-origin API, strict CSP).
+
+app = "wanderly-web"
+primary_region = "cdg"
+
+# nginx: SIGQUIT is a graceful shutdown (finishes in-flight requests, e.g. an SSE stream).
+kill_signal = "SIGQUIT"
+kill_timeout = 15
+
+[build]
+  # Resolved relative to this file by flyctl; the build context is the repository root.
+  dockerfile = "../../apps/web/Dockerfile"
+
+[env]
+  # Rendered into the nginx server block at startup (apps/web/nginx.conf template).
+  # Flycast address of the API app; port 80 is its http_service port (proxied to 3000).
+  WANDERLY_API_UPSTREAM = "wanderly-api.flycast:80"
+  # The Fly proxy sets Fly-Client-IP to the address it accepted the connection from and
+  # connects to Machines from 172.16.0.0/16 (community-reported, not in Fly's docs).
+  # TODO(first deploy): confirm the range and that a forged Fly-Client-IP is replaced
+  # (DEPLOYMENT.md, "Verify client IPs").
+  WANDERLY_REAL_IP_HEADER = "Fly-Client-IP"
+  WANDERLY_REAL_IP_FROM = "172.16.0.0/16"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  # Scale to zero when idle; the Fly proxy starts the Machine on the next request.
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+  # Static index only: probing /health here would proxy to the API over Flycast and keep the
+  # API (and Neon) awake forever.
+  [[http_service.checks]]
+    grace_period = "10s"
+    interval = "30s"
+    method = "GET"
+    path = "/"
+    timeout = "5s"
+
+[[vm]]
+  # Measured at milestone 1 with docker stats: 12 MiB idle for nginx. The smallest preset.
+  size = "shared-cpu-1x"
+  memory = "256mb"
