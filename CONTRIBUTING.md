@@ -24,6 +24,9 @@ npm run dev:api           # API on http://localhost:3000
 npm run dev:web           # web client on http://localhost:5173, proxies /api to the API
 ```
 
+With `make` (Git Bash or WSL on Windows), `make env` creates `.env` with a random session secret
+and `make dev` runs the steps above.
+
 The API and the migration tool read their configuration from environment variables; the API
 validates it with Zod at startup and lists every invalid variable by name, never by value.
 `.env.example` documents each variable. `DATABASE_URL` and `SESSION_SECRET` are required; variables
@@ -37,7 +40,7 @@ for later milestones (Anthropic, Langfuse) stay optional until their milestone.
 | `services/api`       | `@wanderly/api`       | Fastify API: `src/{domain,application,infrastructure,api}`, SQL migrations, tests. |
 | `apps/web`           | `@wanderly/web`       | React + Vite + Tailwind client.                                                    |
 | `evals`              | `@wanderly/evals`     | Offline evaluation pipeline (filled at milestones 2 and 5).                        |
-| `data/`              | none                  | Travel corpus and one-off data scripts, run with `npx tsx`.                        |
+| `data/`              | none                  | Travel corpus and its generation scripts, see [`data/README.md`](data/README.md).  |
 | `docs/`              | none                  | Architecture Decision Records and project documentation.                           |
 
 Every workspace is ESM (`"type": "module"`). In development, `@wanderly/contracts` resolves to its
@@ -62,7 +65,11 @@ Run from the repository root:
 | `npm run migrate`          | Applies pending SQL migrations.                                             |
 
 To target one workspace, add `-w`, for example `npm run test:coverage -w @wanderly/api`.
-`npm run eval` arrives at milestone 5.
+`npm run eval` arrives at milestone 5. The data scripts are not a workspace: run them with
+`npx tsx data/scripts/<script>.ts` and their tests with `npx vitest run --root data`.
+
+The `Makefile` wraps the common commands (`make up`, `make dev`, `make test`, `make lint`…);
+`make help` lists them, and its header gives the npm or Docker equivalent of each target.
 
 ## Code style
 

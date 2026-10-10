@@ -22,7 +22,8 @@ design; the checklist below says what exists.
 - [ ] **1. Foundation** (in progress): monorepo, strict TypeScript, lint/format/commit hooks,
       Fastify with `/health` and `/ready`, validated config, SQL migrations, Dockerfiles, Compose,
       CI with security scans, ADRs 0001 and 0002
-- [ ] **2. RAG**: Wikivoyage corpus, ingestion, hybrid retrieval, retrieval evaluation in CI
+- [ ] **2. RAG**: Wikivoyage corpus (already generated for 20 destinations, see
+      [`data/`](data/README.md)), ingestion, hybrid retrieval, retrieval evaluation in CI
 - [ ] **3. Agent, tools and tracing**: agent loop, tools, persistence, SSE, Langfuse traces
 - [ ] **4. Guardrails and structured outputs**: validation and repair, citation checks, input
       guard, rate limiting, daily cost cap
@@ -37,7 +38,7 @@ design; the checklist below says what exists.
 | --------- | --------------------------------------------------- |
 | Live demo | _Placeholder: public URL published at milestone 7._ |
 | Demo GIF  | _Placeholder: recorded at milestone 8._             |
-| CI        | Badge above; the workflow lands during milestone 1. |
+| CI        | Badge above (`.github/workflows/ci.yml`).           |
 
 ## How it works
 
@@ -47,8 +48,8 @@ design; the checklist below says what exists.
    with Zod, with one repair attempt if validation fails.
 2. **Read-only tools.** `search_knowledge` (hybrid search over the corpus),
    `get_seasonal_weather` (monthly climate normals), `estimate_budget` (a pure function: the agent
-   copies its figure and never invents a price) and `search_pois` (points of interest filtered by
-   type, crowd level and month).
+   copies its figure, or says the cost is unknown, and never invents a price) and `search_pois`
+   (points of interest filtered by type, crowd level and month).
 3. **Hybrid RAG.** Postgres 16 + pgvector: vector search and full-text search fused with
    Reciprocal Rank Fusion. Embeddings are computed locally, so retrieval is free, deterministic and
    testable in CI without secrets.
@@ -132,17 +133,19 @@ production: an evaluation that reimplements the call measures something other th
 Requires Docker with the Compose plugin (`docker compose`).
 
 ```bash
-cp .env.example .env    # then set ANTHROPIC_API_KEY and SESSION_SECRET (32+ characters)
+cp .env.example .env    # then set SESSION_SECRET (required) and ANTHROPIC_API_KEY
 docker compose up --build
 # open http://localhost:8080
 ```
 
-One way to generate a session secret:
-`node -e "console.log(require('node:crypto').randomBytes(48).toString('base64url'))"`.
+`SESSION_SECRET` needs at least 32 characters; `.env.example` shows how to generate one.
+`ANTHROPIC_API_KEY` is only used from milestone 3, when the agent arrives. With `make`, `make up`
+does the same in one step and creates `.env` with a random session secret if it is missing.
 
 Compose starts Postgres with pgvector, applies the migrations, then runs the API and the web client
-(nginx on port 8080, proxying `/api`, `/health` and `/ready` to the API). At milestone 1 that means
-the health endpoints and the web shell; the chat arrives with milestones 3 and 6.
+(nginx on port 8080, proxying `/api`, `/health` and `/ready` to the API). Host ports are bound to
+`127.0.0.1` only. At milestone 1 that means the health endpoints and the web shell; the chat
+arrives with milestones 3 and 6.
 
 ### Local development
 
@@ -157,7 +160,8 @@ npm run dev:api           # http://localhost:3000
 npm run dev:web           # http://localhost:5173, proxies /api to the API
 ```
 
-Scripts, testing policy and commit conventions are in [CONTRIBUTING.md](CONTRIBUTING.md).
+`make dev` runs the same sequence. `make help` lists every target. Scripts, testing policy and
+commit conventions are in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Evaluation results
 
@@ -241,6 +245,7 @@ Candidates after milestone 8, not commitments:
   [0002 layered architecture and ports](docs/adr/0002-layered-architecture-and-ports.md)
 - [Security policy](SECURITY.md), including data handling and retention
 - [Contributing guide](CONTRIBUTING.md)
+- [Corpus format, regeneration and licensing](data/README.md)
 
 **Privacy:** conversation content is sent to Anthropic to generate responses and, when configured,
 to Langfuse for tracing. Conversations will be deleted after 30 days (the purge job is planned
@@ -250,6 +255,13 @@ before the public demo opens). Do not enter personal information.
 
 Code: [MIT](LICENSE), © 2026 patrickz24.
 
-The travel corpus, added at milestone 2, comes from Wikivoyage under CC BY-SA and keeps that
-licence, separate from the MIT licence of the code. Attribution will be listed per document in
-`data/corpus/ATTRIBUTION.md`.
+Data, licensed separately from the code:
+
+- The travel corpus in `data/corpus/` is adapted from English Wikivoyage articles and is licensed
+  **CC BY-SA 4.0**. Per-article provenance and the list of changes are in
+  [`data/corpus/ATTRIBUTION.md`](data/corpus/ATTRIBUTION.md).
+- Climate normals are computed from [Open-Meteo](https://open-meteo.com/) data, licensed
+  **CC BY 4.0** ("Weather data by Open-Meteo.com"). Open-Meteo's free API is for non-commercial
+  use, which fits this demo.
+
+Details are in [`data/README.md`](data/README.md#licensing).

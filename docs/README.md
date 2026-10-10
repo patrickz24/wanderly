@@ -15,7 +15,10 @@ Related files at the repository root and elsewhere:
 
 - [`SECURITY.md`](../SECURITY.md): vulnerability reporting, security model and data retention.
 - [`CONTRIBUTING.md`](../CONTRIBUTING.md): setup, scripts, testing policy, commits and ADRs.
-- `data/corpus/ATTRIBUTION.md`: sources and licence of the travel corpus. Planned (milestone 2).
+- [`data/README.md`](../data/README.md): corpus format, extraction rules, regeneration, licensing
+  and known limitations.
+- [`data/corpus/ATTRIBUTION.md`](../data/corpus/ATTRIBUTION.md): per-article provenance and licence
+  of the travel corpus (generated).
 
 ## Conventions
 
