@@ -67,7 +67,7 @@ export function TransparencyPanel({
         </span>
         <span
           aria-hidden="true"
-          className="text-fg-muted transition-transform group-open:rotate-180"
+          className="inline-block text-fg-muted transition-transform group-open:rotate-180"
         >
           ▾
         </span>

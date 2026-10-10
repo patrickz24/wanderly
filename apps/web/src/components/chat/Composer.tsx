@@ -73,7 +73,7 @@ export function Composer({
           onKeyDown={handleKeyDown}
           maxLength={MAX_USER_MESSAGE_CHARS}
           rows={2}
-          placeholder="Describe your trip: where, when, how long, budget, what you love…"
+          placeholder="Where, when, how long, budget, what you love…"
           aria-describedby={`${hintId} ${counterId}`}
           className="field-sizing-content block max-h-60 min-h-12 w-full flex-1 resize-none rounded-lg border border-line bg-surface px-3 py-2.5 placeholder:text-fg-muted"
         />

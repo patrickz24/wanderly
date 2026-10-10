@@ -57,7 +57,7 @@ function phaseLabel(run: ActiveRun): string {
 export function RunProgress({ run }: RunProgressProps) {
   return (
     <section aria-label="Agent progress" className="flex gap-3">
-      <SpinnerIcon className="mt-0.5 size-7 shrink-0 p-1 text-accent" />
+      <SpinnerIcon className="mt-0.5 hidden size-7 shrink-0 p-1 text-accent sm:block" />
       <div className="min-w-0 flex-1 rounded-lg border border-line bg-surface-muted/60 p-3">
         <p role="status" className="text-sm font-medium">
           {phaseLabel(run)}

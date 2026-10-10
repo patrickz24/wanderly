@@ -63,7 +63,7 @@ export function AssistantMessageView({
       aria-label={`Wanderly: ${TYPE_LABELS[response.type].toLowerCase()}`}
       className="flex gap-3"
     >
-      <CompassMark className="mt-0.5 size-7 shrink-0 text-accent" />
+      <CompassMark className="mt-0.5 hidden size-7 shrink-0 text-accent sm:block" />
       <div className="min-w-0 flex-1 space-y-4">
         <p className="flex items-center gap-2 text-sm">
           <span className="font-semibold">Wanderly</span>

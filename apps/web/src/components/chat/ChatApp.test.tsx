@@ -65,6 +65,8 @@ describe('ChatApp: trips', () => {
       screen.getByRole('heading', { level: 2, name: 'Quiet hiking in Sicily' }),
     ).toBeInTheDocument();
     expect(buttons[0]).toHaveAttribute('aria-current', 'page');
+    // Keyboard and screen reader users land on the conversation they opened.
+    expect(screen.getByRole('heading', { level: 2, name: 'Quiet hiking in Sicily' })).toHaveFocus();
     expect(callsTo(fetchMock, DETAIL)).toHaveLength(1);
   });
 
