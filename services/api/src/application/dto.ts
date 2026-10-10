@@ -1,5 +1,6 @@
 import type {
   AgentResponse,
+  AssistantMessage,
   ConversationMessage,
   ConversationSummary,
   GetConversationResponse,
@@ -9,8 +10,6 @@ import type {
 import type { Conversation, ConversationTurn } from './ports/conversations.js';
 
 /** Maps stored records to the HTTP contracts (`@wanderly/contracts`). */
-
-type AssistantMessage = Extract<ConversationMessage, { role: 'assistant' }>;
 
 export function toConversationSummary(conversation: Conversation): ConversationSummary {
   return {
@@ -40,7 +39,11 @@ export function toAssistantMessage(message: {
   };
 }
 
-/** Each completed turn shows as the user's message followed by the assistant's answer. */
+/**
+ * Each completed turn shows as the user's message followed by the assistant's answer. A loaded
+ * answer also carries its run stats and the session's rating (the live `response` event does not:
+ * stats arrive in `run.finished`).
+ */
 export function toConversationMessages(turns: readonly ConversationTurn[]): ConversationMessage[] {
   return turns.flatMap((turn): ConversationMessage[] => [
     {
@@ -49,14 +52,18 @@ export function toConversationMessages(turns: readonly ConversationTurn[]): Conv
       text: turn.userText,
       createdAt: turn.userCreatedAt.toISOString(),
     },
-    toAssistantMessage({
-      id: turn.assistantMessageId,
-      runId: turn.runId,
-      response: turn.response,
-      sources: turn.sources,
-      toolCalls: turn.toolCalls,
-      createdAt: turn.completedAt,
-    }),
+    {
+      ...toAssistantMessage({
+        id: turn.assistantMessageId,
+        runId: turn.runId,
+        response: turn.response,
+        sources: turn.sources,
+        toolCalls: turn.toolCalls,
+        createdAt: turn.completedAt,
+      }),
+      run: { ...turn.run, usage: { ...turn.run.usage } },
+      feedback: turn.feedbackRating === null ? null : { rating: turn.feedbackRating },
+    },
   ]);
 }
 

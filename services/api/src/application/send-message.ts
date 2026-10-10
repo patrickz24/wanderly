@@ -1,4 +1,4 @@
-import type { AgentEvent, ConversationMessage, Usage } from '@wanderly/contracts';
+import type { AgentEvent, AssistantMessage, Usage } from '@wanderly/contracts';
 import type {
   AgentLimits,
   AgentRunResult,
@@ -35,8 +35,6 @@ export const TRACE_SCORES = {
   citationsOk: 'citations_ok',
   toolErrors: 'tool_errors',
 } as const;
-
-type AssistantMessage = Extract<ConversationMessage, { role: 'assistant' }>;
 
 /** Everything the agent runtime needs besides the per-run trace, clock and event sink. */
 export interface AgentRuntime {

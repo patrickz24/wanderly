@@ -235,6 +235,12 @@ describe('PgConversationRepository', () => {
     const one = await completedTurn(id, 'Sicily in May?', at('2026-10-10T09:01:00Z'));
     await store.runs.save(runRecord(id, { createdAt: at('2026-10-10T09:02:00Z') }));
     const two = await completedTurn(id, 'And hiking?', at('2026-10-10T09:03:00Z'));
+    await store.feedback.upsert({
+      runId: one.run.id,
+      rating: 1,
+      comment: null,
+      createdAt: at('2026-10-10T09:04:00Z'),
+    });
 
     const turns = await store.conversations.listTurns(id);
 
@@ -249,8 +255,21 @@ describe('PgConversationRepository', () => {
         sources: SOURCES,
         toolCalls: TOOL_CALLS,
         completedAt: at('2026-10-10T09:01:00Z'),
+        run: {
+          steps: 3,
+          usage: {
+            inputTokens: 1_200,
+            outputTokens: 300,
+            cacheReadTokens: 900,
+            cacheWriteTokens: 50,
+          },
+          costUsd: 0.000321,
+          latencyMs: 90_000,
+          traceId: 'trace-1',
+        },
+        feedbackRating: 1,
       },
-      expect.objectContaining({ runId: two.run.id, userText: 'And hiking?' }),
+      expect.objectContaining({ runId: two.run.id, userText: 'And hiking?', feedbackRating: null }),
     ]);
     expect(await store.conversations.countCompletedTurns(id)).toBe(2);
   });

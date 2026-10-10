@@ -35,6 +35,15 @@ interface TurnRow {
   sources: unknown;
   tool_call_log: unknown;
   completed_at: Date;
+  trace_id: string | null;
+  steps: number;
+  input_tokens: number;
+  output_tokens: number;
+  cache_read_tokens: number;
+  cache_write_tokens: number;
+  cost_usd: number;
+  latency_ms: number | null;
+  rating: number | null;
 }
 
 const CONVERSATION_COLUMNS = 'id, session_id, title, trip_brief, created_at, updated_at';
@@ -71,6 +80,19 @@ function toTurn(row: TurnRow): ConversationTurn {
     sources: display.data.sources,
     toolCalls: display.data.toolCalls,
     completedAt: row.completed_at,
+    run: {
+      steps: row.steps,
+      usage: {
+        inputTokens: row.input_tokens,
+        outputTokens: row.output_tokens,
+        cacheReadTokens: row.cache_read_tokens,
+        cacheWriteTokens: row.cache_write_tokens,
+      },
+      costUsd: row.cost_usd,
+      latencyMs: row.latency_ms ?? 0,
+      traceId: row.trace_id,
+    },
+    feedbackRating: row.rating === 1 || row.rating === -1 ? row.rating : null,
   };
 }
 
@@ -124,9 +146,12 @@ export class PgConversationRepository implements ConversationRepository {
     const { rows } = await this.db.query<TurnRow>(
       `SELECT r.id AS run_id, r.user_message_id, r.user_text, um.created_at AS user_created_at,
               r.assistant_message_id, r.response, r.sources, r.tool_call_log,
-              r.created_at AS completed_at
+              r.created_at AS completed_at, r.trace_id, r.steps, r.input_tokens, r.output_tokens,
+              r.cache_read_tokens, r.cache_write_tokens, r.cost_usd::float8 AS cost_usd,
+              r.latency_ms, f.rating
        FROM agent_runs r
        JOIN messages um ON um.id = r.user_message_id
+       LEFT JOIN feedback f ON f.run_id = r.id
        WHERE r.conversation_id = $1 AND r.status = 'ok' AND r.response IS NOT NULL
        ORDER BY um.seq`,
       [conversationId],

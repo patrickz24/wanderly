@@ -205,6 +205,14 @@ export class InMemoryStore {
             sources: run.sources,
             toolCalls: run.toolCalls,
             completedAt: run.createdAt,
+            run: {
+              steps: run.steps,
+              usage: run.usage,
+              costUsd: run.costUsd,
+              latencyMs: run.latencyMs,
+              traceId: run.traceId,
+            },
+            feedbackRating: this.feedback.get(run.id)?.rating ?? null,
           },
         ];
       });

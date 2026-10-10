@@ -312,9 +312,25 @@ describe('POST /api/conversations/:id/messages (SSE)', () => {
     const body = GetConversationResponseSchema.parse(detail.json());
     expect(body.title).toBe('Sicily in May?');
     expect(body.messages.map((message) => message.role)).toEqual(['user', 'assistant']);
-    expect(response?.type === 'response' && body.messages[1]).toEqual(
-      response?.type === 'response' && response.message,
-    );
+    if (response?.type !== 'response') throw new Error('expected a response event');
+    // The loaded answer is the streamed one, plus its run stats and (absent) rating.
+    expect(response.message.run).toBeUndefined();
+    expect(body.messages[1]).toEqual({
+      ...response.message,
+      run: {
+        steps: 2,
+        usage: {
+          inputTokens: 3_000,
+          outputTokens: 600,
+          cacheReadTokens: 1_500,
+          cacheWriteTokens: 0,
+        },
+        costUsd: 0.000615,
+        latencyMs: 1_234,
+        traceId: 'trace-xyz',
+      },
+      feedback: null,
+    });
   });
 
   it('ends a failed run with an error event carrying a curated message only', async () => {

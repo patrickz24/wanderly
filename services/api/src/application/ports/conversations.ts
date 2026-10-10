@@ -1,4 +1,10 @@
-import type { AgentResponse, SourceSummary, ToolCallSummary, TripBrief } from '@wanderly/contracts';
+import type {
+  AgentResponse,
+  RunStats,
+  SourceSummary,
+  ToolCallSummary,
+  TripBrief,
+} from '@wanderly/contracts';
 import type { LlmMessage } from '../../domain/ports/llm.js';
 
 /** A conversation as stored; `sessionId` is the anonymous browser session that owns it. */
@@ -24,6 +30,10 @@ export interface ConversationTurn {
   readonly sources: readonly SourceSummary[];
   readonly toolCalls: readonly ToolCallSummary[];
   readonly completedAt: Date;
+  /** Measured figures of the run, shown in the message footer. */
+  readonly run: RunStats;
+  /** The session's rating of the run, if given. */
+  readonly feedbackRating: 1 | -1 | null;
 }
 
 /** A message to append to the replayable history, with its id and provenance. */

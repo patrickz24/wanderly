@@ -179,9 +179,34 @@ describe('GetConversation', () => {
           sources: SOURCES,
           toolCalls: TOOL_CALLS,
           createdAt: '2026-10-10T09:01:05.000Z',
+          run: {
+            steps: 2,
+            usage: { inputTokens: 1, outputTokens: 1, cacheReadTokens: 0, cacheWriteTokens: 0 },
+            costUsd: 0.001,
+            latencyMs: 5_000,
+            traceId: 'trace-1',
+          },
+          feedback: null,
         },
       ],
     });
+  });
+
+  it("includes the session's rating of each answer", async () => {
+    const { id, run } = await conversationWithOneTurn();
+    await store.feedbackRepository.upsert({
+      runId: run.id,
+      rating: -1,
+      comment: null,
+      createdAt: new Date('2026-10-10T09:02:00.000Z'),
+    });
+
+    const detail = await createGetConversation(deps()).execute({
+      sessionId: SESSION_A,
+      conversationId: id,
+    });
+
+    expect(detail.messages[1]).toMatchObject({ role: 'assistant', feedback: { rating: -1 } });
   });
 
   it('answers NotFound for a conversation of another session', async () => {
