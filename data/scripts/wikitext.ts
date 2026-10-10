@@ -70,6 +70,10 @@ const DROPPED_TEMPLATES = new Set([
   'ftt',
   'ptt',
   'pgname',
+  'otheruses',
+  'anchor',
+  'cbignore',
+  'ipa',
 ]);
 
 /** Article status banners such as `{{usableregion}}` or `{{outlinecity}}`. */
@@ -91,6 +95,9 @@ const UNIT_TEMPLATES: Readonly<Record<string, string>> = {
   mi2: 'sq mi',
   ha: 'ha',
   kg: 'kg',
+  m2: 'm²',
+  hectare: 'ha',
+  inch: 'in',
   c: '°C',
   f: '°F',
 };
