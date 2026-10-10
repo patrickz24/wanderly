@@ -4,3 +4,4 @@ coverage
 package-lock.json
 evals/results
 data/corpus/**/*.md
+.env.example
