@@ -224,7 +224,8 @@ async function realBackend(options: Options): Promise<Backend> {
   const pool = new pg.Pool({ connectionString: config.database.url.reveal(), max: 4 });
   const embedder = new TransformersEmbedder({
     model: config.embeddings.model,
-    cacheDir: config.embeddings.cacheDir,
+    // Relative to the directory the command was started from, as for `npm run ingest`.
+    cacheDir: path.resolve(process.env['INIT_CWD'] ?? process.cwd(), config.embeddings.cacheDir),
   });
   await embedder.load();
   const retriever: Retriever = new PgRetriever(pool, embedder);

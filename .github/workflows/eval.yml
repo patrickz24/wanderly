@@ -1,0 +1,181 @@
+name: Agent evaluation
+
+# Offline evaluation of the agent (docs/EVALUATIONS.md, ADRs 0012 and 0013).
+# - harness: scorer and judge unit tests, then the keyless control runs (oracle must score near
+#   100 %, null baselines must score low). No secret: runs on every matching PR, forks included.
+# - agent-eval: the real evaluation against Claude with the ANTHROPIC_API_KEY secret, gated by
+#   evals/thresholds.json and capped in dollars. Skipped, with a note, when the secret is missing
+#   and on pull requests from forks (GitHub never gives them secrets; this is by design).
+
+on:
+  pull_request:
+    paths:
+      - 'services/**'
+      - 'packages/**'
+      - 'evals/**'
+      - 'data/corpus/**'
+      - '.github/workflows/eval.yml'
+  workflow_dispatch:
+    inputs:
+      reps:
+        description: Repetitions per case (paired bootstrap intervals need >= 1)
+        required: false
+        default: '1'
+      max-usd:
+        description: Hard spending cap of the whole evaluation run, in USD
+        required: false
+        default: '2'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  FORCE_COLOR: '1'
+
+jobs:
+  harness:
+    name: Scorers and harness checks (keyless)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - name: Scorer, judge and harness unit tests
+        run: npm run test -w @wanderly/evals
+      # Each control exits non-zero when it does not score as thresholds.json expects.
+      - name: Oracle control (must score near 100 %)
+        run: npm run eval:agent -w @wanderly/evals -- --mode oracle
+      - name: Null control, constant decline (must score low)
+        run: npm run eval:agent -w @wanderly/evals -- --mode null-decline
+      - name: Null control, empty answers (must score low)
+        run: npm run eval:agent -w @wanderly/evals -- --mode null-empty
+      - name: Upload control results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: eval-harness-checks
+          path: evals/results/
+          if-no-files-found: ignore
+          retention-days: 14
+
+  fork-note:
+    name: Agent evaluation (skipped on forks)
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.pull_request.head.repo.full_name != github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    steps:
+      - name: Explain the skip
+        run: |
+          {
+            echo '### Agent evaluation skipped'
+            echo 'Pull requests from forks get no secrets, so the paid evaluation against Claude does not run here.'
+            echo 'The keyless harness checks above still ran. A maintainer can run this workflow manually after review.'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  agent-eval:
+    name: Agent evaluation (Claude)
+    needs: harness
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_DB: wanderly
+          POSTGRES_USER: wanderly
+          POSTGRES_PASSWORD: wanderly
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U wanderly -d wanderly"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      # Throwaway CI database, not a secret.
+      DATABASE_URL: postgres://wanderly:wanderly@localhost:5432/wanderly
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      EMBEDDING_MODEL: Xenova/bge-small-en-v1.5
+      EMBEDDING_CACHE_DIR: .cache/models
+      REPS: ${{ inputs.reps || '1' }}
+      MAX_USD: ${{ inputs.max-usd || '2' }}
+    steps:
+      - name: Check the API key secret
+        id: key
+        run: |
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo 'present=false' >> "$GITHUB_OUTPUT"
+            {
+              echo '### Agent evaluation skipped'
+              echo 'The ANTHROPIC_API_KEY secret is not configured for this repository, so the evaluation against Claude did not run.'
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'present=true' >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v7
+        if: steps.key.outputs.present == 'true'
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+        if: steps.key.outputs.present == 'true'
+
+      - name: Cache the embedding model
+        if: steps.key.outputs.present == 'true'
+        uses: actions/cache@v5
+        with:
+          path: .cache/models
+          key: embedding-model-${{ env.EMBEDDING_MODEL }}
+
+      # The ingested knowledge base only changes with the corpus, the chunking/ingestion code,
+      # the migrations and the model: a dump keyed on them skips re-embedding on most runs.
+      - name: Cache the ingested knowledge base
+        id: kb
+        if: steps.key.outputs.present == 'true'
+        uses: actions/cache@v5
+        with:
+          path: .cache/knowledge.dump
+          key: >-
+            knowledge-${{ env.EMBEDDING_MODEL }}-${{ hashFiles('data/corpus/**',
+            'services/api/src/domain/rag/**', 'services/api/src/application/ingest-corpus.ts',
+            'services/api/src/infrastructure/knowledge/**', 'services/api/migrations/**') }}
+
+      - name: Restore the knowledge base
+        if: steps.key.outputs.present == 'true' && steps.kb.outputs.cache-hit == 'true'
+        env:
+          PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: docker exec -i "$PG_CONTAINER" pg_restore -U wanderly -d wanderly --no-owner < .cache/knowledge.dump
+
+      - name: Migrate and ingest the corpus
+        if: steps.key.outputs.present == 'true' && steps.kb.outputs.cache-hit != 'true'
+        env:
+          PG_CONTAINER: ${{ job.services.postgres.id }}
+        run: |
+          npm run migrate
+          npm run ingest
+          mkdir -p .cache
+          docker exec "$PG_CONTAINER" pg_dump -U wanderly -Fc wanderly > .cache/knowledge.dump
+
+      - name: Evaluate the agent (gated, capped)
+        if: steps.key.outputs.present == 'true'
+        run: npm run eval:agent -w @wanderly/evals -- --gate --reps "$REPS" --max-usd "$MAX_USD"
+
+      - name: Upload evaluation results
+        if: ${{ !cancelled() && steps.key.outputs.present == 'true' }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: eval-agent-results
+          path: evals/results/
+          if-no-files-found: ignore
+          retention-days: 30
