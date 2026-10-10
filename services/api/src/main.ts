@@ -10,12 +10,9 @@ import type { IdGenerator } from './application/ports/system.js';
 import { createReadinessProbe } from './application/readiness.js';
 import { createSendMessage } from './application/send-message.js';
 import { createSubmitFeedback } from './application/submit-feedback.js';
+import { agentLimits, createAgentLlm } from './composition/agent-deps.js';
 import { ConfigError, loadConfig, type Config } from './config.js';
-import { DEFAULT_AGENT_LIMITS } from './domain/agent/limits.js';
 import { runAgent } from './domain/agent/run-agent.js';
-import type { AgentLimits } from './domain/agent/types.js';
-import { ProviderUnavailableError } from './domain/errors.js';
-import type { LlmPort } from './domain/ports/llm.js';
 import { NOOP_TRACER, SYSTEM_CLOCK, type Tracer } from './domain/ports/tracer.js';
 import { listMigrationNames } from './infrastructure/db/migration-files.js';
 import { createPool } from './infrastructure/db/pool.js';
@@ -29,7 +26,6 @@ import {
 } from './infrastructure/embeddings/transformers-embedder.js';
 import { PgKnowledgeRepository } from './infrastructure/knowledge/pg-knowledge-repository.js';
 import { PgRetriever } from './infrastructure/knowledge/pg-retriever.js';
-import { ANTHROPIC_PROVIDER, createAnthropicLlm } from './infrastructure/llm/anthropic-llm.js';
 import { pricingFor } from './infrastructure/llm/pricing.js';
 import { createPgPersistence } from './infrastructure/persistence/index.js';
 import { startLangfuseTracing } from './infrastructure/tracing/langfuse-tracer.js';
@@ -87,10 +83,23 @@ async function main(): Promise<void> {
           ledger: persistence.ledger,
           agent: {
             runAgent,
-            llm: createLlm(config, (details, message) => log().warn(details, message)),
+            llm: createAgentLlm(
+              {
+                apiKey: config.llm.anthropicApiKey?.reveal(),
+                model: config.llm.model,
+                effort: config.llm.effort,
+                timeoutMs: config.llm.timeoutMs,
+              },
+              (details, message) => log().warn(details, message),
+            ),
             retriever: new PgRetriever(pool, embedder),
             knowledge: new PgKnowledgeRepository(pool),
-            limits: agentLimits(config),
+            limits: agentLimits({
+              llmTimeoutMs: config.llm.timeoutMs,
+              runDeadlineMs: config.agent.runDeadlineMs,
+              maxSteps: config.agent.maxSteps,
+              maxRunCostUsd: config.agent.maxRunCostUsd,
+            }),
             pricing: pricingFor(config.llm.model),
             canaryToken: config.agent.canaryToken.reveal(),
           },
@@ -155,45 +164,6 @@ async function main(): Promise<void> {
   });
 
   await app.listen({ host: config.server.host, port: config.server.port });
-}
-
-/** Run limits: the runtime's defaults, with the deadlines and budgets set by configuration. */
-function agentLimits(config: Config): AgentLimits {
-  return {
-    ...DEFAULT_AGENT_LIMITS,
-    llmTimeoutMs: config.llm.timeoutMs,
-    runDeadlineMs: config.agent.runDeadlineMs,
-    maxSteps: config.agent.maxSteps,
-    ...(config.agent.maxRunCostUsd === undefined
-      ? {}
-      : { maxRunCostUsd: config.agent.maxRunCostUsd }),
-  };
-}
-
-/**
- * The Anthropic adapter, or, without an API key, a port that fails every call as "provider
- * unavailable" without any network access: the rest of the API (conversations, history,
- * feedback) keeps working and runs end with a clear error event.
- */
-function createLlm(
-  config: Config,
-  warn: (details: Record<string, unknown>, message: string) => void,
-): LlmPort {
-  const apiKey = config.llm.anthropicApiKey;
-  if (apiKey === undefined) {
-    return {
-      provider: ANTHROPIC_PROVIDER,
-      model: config.llm.model,
-      generate: () => Promise.reject(new ProviderUnavailableError(ANTHROPIC_PROVIDER)),
-    };
-  }
-  return createAnthropicLlm({
-    apiKey: apiKey.reveal(),
-    model: config.llm.model,
-    effort: config.llm.effort,
-    timeoutMs: config.llm.timeoutMs,
-    logger: { warn },
-  });
 }
 
 /** Langfuse when both keys are set; otherwise tracing is a no-op. */
