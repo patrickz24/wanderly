@@ -9,6 +9,14 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@wanderly/contracts": "*"
+    "@anthropic-ai/sdk": "^0.132.1",
+    "@wanderly/contracts": "*",
+    "node-pg-migrate": "^9.0.0",
+    "pg": "^8.23.1",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/pg": "^8.23.1"
   }
 }

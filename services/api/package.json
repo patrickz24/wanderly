@@ -13,7 +13,8 @@
     "test:coverage": "vitest run --coverage",
     "migrate": "node-pg-migrate -m migrations --migration-file-language sql up",
     "ingest": "tsx --conditions=development --env-file-if-exists=../../.env src/cli/ingest.ts",
-    "test:integration": "vitest run -c vitest.integration.config.ts"
+    "test:integration": "vitest run -c vitest.integration.config.ts",
+    "chat": "tsx --conditions=development --env-file-if-exists=../../.env src/cli/chat.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.132.1",
