@@ -58,8 +58,9 @@ Please do not run automated scanners against the public demo or enter real perso
 ## Security model
 
 The riskiest component is an LLM that reads untrusted text: user messages and retrieved documents.
-The design assumes a prompt injection will sometimes succeed and limits what it can achieve; the
-other controls are layers around that.
+The retrieved guides come from Wikivoyage, which anyone can edit, so they are untrusted too. The
+design assumes a prompt injection will sometimes succeed and limits what it can achieve; the other
+controls are layers around that.
 
 In the **Status** column, "Milestone 1" marks controls delivered by the current milestone, the
 foundation, which is still in progress. "Planned (milestone N)" marks controls that do not exist in
@@ -86,14 +87,16 @@ the code yet.
 
 ### Infrastructure and supply chain
 
-| Control                 | Design                                                                                                                                | Status                        |
-| ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| Containers              | Multi-stage builds, non-root users (the API runs as the `node` user; the web client is served by `nginx-unprivileged`), healthchecks. | Milestone 1                   |
-| Dependency scanning     | `npm audit --audit-level=high` and Dependabot updates.                                                                                | Milestone 1                   |
-| Image and code scanning | Trivy on the filesystem and on the built images; CodeQL static analysis.                                                              | Milestone 1                   |
-| Reproducible installs   | `npm ci` against the committed lockfile, in CI and in Docker builds.                                                                  | Milestone 1                   |
-| Repository settings     | Secret scanning with push protection and private vulnerability reporting enabled on GitHub (repository owner's task).                 | Planned (repository creation) |
-| Spending limit          | A monthly spending limit on the Anthropic account, as a last line of defence behind the daily cap (operator's task).                  | Planned (milestone 7)         |
+| Control                 | Design                                                                                                                                                                                                                                                                                                                                                                                                                             | Status                        |
+| ----------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| Containers              | Multi-stage builds on base images pinned by digest, non-root users (the API runs as `node`, the web client is served by `nginx-unprivileged`), healthchecks. In Compose: read-only root filesystems, `no-new-privileges`, all capabilities dropped (Postgres keeps the few it needs to start), memory and process limits, host ports bound to `127.0.0.1`, and a network layout where the web container cannot reach the database. | Milestone 1                   |
+| Web server headers      | nginx serves the client with a strict Content Security Policy (`default-src 'self'`, `frame-ancestors 'none'`), `X-Content-Type-Options: nosniff` and `X-Frame-Options: DENY`.                                                                                                                                                                                                                                                     | Milestone 1                   |
+| Dependency scanning     | `npm audit --audit-level=high` on production dependencies; Dependabot updates for npm, GitHub Actions and Docker base images.                                                                                                                                                                                                                                                                                                      | Milestone 1                   |
+| Image and code scanning | Trivy on the built images and on the repository (vulnerabilities and committed secrets), failing on fixable high or critical findings; CodeQL static analysis.                                                                                                                                                                                                                                                                     | Milestone 1                   |
+| Reproducible installs   | `npm ci --ignore-scripts` against the committed lockfile, in CI and in Docker builds, so dependency install scripts do not run.                                                                                                                                                                                                                                                                                                    | Milestone 1                   |
+| CI permissions          | Workflows run with a read-only token and need no secret, so they are safe on pull requests from forks. The Trivy action, whose tags were once force-pushed, is pinned to a commit SHA.                                                                                                                                                                                                                                             | Milestone 1                   |
+| Repository settings     | Secret scanning with push protection and private vulnerability reporting enabled on GitHub (repository owner's task).                                                                                                                                                                                                                                                                                                              | Planned (repository creation) |
+| Spending limit          | A monthly spending limit on the Anthropic account, as a last line of defence behind the daily cap (operator's task).                                                                                                                                                                                                                                                                                                               | Planned (milestone 7)         |
 
 ## Data handling and retention
 
