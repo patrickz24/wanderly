@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildPois, collectPoiCandidates, slugify } from './pois.js';
+import { buildPois, collectPoiCandidates, isGenericName, slugify } from './pois.js';
 import { convertArticle } from './wikitext.js';
 
 describe('slugify', () => {
@@ -9,6 +9,37 @@ describe('slugify', () => {
     expect(slugify('Ðakovo – Église Saint-Étienne!')).toBe('dakovo-eglise-saint-etienne');
     expect(slugify('Lofotøyene')).toBe('lofotoyene');
     expect(slugify('Κρήτη')).toBe('');
+  });
+});
+
+describe('isGenericName', () => {
+  it.each([
+    'Churches',
+    'Beaches',
+    'Golf',
+    'Monasteries and convents',
+    'Archeological sites',
+    'Whale and dolphin watching',
+    'Moto 4 Rides',
+    'Rent a scooter',
+    'Off-road mountain bike circuits',
+    'Glacier hiking',
+    'Sailing and yachting',
+    'Swimming pool',
+  ])('treats %j as an activity or category heading', (name) => {
+    expect(isGenericName(name)).toBe(true);
+  });
+
+  it.each([
+    'Palma old town',
+    'Volcano Climbing at Pico island',
+    'GR 20',
+    'Valldemossa',
+    'Levadas',
+    'Lake Negratin',
+    'Town Square of Hvar',
+  ])('keeps %j, which names a specific place', (name) => {
+    expect(isGenericName(name)).toBe(false);
   });
 });
 
@@ -27,24 +58,28 @@ describe('POI extraction', () => {
       "* '''Mount Etna''' – duplicate of the marker above",
       '==Do==',
       "* '''Hiking:''' trails on the Madonie.",
+      "* '''Madonie trails:''' marked paths above Cefalù.",
       '==Eat==',
       "* '''Arancini''' – rice balls",
     ].join('\n'),
   );
 
-  it('collects see/do listings, markers of Other destinations and named items only', () => {
-    expect(
-      collectPoiCandidates(doc).map((candidate) => [candidate.source, candidate.name]),
-    ).toEqual([
+  it('collects see/do listings, markers and named items, pruning generic headings', () => {
+    const { candidates, genericPruned } = collectPoiCandidates(doc);
+    expect(candidates.map((candidate) => [candidate.source, candidate.name])).toEqual([
       ['marker', 'Mount Etna'],
       ['listing', 'Museo Salinas'],
       ['named', 'Mount Etna'],
-      ['named', 'Hiking'],
+      ['named', 'Madonie trails'],
     ]);
+    expect(genericPruned).toBe(1);
   });
 
   it('builds schema POIs with stable ids, kinds and source_ref, dropping duplicates', () => {
-    const { pois, sources, duplicatesDropped } = buildPois('sicily', collectPoiCandidates(doc));
+    const { pois, sources, duplicatesDropped } = buildPois(
+      'sicily',
+      collectPoiCandidates(doc).candidates,
+    );
     expect(duplicatesDropped).toBe(1);
     expect(sources).toEqual({ listing: 1, marker: 1, named: 1 });
     expect(pois).toEqual([
@@ -55,7 +90,7 @@ describe('POI extraction', () => {
         description: 'Europe’s highest active volcano',
         crowd_level: null,
         best_months: [],
-        source_ref: 'Other destinations',
+        source_ref: 'Sicily > Other destinations',
       },
       {
         id: 'sicily-museo-salinas',
@@ -64,18 +99,36 @@ describe('POI extraction', () => {
         description: 'Archaeology collection.',
         crowd_level: null,
         best_months: [],
-        source_ref: 'See > Museums',
+        source_ref: 'Sicily > See > Museums',
       },
       {
-        id: 'sicily-hiking',
-        name: 'Hiking',
+        id: 'sicily-madonie-trails',
+        name: 'Madonie trails',
         kinds: ['hiking'],
-        description: 'Hiking: trails on the Madonie.',
+        description: 'Madonie trails: marked paths above Cefalù.',
         crowd_level: null,
         best_months: [],
-        source_ref: 'Do',
+        source_ref: 'Sicily > Do',
       },
     ]);
+  });
+
+  it('prefixes ids with the place id and source_ref with the place title for place articles', () => {
+    const palermo = convertArticle(
+      'Palermo',
+      '==See==\n===Museums===\n* {{see|name=Museo Salinas|content=Archaeology collection.}}',
+    );
+    const region = collectPoiCandidates(doc).candidates;
+    const place = collectPoiCandidates(palermo, {
+      title: 'Palermo',
+      placeId: 'palermo',
+    }).candidates;
+    const { pois, duplicatesDropped } = buildPois('sicily', [...region, ...place]);
+    expect(duplicatesDropped).toBe(1);
+    expect(pois.at(-1)).toMatchObject({
+      id: 'sicily-palermo-museo-salinas',
+      source_ref: 'Palermo > See > Museums',
+    });
   });
 
   it('describes a marker used as the subject of a sentence with the whole sentence, as plain text', () => {
@@ -83,14 +136,20 @@ describe('POI extraction', () => {
       'Mallorca',
       '==Other destinations==\n* {{marker|type=other|name=Santuari de Lluc}} is a monastery.',
     );
-    const { pois } = buildPois('mallorca', collectPoiCandidates(mallorca));
+    const { pois } = buildPois('mallorca', collectPoiCandidates(mallorca).candidates);
     expect(pois[0]?.description).toBe('Santuari de Lluc is a monastery.');
     expect(pois[0]?.kinds).toEqual(['religious_site']);
   });
 
   it('falls back to a positional id when the name has no ASCII letters', () => {
     const { pois } = buildPois('crete', [
-      { name: 'Κνωσός', description: null, sectionPath: ['See'], source: 'named' },
+      {
+        name: 'Κνωσός',
+        description: null,
+        sectionPath: ['See'],
+        source: 'named',
+        document: { title: 'Crete', placeId: null },
+      },
     ]);
     expect(pois[0]?.id).toBe('crete-poi-1');
   });
