@@ -26,7 +26,8 @@
     "migrate": "npm run migrate -w @wanderly/api",
     "test:integration": "npm run test:integration -w @wanderly/api",
     "ingest": "npm run ingest -w @wanderly/api",
-    "chat": "npm run chat -w @wanderly/api --"
+    "chat": "npm run chat -w @wanderly/api --",
+    "eval:retrieval": "npm run eval:retrieval -w @wanderly/evals --"
   },
   "lint-staged": {
     "*.{ts,tsx,js,mjs,cjs}": [
