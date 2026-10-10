@@ -84,10 +84,10 @@ Validated by `FactsSchema` in `packages/contracts/src/corpus.ts` (shared with th
   (listings under Budget / Mid-range / Splurge subsections). Each level has `lodging_night` and
   `meal`, either `null` or `{median, min, max, currency, sample_size, excluded_other_currency}`,
   plus `notes` explaining nulls and small samples. `derivation` states the method (below).
-- **`pois`**: `id`, `name`, `kinds`, `description`, `crowd_level: null`, `best_months: []`,
-  `source_ref` (document title and heading path, e.g. `Palermo > See > Museums`).
-  `crowd_level` and `best_months` are filled later by a curation pass, **only** where the guide
-  text supports it.
+- **`pois`**: `id`, `name`, `kinds`, `description`, `crowd_level` (1-5 or null), `best_months`
+  (month numbers, possibly empty), `source_ref` (document title and heading path, e.g.
+  `Palermo > See > Museums`), `crowd_evidence` and `months_evidence` (the sentences of the source
+  document, copied verbatim, that support each non-empty value; see Curation).
 - **`extraction`**: counters for review (listings by type, priced listings, POI sources,
   duplicates dropped, generic items pruned).
 
@@ -146,6 +146,39 @@ left out. Lodging may be per room, bed or person and meals are whatever the list
 ERA5 elsewhere): a single reanalysis family, consistent over the period, as Open-Meteo
 recommends for climate statistics. A (year, month) with a missing day is left out of the
 precipitation means.
+
+## Curation
+
+`crowd_level` and `best_months` are filled by a deterministic, lexical pass (no model, no
+judgment): `scripts/curation.ts`, `scripts/crowds.ts` and `scripts/seasons.ts`, all unit-tested.
+For each POI it reads only its own listing or list-item text and the sentences of its source
+section that name it, and keeps a sentence as evidence only if it appears verbatim in the
+Markdown document (`validate.ts` checks every evidence string against the document named by
+`source_ref`).
+
+- **Crowd level.** High terms (crowded, packed, busy, touristy, tourist trap, hordes, queues,
+  long lines, cruise ships, overrun…) and low terms (quiet, peaceful, tranquil, secluded, off the
+  beaten track/path, deserted, few tourists, hidden gem, uncrowded, less visited). A negation up
+  to two words before a high term ("not crowded", "isn't too busy", "away from the crowds") makes
+  it a low signal; a negated low term is ignored. High terms about things ("packed with chapels",
+  "crowds of vehicles"), "busy" before a road word, and sentences with a year (history) are
+  ignored. One high sentence → 4, two or more → 5; one low sentence → 2, two or more → 1; high and
+  low together, or nothing → null.
+- **Best months.** Month names (abbreviations only in ranges such as `Apr-Oct`), seasons
+  (northern hemisphere: spring 3-5, summer 6-8, autumn 9-11, winter 12-2) and ranges, counted when
+  the sentence says when to go, when the place opens or when an event takes place; a closure cue
+  just before ("closed in winter", "banned in spring") excludes them. Ignored: dates with a year,
+  day-precise dates outside events (holiday closures), seasons inside opening-hours schedules,
+  several periods with clock times (year-round schedules) and named seasons ("Slovenian spring").
+  Result: included months minus excluded ones, or every other month when there are only
+  exclusions; all twelve months or none → `[]`.
+
+On the current corpus 42 of 1,337 POIs (3%) get a crowd level and 84 (6%) get best months, mostly
+from opening seasons and event dates. **Limits:** the pass is lexical and sparse; it misses
+implicit crowding ("the most famous sight", "book weeks ahead"), cannot tell the visitor crowds of
+a place from those of its street, reads opening seasons as best months, and a sample review found
+some wrong labels (a historic "once one of the busiest squares"). Null and `[]` mean "no evidence",
+not "quiet" or "any time".
 
 ## Regenerating
 
