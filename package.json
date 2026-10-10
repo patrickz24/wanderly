@@ -27,7 +27,11 @@
     "test:integration": "npm run test:integration -w @wanderly/api",
     "ingest": "npm run ingest -w @wanderly/api",
     "chat": "npm run chat -w @wanderly/api --",
-    "eval:retrieval": "npm run eval:retrieval -w @wanderly/evals --"
+    "eval:retrieval": "npm run eval:retrieval -w @wanderly/evals --",
+    "eval": "npm run eval -w @wanderly/evals",
+    "eval:agent": "npm run eval:agent -w @wanderly/evals --",
+    "eval:controls": "npm run eval:controls -w @wanderly/evals",
+    "eval:judge-calibration": "npm run eval:judge-calibration -w @wanderly/evals --"
   },
   "lint-staged": {
     "*.{ts,tsx,js,mjs,cjs}": [

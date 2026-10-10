@@ -388,11 +388,13 @@ On Windows, the ONNX runtime crashes on this project's development host (ADR 000
 evaluation in a `node:22-bookworm-slim` container with the repository mounted and Linux
 dependencies installed in anonymous volumes, against the Compose database:
 
+The Makefile wraps it as `make eval-agent-docker` (and `make seed-docker` for ingestion alone):
+
 ```sh
 docker compose up -d db
 docker run --rm -it -v "C:/dev/wanderly:/repo" -w /repo \
   -v /repo/node_modules -v /repo/evals/node_modules -v /repo/services/api/node_modules \
-  -v /repo/apps/web/node_modules -v /repo/packages/contracts/node_modules \
+  -v /repo/apps/web/node_modules -v /repo/packages/contracts/node_modules -v /repo/data/node_modules \
   --env-file .env -e DATABASE_URL=postgres://wanderly:wanderly@host.docker.internal:5432/wanderly \
   node:22-bookworm-slim bash -c \
   "npm ci --ignore-scripts && npm run migrate && npm run ingest && npm run eval:agent -w @wanderly/evals -- --max-usd 2"

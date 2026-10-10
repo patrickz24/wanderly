@@ -24,6 +24,13 @@
 # development NODE_ENV in .env cannot leak into `make build` or `make test`.
 
 COMPOSE ?= docker compose
+MAX_USD ?= 2
+
+# Runs a shell command in a Linux Node 22 container with the repository mounted and Linux
+# dependencies in anonymous volumes, against the Compose database (used on Windows, where the
+# ONNX runtime of the local embedder crashes natively).
+HOST_DIR := $(shell pwd -W 2>/dev/null || pwd)
+LINUX_NODE = MSYS_NO_PATHCONV=1 docker run --rm -v "$(HOST_DIR):/repo" -w /repo 	-v /repo/node_modules -v /repo/evals/node_modules -v /repo/services/api/node_modules 	-v /repo/apps/web/node_modules -v /repo/packages/contracts/node_modules -v /repo/data/node_modules 	--env-file .env -e DATABASE_URL=postgres://wanderly:wanderly@host.docker.internal:5432/wanderly 	node:22-bookworm-slim bash -c
 SERVICE ?=
 LOCAL_DATABASE_URL := postgres://wanderly:wanderly@localhost:5432/wanderly
 # A DATABASE_URL given on the command line wins over .env (e.g. `DATABASE_URL=<neon> make seed`).
@@ -90,8 +97,11 @@ db: ## Start only Postgres (for host-side development and integration tests)
 migrate: ## Apply pending SQL migrations to DATABASE_URL (from .env, else local compose db)
 	@$(WITH_ENV) npm run migrate
 
-seed: ## Load the travel corpus into the database (milestone 2)
-	@echo "make seed: available at milestone 2 (corpus ingestion)."
+seed: db migrate ## Load the travel corpus (embeds ~2,100 chunks on CPU the first time; idempotent)
+	@$(WITH_ENV) npm run ingest
+
+seed-docker: db ## Same as seed inside a Linux container (Windows: onnxruntime crashes natively, ADR 0004)
+	$(LINUX_NODE) "npm ci --ignore-scripts && npm run migrate && npm run ingest"
 
 dev: env db migrate ## Run the API (:3000) and web (:5173) dev servers against the compose database
 	@echo "API on http://localhost:3000, web on http://localhost:5173 (Ctrl+C stops both)."
@@ -116,8 +126,17 @@ lint: ## ESLint + Prettier check
 typecheck: ## Type-check every workspace
 	npm run typecheck
 
-eval: ## Run the LLM evaluation pipeline (milestone 5)
-	@echo "make eval: available at milestone 5 (evaluation pipeline)."
+eval: ## Keyless evaluation controls: oracle and null baselines through the real agent loop
+	npm run eval:controls
+
+eval-agent: ## Real agent eval with Claude (needs ANTHROPIC_API_KEY and a seeded DB; MAX_USD caps spend)
+	@$(WITH_ENV) npm run eval:agent -- --max-usd $(MAX_USD)
+
+eval-agent-docker: db ## Same as eval-agent inside a Linux container (Windows), seeding the corpus first
+	$(LINUX_NODE) "npm ci --ignore-scripts && npm run migrate && npm run ingest && npm run eval:agent -- --max-usd $(MAX_USD)"
+
+eval-retrieval: ## Retrieval eval (vector / full text / hybrid, chunking variants) against DATABASE_URL
+	@$(WITH_ENV) npm run eval:retrieval
 
 build: ## Build every workspace (contracts first)
 	npm run build
