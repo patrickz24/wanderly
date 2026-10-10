@@ -19,7 +19,7 @@ export const estimateBudgetTool = defineDataTool({
     `Lodging = (days - 1) nights × rooms (${TRAVELERS_PER_ROOM} travellers per room) × median price per night; meals = ${MEALS_PER_DAY} meals per traveller per day × median meal price.`,
     'Use it when the user mentions money or a comfort level, and for every itinerary that shows a budget.',
     'Copy its figures exactly (never convert currencies, round or adjust them) and copy `estimateId` into itinerary.budget.fromToolCallId.',
-    'Figures are null when the guide has no prices: then set itinerary.budget to null and say so in warnings.',
+    'Figures and currency are null when the guide has no prices: copy the nulls as they are (or set itinerary.budget to null) and say so in warnings.',
   ].join(' '),
   input: EstimateBudgetInput,
   fieldDescriptions: {

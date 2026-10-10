@@ -70,12 +70,8 @@ function checkBudget(itinerary: Itinerary, evidence: EvidenceRegistry): string[]
       `itinerary.budget.fromToolCallId: "${budget.fromToolCallId}" is not the estimateId of an estimate_budget call of this turn.`,
     ];
   }
+  // An estimate without prices (null currency and totals) is copied as is, nulls included.
   const estimate = cited.estimate;
-  if (estimate.currency === null) {
-    return [
-      'itinerary.budget: the cited estimate has no price in the guide. Set budget to null and mention it in warnings.',
-    ];
-  }
   const issues: string[] = [];
   const mismatch = (field: string, expected: unknown, actual: unknown) =>
     issues.push(

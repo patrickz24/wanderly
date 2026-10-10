@@ -192,7 +192,7 @@ describe('checkGrounding', () => {
     ]);
   });
 
-  it('asks for a null budget when the cited estimate has no price', () => {
+  it('accepts a copy of an estimate without prices, but not invented figures', () => {
     const registry = evidence();
     registry.recordBudget({
       callId: 'b1',
@@ -203,8 +203,18 @@ describe('checkGrounding', () => {
         level: 'mid',
       }),
     });
+    const copied = itineraryResponse((it) => ({
+      ...it,
+      budget:
+        it.budget === null
+          ? null
+          : { ...it.budget, currency: null, total: null, perPerson: null, notes: ['No prices.'] },
+    }));
+    expect(checkGrounding(copied, registry)).toEqual([]);
     expect(checkGrounding(itineraryResponse(), registry)).toEqual([
-      'itinerary.budget: the cited estimate has no price in the guide. Set budget to null and mention it in warnings.',
+      'itinerary.budget.currency: must be copied from the estimate (null), got "EUR".',
+      'itinerary.budget.total: must be copied from the estimate (null), got 300.',
+      'itinerary.budget.perPerson: must be copied from the estimate (null), got 150.',
     ]);
   });
 
@@ -274,6 +284,7 @@ describe('sources', () => {
         destinationId: 'sicily',
         snippet: 'Description of sicily-madonie',
         url: null,
+        license: 'CC BY-SA 4.0',
       },
       {
         kind: 'chunk',
@@ -282,6 +293,7 @@ describe('sources', () => {
         destinationId: 'sicily',
         snippet: 'The Madonie park has quiet hiking trails.',
         url: 'https://en.wikivoyage.org/wiki/sicily',
+        license: 'CC BY-SA 4.0',
       },
       {
         kind: 'weather',
@@ -290,6 +302,7 @@ describe('sources', () => {
         destinationId: 'sicily',
         snippet: 'May: 23°C / 16.1°C, 8 rainy days, 67.4 mm',
         url: 'https://open-meteo.com/',
+        license: 'Weather data by Open-Meteo.com (CC BY 4.0)',
       },
       {
         kind: 'budget',
@@ -298,6 +311,7 @@ describe('sources', () => {
         destinationId: 'sicily',
         snippet: '300 EUR for 2 traveller(s), 2 day(s)',
         url: null,
+        license: 'CC BY-SA 4.0',
       },
     ]);
   });

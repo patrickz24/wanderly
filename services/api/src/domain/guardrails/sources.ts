@@ -6,6 +6,13 @@ import { excerpt } from '../tools/search-knowledge.js';
 
 const SNIPPET_CHARS = 240;
 
+/**
+ * Licence shown next to each source. The whole corpus (guides, listings and the POIs and prices
+ * derived from them) comes from Wikivoyage; climate normals come from Open-Meteo.
+ */
+export const WIKIVOYAGE_LICENSE = 'CC BY-SA 4.0';
+export const OPEN_METEO_LICENSE = 'Weather data by Open-Meteo.com (CC BY 4.0)';
+
 /** Every piece of evidence a response cites (refs, POIs, budget, weather), deduplicated in order. */
 export function citedRefs(response: AgentResponse): SourceRef[] {
   const refs: SourceRef[] = [];
@@ -61,6 +68,7 @@ function toSummary(
         destinationId: chunk.destinationId,
         snippet: excerpt(chunk.content, SNIPPET_CHARS),
         url: httpUrlOrNull(chunk.sourceUrl),
+        license: WIKIVOYAGE_LICENSE,
       };
     }
     case 'poi': {
@@ -73,6 +81,7 @@ function toSummary(
         destinationId: poi.destinationId,
         snippet: poi.description === null ? null : excerpt(poi.description, SNIPPET_CHARS),
         url: null,
+        license: WIKIVOYAGE_LICENSE,
       };
     }
     case 'weather': {
@@ -86,6 +95,7 @@ function toSummary(
         destinationId: fact.destinationId,
         snippet: `${monthName(fact.month)}: ${fact.avgHighC}°C / ${fact.avgLowC}°C, ${fact.rainDays} rainy days, ${fact.precipitationMm} mm`,
         url: 'https://open-meteo.com/',
+        license: OPEN_METEO_LICENSE,
       };
     }
     case 'budget': {
@@ -102,6 +112,7 @@ function toSummary(
             ? 'No complete price in the guide.'
             : `${estimate.total} ${estimate.currency} for ${estimate.travelers} traveller(s), ${estimate.days} day(s)`,
         url: null,
+        license: WIKIVOYAGE_LICENSE,
       };
     }
   }

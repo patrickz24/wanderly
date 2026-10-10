@@ -106,7 +106,8 @@ export const presentItineraryTool = defineTerminalTool({
       'Why it fits the request (interests, crowds, season, budget), based on the cited evidence.',
     'itinerary.days[].items[].sourceRefs':
       'Refs copied exactly from tool results of this turn ({"kind","id"}).',
-    'itinerary.budget': 'Copied from an estimate_budget result of this turn, or null.',
+    'itinerary.budget':
+      'Copied from an estimate_budget result of this turn (nulls included when the guide has no prices), or null.',
     'itinerary.budget.fromToolCallId': 'The estimateId of that estimate_budget result.',
     'itinerary.weather': 'Summary of a get_seasonal_weather result of this turn, or null.',
     'itinerary.weather.fromToolCallId': 'The weatherId of that get_seasonal_weather result.',
