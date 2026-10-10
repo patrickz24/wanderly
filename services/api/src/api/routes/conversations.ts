@@ -137,10 +137,12 @@ export const conversationRoutes: FastifyPluginAsyncZod<ConversationRoutesOptions
         // Nothing streamed yet (unknown conversation, turn limit, budget…): a plain JSON error.
         if (!stream.opened) throw error;
         const { body, logLevel } = mapError(error, request.id);
-        request.log[logLevel](
-          { err: error, runId, clientGone: disconnect.signal.aborted },
-          'agent run failed',
-        );
+        if (disconnect.signal.aborted) {
+          // Expected: the user closed the page or retried. The run is recorded as CANCELLED.
+          request.log.info({ err: error, runId }, 'agent run cancelled by the client');
+        } else {
+          request.log[logLevel]({ err: error, runId }, 'agent run failed');
+        }
         stream.send({
           type: 'error',
           runId,

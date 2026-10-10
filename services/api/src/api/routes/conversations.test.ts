@@ -63,7 +63,10 @@ async function start(options: StartOptions = {}) {
   const runAgent = options.runAgent ?? scriptedRunAgent();
   const deps = { conversations: store.conversationRepository, ids, clock };
   app = await buildApp({
-    config: testConfig({ LOG_LEVEL: 'info', ...options.env }),
+    config: testConfig({
+      LOG_LEVEL: options.log === undefined ? 'silent' : 'info',
+      ...options.env,
+    }),
     readinessProbe: fakeProbe(),
     ...(options.log === undefined ? {} : { logDestination: options.log }),
     api: {
@@ -491,8 +494,10 @@ describe('POST /api/conversations/:id/messages (SSE)', () => {
           });
         }),
     );
+    const log = memoryLog();
     const { server, store } = await start({
       llm,
+      log,
       runAgent: async (input, deps) => {
         await deps.llm.generate(
           { system: '', tools: [], messages: [], maxTokens: 10 },
@@ -531,6 +536,11 @@ describe('POST /api/conversations/:id/messages (SSE)', () => {
     await vi.waitFor(() => expect(store.runs[0]?.errorCode).toBe('CANCELLED'));
     expect(aborted).toHaveBeenCalledOnce();
     expect(store.messages).toEqual([]);
+    await vi.waitFor(() =>
+      expect(
+        log.entries().find((entry) => entry['msg'] === 'agent run cancelled by the client'),
+      ).toMatchObject({ level: 30 }),
+    );
   });
 });
 
