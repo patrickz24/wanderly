@@ -195,6 +195,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sardinia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-cattedrale-di-santa-maria-di-castello
     name: Cattedrale di Santa Maria di Castello
     kinds:
@@ -204,6 +206,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-palazzo-di-citta
     name: Palazzo di Città
     kinds:
@@ -212,6 +216,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-palazzo-regio
     name: Palazzo Regio
     kinds:
@@ -220,6 +226,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-bastione-di-saint-remy
     name: Bastione di Saint Remy
     kinds:
@@ -230,6 +238,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-bastione-di-santa-croce
     name: Bastione di Santa Croce
     kinds:
@@ -238,6 +248,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-porta-cristina
     name: Porta Cristina
     kinds:
@@ -246,6 +258,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-chiostro-di-san-domenico
     name: Chiostro di San Domenico
     kinds:
@@ -254,6 +268,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-chiesa-di-san-michele
     name: Chiesa di San Michele
     kinds:
@@ -263,6 +279,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-torre-di-san-pancrazio
     name: Torre di San Pancrazio
     kinds:
@@ -271,6 +289,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-torre-dellelefante
     name: Torre dell'Elefante
     kinds:
@@ -279,6 +299,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-torre-dello-sperone
     name: Torre dello Sperone
     kinds:
@@ -287,6 +309,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-anfiteatro-romano
     name: Anfiteatro Romano
     kinds:
@@ -295,6 +319,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-basilica-di-san-saturnino
     name: Basilica di San Saturnino
     kinds:
@@ -303,6 +329,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-santuario-di-nostra-signora-di-bonaria
     name: Santuario di Nostra Signora di Bonaria
     kinds:
@@ -312,6 +340,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-palazzata-della-via-roma
     name: Palazzata della via Roma
     kinds:
@@ -320,6 +350,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Liberty architecture
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-palazzo-civico
     name: Palazzo Civico
     kinds:
@@ -328,6 +360,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Liberty architecture
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-palazzo-valdes
     name: Palazzo Valdes
     kinds:
@@ -336,6 +370,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > See > Liberty architecture
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-museo-archeologico-nazionale-di-cagliari
     name: Museo Archeologico Nazionale di Cagliari
     kinds:
@@ -345,6 +381,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > Do > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-galleria-comunale-darte
     name: Galleria Comunale d'Arte
     kinds:
@@ -353,6 +391,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > Do > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-museo-darte-siamese-stefano-cardu
     name: Museo d'Arte Siamese "Stefano Cardu"
     kinds:
@@ -361,6 +401,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > Do > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-pinacoteca-nazionale
     name: Pinacoteca Nazionale
     kinds:
@@ -370,6 +412,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > Do > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-museo-delle-cere-anatomiche-clemente-susini
     name: Museo delle cere anatomiche Clemente Susini
     kinds:
@@ -378,6 +422,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > Do > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-centro-comunale-darte-e-cultura-il-ghetto
     name: Centro Comunale d’Arte e Cultura Il Ghetto
     kinds:
@@ -386,6 +432,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > Do > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-giardini-pubblici
     name: Giardini pubblici
     kinds:
@@ -394,14 +442,26 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > Do > Parks
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-orto-botanico-di-cagliari
     name: Orto Botanico di Cagliari
     kinds:
       - nature
     description: null
     crowd_level: null
-    best_months: []
+    best_months:
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
     source_ref: Cagliari > Do > Parks
+    crowd_evidence: []
+    months_evidence:
+      - '**Orto Botanico di Cagliari** (HBK -- Hortus Botanicus Karalitanus) (price: €4; hours: Apr-Oct: Tue-Sun 09:00-18:00)'
   - id: sardinia-cagliari-orto-dei-cappuccini
     name: Orto dei Cappuccini
     kinds:
@@ -411,6 +471,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > Do > Parks
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-cagliari-flamingoes
     name: Flamingoes
     kinds:
@@ -419,6 +481,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cagliari > Do > Other
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-cattedrale-di-santa-maria
     name: Cattedrale di Santa Maria
     kinds:
@@ -427,6 +491,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-chiesa-di-san-francesco
     name: Chiesa di San Francesco
     kinds:
@@ -435,6 +501,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-chiesa-san-michele
     name: Chiesa San Michele
     kinds:
@@ -443,6 +511,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-parrocchia-di-nostra-signora-della-mercede
     name: Parrocchia di Nostra Signora della Mercede
     kinds:
@@ -451,6 +521,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-forte-della-maddalena
     name: Forte della Maddalena
     kinds:
@@ -459,6 +531,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-teatro-civico
     name: Teatro civico
     kinds:
@@ -467,6 +541,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-palazzo-dalbis
     name: Palazzo d’Albis
     kinds:
@@ -475,6 +551,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-palazzo-machin
     name: Palazzo Machin
     kinds:
@@ -483,6 +561,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-palazzo-serra
     name: Palazzo Serra
     kinds:
@@ -491,6 +571,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-palazzo-lavagna
     name: Palazzo Lavagna
     kinds:
@@ -499,6 +581,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-palazzo-civico
     name: Palazzo Civico
     kinds:
@@ -507,6 +591,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-palazzo-peretti
     name: Palazzo Peretti
     kinds:
@@ -515,6 +601,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-palazzo-carcassona
     name: Palazzo Carcassona
     kinds:
@@ -523,6 +611,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-palazzo-simon
     name: Palazzo Simon
     kinds:
@@ -531,6 +621,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-torre-di-san-giovanni
     name: Torre di San Giovanni
     kinds:
@@ -539,6 +631,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-villa-mosca
     name: Villa Mosca
     kinds:
@@ -547,6 +641,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-villa-las-tronas
     name: Villa las Tronas
     kinds:
@@ -555,6 +651,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-museo-archeologico-della-citta
     name: Museo Archeologico della Città
     kinds:
@@ -564,6 +662,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > Do > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-museo-del-corallo
     name: Museo del Corallo
     kinds:
@@ -572,6 +672,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > Do > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-alghero-museo-diocesano
     name: Museo Diocesano
     kinds:
@@ -580,6 +682,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alghero > Do > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-olbia-basilica-di-san-simplicio
     name: Basilica di San Simplicio
     kinds:
@@ -589,6 +693,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Olbia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-olbia-chiesa-di-san-paolo
     name: Chiesa di San Paolo
     kinds:
@@ -597,6 +703,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Olbia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-olbia-palazzo-colonna
     name: Palazzo Colonna
     kinds:
@@ -605,6 +713,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Olbia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-olbia-villa-clorinda
     name: Villa Clorinda
     kinds:
@@ -613,6 +723,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Olbia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-olbia-teatro-michelucci
     name: Teatro Michelucci
     kinds:
@@ -621,6 +733,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Olbia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-olbia-pozzo-sacro-di-sa-testa
     name: Pozzo sacro di Sa Testa
     kinds:
@@ -629,6 +743,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Olbia > See > Archeological sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-olbia-acquedotto-romano
     name: Acquedotto romano
     kinds:
@@ -637,6 +753,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Olbia > See > Archeological sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-olbia-cabu-abbas
     name: Cabu Abbas
     kinds:
@@ -645,6 +763,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Olbia > See > Archeological sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-olbia-castello-di-pedres
     name: Castello di Pedres
     kinds:
@@ -653,6 +773,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Olbia > See > Archeological sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-olbia-tomba-di-giganti-di-su-monte-e-sabe
     name: Tomba di giganti di Su Monte 'e S'Abe
     kinds:
@@ -661,6 +783,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Olbia > See > Archeological sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-olbia-museo-archeologico
     name: Museo Archeologico
     kinds:
@@ -670,14 +794,19 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Olbia > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-olbia-parco-fausto-noce
     name: Parco "Fausto Noce"
     kinds:
       - nature
     description: It's a nice and the largest urban park in Sardinia. Some say though that at times it looks rather deserted, so you may not feel quite safe yourself there then.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Olbia > Do
+    crowd_evidence:
+      - Some say though that at times it looks rather deserted, so you may not feel quite safe yourself there then.
+    months_evidence: []
   - id: sardinia-sassari-cattedrale-di-san-nicola
     name: Cattedrale di San Nicola
     kinds:
@@ -687,6 +816,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-fontana-di-rosello
     name: Fontana di Rosello
     kinds:
@@ -695,6 +826,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-palazzo-ducale
     name: Palazzo Ducale
     kinds:
@@ -703,6 +836,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-le-stanze-e-le-cantine-del-duca
     name: Le Stanze e le Cantine del Duca
     kinds:
@@ -712,6 +847,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-palazzo-di-citta
     name: Palazzo di Città
     kinds:
@@ -720,6 +857,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-teatro-civico
     name: Teatro Civico
     kinds:
@@ -728,6 +867,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-palazzo-tola
     name: Palazzo Tola
     kinds:
@@ -736,6 +877,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-chiesa-di-santa-maria-di-bethlem
     name: Chiesa di Santa Maria di Bethlem
     kinds:
@@ -745,6 +888,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-vecchie-mura
     name: Vecchie mura
     kinds:
@@ -753,6 +898,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Old town
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-museo-nazionale-g-a-sanna
     name: Museo Nazionale G.A. Sanna
     kinds:
@@ -761,6 +908,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-pinacoteca-musa-al-canopoleno
     name: Pinacoteca Mus'a al Canopoleno
     kinds:
@@ -769,6 +918,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-palazzo-delluniversita
     name: Palazzo dell'Università
     kinds:
@@ -777,6 +928,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-palazzo-della-provincia
     name: Palazzo della Provincia
     kinds:
@@ -785,6 +938,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-casa-cugurra
     name: Casa Cugurra
     kinds:
@@ -793,6 +948,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-villa-santelia
     name: Villa Sant’Elia
     kinds:
@@ -801,6 +958,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sardinia-sassari-padiglione-per-lartigianato-eugenio-tavolara
     name: Padiglione per l'artigianato "Eugenio Tavolara"
     kinds:
@@ -809,6 +968,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sassari > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
 extraction:
   listings: 193
   listings_by_type:

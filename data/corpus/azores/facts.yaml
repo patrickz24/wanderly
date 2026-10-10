@@ -182,6 +182,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Azores > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-pico-the-gruta-das-torres
     name: The Gruta das Torres
     kinds:
@@ -190,6 +192,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pico > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-pico-landscape-of-the-pico-island-vineyard-culture
     name: Landscape of the Pico Island Vineyard Culture
     kinds:
@@ -198,6 +202,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pico > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-pico-museu-do-vinho
     name: Museu do Vinho
     kinds:
@@ -207,6 +213,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pico > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-pico-house-of-volcanoes
     name: House of Volcanoes
     kinds:
@@ -216,6 +224,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pico > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-pico-mount-pico
     name: Mount Pico
     kinds:
@@ -227,6 +237,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pico > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-sao-jorge-azores-igreja-de-santa-barbara
     name: Igreja de Santa Bárbara
     kinds:
@@ -236,6 +248,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: São Jorge (Azores) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-faial-horta-harbour
     name: Horta Harbour
     kinds:
@@ -244,6 +258,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faial > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-faial-caldeira
     name: Caldeira
     kinds:
@@ -255,6 +271,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faial > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-faial-capelinhos-volcano
     name: Capelinhos volcano
     kinds:
@@ -265,6 +283,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faial > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-faial-lighthouse-of-ponta-dos-capelinhos
     name: Lighthouse of Ponta dos Capelinhos
     kinds:
@@ -273,6 +293,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faial > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-faial-santa-cruz
     name: Santa Cruz
     kinds:
@@ -281,6 +303,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faial > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-faial-manuel-de-arriaga-museum
     name: Manuel de Arriaga Museum
     kinds:
@@ -289,6 +313,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faial > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-faial-horta-museum
     name: Horta Museum
     kinds:
@@ -297,6 +323,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faial > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-faial-tower-of-relogio
     name: Tower of Relogio
     kinds:
@@ -306,6 +334,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faial > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-faial-rua-conselheiro-medeiros-horta
     name: Rua Conselheiro Medeiros, Horta
     kinds:
@@ -314,6 +344,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faial > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-faial-jardim-botanico-do-faial
     name: Jardim Botânico do Faial
     kinds:
@@ -322,6 +354,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faial > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-faial-fabrica-da-baleia-de-porto-pim
     name: Fábrica da Baleia de Porto Pim
     kinds:
@@ -330,6 +364,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faial > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-faial-pista-da-caldeira
     name: Pista da Caldeira
     kinds:
@@ -338,6 +374,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faial > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-faial-falca-park
     name: Falca Park
     kinds:
@@ -346,6 +384,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faial > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-faial-semana-do-mar
     name: Semana do Mar
     kinds:
@@ -354,8 +394,12 @@ pois:
       - boat_trip
     description: The Semana do Mar (Week of the Sea) takes place at the beginning of August. It is a week-long celebration in Horta of Faial's link to the sea, celebrated in song, dance, exhibitions and kiosks selling different foods (of local and continental Portugal) and goods. During the day there are several sailing competitions and exhibits, while in the evening while many sample foods along the Avenida Marginal, others listen and/or dance to popular and/or traditional musical acts on one of several platforms devoted to bands, traditional and modern/contemporary musical artists.* Pista da Caldeira — The 12-km-long, easy Levanda hiking trail begins not far from Centro de Artesanato do Capeloon the EN1-1A. The red-leaved tree ferns are striking along the way. You should plan four hours.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 8
     source_ref: Faial > Do
+    crowd_evidence: []
+    months_evidence:
+      - The Semana do Mar (Week of the Sea) takes place at the beginning of August.
   - id: azores-flores-azores-lagoa-funda
     name: Lagoa Funda
     kinds:
@@ -364,6 +408,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-lagoa-comprida
     name: Lagoa Comprida
     kinds:
@@ -372,6 +418,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-lagoa-funda-das-lajes
     name: Lagoa Funda das Lajes
     kinds:
@@ -380,6 +428,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-rocha-dos-bordoes
     name: Rocha dos Bordões
     kinds:
@@ -388,6 +438,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-aguas-quentes
     name: Aguas Quentes
     kinds:
@@ -396,6 +448,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-sete-pes
     name: Sete Pes
     kinds:
@@ -404,6 +458,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-burrinha
     name: Burrinha
     kinds:
@@ -412,6 +468,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-marcel
     name: Marcel
     kinds:
@@ -420,6 +478,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-morro-alto
     name: Morro Alto
     kinds:
@@ -428,6 +488,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-gruta-dos-enxareus
     name: Gruta dos Enxaréus
     kinds:
@@ -437,6 +499,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-lagoa-dos-patos
     name: Lagoa dos Patos
     kinds:
@@ -445,6 +509,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-cascata-do-poco-do-bacalhau
     name: Cascata do Poço do Bacalhau
     kinds:
@@ -454,6 +520,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-poco-da-ribeira-do-ferreiro
     name: Poco da Ribeira do Ferreiro
     kinds:
@@ -463,6 +531,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-faja-grande
     name: Fajã Grande
     kinds:
@@ -471,6 +541,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-ponta-de-faja-grande
     name: Ponta de Fajã Grande
     kinds:
@@ -479,6 +551,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-faja-de-lopo-vaz
     name: Fajã de Lopo Vaz
     kinds:
@@ -487,6 +561,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-fajazinha
     name: Fajãzinha
     kinds:
@@ -495,6 +571,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-lajes-das-flores
     name: Lajes das Flores
     kinds:
@@ -503,6 +581,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-ponta-delgada
     name: Ponta Delgada
     kinds:
@@ -511,6 +591,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: azores-flores-azores-santa-cruz-das-flores
     name: Santa Cruz das Flores
     kinds:
@@ -519,6 +601,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Flores (Azores) > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
 extraction:
   listings: 78
   listings_by_type:

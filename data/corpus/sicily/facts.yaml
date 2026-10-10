@@ -188,6 +188,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sicily > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-mount-etna
     name: Mount Etna
     kinds:
@@ -196,6 +198,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sicily > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-mozia
     name: Mozia
     kinds:
@@ -205,6 +209,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sicily > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-pantelleria
     name: Pantelleria
     kinds:
@@ -213,6 +219,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sicily > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-pantalica
     name: Pantalica
     kinds:
@@ -223,6 +231,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sicily > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-segesta
     name: Segesta
     kinds:
@@ -231,6 +241,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sicily > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-valley-of-the-temples
     name: Valley of the Temples
     kinds:
@@ -240,6 +252,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sicily > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-piazza-del-duomo
     name: Piazza del Duomo
     kinds:
@@ -248,6 +262,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-cattedrale-di-santagata
     name: Cattedrale di Sant'Agata
     kinds:
@@ -257,6 +273,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-museo-diocesano
     name: Museo Diocesano
     kinds:
@@ -266,6 +284,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-palazzo-degli-elefanti
     name: Palazzo degli Elefanti
     kinds:
@@ -274,6 +294,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-palazzo-dei-chierici
     name: Palazzo dei Chierici
     kinds:
@@ -282,6 +304,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-chiesa-della-badia-di-santagata
     name: Chiesa della Badia di Sant'Agata
     kinds:
@@ -290,6 +314,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-castello-ursino
     name: Castello Ursino
     kinds:
@@ -299,6 +325,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-monastero-dei-benedettini-di-san-nicolo-larena
     name: Monastero dei Benedettini di San Nicolò l'Arena
     kinds:
@@ -307,6 +335,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-chiesa-di-san-nicolo-larena
     name: Chiesa di San Nicolò l'Arena
     kinds:
@@ -315,6 +345,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-via-crociferi
     name: Via Crociferi
     kinds:
@@ -323,6 +355,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-monastero-di-san-benedetto
     name: Monastero di San Benedetto
     kinds:
@@ -332,6 +366,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-chiesa-di-san-francesco-borgia
     name: Chiesa di San Francesco Borgia
     kinds:
@@ -340,6 +376,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-chiesa-di-san-giuliano
     name: Chiesa di San Giuliano
     kinds:
@@ -348,6 +386,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-villa-cerami
     name: Villa Cerami
     kinds:
@@ -356,6 +396,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-basilica-maria-santissima-dellelemosina
     name: Basilica Maria Santissima dell'Elemosina
     kinds:
@@ -364,6 +406,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-palazzo-biscari
     name: Palazzo Biscari
     kinds:
@@ -372,6 +416,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > World Heritage Sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-teatro-romano-e-odeon
     name: Teatro Romano e Odeon
     kinds:
@@ -380,6 +426,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > Ancient Roman and Greek
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-terme-della-rotonda
     name: Terme della Rotonda
     kinds:
@@ -388,6 +436,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > Ancient Roman and Greek
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-anfiteatro-romano
     name: Anfiteatro Romano
     kinds:
@@ -396,6 +446,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > Ancient Roman and Greek
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-terme-achilliane
     name: Terme Achilliane
     kinds:
@@ -405,14 +457,19 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > Ancient Roman and Greek
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-teatro-massimo-bellini
     name: Teatro Massimo Bellini
     kinds:
       - other
     description: A 19th-century opera theatre named after the Catania-born composer Vincenzo Bellini. The square before the theatre is a popular meeting place among the local young people, so its neighbourhood is very lively and busy by night.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Catania > See > Other notable attractions
+    crowd_evidence:
+      - The square before the theatre is a popular meeting place among the local young people, so its neighbourhood is very lively and busy by night.
+    months_evidence: []
   - id: sicily-catania-palazzo-delluniversita
     name: Palazzo dell'Università
     kinds:
@@ -421,6 +478,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > Other notable attractions
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-palazzo-della-cultura
     name: Palazzo Della Cultura
     kinds:
@@ -430,6 +489,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > Other notable attractions
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-palazzo-gravina-cruyllas
     name: Palazzo Gravina-Cruyllas
     kinds:
@@ -438,6 +499,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > Other notable attractions
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-museo-belliniano
     name: Museo Belliniano
     kinds:
@@ -446,6 +509,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > Other notable attractions
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-museo-emilio-greco
     name: Museo Emilio Greco
     kinds:
@@ -454,6 +519,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > Other notable attractions
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-quattro-canti
     name: Quattro Canti
     kinds:
@@ -462,6 +529,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > Other notable attractions
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-porta-garibaldi
     name: Porta Garibaldi
     kinds:
@@ -470,6 +539,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > Other notable attractions
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-giardino-bellini
     name: Giardino Bellini
     kinds:
@@ -478,6 +549,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > Parks and gardens
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-orto-botanico-delluniversita-di-catania
     name: Orto Botanico dell'Università di Catania
     kinds:
@@ -486,14 +559,19 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > See > Parks and gardens
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-via-etnea
     name: Via Etnea
     kinds:
       - religious_site
     description: Walk the main shopping avenue, running north from the Piazza del Duomo has most of the city's imposing building and is busy throughout the day and evening. Lots of churches. This road is the equivalent of Las Ramblas in Barcelona, so in the evenings the local people put on their Sunday clothes and walk at a relaxed pace along this avenue.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Catania > Do
+    crowd_evidence:
+      - "**Via Etnea** — Walk the main shopping avenue, running north from the Piazza del Duomo has most of the city's imposing building and is busy throughout the day and evening."
+    months_evidence: []
   - id: sicily-catania-etnaway
     name: EtnaWay
     kinds:
@@ -503,6 +581,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-la-plaja
     name: La Plaja
     kinds:
@@ -511,6 +591,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-catania-riviera-dei-ciclopi
     name: Riviera dei ciclopi
     kinds:
@@ -519,6 +601,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Catania > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-tempio-di-apollo
     name: Tempio di Apollo
     kinds:
@@ -527,6 +611,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Isola di Ortigia
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-cattedrale-della-nativita-di-maria-santissima
     name: Cattedrale della Natività di Maria Santissima
     kinds:
@@ -536,6 +622,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Isola di Ortigia
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-chiesa-di-santa-lucia-alla-badia
     name: Chiesa di Santa Lucia alla Badia
     kinds:
@@ -544,6 +632,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Isola di Ortigia
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-antica-fonte-aretusa
     name: Antica Fonte Aretusa
     kinds:
@@ -552,6 +642,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Isola di Ortigia
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-castello-maniace
     name: Castello Maniace
     kinds:
@@ -561,6 +653,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Isola di Ortigia
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-parco-archeologico-della-neapolis
     name: Parco Archeologico della Neapolis
     kinds:
@@ -570,6 +664,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Neapolis
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-latomia-del-paradiso
     name: Latomia del Paradiso
     kinds:
@@ -581,6 +677,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Neapolis
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-teatro-greco
     name: Teatro Greco
     kinds:
@@ -590,6 +688,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Neapolis
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-ara-di-ierone-ii
     name: Ara di Ierone II
     kinds:
@@ -598,6 +698,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Neapolis
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-anfiteatro-romano
     name: Anfiteatro romano
     kinds:
@@ -606,6 +708,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Neapolis
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-museo-archeologico-regionale-paolo-orsi
     name: Museo Archeologico Regionale "Paolo Orsi"
     kinds:
@@ -615,6 +719,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-chiesa-di-santa-lucia-al-sepolcro
     name: Chiesa di Santa Lucia al Sepolcro
     kinds:
@@ -624,6 +730,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-basilica-santuario-madonna-delle-lacrime
     name: Basilica Santuario Madonna delle Lacrime
     kinds:
@@ -633,6 +741,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-chiesa-di-san-giovanni-alle-catacombe
     name: Chiesa di San Giovanni alle catacombe
     kinds:
@@ -642,6 +752,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-latomia-dei-cappuccini
     name: Latomia dei Cappuccini
     kinds:
@@ -651,6 +763,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-galleria-regionale-di-palazzo-bellomo
     name: Galleria Regionale di Palazzo Bellomo
     kinds:
@@ -659,6 +773,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-castello-eurialo-e-mura-di-dionigi
     name: Castello Eurialo e mura di Dionigi
     kinds:
@@ -667,6 +783,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > See > Other sites
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-foro-vittorio-emanuele-ii
     name: Foro Vittorio Emanuele II
     kinds:
@@ -675,6 +793,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-percorso-ipogeico-di-piazza-duomo
     name: Percorso ipogeico di Piazza Duomo
     kinds:
@@ -683,6 +803,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-bagno-ebraico
     name: Bagno ebraico
     kinds:
@@ -690,8 +812,19 @@ pois:
       - adventure
     description: 'Another underground adventure: the ancient ritual Jewish baths discovered some 25 years ago. A tour lasts about 15 min.'
     crowd_level: null
-    best_months: []
+    best_months:
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
     source_ref: Syracuse (Italy) > Do
+    crowd_evidence: []
+    months_evidence:
+      - "(price: €5 only by guided tour — ask at the hotel's reception; hours: Mar-Oct: daily 11:00, 12:00, 16:00, 17:00, 18:00)"
   - id: sicily-syracuse-italy-pista-ciclabile-rossana-maiorca
     name: Pista ciclabile Rossana Maiorca
     kinds:
@@ -700,6 +833,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > Do > Cycling
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-nolo-point
     name: Nolo Point
     kinds:
@@ -708,22 +843,34 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Syracuse (Italy) > Do > Cycling
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-syracuse-italy-festival-of-santa-lucia
     name: Festival of Santa Lucia
     kinds:
       - religious_site
     description: 'Festival of Santa Lucia: Takes place on December 13. A solid silver statue of the patron saint is carried to Basilica del Sepolcro where it remains for eight days.'
     crowd_level: null
-    best_months: []
+    best_months:
+      - 12
     source_ref: Syracuse (Italy) > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - 'Festival of Santa Lucia: Takes place on December 13.'
   - id: sicily-syracuse-italy-theatrical-season-at-the-greek-theatre
     name: Theatrical Season at the Greek Theatre
     kinds:
       - other
     description: 'Theatrical Season at the Greek Theatre: Goes from May to July. Throughout these months, they stage dramas by famous authors such as Aeschylus and Euripides.'
     crowd_level: null
-    best_months: []
+    best_months:
+      - 5
+      - 6
+      - 7
     source_ref: Syracuse (Italy) > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - 'Theatrical Season at the Greek Theatre: Goes from May to July.'
   - id: sicily-palermo-palermo-cathedral
     name: Palermo Cathedral
     kinds:
@@ -732,6 +879,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-palermo-palatine-chapel
     name: Palatine Chapel
     kinds:
@@ -741,6 +890,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-palermo-palazzo-dei-normanni
     name: Palazzo dei Normanni
     kinds:
@@ -749,6 +900,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-palermo-san-giovanni-degli-eremiti
     name: San Giovanni degli Eremiti
     kinds:
@@ -756,9 +909,12 @@ pois:
       - historic_site
       - religious_site
     description: Church notable for its brilliant red domes, which show the persistence of the Arab influences in the 12th century, with its typical Arab-Norman style. The €6 admission ensures that the lovely garden is quiet and peaceful.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence:
+      - The €6 admission ensures that the lovely garden is quiet and peaceful.
+    months_evidence: []
   - id: sicily-palermo-museo-archeologico
     name: Museo Archeologico
     kinds:
@@ -768,6 +924,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-palermo-catacombe-dei-cappuccini
     name: Catacombe dei Cappuccini
     kinds:
@@ -778,6 +936,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-palermo-church-of-the-gesu
     name: Church of the Gesù
     kinds:
@@ -786,6 +946,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-palermo-piazza-pretoria-and-the-fontana-pretoria
     name: Piazza Pretoria and the Fontana Pretoria
     kinds:
@@ -794,6 +956,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-palermo-praetorian-palace-or-palace-of-the-eagles
     name: Praetorian Palace or Palace of the Eagles
     kinds:
@@ -802,6 +966,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-palermo-monreale
     name: Monreale
     kinds:
@@ -812,6 +978,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-palermo-monreale-cathedral
     name: Monreale Cathedral
     kinds:
@@ -821,6 +989,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-palermo-palermo-botanical-garden
     name: Palermo Botanical Garden
     kinds:
@@ -830,6 +1000,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-palermo-museo-delle-maioliche-museum-of-maiolica-tile
     name: Museo delle Maioliche (Museum of Maiolica Tile)
     kinds:
@@ -839,6 +1011,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-palermo-quattro-canti
     name: Quattro Canti
     kinds:
@@ -848,6 +1022,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-palermo-piazza-garraffello
     name: Piazza Garraffello
     kinds:
@@ -856,6 +1032,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-palermo-the-zisa-and-the-cuba
     name: The Zisa and the Cuba
     kinds:
@@ -864,6 +1042,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palermo > See
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-agrigento-museo-archeologico-regionale-pietro-griffo
     name: Museo Archeologico Regionale "Pietro Griffo"
     kinds:
@@ -874,6 +1054,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agrigento > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-agrigento-museo-diocesano-di-agrigento
     name: Museo Diocesano di Agrigento
     kinds:
@@ -884,6 +1066,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agrigento > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-agrigento-casa-natale-di-luigi-pirandello
     name: Casa Natale di Luigi Pirandello
     kinds:
@@ -893,6 +1077,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agrigento > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-agrigento-valley-of-the-temples
     name: Valley of the Temples
     kinds:
@@ -902,6 +1088,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agrigento > See > Archaeology
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-agrigento-quartiere-ellenistico-romano
     name: Quartiere Ellenistico–Romano
     kinds:
@@ -910,6 +1098,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agrigento > See > Archaeology
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-agrigento-cattedrale-di-san-gerlando
     name: Cattedrale di San Gerlando
     kinds:
@@ -919,6 +1109,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agrigento > See > Architecture
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-agrigento-chiesa-di-santa-maria-dei-greci
     name: Chiesa di Santa Maria dei Greci
     kinds:
@@ -928,6 +1120,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agrigento > See > Architecture
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-agrigento-monastero-di-santo-spirito
     name: Monastero di Santo Spirito
     kinds:
@@ -937,14 +1131,19 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agrigento > See > Architecture
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-agrigento-biblioteca-lucchesiana
     name: Biblioteca Lucchesiana
     kinds:
       - other
     description: Founded in 1765, this elegant ecclesiastical library has a stunning wood-panelled interior and holds thousands of rare manuscripts, parchments, and incunabula. A hidden gem for architecture and book lovers.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Agrigento > See > Architecture
+    crowd_evidence:
+      - A hidden gem for architecture and book lovers.
+    months_evidence: []
   - id: sicily-agrigento-church-of-san-lorenzo-del-purgatorio
     name: Church of San Lorenzo (del Purgatorio)
     kinds:
@@ -953,6 +1152,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agrigento > See > Architecture
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-agrigento-villa-bonfiglio
     name: Villa Bonfiglio
     kinds:
@@ -962,6 +1163,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agrigento > Do > Walks
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-agrigento-via-atenea
     name: Via Atenea
     kinds:
@@ -974,6 +1177,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agrigento > Do > Walks
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-agrigento-ridge-trail-in-the-valley-of-the-temples
     name: Ridge Trail in the Valley of the Temples
     kinds:
@@ -984,6 +1189,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agrigento > Do > Walks
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-agrigento-road-cycling-loop-agrigento-to-porto-empedocle-and-back
     name: 'Road‑cycling loop: Agrigento to Porto Empedocle and back'
     kinds:
@@ -993,14 +1200,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agrigento > Do > Cycling
+    crowd_evidence: []
+    months_evidence: []
   - id: sicily-agrigento-festa-del-mandorlo-in-fiore
     name: Festa del Mandorlo in Fiore
     kinds:
       - other
     description: Festa del Mandorlo in Fiore (almond Blossom Festival) towards the end of February is to be commended.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 2
     source_ref: Agrigento > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - Festa del Mandorlo in Fiore (almond Blossom Festival) towards the end of February is to be commended.
 extraction:
   listings: 256
   listings_by_type:

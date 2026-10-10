@@ -200,6 +200,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Algarve > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-sagres-cape
     name: Sagres Cape
     kinds:
@@ -208,6 +210,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Algarve > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-via-algarviana
     name: Via Algarviana
     kinds:
@@ -216,6 +220,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Algarve > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-ria-formosa-natural-park
     name: Ria Formosa Natural Park
     kinds:
@@ -224,6 +230,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Algarve > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-southwest-alentejo-and-vicentine-coast-natural-park
     name: Southwest Alentejo and Vicentine Coast Natural Park
     kinds:
@@ -232,6 +240,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Algarve > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-monchique-mountains
     name: Monchique Mountains
     kinds:
@@ -240,6 +250,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Algarve > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-zoomarine
     name: Zoomarine
     kinds:
@@ -249,6 +261,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Algarve > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-faro-bone-chapel
     name: Bone Chapel
     kinds:
@@ -257,14 +271,19 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faro > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-faro-old-town
     name: Old town
     kinds:
       - historic_site
     description: A well-preserved section of town off the harbour with cobblestone streets and 18th century Portuguese and Moorish-influenced architecture. It is a great place for a peaceful and almost private walk back in time in an area that has been virtually untouched by modernity.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Faro > See
+    crowd_evidence:
+      - It is a great place for a peaceful and almost private walk back in time in an area that has been virtually untouched by modernity.
+    months_evidence: []
   - id: algarve-faro-cathedral
     name: Cathedral
     kinds:
@@ -274,6 +293,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faro > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-faro-roman-ruins-of-milreu
     name: Roman Ruins of Milreu
     kinds:
@@ -283,6 +304,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faro > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-faro-estoi-palace
     name: Estoi Palace
     kinds:
@@ -291,6 +314,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faro > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-faro-ria-formosa-national-park
     name: Ria Formosa National Park
     kinds:
@@ -301,14 +326,19 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faro > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-faro-faro-beach
     name: Faro beach
     kinds:
       - beach
     description: This beach is several kilometres long and so normally never gets crowded, even in the height of summer. Most of the beach is gently sloping though it can take a sudden dip in places. There are the usual beach-side stalls and a public lavatory, but no showers. Praia de Faro is just past the airport, the airport bus stops there. A lot of people with early check-outs and late flights seem to go there on their last day.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Faro > Do
+    crowd_evidence:
+      - '**Faro beach** (Praia de Faro) — This beach is several kilometres long and so normally never gets crowded, even in the height of summer.'
+    months_evidence: []
   - id: algarve-faro-faro-jewish-heritage-centre
     name: Faro Jewish Heritage Centre
     kinds:
@@ -319,6 +349,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faro > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-faro-sc-farense
     name: SC Farense
     kinds:
@@ -327,6 +359,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Faro > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-albufeira-castelo-de-paderne
     name: Castelo de Paderne
     kinds:
@@ -335,6 +369,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Albufeira > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-albufeira-museu-municipal-de-arqueologia-de-albufeira
     name: Museu Municipal de Arqueologia de Albufeira
     kinds:
@@ -344,6 +380,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Albufeira > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-albufeira-zoomarine
     name: Zoomarine
     kinds:
@@ -351,9 +389,12 @@ pois:
       - nature
       - family
     description: Based on the theme "The Life of the Oceans", Zoomarine occupies over 8 hectares. With a single ticket, the visitor has access to an area of leisure, entertainment and education. Just a few kilometers from Albufeira you can watch presentations with dolphins, seals and sea lions, with tropical birds and birds of prey. Here you find also an amazing aquarium with sharks, various habitats, Cinema4D, attractions, amusements and swimming pools, making your visit to Zoomarine even more unforgettable. Zoomarine is very popular with families with kids, therefore there are longer queues during the high season.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Albufeira > Do
+    crowd_evidence:
+      - Zoomarine is very popular with families with kids, therefore there are longer queues during the high season.
+    months_evidence: []
   - id: algarve-portimao-igreja-de-nossa-senhora-da-conceicao
     name: Igreja de Nossa Senhora da Conceição
     kinds:
@@ -362,6 +403,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Portimão > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-portimao-convento-do-colegio-dos-jesuitas
     name: Convento do Colégio dos Jesuítas
     kinds:
@@ -370,6 +413,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Portimão > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-portimao-fortaleza-de-santa-catarina-de-ribamar
     name: Fortaleza de Santa Catarina de Ribamar
     kinds:
@@ -379,6 +424,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Portimão > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-portimao-portimao-museum
     name: Portimão Museum
     kinds:
@@ -387,6 +434,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Portimão > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-portimao-alcalar
     name: Alcalar
     kinds:
@@ -396,6 +445,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Portimão > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-portimao-3d-fun-art-museum-portimao
     name: 3D Fun Art Museum Portimão
     kinds:
@@ -404,6 +455,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Portimão > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-portimao-algarve-international-circuit
     name: Algarve International Circuit
     kinds:
@@ -412,6 +465,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Portimão > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-portimao-praia-da-rocha
     name: Praia da Rocha
     kinds:
@@ -420,6 +475,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Portimão > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-portimao-praia-do-vau
     name: Praia do Vau
     kinds:
@@ -428,6 +485,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Portimão > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-portimao-praia-de-alvor
     name: Praia de Alvor
     kinds:
@@ -436,6 +495,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Portimão > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-sao-bras-de-alportel-eco-cork-factory-tour
     name: Eco Cork Factory Tour
     kinds:
@@ -444,6 +505,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: São Brás de Alportel > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-sao-bras-de-alportel-igreja-matriz-de-sao-bras-de-alportel
     name: Igreja Matriz de São Brás de Alportel
     kinds:
@@ -452,6 +515,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: São Brás de Alportel > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-sao-bras-de-alportel-moinho-do-bengado
     name: Moinho do Bengado
     kinds:
@@ -460,6 +525,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: São Brás de Alportel > See
+    crowd_evidence: []
+    months_evidence: []
   - id: algarve-sao-bras-de-alportel-museu-do-traje
     name: Museu do Traje
     kinds:
@@ -469,6 +536,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: São Brás de Alportel > See
+    crowd_evidence: []
+    months_evidence: []
 extraction:
   listings: 108
   listings_by_type:

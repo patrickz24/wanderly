@@ -153,6 +153,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-trollfjord
     name: Trollfjord
     kinds:
@@ -160,8 +162,20 @@ pois:
       - boat_trip
     description: a fjord so narrow that the Hurtigrute boats, except for the very newest, have to do a three point turn. Navigation banned in spring because of falling rock, but otherwise visited on the southbound voyage of the Hurtigruten. Alternatively reached by a boat trip from Svolvær.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 1
+      - 2
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
     source_ref: Lofoten > Other destinations
+    crowd_evidence: []
+    months_evidence:
+      - Navigation banned in spring because of falling rock, but otherwise visited on the southbound voyage of the Hurtigruten.
   - id: lofoten-vaeroy
     name: Værøy
     kinds:
@@ -170,6 +184,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > Other destinations > Islands
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-kollhellaren
     name: Kollhellaren
     kinds:
@@ -179,6 +195,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-lofotr-viking-museum
     name: Lofotr Viking Museum
     kinds:
@@ -188,6 +206,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-reine-fishing-village
     name: Reine Fishing village
     kinds:
@@ -196,6 +216,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-reine-kultursenter
     name: Reine Kultursenter
     kinds:
@@ -204,6 +226,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-galleri-espolin
     name: Galleri Espolin
     kinds:
@@ -212,6 +236,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-galleri-lille-kabelvag
     name: Galleri Lille Kabelvåg
     kinds:
@@ -220,6 +246,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-langasen-sculpture-park
     name: Langåsen Sculpture Park
     kinds:
@@ -228,6 +256,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-lofotakvariet
     name: Lofotakvariet
     kinds:
@@ -236,6 +266,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-lofotmuseet
     name: Lofotmuseet
     kinds:
@@ -244,6 +276,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-svolvaer-tourist-information
     name: Svolvær tourist information
     kinds:
@@ -252,6 +286,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-lofoten-war-memorial-museum
     name: Lofoten War Memorial Museum
     kinds:
@@ -260,6 +296,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-rando-lofoten
     name: Rando Lofoten
     kinds:
@@ -268,6 +306,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > See > Itineraries
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-reinebringen
     name: Reinebringen
     kinds:
@@ -276,6 +316,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lofoten > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-vaeroy-turistkontor-ferjekaia
     name: Turistkontor ferjekaia
     kinds:
@@ -284,6 +326,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Værøy > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-vaeroy-turistkontor-husfliden-sentrum
     name: Turistkontor Husfliden sentrum
     kinds:
@@ -292,6 +336,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Værøy > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-vaeroy-vaeroy-nye-kirke
     name: Værøy nye kirke
     kinds:
@@ -300,6 +346,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Værøy > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-vaeroy-vaeroy-gamle-kirke
     name: Værøy gamle kirke
     kinds:
@@ -308,6 +356,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Værøy > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-vaeroy-ornhus
     name: Ørnhus
     kinds:
@@ -316,6 +366,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Værøy > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-vaeroy-puffins
     name: Puffins
     kinds:
@@ -324,6 +376,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Værøy > See
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-vaeroy-nordlanshagen-beach
     name: Nordlanshagen beach
     kinds:
@@ -332,6 +386,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Værøy > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-vaeroy-punn-sanden-beach
     name: Punn Sanden beach
     kinds:
@@ -340,6 +396,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Værøy > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: lofoten-vaeroy-sorlandshagen-beach
     name: Sørlandshagen beach
     kinds:
@@ -348,6 +406,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Værøy > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
 extraction:
   listings: 54
   listings_by_type:

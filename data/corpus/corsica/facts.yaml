@@ -188,14 +188,27 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Corsica > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-gr-20
     name: GR 20
     kinds:
       - hiking
     description: perhaps the best known and most difficult of all the Grande Randonnée trails. This trail takes approximately 17 days if using the traditional waypoints, though it may take more or less time depending on your experience and needs. The trail is particularly crowded in August; many people suggest the best time is in late spring or early autumn. The greatest danger on the GR 20 arises from the intense summer storms, with lightning claiming the most fatalities.
-    crowd_level: null
-    best_months: []
+    crowd_level: 4
+    best_months:
+      - 3
+      - 4
+      - 5
+      - 8
+      - 9
+      - 10
+      - 11
     source_ref: Corsica > Do > Long-distance walking
+    crowd_evidence:
+      - The trail is particularly crowded in August; many people suggest the best time is in late spring or early autumn.
+    months_evidence:
+      - The trail is particularly crowded in August; many people suggest the best time is in late spring or early autumn.
   - id: corsica-mare-e-mare-nord
     name: Mare e Mare Nord
     kinds:
@@ -205,6 +218,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Corsica > Do > Long-distance walking
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-mare-e-mare-sud
     name: Mare e Mare Sud
     kinds:
@@ -213,6 +228,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Corsica > Do > Long-distance walking
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-mare-e-monti
     name: Mare e Monti
     kinds:
@@ -223,6 +240,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Corsica > Do > Long-distance walking
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-bonifacio-eglise-saint-erasme
     name: Église Saint-Erasme
     kinds:
@@ -231,6 +250,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bonifacio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-bonifacio-grain-de-sable
     name: Grain de Sable
     kinds:
@@ -239,6 +260,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bonifacio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-bonifacio-chapelle-de-saint-roch
     name: Chapelle de Saint-Roch
     kinds:
@@ -247,6 +270,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bonifacio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-bonifacio-porte-de-genes-or-genoa-gate
     name: Porte de Gênes or Genoa Gate
     kinds:
@@ -255,6 +280,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bonifacio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-bonifacio-bastion-de-letendard
     name: Bastion de l’Etendard
     kinds:
@@ -264,6 +291,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bonifacio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-bonifacio-maison-du-podestat
     name: Maison du Podestat
     kinds:
@@ -272,6 +301,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bonifacio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-bonifacio-eglise-sainte-marie-majeure
     name: Église Sainte-Marie-Majeure
     kinds:
@@ -282,6 +313,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bonifacio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-bonifacio-escalier-du-roi-daragon
     name: Escalier du Roi d'Aragon
     kinds:
@@ -292,6 +325,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bonifacio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-bonifacio-eglise-saint-dominique
     name: Église Saint-Dominique
     kinds:
@@ -301,6 +336,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bonifacio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-bonifacio-il-torrione
     name: Il Torrione
     kinds:
@@ -309,6 +346,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bonifacio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-bonifacio-loggia-de-larsenal
     name: Loggia de l'Arsenal
     kinds:
@@ -318,6 +357,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bonifacio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-bonifacio-cimetiere-marin
     name: Cimetière Marin
     kinds:
@@ -327,6 +368,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bonifacio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-bonifacio-spmb-sea-trips
     name: SPMB sea trips
     kinds:
@@ -335,6 +378,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bonifacio > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-bonifacio-le-gouvernail
     name: Le Gouvernail
     kinds:
@@ -343,6 +388,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bonifacio > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-saint-florent-citadelle
     name: Citadelle
     kinds:
@@ -351,6 +398,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Saint-Florent > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-saint-florent-visit-wineries-in-patrimonio
     name: Visit Wineries in Patrimonio
     kinds:
@@ -359,6 +408,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Saint-Florent > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-ajaccio-napoleons-house
     name: Napoleon's House
     kinds:
@@ -367,6 +418,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ajaccio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-ajaccio-cathedral
     name: Cathedral
     kinds:
@@ -375,6 +428,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ajaccio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-ajaccio-church-of-st-erasme
     name: Church of St Erasme
     kinds:
@@ -383,6 +438,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ajaccio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-ajaccio-citadel
     name: Citadel
     kinds:
@@ -391,6 +448,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ajaccio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-ajaccio-harbour-station
     name: Harbour station
     kinds:
@@ -399,6 +458,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ajaccio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-ajaccio-musee-fesch
     name: Musee Fesch
     kinds:
@@ -407,6 +468,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ajaccio > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-ajaccio-filitosa
     name: Filitosa
     kinds:
@@ -414,8 +477,18 @@ pois:
       - food
     description: Prehistoric (mostly Bronze Age) settlement with standing stones and small museum. Easiest visited from Ajaccio, but also an easy day-trip from Bonifacio or Porto Vecchio. Other notable standing stones in the area are at Palaggiu and Stanfari. Restaurant on site.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
     source_ref: Ajaccio > See
+    crowd_evidence: []
+    months_evidence:
+      - '(price: €9, children under 8 free; hours: Apr-Oct 09:00 to sunset)'
   - id: corsica-ajaccio-take-the-train-to-bocognano
     name: Take the train to Bocognano
     kinds:
@@ -428,6 +501,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ajaccio > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-place-de-la-liberation
     name: Place de la Libération
     kinds:
@@ -438,6 +513,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-regional-museum-of-prehistoric-corsica-and-archeologie
     name: Regional museum of prehistoric Corsica and archeologie
     kinds:
@@ -447,6 +524,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-eglise-sainte-marie
     name: Église Sainte-Marie
     kinds:
@@ -456,6 +535,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-eglise-san-damiano
     name: Église San Damiano
     kinds:
@@ -464,6 +545,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-sartene-watchtower
     name: Sartène Watchtower
     kinds:
@@ -472,6 +555,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-town-hall
     name: Town Hall
     kinds:
@@ -480,6 +565,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-spin-a-cavallu-bridge
     name: Spin' a Cavallu bridge
     kinds:
@@ -488,6 +575,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-tizzano-fort
     name: Tizzano Fort
     kinds:
@@ -496,6 +585,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-cauria
     name: Cauria
     kinds:
@@ -504,6 +595,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-fontanaccia-dolmen
     name: Fontanaccia dolmen
     kinds:
@@ -512,6 +605,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-stantari
     name: Stantari
     kinds:
@@ -521,6 +616,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-rinaghju
     name: Rinaghju
     kinds:
@@ -529,6 +626,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-baricci-castle
     name: Baricci Castle
     kinds:
@@ -537,6 +636,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-paddaghju
     name: Paddaghju
     kinds:
@@ -546,6 +647,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-u-frate-e-a-sora
     name: U Frate è a Sora
     kinds:
@@ -554,6 +657,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-roccapina-tower
     name: Roccapina tower
     kinds:
@@ -563,6 +668,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-senetosa-tower
     name: Senetosa tower
     kinds:
@@ -571,6 +678,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-senetosa-lighthouse
     name: Senetosa lighthouse
     kinds:
@@ -579,14 +688,21 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Sartène > See
+    crowd_evidence: []
+    months_evidence: []
   - id: corsica-sartene-procession-of-catenacciu
     name: Procession of Catenacciu
     kinds:
       - other
     description: It's the procession with the representation of the Passion of Christ that takes place during Good Friday (Venneri Santu or Vennaressantu in Corsican). A man impersonates Jesus who has to carry a cross weighing about 30 kg and has a chain tied to his bare feet; the helper travels 1.8 km and must fall three times along the way, like Christ.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 3
+      - 4
     source_ref: Sartène > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - '(hours: In March or April)'
 extraction:
   listings: 101
   listings_by_type:

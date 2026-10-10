@@ -181,6 +181,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Apulia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-andria
     name: Andria
     kinds:
@@ -189,6 +191,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Apulia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli
     name: Gallipoli
     kinds:
@@ -198,6 +202,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Apulia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-monte-santangelo
     name: Monte Sant'Angelo
     kinds:
@@ -207,6 +213,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Apulia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-otranto
     name: Otranto
     kinds:
@@ -215,6 +223,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Apulia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-specchia
     name: Specchia
     kinds:
@@ -223,6 +233,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Apulia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-tremiti-islands
     name: Tremiti Islands
     kinds:
@@ -231,14 +243,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Apulia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-notte-della-taranta
     name: Notte della Taranta
     kinds:
       - other
     description: A large itinerant festival of popular Salento music (Pizzica and Taranta) that takes place in the first half of August, culminating in a final open-air concert in the municipality of Melpignano, province of Lecce. The night of the great concert (concertone) has each year a different national-famous music director and involves more than 100.000 spectators.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 8
     source_ref: Apulia > Do > Festivals
+    crowd_evidence: []
+    months_evidence:
+      - '**Notte della Taranta** (Night of Tarantula) — A large itinerant festival of popular Salento music (Pizzica and Taranta) that takes place in the first half of August, culminating in a final open-air concert in the municipality of Melpignano, province of Lecce.'
   - id: apulia-bari-basilica-of-saint-nicholas
     name: Basilica of Saint Nicholas
     kinds:
@@ -248,6 +266,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bari > See
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-bari-bari-cathedral
     name: Bari Cathedral
     kinds:
@@ -257,6 +277,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bari > See
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-bari-castello-normanno-svevo
     name: Castello normanno-svevo
     kinds:
@@ -265,6 +287,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bari > See
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-bari-chiesa-di-santanna
     name: Chiesa di Sant’Anna
     kinds:
@@ -275,6 +299,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bari > See
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-bari-church-of-santa-chiara
     name: Church of Santa Chiara
     kinds:
@@ -284,6 +310,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bari > See
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-bari-teatro-petruzzelli
     name: Teatro Petruzzelli
     kinds:
@@ -292,6 +320,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bari > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-bari-festa-di-san-nicola-patrono-di-bari
     name: Festa di San Nicola Patrono di Bari
     kinds:
@@ -300,8 +330,14 @@ pois:
       - food
     description: The Saint of the city is Saint Nicholas. He is celebrated by the Catholic Church on December 6. In Bari, several masses take place early in the morning (as early as 04:00) of December 6. A huge crowd and lots of fast food stands fill the old town through the night. The city's main celebration of Saint Nicholas, however, takes place in May 6–8 with historical reconstructions, popular music and a two-day fireworks contest. For this event many pilgrims come from all over the world.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 5
+      - 12
     source_ref: Bari > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - He is celebrated by the Catholic Church on December 6.
+      - The city's main celebration of Saint Nicholas, however, takes place in May 6–8 with historical reconstructions, popular music and a two-day fireworks contest.
   - id: apulia-bari-fiera-del-levante
     name: Fiera del Levante
     kinds:
@@ -310,6 +346,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bari > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-bari-bari-international-film-festival
     name: Bari International Film Festival
     kinds:
@@ -318,6 +356,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bari > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-monopoli-monopoli-cathedral
     name: Monopoli Cathedral
     kinds:
@@ -326,6 +366,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Monopoli > See
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-monopoli-castle-of-charles-v
     name: Castle of Charles V
     kinds:
@@ -335,6 +377,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Monopoli > See
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-monopoli-castle-of-santo-stefano
     name: Castle of Santo Stefano
     kinds:
@@ -344,6 +388,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Monopoli > See
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-monopoli-jerusalem-hospital
     name: Jerusalem Hospital,
     kinds:
@@ -352,6 +398,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Monopoli > See
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-monopoli-palazzo-palmieri
     name: Palazzo Palmieri
     kinds:
@@ -360,6 +408,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Monopoli > See
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-monopoli-church-of-s-domenico
     name: Church of S. Domenico
     kinds:
@@ -368,6 +418,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Monopoli > See
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-monopoli-porto-antico
     name: Porto Antico
     kinds:
@@ -377,6 +429,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Monopoli > See
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-cathedral
     name: Cathedral
     kinds:
@@ -386,6 +440,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > See > Old city
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-santa-maria-della-purita
     name: Santa Maria della Purità
     kinds:
@@ -395,6 +451,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > See > Old city
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-san-francesco-dassisi
     name: San Francesco d'Assisi
     kinds:
@@ -404,6 +462,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > See > Old city
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-angevin-aragonese-castle
     name: Angevin-Aragonese Castle
     kinds:
@@ -413,6 +473,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > See > Old city
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-santissimo-crocifisso
     name: Santissimo Crocifisso
     kinds:
@@ -421,6 +483,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > See > Old city
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-santa-maria-degli-angeli
     name: Santa Maria degli Angeli
     kinds:
@@ -429,6 +493,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > See > Old city
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-san-francesco-di-paola
     name: San Francesco di Paola
     kinds:
@@ -437,6 +503,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > See > Old city
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-diocesan-museum
     name: Diocesan Museum
     kinds:
@@ -445,6 +513,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-museo-civico-emanuele-barba
     name: Museo civico Emanuele Barba
     kinds:
@@ -453,6 +523,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-marea
     name: Marea
     kinds:
@@ -462,6 +534,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-greek-fountain
     name: Greek Fountain
     kinds:
@@ -470,6 +544,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > See > Mainland
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-santa-maria-del-canneto
     name: Santa Maria del Canneto
     kinds:
@@ -478,6 +554,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > See > Mainland
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-acquapark-splash
     name: Acquapark Splash!
     kinds:
@@ -487,14 +565,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-festa-di-santa-cristina
     name: Festa di Santa Cristina
     kinds:
       - other
     description: "Festa di Santa Cristina (Festival of Saint Christina): the most important religious festival in the town, in honor of the town's patron saint. The event takes place on 23, 24 and 25 July, when the statue of Saint Christina is procession over the sea and Corso Roma is decorated with spectacular and colored illuminations, in addiction to many stalls. This is a really can't-miss events if you choose to visit Gallipoli during this period."
     crowd_level: null
-    best_months: []
+    best_months:
+      - 7
     source_ref: Gallipoli (Italy) > Do
+    crowd_evidence: []
+    months_evidence:
+      - The event takes place on 23, 24 and 25 July, when the statue of Saint Christina is procession over the sea and Corso Roma is decorated with spectacular and colored illuminations, in addiction to many stalls.
   - id: apulia-gallipoli-italy-teatro-garibaldi
     name: Teatro Garibaldi
     kinds:
@@ -504,6 +588,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > Do > Theatres
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-cinema-teatro-italia
     name: Cinema Teatro Italia
     kinds:
@@ -512,6 +598,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > Do > Theatres
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-gallipoli-italy-cinema-teatro-schipa
     name: Cinema Teatro Schipa
     kinds:
@@ -520,6 +608,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Gallipoli (Italy) > Do > Theatres
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-tremiti-islands-abbey-of-santa-maria-a-mare
     name: Abbey of Santa Maria a Mare
     kinds:
@@ -530,6 +620,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tremiti Islands > See > San Nicola
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-tremiti-islands-grotta-delle-rondinelle
     name: Grotta delle Rondinelle
     kinds:
@@ -539,6 +631,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tremiti Islands > See > San Domino
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-tremiti-islands-grotta-del-bue-marino
     name: Grotta del Bue Marino
     kinds:
@@ -548,6 +642,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tremiti Islands > See > San Domino
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-tremiti-islands-grotta-delle-viole
     name: Grotta delle Viole
     kinds:
@@ -557,6 +653,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tremiti Islands > See > San Domino
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-tremiti-islands-pineta-di-san-domino
     name: Pineta di San Domino
     kinds:
@@ -566,6 +664,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tremiti Islands > See > San Domino
+    crowd_evidence: []
+    months_evidence: []
   - id: apulia-tremiti-islands-ditta-i-saraceni-group
     name: Ditta I Saraceni Group
     kinds:
@@ -574,6 +674,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tremiti Islands > Do
+    crowd_evidence: []
+    months_evidence: []
 extraction:
   listings: 134
   listings_by_type:

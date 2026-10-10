@@ -208,6 +208,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Provence-Alpes-Côte d'Azur > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-french-alps
     name: French Alps
     kinds:
@@ -217,6 +219,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Provence-Alpes-Côte d'Azur > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-french-riviera
     name: French Riviera
     kinds:
@@ -225,6 +229,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Provence-Alpes-Côte d'Azur > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-iles-dhyeres
     name: Îles d'Hyères
     kinds:
@@ -233,6 +239,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Provence-Alpes-Côte d'Azur > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-luberon
     name: Luberon
     kinds:
@@ -242,6 +250,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Provence-Alpes-Côte d'Azur > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-mercantour-national-park
     name: Mercantour National Park
     kinds:
@@ -251,6 +261,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Provence-Alpes-Côte d'Azur > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-mont-ventoux
     name: Mont Ventoux
     kinds:
@@ -259,6 +271,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Provence-Alpes-Côte d'Azur > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-verdon-gorge
     name: Verdon Gorge
     kinds:
@@ -269,6 +283,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Provence-Alpes-Côte d'Azur > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-nice-colline-du-chateau
     name: Colline du Château
     kinds:
@@ -280,6 +296,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Nice > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-nice-parc-phoenix
     name: Parc Phoenix
     kinds:
@@ -288,6 +306,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Nice > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-nice-musee-des-arts-asiatiques
     name: Musée des Arts Asiatiques
     kinds:
@@ -297,6 +317,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Nice > See > Museums and art galleries
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-nice-musee-marc-chagall
     name: Musée Marc Chagall
     kinds:
@@ -305,6 +327,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Nice > See > Museums and art galleries
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-nice-musee-matisse
     name: Musée Matisse
     kinds:
@@ -313,6 +337,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Nice > See > Museums and art galleries
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-nice-musee-darcheologie-de-nice
     name: Musée d’Archéologie de Nice
     kinds:
@@ -323,6 +349,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Nice > See > Museums and art galleries
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-nice-museum-of-modern-and-contemporary-art
     name: Museum of Modern and Contemporary Art
     kinds:
@@ -333,6 +361,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Nice > See > Museums and art galleries
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-nice-musee-des-beaux-arts-jules-cheret
     name: Musée des Beaux-Arts Jules Chéret
     kinds:
@@ -341,6 +371,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Nice > See > Museums and art galleries
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-nice-chateau-de-bellet
     name: Chateâu de Bellet
     kinds:
@@ -351,6 +383,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Nice > See > Museums and art galleries
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-nice-cliff-walk
     name: Cliff Walk
     kinds:
@@ -359,6 +393,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Nice > Do > Beautiful landscapes
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-nice-train-des-pignes
     name: Train des Pignes
     kinds:
@@ -368,6 +404,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Nice > Do > Beautiful landscapes
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-nice-opera-nice-cote-dazur
     name: Opéra Nice Côte d'Azur
     kinds:
@@ -376,6 +414,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Nice > Do > Live performances
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-avignon-papal-palace
     name: Papal Palace
     kinds:
@@ -384,6 +424,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Avignon > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-avignon-pont-saint-benezet
     name: Pont Saint-Bénezet
     kinds:
@@ -393,6 +435,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Avignon > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-avignon-collection-lambert
     name: Collection Lambert
     kinds:
@@ -401,6 +445,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Avignon > See > Art museums
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-avignon-calvet-museum
     name: Calvet Museum
     kinds:
@@ -409,6 +455,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Avignon > See > Art museums
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-avignon-musee-du-petit-palais-avignon
     name: Musée du Petit Palais Avignon
     kinds:
@@ -418,6 +466,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Avignon > See > Art museums
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-avignon-palais-du-roure
     name: Palais du Roure
     kinds:
@@ -427,6 +477,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Avignon > See > History Museums and Exhibits
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-avignon-lapidary-museum
     name: Lapidary Museum
     kinds:
@@ -437,14 +489,27 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Avignon > See > History Museums and Exhibits
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-avignon-rugby-league
     name: Rugby league
     kinds:
       - other
     description: 'Rugby league: SO Avignon play in Elite 1, the top French tier for 13-a-side rugby. Their home ground is Parc des Sports (capacity 10,000) 3 km southeast of town centre. The playing season is Sept-April.'
     crowd_level: null
-    best_months: []
+    best_months:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 9
+      - 10
+      - 11
+      - 12
     source_ref: Avignon > Do
+    crowd_evidence: []
+    months_evidence:
+      - The playing season is Sept-April.
   - id: provence-avignon-theatre-festival
     name: Theatre Festival
     kinds:
@@ -453,6 +518,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Avignon > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-avignon-the-international-congress-center
     name: The International Congress Center
     kinds:
@@ -461,6 +528,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Avignon > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-avignon-avignon-fair
     name: Avignon Fair
     kinds:
@@ -468,8 +537,12 @@ pois:
       - wine
     description: A modern-style fair. The wine competition of the Rhone Valley, organised upstream since 1980, gives its official results at this fair.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 4
     source_ref: Avignon > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - '(hours: mid-April)'
   - id: provence-marseille-vieux-port
     name: Vieux Port
     kinds:
@@ -478,6 +551,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-basilique-notre-dame-de-la-garde
     name: Basilique Notre Dame de la Garde
     kinds:
@@ -486,6 +561,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-abbey-of-saint-victor
     name: Abbey of Saint Victor
     kinds:
@@ -494,6 +571,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-lhotel-de-ville
     name: L'Hotel de Ville
     kinds:
@@ -502,6 +581,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-le-panier
     name: Le Panier
     kinds:
@@ -511,6 +592,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-marseille-cathedral
     name: Marseille Cathedral
     kinds:
@@ -520,6 +603,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-la-vieille-charite
     name: La Vieille Charité
     kinds:
@@ -529,6 +614,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-cours-belsunce
     name: Cours Belsunce
     kinds:
@@ -537,6 +624,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-place-castellane
     name: Place Castellane
     kinds:
@@ -545,6 +634,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-cours-julien
     name: Cours Julien
     kinds:
@@ -553,6 +644,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-place-jean-jaures
     name: Place Jean Jaurès
     kinds:
@@ -562,6 +655,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-noailles-quarter
     name: Noailles quarter
     kinds:
@@ -570,6 +665,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-palais-longchamp
     name: Palais Longchamp
     kinds:
@@ -579,6 +676,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-fort-saint-jean
     name: Fort Saint-Jean
     kinds:
@@ -590,6 +689,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-vallon-des-auffes
     name: Vallon des Auffes
     kinds:
@@ -598,6 +699,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-parc-borely
     name: Parc Borély
     kinds:
@@ -610,6 +713,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-musee-des-civilisations-de-leurope-et-de-la-mediterranee
     name: Musée des Civilisations de l'Europe et de la Méditerranée
     kinds:
@@ -619,6 +724,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Museums and places of interest
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-musee-des-beaux-arts-de-marseille
     name: Musée des beaux-arts de Marseille
     kinds:
@@ -627,6 +734,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Museums and places of interest
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-natural-history-museum
     name: Natural History Museum
     kinds:
@@ -635,6 +744,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Museums and places of interest
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-musee-cantini
     name: Musée Cantini
     kinds:
@@ -643,6 +754,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Museums and places of interest
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-museum-of-contemporary-art-mac
     name: Museum of Contemporary Art [MAC]
     kinds:
@@ -651,6 +764,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Museums and places of interest
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-frac-provence-alpes-cote-dazur
     name: FRAC Provence-Alpes-Côte d’Azur
     kinds:
@@ -659,6 +774,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Museums and places of interest
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-musee-des-docks-romains
     name: Musée des Docks Romains
     kinds:
@@ -668,6 +785,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Museums and places of interest
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-archaeological-museum
     name: Archaeological Museum
     kinds:
@@ -677,6 +796,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Museums and places of interest
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-marseille-history-museum-mhm
     name: Marseille History Museum (MHM)
     kinds:
@@ -686,6 +807,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Museums and places of interest
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-deportation-memorial
     name: Deportation Memorial
     kinds:
@@ -694,6 +817,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Museums and places of interest
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-museum-of-the-decorative-arts-fashion-and-ceramics
     name: Museum of the Decorative Arts, Fashion and Ceramics
     kinds:
@@ -702,6 +827,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Museums and places of interest
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-motorcycle-museum
     name: Motorcycle Museum
     kinds:
@@ -710,6 +837,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Museums and places of interest
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-mazargues-war-cemetery
     name: Mazargues War Cemetery
     kinds:
@@ -718,6 +847,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Museums and places of interest
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-unite-dhabitation
     name: Unité d'Habitation
     kinds:
@@ -729,6 +860,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Museums and places of interest
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-calanques
     name: Calanques
     kinds:
@@ -737,8 +870,14 @@ pois:
       - historic_site
     description: "The Calanques. The Calanques are a series of miniature fjords to the south of Marseille near Cassis. From Marseille these are best accessed from the University campus at Luminy which can be reached by bus #21 departing from Rond Point du Prado opposite the Stade Velodrome or from Vieux Port. The 'fjords' are amazing with wonderful blue sea and spectacular lime stone cliffs. The walk along the coast from Cassis to Marseille is spectacular, it can be done in one day at a fast pace. The trail (GR) is clearly marked (red and white strips). From Luminy, you can turn left to Cassis or right to Callelongue (bus #20 connects you to bus #19, which takes you to Rond-Point du Prado for connections to the centre, or you can use also bus #21, 23). From June to September some of the Calanques can be closed due to high risk of fire. Since 2022, in order to preserve the National Park from erosion due to the large number of visitors, it is now mandatory to make a free reservation to visit Pierres Tombées and Sugiton's calanques during the summer."
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 7
+      - 8
     source_ref: Marseille > See > Outside of town
+    crowd_evidence: []
+    months_evidence:
+      - Since 2022, in order to preserve the National Park from erosion due to the large number of visitors, it is now mandatory to make a free reservation to visit Pierres Tombées and Sugiton's calanques during the summer.
   - id: provence-marseille-chateau-dif
     name: Château d'If
     kinds:
@@ -747,6 +886,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Outside of town
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-allauch
     name: Allauch
     kinds:
@@ -755,6 +896,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Outside of town
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-lestaque-and-cote-bleue
     name: L'Estaque and côte bleue
     kinds:
@@ -763,6 +906,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > See > Outside of town
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-artplexe
     name: Artplexe
     kinds:
@@ -772,6 +917,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-cinema-lalhambra
     name: Cinéma l'Alhambra
     kinds:
@@ -780,6 +927,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-stade-velodrome
     name: Stade Vélodrome
     kinds:
@@ -788,6 +937,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-city-of-music
     name: City of Music
     kinds:
@@ -796,6 +947,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-cepac-silo
     name: CEPAC Silo
     kinds:
@@ -804,14 +957,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-la-fete-bleue
     name: La Fête Bleue
     kinds:
       - other
     description: La Fête Bleue, "the Blue Festival" at the end of June. A lot of shows (concerts, movie projections, exhibits) occur in many places in the city, and the theme is the colour blue.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
     source_ref: Marseille > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - La Fête Bleue, "the Blue Festival" at the end of June.
   - id: provence-marseille-la-fete-du-panier
     name: La Fête du Panier
     kinds:
@@ -820,30 +979,46 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marseille > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-marseille-le-fdamm
     name: Le FDAmM
     kinds:
       - other
     description: Le FDAmM or Festival de Danse et des Arts Multiples de Marseille, is the main dance festival in Marseille and lasts all summer.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 7
+      - 8
     source_ref: Marseille > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - Le FDAmM or Festival de Danse et des Arts Multiples de Marseille, is the main dance festival in Marseille and lasts all summer.
   - id: provence-marseille-le-festival-du-plateau
     name: Le festival du Plateau
     kinds:
       - nature
     description: Le festival du Plateau, at the Cours Julien, in September.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 9
     source_ref: Marseille > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - Le festival du Plateau, at the Cours Julien, in September.
   - id: provence-marseille-la-fiesta-des-suds
     name: La Fiesta Des Suds
     kinds:
       - viewpoint
     description: La Fiesta Des Suds, at the Dock des Suds, in October is a famous festival dedicated to World music. You can attend concerts of artists such as Asian Dub Foundation, Buena Vista Social Club, Cesaria Evora.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 10
     source_ref: Marseille > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - La Fiesta Des Suds, at the Dock des Suds, in October is a famous festival dedicated to World music.
   - id: provence-marseille-la-foire-aux-santons
     name: La Foire aux Santons
     kinds:
@@ -851,8 +1026,12 @@ pois:
       - food
     description: La Foire aux Santons is a very picturesque Christmas market held from late November near the Canebière and Vieux Port. Provence is the home of santons, terracotta figurines used in nativity scènes known as crèches. Some merchants and many churches display impressive crèches of their own.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 11
     source_ref: Marseille > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - La Foire aux Santons is a very picturesque Christmas market held from late November near the Canebière and Vieux Port.
   - id: provence-aix-en-provence-cours-mirabeau
     name: Cours Mirabeau
     kinds:
@@ -861,6 +1040,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-fontaine-de-la-rotonde
     name: Fontaine de la Rotonde
     kinds:
@@ -869,6 +1050,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-passage-agard
     name: Passage Agard
     kinds:
@@ -877,6 +1060,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-hotel-de-ville
     name: Hôtel de Ville
     kinds:
@@ -885,6 +1070,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-halle-de-grains
     name: Halle de Grains
     kinds:
@@ -893,6 +1080,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-palais-de-justice
     name: Palais de Justice
     kinds:
@@ -901,6 +1090,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-palais-de-larcheveche
     name: Palais de l'Archevêché
     kinds:
@@ -909,6 +1100,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-cathedrale-saint-sauveur
     name: Cathédrale Saint-Sauveur
     kinds:
@@ -918,6 +1111,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-place-dalbertas
     name: Place d’Albertas
     kinds:
@@ -926,6 +1121,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-monument-joseph-sec
     name: Monument Joseph Sec
     kinds:
@@ -934,6 +1131,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-thermes-sextius
     name: Thermes Sextius
     kinds:
@@ -942,6 +1141,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-vasarely-foundation
     name: Vasarely Foundation
     kinds:
@@ -950,6 +1151,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-musee-granet
     name: Musée Granet
     kinds:
@@ -959,6 +1162,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-atelier-cezanne
     name: Atelier Cézanne
     kinds:
@@ -967,6 +1172,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-museum-of-old-aix
     name: Museum of Old Aix
     kinds:
@@ -975,6 +1182,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-bastide-du-jas-de-bouffan
     name: Bastide du Jas de Bouffan
     kinds:
@@ -983,6 +1192,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-hotel-de-caumont
     name: Hotel de Caumont
     kinds:
@@ -991,6 +1202,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > See
+    crowd_evidence: []
+    months_evidence: []
   - id: provence-aix-en-provence-festival-daix-en-provence
     name: Festival d'Aix-en-Provence
     kinds:
@@ -999,6 +1212,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aix-en-Provence > Do
+    crowd_evidence: []
+    months_evidence: []
 extraction:
   listings: 309
   listings_by_type:

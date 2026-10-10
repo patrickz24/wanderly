@@ -186,6 +186,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Mallorca > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-sa-calobra
     name: Sa Calobra
     kinds:
@@ -194,6 +196,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Mallorca > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-san-salvador-monastery
     name: San Salvador Monastery
     kinds:
@@ -203,6 +207,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Mallorca > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-cabrera
     name: Cabrera
     kinds:
@@ -211,6 +217,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Mallorca > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-old-town
     name: Palma old town
     kinds:
@@ -221,6 +229,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Mallorca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-valldemossa
     name: Valldemossa
     kinds:
@@ -230,6 +240,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Mallorca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-salbufera
     name: S'Albufera
     kinds:
@@ -238,6 +250,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Mallorca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-palma-cathedral
     name: Palma Cathedral
     kinds:
@@ -248,6 +262,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-royal-palace-of-la-almudaina
     name: Royal Palace of La Almudaina
     kinds:
@@ -257,6 +273,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-banys-arabs
     name: Banys Àrabs
     kinds:
@@ -265,6 +283,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-museum-of-mallorca
     name: Museum of Mallorca
     kinds:
@@ -273,14 +293,19 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-basilica-de-sant-francesc
     name: Basílica de Sant Francesc
     kinds:
       - religious_site
     description: Church and cloister founded in 1281, in similar style to the cathedral but without the tourist hordes. The Franciscan nuns moved in with the Poor Clares in the 19th century.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence:
+      - '**Basílica de Sant Francesc** — Church and cloister founded in 1281, in similar style to the cathedral but without the tourist hordes.'
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-fundacion-juan-march-palma
     name: Fundación Juan March Palma
     kinds:
@@ -289,6 +314,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-llotja-de-palma
     name: Llotja de Palma
     kinds:
@@ -297,6 +324,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-es-baluard-museu-dart-contemporani
     name: Es Baluard Museu d'Art Contemporani
     kinds:
@@ -305,6 +334,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-el-casco-antiguo
     name: El Casco Antiguo
     kinds:
@@ -314,6 +345,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-ses-voltes
     name: Ses Voltes
     kinds:
@@ -322,6 +355,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-short-del-rei
     name: S'Hort del Rei
     kinds:
@@ -331,6 +366,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-convent-of-st-clara
     name: Convent of St Clara
     kinds:
@@ -339,6 +376,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-santa-eulalia
     name: Santa Eulàlia
     kinds:
@@ -347,6 +386,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-basilica-de-sant-miquel
     name: Basílica de Sant Miquel
     kinds:
@@ -355,6 +396,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-placa-del-mercat
     name: Plaça del Mercat
     kinds:
@@ -363,6 +406,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > City centre
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-pueblo-espanol
     name: Pueblo Español
     kinds:
@@ -373,6 +418,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > Further out
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-castell-de-bellver
     name: Castell de Bellver
     kinds:
@@ -382,6 +429,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > Further out
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-pilar-and-joan-miro-foundation
     name: Pilar and Joan Miro Foundation
     kinds:
@@ -390,6 +439,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > Further out
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-museu-historic-militar-de-sant-carles
     name: Museu Històric Militar de Sant Carles
     kinds:
@@ -398,6 +449,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > Further out
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-palma-aquarium
     name: Palma Aquarium
     kinds:
@@ -406,6 +459,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > Further out
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-paseo-maritimo
     name: Paseo Marítimo
     kinds:
@@ -416,6 +471,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > Further out
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-transilvania-cafeteria-museum
     name: Transilvania Cafetería-Museum
     kinds:
@@ -424,6 +481,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > See > Further out
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-aqualand-el-arenal
     name: Aqualand El Arenal
     kinds:
@@ -431,25 +490,40 @@ pois:
       - family
     description: This water park has slides and pools for kids of all ages.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
     source_ref: Palma de Mallorca > Do
+    crowd_evidence: []
+    months_evidence:
+      - '(price: Adult €35, conc or child €27; hours: May-Oct daily 10:00-17:00)'
   - id: mallorca-palma-de-mallorca-platja-de-can-pere-antoni
     name: Platja de Can Pere Antoni
     kinds:
       - beach
       - religious_site
     description: Platja de Can Pere Antoni is the most central beach, starting 500 m east of Parc de la Mar beneath the cathedral. Some traffic noise, the east end is a little quieter. There are showers and lockers here.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Palma de Mallorca > Do
+    crowd_evidence:
+      - Some traffic noise, the east end is a little quieter.
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-ciudad-jardin
     name: Ciudad Jardín
     kinds:
       - beach
     description: Ciudad Jardín is 2 km east of Platja de Can Pere Antoni. It's a white sandy strip 450 m long, seldom crowded, with a series of jetties to curb erosion.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Palma de Mallorca > Do
+    crowd_evidence:
+      - It's a white sandy strip 450 m long, seldom crowded, with a series of jetties to curb erosion.
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-can-pastilla
     name: Ca'n Pastilla
     kinds:
@@ -459,14 +533,19 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-cala-major
     name: Cala Major
     kinds:
       - beach
     description: Cala Major is a suburb 4 km southwest of Palma de Mallorca with lots of high-rise hotels. The beach is 200 m long and 80 m wide and can get busy at the height of summer, but the water is crystal clear and suitable for kiddy-bathing.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Palma de Mallorca > Do
+    crowd_evidence:
+      - The beach is 200 m long and 80 m wide and can get busy at the height of summer, but the water is crystal clear and suitable for kiddy-bathing.
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-marineland
     name: Marineland
     kinds:
@@ -476,6 +555,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-plaza-de-toros
     name: Plaza de Toros
     kinds:
@@ -484,38 +565,56 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-palma-de-mallorca-mallorca-live
     name: Mallorca Live
     kinds:
       - other
     description: Mallorca Live is a rock and pop music festival in mid June.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
     source_ref: Palma de Mallorca > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - Mallorca Live is a rock and pop music festival in mid June.
   - id: mallorca-palma-de-mallorca-festival-de-pollenca
     name: Festival de Pollença
     kinds:
       - other
     description: Festival de Pollença is classical music, throughout August.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 8
     source_ref: Palma de Mallorca > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - Festival de Pollença is classical music, throughout August.
   - id: mallorca-palma-de-mallorca-evolution-film-festival
     name: Evolution Film Festival
     kinds:
       - other
     description: Evolution Film Festival is first week in November. Fonart Short Film Festival is no longer held.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 11
     source_ref: Palma de Mallorca > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - Evolution Film Festival is first week in November.
   - id: mallorca-palma-de-mallorca-smooth-jazz-festival
     name: Smooth Jazz Festival
     kinds:
       - other
     description: Smooth Jazz Festival is likewise first week in November.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 11
     source_ref: Palma de Mallorca > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - Smooth Jazz Festival is likewise first week in November.
   - id: mallorca-palma-de-mallorca-festa-de-lestendard
     name: Festa de l’Estendard
     kinds:
@@ -524,6 +623,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Palma de Mallorca > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-church-of-sant-jaume
     name: Church of Sant Jaume
     kinds:
@@ -534,6 +635,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-bull-ring
     name: Bull ring
     kinds:
@@ -542,6 +645,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-roman-pollentia
     name: Roman Pollentia
     kinds:
@@ -550,6 +655,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-museu-sa-bassa-blanca
     name: Museu sa Bassa Blanca
     kinds:
@@ -560,6 +667,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-parc-natural-de-salbufera
     name: Parc Natural de s'Albufera
     kinds:
@@ -569,6 +678,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-city-walls
     name: City walls
     kinds:
@@ -577,6 +688,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-porta-del-moll
     name: Porta del Moll
     kinds:
@@ -585,6 +698,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-museu-monografic
     name: Museu Monogràfic
     kinds:
@@ -594,6 +709,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-municipal-cemetery
     name: Municipal Cemetery
     kinds:
@@ -602,6 +719,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-alcanada-lighthouse
     name: Alcanada Lighthouse
     kinds:
@@ -611,6 +730,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-ermita-de-la-victoria
     name: Ermita de la Victoria
     kinds:
@@ -622,6 +743,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-talaia-dalcudia
     name: Talaia d'Alcúdia
     kinds:
@@ -630,6 +753,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-end-point
     name: End Point
     kinds:
@@ -638,6 +763,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-gran-irland
     name: Gran Irland
     kinds:
@@ -647,6 +774,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-alcudia-beach
     name: Alcúdia beach
     kinds:
@@ -655,22 +784,32 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-fira-de-la-sipia
     name: Fira de la Sípia
     kinds:
       - food
     description: Fira de la Sípia is a seafood festival in mid-April.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 4
     source_ref: Alcúdia > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - Fira de la Sípia is a seafood festival in mid-April.
   - id: mallorca-alcudia-ironman-triathlon
     name: Ironman Triathlon
     kinds:
       - other
     description: Ironman Triathlon is held between Alcúdia and Palma in May.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 5
     source_ref: Alcúdia > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - Ironman Triathlon is held between Alcúdia and Palma in May.
   - id: mallorca-alcudia-festival-of-st-jaume
     name: Festival of St Jaume
     kinds:
@@ -678,8 +817,12 @@ pois:
       - religious_site
     description: Festival of St Jaume is over nine days in July. The apostle James the Great was martyred in 44 AD, with his pattern day taken as 25 July in western Christendom. He's the patron saint of Spain, where he's called Santiago, from Sancti Iacobi the church or sanctuary of Saint James. The town is decorated and there are various concerts, theatre, exhibitions, religious ceremonies and fireworks.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 7
     source_ref: Alcúdia > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - Festival of St Jaume is over nine days in July.
   - id: mallorca-alcudia-triennial-of-holy-christ
     name: Triennial of Holy Christ
     kinds:
@@ -688,22 +831,32 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Alcúdia > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-alcudia-alcudia-jazz-festival
     name: Alcúdia Jazz Festival
     kinds:
       - other
     description: Alcúdia Jazz Festival is held in September.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 9
     source_ref: Alcúdia > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - Alcúdia Jazz Festival is held in September.
   - id: mallorca-alcudia-agricultural-fair
     name: Agricultural fair
     kinds:
       - other
     description: Agricultural fair is in early October
     crowd_level: null
-    best_months: []
+    best_months:
+      - 10
     source_ref: Alcúdia > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - Agricultural fair is in early October
   - id: mallorca-cala-millor-drach-caves
     name: Drach Caves
     kinds:
@@ -712,6 +865,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cala Millor > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-cala-millor-hams-caves
     name: Hams' Caves
     kinds:
@@ -720,6 +875,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cala Millor > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-cala-millor-esglesia-nova
     name: Església Nova
     kinds:
@@ -728,6 +885,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cala Millor > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-cala-millor-molinos-del-cementerio
     name: Molinos del cementerio
     kinds:
@@ -736,6 +895,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cala Millor > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-cala-millor-castillo-de-amer
     name: Castillo de Amer
     kinds:
@@ -744,6 +905,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cala Millor > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-cala-millor-puig-de-na-penyal
     name: Puig de na Penyal
     kinds:
@@ -753,6 +916,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cala Millor > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-cala-millor-poblat-talaiotic-de-lillot
     name: Poblat talaiòtic de l'Illot
     kinds:
@@ -761,6 +926,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cala Millor > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-cala-millor-sillot
     name: S'Illot
     kinds:
@@ -769,15 +936,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cala Millor > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-cala-millor-portocristo
     name: Portocristo
     kinds:
       - nature
       - village
     description: Portocristo is a small harbour and resort south near the show caves. Not much in the village itself, Plaça dels Enamorats - Lovers Square - has been quiet since the internet was invented.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Cala Millor > See
+    crowd_evidence:
+      - Not much in the village itself, Plaça dels Enamorats - Lovers Square - has been quiet since the internet was invented.
+    months_evidence: []
   - id: mallorca-cala-millor-fantasy-park
     name: Fantasy Park
     kinds:
@@ -788,6 +960,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cala Millor > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-cala-millor-la-reserva
     name: La Reserva
     kinds:
@@ -796,6 +970,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cala Millor > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-cala-millor-safari-mallorca
     name: Safari Mallorca
     kinds:
@@ -804,6 +980,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Cala Millor > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-calvia-moli-de-santa-ponca
     name: Molí de Santa Ponça
     kinds:
@@ -812,6 +990,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Calvià > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-calvia-nostra-senyora-de-lesperanca
     name: Nostra Senyora de l'Esperança
     kinds:
@@ -820,6 +1000,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Calvià > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-calvia-puig-de-sa-morisca
     name: Puig de sa Morisca
     kinds:
@@ -829,6 +1011,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Calvià > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-calvia-punta-de-el-toro
     name: Punta de El Toro
     kinds:
@@ -837,6 +1021,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Calvià > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-calvia-calvia
     name: Calvià
     kinds:
@@ -845,6 +1031,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Calvià > See
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-calvia-jungle-parc-mallorca
     name: Jungle Parc Mallorca
     kinds:
@@ -855,6 +1043,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Calvià > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-calvia-piraten-park
     name: Piraten Park
     kinds:
@@ -865,6 +1055,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Calvià > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-calvia-port-adriano
     name: Port Adriano
     kinds:
@@ -873,14 +1065,22 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Calvià > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: mallorca-calvia-fiestas-de-verano
     name: Fiestas de Verano
     kinds:
       - other
     description: Fiestas de Verano are music festivals held in several towns in summer. Peguera fiesta is late July, when rock music blares out until dawn. Calvià town fiesta is a more civic affair with mostly sports events, over a week in mid-July.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 7
+      - 8
     source_ref: Calvià > Do
+    crowd_evidence: []
+    months_evidence:
+      - Fiestas de Verano are music festivals held in several towns in summer.
 extraction:
   listings: 99
   listings_by_type:

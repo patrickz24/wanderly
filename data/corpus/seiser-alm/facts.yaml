@@ -135,6 +135,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seiser Alm > See
+    crowd_evidence: []
+    months_evidence: []
   - id: seiser-alm-franciscan-church
     name: Franciscan Church
     kinds:
@@ -143,6 +145,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seiser Alm > See
+    crowd_evidence: []
+    months_evidence: []
   - id: seiser-alm-church-of-st-leonard
     name: Church of St. Leonard
     kinds:
@@ -153,6 +157,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seiser Alm > See
+    crowd_evidence: []
+    months_evidence: []
   - id: seiser-alm-church-of-the-holy-cross
     name: Church of the Holy Cross
     kinds:
@@ -162,6 +168,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seiser Alm > See
+    crowd_evidence: []
+    months_evidence: []
   - id: seiser-alm-gardena-pass
     name: Gardena pass
     kinds:
@@ -171,6 +179,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seiser Alm > See
+    crowd_evidence: []
+    months_evidence: []
   - id: seiser-alm-hans-paula-steger-trail
     name: Hans & Paula Steger trail
     kinds:
@@ -179,8 +189,14 @@ pois:
       - adventure
     description: The Hans & Paula Steger trail (trail number 30) between Compatsch and Saltria is a 4.65-km-long natural and cultural trail that is also suitable for prams. Information boards at the edge of the road describe the area and tell about the legend of the Partschott. The hike can be shortened or lengthened as desired by several bus stops at the edge of the road and further hiking trails. If there is sufficient snow cover, the trail is used in winter as a winter hiking trail; cross-country ski runs can be safely made over bridges.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 1
+      - 2
+      - 12
     source_ref: Seiser Alm > Do > In the summer > Hiking
+    crowd_evidence: []
+    months_evidence:
+      - If there is sufficient snow cover, the trail is used in winter as a winter hiking trail; cross-country ski runs can be safely made over bridges.
   - id: seiser-alm-puflatsch-circular-trail
     name: Puflatsch circular trail
     kinds:
@@ -189,6 +205,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seiser Alm > Do > In the summer > Hiking
+    crowd_evidence: []
+    months_evidence: []
   - id: seiser-alm-friedrich-august-trail
     name: Friedrich-August trail
     kinds:
@@ -197,6 +215,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seiser Alm > Do > In the summer > Hiking
+    crowd_evidence: []
+    months_evidence: []
   - id: seiser-alm-witches-benches-adventure-trail
     name: Witches' benches adventure trail
     kinds:
@@ -207,6 +227,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seiser Alm > Do > In the summer > Hiking
+    crowd_evidence: []
+    months_evidence: []
   - id: seiser-alm-langkofelhutte-seirlseralm-pasture
     name: Langkofelhutte/Seirlseralm pasture
     kinds:
@@ -215,6 +237,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seiser Alm > Do > In the summer > Hiking
+    crowd_evidence: []
+    months_evidence: []
   - id: seiser-alm-oskar-schuster-climbing-trail
     name: Oskar-Schuster climbing trail
     kinds:
@@ -224,6 +248,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seiser Alm > Do > In the summer > Climbing
+    crowd_evidence: []
+    months_evidence: []
   - id: seiser-alm-maximilian-climbing-trail
     name: Maximilian Climbing Trail
     kinds:
@@ -233,6 +259,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seiser Alm > Do > In the summer > Climbing
+    crowd_evidence: []
+    months_evidence: []
   - id: seiser-alm-seiser-alm-half-marathon
     name: Seiser Alm Half-Marathon
     kinds:
@@ -241,6 +269,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seiser Alm > Do > In the summer > Running
+    crowd_evidence: []
+    months_evidence: []
 extraction:
   listings: 22
   listings_by_type:

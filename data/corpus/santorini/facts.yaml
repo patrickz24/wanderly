@@ -193,6 +193,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Santorini > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-red-beach
     name: Red Beach
     kinds:
@@ -203,9 +205,12 @@ pois:
       - boat_trip
       - adventure
     description: Red Beach south of Akrotiri earns its name from the iron-rich sedimentary rocks in the cliff face towering above the water, as well as the red sand. It's quite crowded. Many distant yachts can be seen from the beach—it looks really romantic at sunset time. Great snorkelling - an abundance of sea life is present, as with Perissa.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Santorini > Do > Beaches
+    crowd_evidence:
+      - It's quite crowded.
+    months_evidence: []
   - id: santorini-white-beach
     name: White Beach
     kinds:
@@ -216,6 +221,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Santorini > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-vlychada-nude-beach
     name: Vlychada nude beach
     kinds:
@@ -224,6 +231,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Santorini > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-perissa-perivolos-agios-georgios-beach
     name: Perissa — Perivolos — Agios Georgios beach
     kinds:
@@ -234,14 +243,19 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Santorini > Do > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-baxedes-beach
     name: Baxedes beach
     kinds:
       - beach
     description: Baxedes beach is the main beach at the north side of Thira island. Baxedes is a peaceful place with black sand, much more like how Santorini was like before mass tourism discovered the island.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Santorini > Do > Beaches
+    crowd_evidence:
+      - Baxedes is a peaceful place with black sand, much more like how Santorini was like before mass tourism discovered the island.
+    months_evidence: []
   - id: santorini-oia-greece-amoudi-bay
     name: Amoudi Bay
     kinds:
@@ -249,9 +263,12 @@ pois:
       - viewpoint
       - food
     description: The most picturesque bay on Thira, the moon shaped bay is surrounded by barren cliffs and a lovely promenade with restaurants. Fantastic spot to watch the famous sunset, although it tends to get crowded for that reason in the evenings.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Oia (Greece) > See
+    crowd_evidence:
+      - Fantastic spot to watch the famous sunset, although it tends to get crowded for that reason in the evenings.
+    months_evidence: []
   - id: santorini-oia-greece-londsa-castle
     name: Londsa Castle
     kinds:
@@ -261,23 +278,31 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oia (Greece) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-oia-greece-armeni-bay
     name: Armeni Bay
     kinds:
       - beach
     description: Harder to reach than Amoudi Bay, and therefore far less crowded. Limited facilities, but great for a swim.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Oia (Greece) > See
+    crowd_evidence:
+      - '**Armeni Bay** — Harder to reach than Amoudi Bay, and therefore far less crowded.'
+    months_evidence: []
   - id: santorini-oia-greece-katharos-beach
     name: Katharos Beach
     kinds:
       - beach
       - food
     description: Quiet pebble stone beach with the adjacent Katharos Lounge which serves great food.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Oia (Greece) > See
+    crowd_evidence:
+      - '**Katharos Beach** — Quiet pebble stone beach with the adjacent Katharos Lounge which serves great food.'
+    months_evidence: []
   - id: santorini-oia-greece-agios-georgios-church
     name: Agios Georgios Church
     kinds:
@@ -286,6 +311,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oia (Greece) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-oia-greece-naval-museum
     name: Naval Museum
     kinds:
@@ -295,6 +322,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oia (Greece) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-oia-greece-panagia-platsani
     name: Panagia Platsani
     kinds:
@@ -303,6 +332,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oia (Greece) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-oia-greece-saint-georgios-oia-holy-orthodox-church
     name: Saint Georgios Oia Holy Orthodox Church
     kinds:
@@ -311,6 +342,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oia (Greece) > See
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-oia-greece-fira-oia-hike
     name: Fira - Oia Hike
     kinds:
@@ -321,6 +354,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oia (Greece) > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-oia-greece-caldera-massages-studio
     name: Caldera Massages Studio
     kinds:
@@ -328,8 +363,18 @@ pois:
       - viewpoint
     description: Professional massages in the unique cave style treatment rooms. The special Sunset packages include massages in the cave and then viewing from the Terrace to the Oia sunset with a bottle of bubbles. All booking is online.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
     source_ref: Oia (Greece) > Do > Spa and massage
+    crowd_evidence: []
+    months_evidence:
+      - '(hours: Daily Apr-Oct)'
   - id: santorini-oia-greece-perfume-bar
     name: Perfume Bar
     kinds:
@@ -338,6 +383,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oia (Greece) > Do > Spa and massage
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-museum-of-prehistoric-thira
     name: Museum of Prehistoric Thira
     kinds:
@@ -346,6 +393,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-folklore-museum
     name: Folklore Museum
     kinds:
@@ -357,6 +406,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-archaeological-museum-of-thera
     name: Archaeological Museum of Thera
     kinds:
@@ -366,14 +417,25 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-megaro-gyzi-museum
     name: Megaro Gyzi Museum
     kinds:
       - museum
     description: An ethnographic museum with a collection of maps, landscapes, engravings, and dresses of the Cycladic Islands from the 15th to the 19th century. It is housed in the Megaro Gyzi mansion dated to the 17th century. It also features an exhibition of old manuscripts from the 16th to the 19th century, as well as painting and photographs of Santorini.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
     source_ref: Fira > See > Museums
+    crowd_evidence: []
+    months_evidence:
+      - '(hours: May - Oct)'
   - id: santorini-fira-roger-tourte-exposition
     name: Roger Tourte Exposition
     kinds:
@@ -382,6 +444,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-catholic-church-of-the-dormition-the-three-bells-of-fira
     name: Catholic Church of the Dormition (The Three Bells of Fira)
     kinds:
@@ -392,6 +456,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > See > Religious architecture
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-dominican-convent
     name: Dominican Convent
     kinds:
@@ -400,6 +466,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > See > Religious architecture
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-orthodox-metropolitan-cathedral
     name: Orthodox Metropolitan Cathedral
     kinds:
@@ -408,6 +476,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > See > Religious architecture
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-cathedral-of-saint-john-the-baptist
     name: Cathedral of Saint John the Baptist
     kinds:
@@ -417,6 +487,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > See > Religious architecture
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-the-white-door-theatro
     name: The White Door Theatro
     kinds:
@@ -425,6 +497,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-santorini-zen-spa
     name: Santorini Zen Spa
     kinds:
@@ -433,6 +507,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-kokkalo
     name: Kokkalo
     kinds:
@@ -441,6 +517,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-watch-a-sunset
     name: Watch a sunset
     kinds:
@@ -449,6 +527,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-go-to-the-old-port
     name: Go to the Old Port
     kinds:
@@ -457,6 +537,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-agiou-mina-street
     name: Agiou Mina Street
     kinds:
@@ -466,6 +548,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > Do > Walks and hikes
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-fira-oia-hike
     name: Fira - Oia Hike
     kinds:
@@ -476,6 +560,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > Do > Walks and hikes
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-nea-kameni
     name: Nea Kameni
     kinds:
@@ -487,6 +573,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > Do > Boat trips
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-fira-palea-kameni
     name: Palea Kameni
     kinds:
@@ -498,6 +586,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fira > Do > Boat trips
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-perissa-agia-irini
     name: Agia Irini
     kinds:
@@ -507,6 +597,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Perissa > See
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-perissa-timiou-stafrou
     name: Timiou Stafrou
     kinds:
@@ -516,6 +608,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Perissa > See
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-perissa-panagia-katefiani
     name: Panagia Katefiani
     kinds:
@@ -525,6 +619,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Perissa > See
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-perissa-museum-of-minerals-and-fossils
     name: Museum of Minerals and Fossils
     kinds:
@@ -533,6 +629,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Perissa > See
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-perissa-ancient-quarry
     name: Ancient Quarry
     kinds:
@@ -541,6 +639,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Perissa > See
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-perissa-perissa-beach
     name: Perissa Beach
     kinds:
@@ -549,6 +649,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Perissa > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-perissa-mediterranean-dive-club
     name: Mediterranean Dive Club
     kinds:
@@ -557,6 +659,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Perissa > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-megalochori-lost-atlantis-experience
     name: Lost Atlantis Experience
     kinds:
@@ -567,6 +671,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Megalochori > See
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-megalochori-the-heart-of-santorini
     name: The Heart of Santorini
     kinds:
@@ -575,6 +681,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Megalochori > See
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-megalochori-plaka-thermal-springs
     name: Plaka Thermal Springs
     kinds:
@@ -585,6 +693,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Megalochori > See
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-megalochori-the-rabbit-of-santorini
     name: The Rabbit of Santorini
     kinds:
@@ -593,6 +703,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Megalochori > See
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-megalochori-saints-anargyri-church
     name: Saints Anárgyri Church
     kinds:
@@ -601,6 +713,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Megalochori > See > Churches
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-megalochori-agios-nikolaos-church
     name: Agios Nikolaos Church
     kinds:
@@ -610,6 +724,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Megalochori > See > Churches
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-megalochori-thiraform
     name: ThiraForm
     kinds:
@@ -618,6 +734,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Megalochori > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: santorini-megalochori-paralia-thermis
     name: Paralia Thermis
     kinds:
@@ -627,6 +745,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Megalochori > Do
+    crowd_evidence: []
+    months_evidence: []
 extraction:
   listings: 159
   listings_by_type:

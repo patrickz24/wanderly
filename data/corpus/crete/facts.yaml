@@ -193,8 +193,17 @@ pois:
       - nature
     description: A breathtaking gorge on the southern part of Chania Prefecture open for the 5- to 7-hour moderately strenuous hike from 1 May until mid-October.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
     source_ref: Crete > Other destinations
+    crowd_evidence: []
+    months_evidence:
+      - '**Samaria National Park** (Greek: Φαράγγι Σαμαριάς) — A breathtaking gorge on the southern part of Chania Prefecture open for the 5- to 7-hour moderately strenuous hike from 1 May until mid-October.'
   - id: crete-lasithi-plateau
     name: Lasithi Plateau
     kinds:
@@ -204,6 +213,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Crete > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-vai-palm-forest
     name: Vai palm forest
     kinds:
@@ -212,6 +223,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Crete > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-gramvousa
     name: Gramvousa
     kinds:
@@ -220,6 +233,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Crete > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-elafonisi
     name: Elafonisi
     kinds:
@@ -228,6 +243,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Crete > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-heraklion-archaeological-museum
     name: Heraklion Archaeological Museum
     kinds:
@@ -237,6 +254,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-palace-of-knossos
     name: Palace of Knossos
     kinds:
@@ -245,6 +264,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-koules
     name: Koules
     kinds:
@@ -253,6 +274,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-fortifications-of-heraklion
     name: Fortifications of Heraklion
     kinds:
@@ -261,6 +284,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-historical-museum-of-crete
     name: Historical Museum of Crete
     kinds:
@@ -271,6 +296,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-loggia
     name: Loggia
     kinds:
@@ -279,6 +306,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-morosini-fountain
     name: Morosini Fountain
     kinds:
@@ -287,6 +316,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-st-minas-cathedral
     name: St Minas Cathedral
     kinds:
@@ -295,6 +326,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-st-titus-church
     name: St Titus Church
     kinds:
@@ -303,6 +336,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-st-catherine-of-the-sinaites-church
     name: St Catherine of the Sinaites Church
     kinds:
@@ -311,6 +346,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-st-marks-basilica
     name: St Mark's Basilica
     kinds:
@@ -319,6 +356,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-dominican-church-of-st-peter
     name: Dominican Church of St Peter
     kinds:
@@ -327,6 +366,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-natural-history-museum-of-crete
     name: Natural History Museum of Crete
     kinds:
@@ -335,6 +376,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-nikos-kazantzakis-museum
     name: Nikos Kazantzakis Museum
     kinds:
@@ -344,6 +387,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-cretaquarium-thalassokosmos
     name: CretAquarium Thalassokosmos
     kinds:
@@ -352,14 +397,26 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-lychnostatis-open-air-museum
     name: Lychnostatis Open-Air Museum
     kinds:
       - museum
     description: Open-air Cretan folklore museum.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
     source_ref: Heraklion > See
+    crowd_evidence: []
+    months_evidence:
+      - '(price: €5, concessions €2-3; hours: Apr-Oct: Sun-Fri 09:00-14:00, closed Sat, closed Nov-Mar)'
   - id: crete-heraklion-amoudara
     name: Amoudara
     kinds:
@@ -369,6 +426,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-horseback-riding
     name: Horseback riding
     kinds:
@@ -377,6 +436,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-water-fun
     name: Water fun
     kinds:
@@ -386,6 +447,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-heraklion-sailing-club
     name: Heraklion Sailing Club
     kinds:
@@ -395,14 +458,23 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Heraklion > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-heraklion-heraklion-summer-arts-festival
     name: Heraklion Summer Arts Festival
     kinds:
       - other
     description: Heraklion Summer Arts Festival is held from June to September.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 7
+      - 8
+      - 9
     source_ref: Heraklion > Do
+    crowd_evidence: []
+    months_evidence:
+      - Heraklion Summer Arts Festival is held from June to September.
   - id: crete-rethymno-arkadi-monastery
     name: Arkadi Monastery
     kinds:
@@ -413,6 +485,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Rethymno > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-rethymno-damnoni
     name: Damnoni
     kinds:
@@ -421,6 +495,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Rethymno > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-rethymno-eleftherna
     name: Eleftherna
     kinds:
@@ -430,6 +506,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Rethymno > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-rethymno-fortezza-of-rethymnon
     name: Fortezza of Rethymnon
     kinds:
@@ -439,6 +517,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Rethymno > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-rethymno-kotsifou-gorge
     name: Kotsifou gorge
     kinds:
@@ -447,6 +527,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Rethymno > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-rethymno-mount-ida
     name: Mount Ida
     kinds:
@@ -456,6 +538,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Rethymno > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-rethymno-neratze-mosque-and-mikrasiaton-square
     name: Neratze Mosque and Mikrasiaton square
     kinds:
@@ -464,6 +548,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Rethymno > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-rethymno-preveli
     name: Preveli
     kinds:
@@ -472,6 +558,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Rethymno > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-rethymno-rimondi-fountain
     name: Rimondi Fountain
     kinds:
@@ -481,6 +569,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Rethymno > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-rethymno-historic-buildings
     name: Historic buildings
     kinds:
@@ -489,6 +579,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Rethymno > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-rethymno-boardwalk
     name: Boardwalk
     kinds:
@@ -498,6 +590,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Rethymno > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-chania-etz-hayyim-synagogue
     name: Etz Hayyim Synagogue
     kinds:
@@ -507,6 +601,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Chania > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-chania-maleme-village
     name: Maleme village
     kinds:
@@ -517,6 +613,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Chania > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-chania-archaeological-museum-of-hania
     name: Archaeological Museum of Hania
     kinds:
@@ -526,6 +624,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Chania > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-chania-samaria-gorge
     name: Samaria Gorge
     kinds:
@@ -534,6 +634,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Chania > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-agios-nikolaos-spinalonga
     name: Spinalonga
     kinds:
@@ -542,6 +644,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agios Nikolaos > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-agios-nikolaos-barbarossas-cave
     name: Barbarossa's Cave
     kinds:
@@ -551,6 +655,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agios Nikolaos > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-agios-nikolaos-lato
     name: Lato
     kinds:
@@ -559,6 +665,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agios Nikolaos > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-agios-nikolaos-archaeological-museum
     name: Archaeological Museum
     kinds:
@@ -568,6 +676,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agios Nikolaos > See
+    crowd_evidence: []
+    months_evidence: []
   - id: crete-agios-nikolaos-semi-submarine
     name: Semi-submarine
     kinds:
@@ -576,6 +686,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Agios Nikolaos > See
+    crowd_evidence: []
+    months_evidence: []
 extraction:
   listings: 99
   listings_by_type:

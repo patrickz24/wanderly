@@ -191,9 +191,12 @@ pois:
     kinds:
       - village
     description: 'Deserted landscapes: the rural Highland population was once greater, but they left or were driven out. Haunting Glencoe was a 17th-century example, and Auchendrain near Inveraray depicts farmhouse life before the big exodus of the 18th and 19th centuries. On several hillsides you see abandoned villages, and at Helmsdale the reverse: the makeshift village erected by those evicted from their crofts, before they despaired and headed to the lowland cities.'
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Scottish Highlands > See
+    crowd_evidence:
+      - 'Deserted landscapes: the rural Highland population was once greater, but they left or were driven out.'
+    months_evidence: []
   - id: scottish-highlands-prehistoric-structures
     name: Prehistoric structures
     kinds:
@@ -202,6 +205,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Scottish Highlands > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-north-coast-500
     name: North Coast 500
     kinds:
@@ -210,6 +215,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Scottish Highlands > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-mccaigs-tower
     name: McCaig’s Tower
     kinds:
@@ -221,6 +228,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-oban-hydro
     name: Oban Hydro
     kinds:
@@ -229,14 +238,28 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-war-peace-museum
     name: War & Peace Museum
     kinds:
       - museum
     description: No, Tolstoy never visited Oban, though the works of Sir Walter Scott were among his influences. This museum describes Oban's role in wartime, and its blossoming in peacetime through tourism.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
     source_ref: Oban > See
+    crowd_evidence: []
+    months_evidence:
+      - closed during Winter)
   - id: scottish-highlands-oban-st-johns-cathedral
     name: St John's Cathedral
     kinds:
@@ -245,6 +268,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-st-columbas-cathedral
     name: St Columba's Cathedral
     kinds:
@@ -254,6 +279,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-dunollie-castle
     name: Dunollie Castle
     kinds:
@@ -264,6 +291,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-dunstaffnage-castle
     name: Dunstaffnage Castle
     kinds:
@@ -273,6 +302,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-ardchattan-priory
     name: Ardchattan Priory
     kinds:
@@ -280,8 +311,18 @@ pois:
       - religious_site
     description: This was a Valliscaulian monastery, an obscure 13th-century sect. There are scrappy remains of the church and High Cross but the main attraction is the gardens.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
     source_ref: Oban > See
+    crowd_evidence: []
+    months_evidence:
+      - '(hours: Apr-Oct: Wed 9:30AM-5:30PM)'
   - id: scottish-highlands-oban-castle-stalker
     name: Castle Stalker
     kinds:
@@ -292,6 +333,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-arduaine-garden
     name: Arduaine Garden
     kinds:
@@ -300,6 +343,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-dunollie-lighthouse
     name: Dunollie Lighthouse
     kinds:
@@ -308,6 +353,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-the-dog-stone
     name: The Dog Stone
     kinds:
@@ -316,6 +363,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-sea-kayak-oban
     name: Sea Kayak Oban
     kinds:
@@ -324,6 +373,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-whats-on
     name: What's on?
     kinds:
@@ -332,6 +383,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-atlantis-leisure
     name: Atlantis Leisure
     kinds:
@@ -340,6 +393,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-day-trips
     name: Day trips
     kinds:
@@ -348,6 +403,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-boat-cruises-to-st-kilda
     name: Boat cruises to St Kilda
     kinds:
@@ -358,6 +415,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-isle-of-kerrera
     name: Isle of Kerrera
     kinds:
@@ -367,6 +426,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-rugby-union
     name: Rugby Union
     kinds:
@@ -375,22 +436,38 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Oban > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-oban-shinty
     name: Shinty
     kinds:
       - other
     description: 'Shinty: Oban Camanachd play in the MOWI Premiership, the top tier. The playing season is April-Oct.'
     crowd_level: null
-    best_months: []
+    best_months:
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
     source_ref: Oban > Do
+    crowd_evidence: []
+    months_evidence:
+      - The playing season is April-Oct.
   - id: scottish-highlands-oban-oban-games-argyllshire-gathering
     name: Oban Games & Argyllshire Gathering
     kinds:
       - nature
     description: Oban Games & Argyllshire Gathering are held at Mossfield Park on the fourth Thursday in August, with the next on Th 27 Aug 2026.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 8
     source_ref: Oban > Do
+    crowd_evidence: []
+    months_evidence:
+      - Oban Games & Argyllshire Gathering are held at Mossfield Park on the fourth Thursday in August, with the next on Th 27 Aug 2026.
   - id: scottish-highlands-inverness-inverness-castle
     name: Inverness Castle
     kinds:
@@ -399,6 +476,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > See > In town
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-inverness-museum-art-gallery
     name: Inverness Museum & Art Gallery
     kinds:
@@ -409,6 +488,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > See > In town
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-victorian-market
     name: Victorian Market
     kinds:
@@ -417,6 +498,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > See > In town
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-abertarff-house
     name: Abertarff House
     kinds:
@@ -424,8 +507,18 @@ pois:
       - museum
     description: Built in 1593, the oldest house in Inverness, now run by the National Trust for Scotland, with a small exhibition and garden.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
     source_ref: Inverness > See > In town
+    crowd_evidence: []
+    months_evidence:
+      - '(price: Free; hours: Apr-Oct Tue-Sat 10AM-4PM)'
   - id: scottish-highlands-inverness-old-high-church
     name: Old High Church
     kinds:
@@ -434,6 +527,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > See > In town
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-chapel-yard-cemetery
     name: Chapel Yard Cemetery
     kinds:
@@ -442,6 +537,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > See > In town
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-inverness-cathedral
     name: Inverness Cathedral
     kinds:
@@ -450,6 +547,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > See > In town
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-st-marys-roman-catholic-church
     name: St. Mary's Roman Catholic Church
     kinds:
@@ -459,6 +558,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > See > In town
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-balnain-house
     name: Balnain House
     kinds:
@@ -467,6 +568,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > See > In town
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-knocknagael-boar-stone
     name: Knocknagael Boar Stone
     kinds:
@@ -475,6 +578,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > See > In town
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-inverness-botanic-gardens
     name: Inverness Botanic Gardens
     kinds:
@@ -483,6 +588,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > See > In town
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-craig-phadrig
     name: Craig Phadrig
     kinds:
@@ -492,6 +599,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > See > Further out
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-dochgarroch-locks
     name: Dochgarroch Locks
     kinds:
@@ -500,6 +609,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > See > Further out
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-druid-temple
     name: Druid Temple
     kinds:
@@ -508,6 +619,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > See > Further out
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-culloden
     name: Culloden
     kinds:
@@ -516,14 +629,21 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > See > Further out
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-eden-court-theatre
     name: Eden Court Theatre
     kinds:
       - other
     description: A theatre, arts and cinema venue. They host Under Canvas music festival throughout July and August.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 7
+      - 8
     source_ref: Inverness > Do
+    crowd_evidence: []
+    months_evidence:
+      - They host Under Canvas music festival throughout July and August.
   - id: scottish-highlands-inverness-river-ness
     name: River Ness
     kinds:
@@ -532,6 +652,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-vue-cinema
     name: Vue Cinema
     kinds:
@@ -540,6 +662,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-rugby
     name: Rugby
     kinds:
@@ -548,6 +672,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-dolphin-spotting
     name: Dolphin-spotting
     kinds:
@@ -558,6 +684,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-boat-trips-on-loch-ness
     name: Boat-trips on Loch Ness
     kinds:
@@ -567,6 +695,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-look-up-your-ancestors
     name: Look up your ancestors
     kinds:
@@ -575,6 +705,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-great-glen-way
     name: Great Glen Way
     kinds:
@@ -584,6 +716,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-inverness-music-festival
     name: Inverness Music Festival
     kinds:
@@ -592,6 +726,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-inverness-highland-games
     name: Inverness Highland Games
     kinds:
@@ -600,14 +736,21 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-inverness-tartan-heart-festival
     name: Tartan Heart Festival
     kinds:
       - other
     description: Tartan Heart Festival is held at Belladrum south of Beauly, with the next on July 30 - 1 Aug 2026.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 7
+      - 8
     source_ref: Inverness > Do
+    crowd_evidence: []
+    months_evidence:
+      - Tartan Heart Festival is held at Belladrum south of Beauly, with the next on July 30 - 1 Aug 2026.
   - id: scottish-highlands-inverness-loch-ness-marathon
     name: Loch Ness Marathon
     kinds:
@@ -616,6 +759,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Inverness > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-west-highland-museum
     name: West Highland Museum
     kinds:
@@ -624,6 +769,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-inverlochy-castle
     name: Inverlochy Castle
     kinds:
@@ -632,6 +779,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-treasures-of-the-earth
     name: Treasures of the Earth
     kinds:
@@ -640,6 +789,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-the-fort
     name: The Fort
     kinds:
@@ -648,6 +799,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-the-caledonian-canal
     name: The Caledonian Canal
     kinds:
@@ -656,6 +809,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-neptunes-staircase
     name: Neptune's Staircase
     kinds:
@@ -664,6 +819,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-lock-lochy
     name: Lock Lochy
     kinds:
@@ -672,6 +829,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-lochaber-geopark
     name: Lochaber Geopark
     kinds:
@@ -680,6 +839,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-highland-cinema
     name: Highland Cinema
     kinds:
@@ -688,6 +849,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-three-wise-monkeys-climbing-wall
     name: Three Wise Monkeys Climbing Wall
     kinds:
@@ -697,6 +860,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-nevis-range
     name: Nevis Range
     kinds:
@@ -705,8 +870,16 @@ pois:
       - adventure
     description: Nevis Range ski resort is on Aonach Mor, the mountain just north of Ben Nevis. From the car park (£5 / day) take the gondola to "Snowgoose" at 650 m. Chairlifts and tows lead to the summit plateau around 1221 m, with most pistes along this stretch. Just east are some hairy steep descents. Weather and snow conditions are highly variable, always check ahead on the resort website.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 12
     source_ref: Fort William > Do
+    crowd_evidence: []
+    months_evidence:
+      - '(price: Adult lift pass £42, child or senior £27; hours: late Dec-Apr)'
   - id: scottish-highlands-fort-william-shinty
     name: Shinty
     kinds:
@@ -714,8 +887,18 @@ pois:
       - historic_site
     description: 'Shinty: Fort William play in Mowi Premiership, the top tier. Their home ground is the sports complex behind the Premier Inn. Kilmallie play in National Division the second tier, at Caol Canal Parks. Lochaber play at Spean Bridge: they were promoted in 2025 so they now play in the Premiership. The playing season is April-Oct.'
     crowd_level: null
-    best_months: []
+    best_months:
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
     source_ref: Fort William > Do
+    crowd_evidence: []
+    months_evidence:
+      - The playing season is April-Oct.
   - id: scottish-highlands-fort-william-long-distance-hikes
     name: Long-distance hikes
     kinds:
@@ -725,6 +908,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-climb-ben-nevis
     name: Climb Ben Nevis
     kinds:
@@ -734,6 +919,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-the-mamores
     name: The Mamores
     kinds:
@@ -743,6 +930,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-ski-or-snowboard-at
     name: Ski or snowboard at
     kinds:
@@ -752,8 +941,16 @@ pois:
       - adventure
     description: 'Ski or snowboard at Nevis Range — Nevis Range ski resort is on Aonach Mor, the mountain just north of Ben Nevis. From the car park (£5 / day) take the gondola to "Snowgoose" at 650 m. Chairlifts and tows lead to the summit plateau around 1221 m, with most pistes along this stretch. Just east are some hairy steep descents. Weather and snow conditions are highly variable, always check ahead on the resort website. (price: Adult lift pass £42, child or senior £27; hours: late Dec-Apr)'
     crowd_level: null
-    best_months: []
+    best_months:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 12
     source_ref: Fort William > Do
+    crowd_evidence: []
+    months_evidence:
+      - '(price: Adult lift pass £42, child or senior £27; hours: late Dec-Apr)'
   - id: scottish-highlands-fort-william-nevis-range-gondola
     name: Nevis Range gondola
     kinds:
@@ -762,8 +959,12 @@ pois:
       - adventure
     description: Nevis Range gondola runs year round (day ticket £13) and is the access to other activities. It has six-seater enclosed cabins, dogs welcome but must be leashed on the mountain. Three easy hill walks loop from the Snowgoose station. Climbers ascending Ben Nevis by the North Face route often start by riding up the gondola. There are cross country and downhill mountain bike courses, and the UCI mountain bike World Cup is often held here in early June.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
     source_ref: Fort William > Do
+    crowd_evidence: []
+    months_evidence:
+      - There are cross country and downhill mountain bike courses, and the UCI mountain bike World Cup is often held here in early June.
   - id: scottish-highlands-fort-william-glen-nevis
     name: Glen Nevis
     kinds:
@@ -774,6 +975,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-steall-falls
     name: Steall Falls
     kinds:
@@ -783,6 +986,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-fort-william-the-jacobite
     name: The Jacobite
     kinds:
@@ -790,8 +995,16 @@ pois:
       - boat_trip
     description: The Jacobite is a heritage steam train running daily Apr-Oct between Fort William and Mallaig. It's a six-hour excursion (depart 10:15AM, return by 4PM) staying two hours in Mallaig. May-Sep there's also an afternoon train (12:50-6:50PM), so you could have 4½ hours in Mallaig, time for a boat trip. Trains also stop at Glenfinnan for the obligatory photo of the viaduct, and by request at Arisaig. The morning excursion connects with the Caledonian Sleeper from London.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
     source_ref: Fort William > Do
+    crowd_evidence: []
+    months_evidence:
+      - May-Sep there's also an afternoon train (12:50-6:50PM), so you could have 4½ hours in Mallaig, time for a boat trip.
   - id: scottish-highlands-fort-william-lochaber-live
     name: Lochaber Live
     kinds:
@@ -800,6 +1013,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Fort William > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-cairngorm-reindeer-centre
     name: Cairngorm Reindeer Centre
     kinds:
@@ -808,8 +1023,19 @@ pois:
       - family
     description: "Reindeer (Rangifer tarandus) roam free on the mountain tops, and may approach hikers for hand-outs, their great schnozzles searching like sticky hoover attachments. They especially expect to be fed on the hills around this Centre, which has guided walks two or three times a day. You need your own car to drive from the Centre to wherever the herd happens to be grazing. These walks are over rough boggy terrain: wellies or similar footwear is essential, and children should only join May-Dec when conditions are milder. A few reindeer stand in a paddock if you can't manage the walk or the weather's foul."
     crowd_level: null
-    best_months: []
+    best_months:
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
     source_ref: Aviemore > See
+    crowd_evidence: []
+    months_evidence:
+      - 'These walks are over rough boggy terrain: wellies or similar footwear is essential, and children should only join May-Dec when conditions are milder.'
   - id: scottish-highlands-aviemore-aviemore-stone-circle
     name: Aviemore Stone Circle
     kinds:
@@ -818,6 +1044,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-grenish-stone-circle
     name: Grenish Stone Circle
     kinds:
@@ -827,6 +1055,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-loch-an-eilein
     name: Loch an Eilein
     kinds:
@@ -838,22 +1068,31 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-loch-gamhna
     name: Loch Gamhna
     kinds:
       - hiking
     description: Loch Gamhna is 200 yards (190 meters) south of Loch an Eilein and is somehow even more peaceful. You'll probably have it to yourself. Reach it by one of the side trails from Loch an Eilein that say "Path not maintained". In spring and summer, keep an eye out for ducks with ducklings.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Aviemore > See
+    crowd_evidence:
+      - Loch Gamhna is 200 yards (190 meters) south of Loch an Eilein and is somehow even more peaceful.
+    months_evidence: []
   - id: scottish-highlands-aviemore-ord-ban
     name: Ord Ban
     kinds:
       - hiking
     description: Ord Ban is a 400-m hill on the northwest flank of Loch An Eilein, another quieter (but muddy) trail. Compared to the path around the loch, this trail is much quieter, somewhat more challenging, and less maintained. The vegetation changes dramatically near the top of the hill, and the peak has views of the nearby landscape. If desired, this walk can be done in a loop that goes back to the loch. Wear long trousers because bare legs will attract ticks and midges.
-    crowd_level: null
+    crowd_level: 1
     best_months: []
     source_ref: Aviemore > See
+    crowd_evidence:
+      - Ord Ban is a 400-m hill on the northwest flank of Loch An Eilein, another quieter (but muddy) trail.
+      - Compared to the path around the loch, this trail is much quieter, somewhat more challenging, and less maintained.
+    months_evidence: []
   - id: scottish-highlands-aviemore-loch-morlich
     name: Loch Morlich
     kinds:
@@ -865,6 +1104,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-duke-of-gordons-monument
     name: Duke of Gordon's Monument
     kinds:
@@ -874,6 +1115,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-delfour-stone-circle
     name: Delfour Stone Circle
     kinds:
@@ -882,6 +1125,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-frank-bruce-sculpture-park
     name: Frank Bruce Sculpture Park
     kinds:
@@ -891,6 +1136,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > See
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-glenmore-lodge
     name: Glenmore Lodge
     kinds:
@@ -899,6 +1146,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-g2-adventure-hub
     name: G2 Adventure Hub
     kinds:
@@ -907,6 +1156,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-strathspey-railway
     name: Strathspey Railway
     kinds:
@@ -915,6 +1166,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-speyside-way
     name: Speyside Way
     kinds:
@@ -923,6 +1176,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-lairig-ghru
     name: Lairig Ghru
     kinds:
@@ -931,6 +1186,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-spey-valley-cinema
     name: Spey Valley Cinema
     kinds:
@@ -939,6 +1196,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-craigellachie
     name: Craigellachie
     kinds:
@@ -948,6 +1207,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-cairngorm-mountain-base
     name: Cairngorm Mountain base
     kinds:
@@ -958,6 +1219,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-cairngorm-summit
     name: Cairngorm summit
     kinds:
@@ -968,6 +1231,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-ben-macdui
     name: Ben Macdui
     kinds:
@@ -978,6 +1243,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-see-cairngorms-national-park
     name: See Cairngorms National Park
     kinds:
@@ -986,14 +1253,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Aviemore > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: scottish-highlands-aviemore-highland-games
     name: Highland Games
     kinds:
       - other
     description: "Highland Games: Aviemore doesn't host its own, see Kingussie for the Newtonmore Games in August."
     crowd_level: null
-    best_months: []
+    best_months:
+      - 8
     source_ref: Aviemore > Do
+    crowd_evidence: []
+    months_evidence:
+      - "Highland Games: Aviemore doesn't host its own, see Kingussie for the Newtonmore Games in August."
 extraction:
   listings: 137
   listings_by_type:

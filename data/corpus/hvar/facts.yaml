@@ -147,6 +147,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Hvar > See > Hvar (city) and surroundings
+    crowd_evidence: []
+    months_evidence: []
   - id: hvar-bishops-treasury
     name: Bishop's Treasury
     kinds:
@@ -155,6 +157,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Hvar > See > Hvar (city) and surroundings
+    crowd_evidence: []
+    months_evidence: []
   - id: hvar-humac
     name: Humac
     kinds:
@@ -163,6 +167,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Hvar > See > Humac
+    crowd_evidence: []
+    months_evidence: []
   - id: hvar-grapceva-cave
     name: Grapčeva cave
     kinds:
@@ -172,6 +178,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Hvar > See > Humac
+    crowd_evidence: []
+    months_evidence: []
   - id: hvar-adventure-park-hvar-jelsa
     name: Adventure park Hvar Jelsa
     kinds:
@@ -182,6 +190,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Hvar > Do
+    crowd_evidence: []
+    months_evidence: []
 extraction:
   listings: 24
   listings_by_type:

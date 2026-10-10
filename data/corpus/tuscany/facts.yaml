@@ -207,6 +207,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tuscany > See > Parks
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-the-national-park-of-the-tuscan-archipelago
     name: The National Park of the Tuscan Archipelago
     kinds:
@@ -216,6 +218,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tuscany > See > Parks
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-the-national-park-of-the-foreste-casentinesi-monte-falterona-and-campigna
     name: The National Park of the Foreste Casentinesi, Monte Falterona and Campigna
     kinds:
@@ -224,6 +228,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tuscany > See > Parks
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-the-maremma-regional-park
     name: The Maremma Regional Park
     kinds:
@@ -233,6 +239,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tuscany > See > Parks
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-the-park-of-migliarino-san-rossore-and-massaciuccoli
     name: The Park of Migliarino, San Rossore and Massaciuccoli
     kinds:
@@ -242,6 +250,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tuscany > See > Parks
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-the-montioni-nature-park
     name: The Montioni nature park
     kinds:
@@ -251,6 +261,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tuscany > See > Parks
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-the-livorno-hills-park
     name: The Livorno Hills Park
     kinds:
@@ -260,6 +272,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tuscany > See > Parks
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-the-archaeological-park-of-poggibonsi
     name: The Archaeological Park of Poggibonsi
     kinds:
@@ -269,6 +283,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tuscany > See > Parks
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-the-parks-of-the-val-di-cornia
     name: The Parks of the Val di Cornia
     kinds:
@@ -279,6 +295,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tuscany > See > Parks
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-the-zoological-park-of-european-fauna-in-poppi
     name: The Zoological Park of European Fauna in Poppi
     kinds:
@@ -287,6 +305,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tuscany > See > Parks
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-the-pinocchios-park
     name: The Pinocchio's Park
     kinds:
@@ -297,6 +317,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tuscany > See > Parks
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-medici-villas-and-gardens-in-tuscany
     name: Medici Villas and Gardens in Tuscany
     kinds:
@@ -306,6 +328,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Tuscany > See > Parks
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-santa-maria-del-fiore
     name: Santa Maria del Fiore
     kinds:
@@ -316,6 +340,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Piazza del Duomo
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-giottos-tower
     name: Giotto's Tower
     kinds:
@@ -327,6 +353,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Piazza del Duomo
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-baptistery
     name: Baptistery
     kinds:
@@ -337,6 +365,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Piazza del Duomo
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-museo-dellopera-del-duomo
     name: Museo dell'Opera del Duomo
     kinds:
@@ -346,6 +376,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Piazza del Duomo
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-galleria-degli-uffizi
     name: Galleria degli Uffizi
     kinds:
@@ -356,14 +388,19 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-bargello
     name: Bargello
     kinds:
       - museum
     description: Used as a barracks and prison until the 19th century, this museum houses some of the best Renaissance and Mannerist sculpture. Big names here include Michelangelo, Donatello, Ammannati, Bandinelli, Andrea and Jacopo Sansovino, Desiderio da Settignano, Giambologna, and Antonio Rossellino. It also displays ceramics, textiles & tapestries, ivory, silver, armour and coins. Allow two hours. Not nearly as crowded as the Uffizi or Galleria dell'Accademia and paying a fee to book in advance is likely not necessary.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Florence > See > Museums
+    crowd_evidence:
+      - Not nearly as crowded as the Uffizi or Galleria dell'Accademia and paying a fee to book in advance is likely not necessary.
+    months_evidence: []
   - id: tuscany-florence-galleria-dellaccademia
     name: Galleria dell'Accademia
     kinds:
@@ -372,6 +409,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-palazzo-pitti
     name: Palazzo Pitti
     kinds:
@@ -383,6 +422,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-palazzo-davanzati
     name: Palazzo Davanzati
     kinds:
@@ -391,6 +432,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-museo-galileo
     name: Museo Galileo
     kinds:
@@ -399,6 +442,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-museo-horne
     name: Museo Horne
     kinds:
@@ -407,6 +452,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-archaeological-museum
     name: Archaeological Museum
     kinds:
@@ -416,6 +463,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-museo-novecento
     name: Museo Novecento
     kinds:
@@ -424,6 +473,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-museo-marini
     name: Museo Marini
     kinds:
@@ -432,6 +483,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-stibbert-museum
     name: Stibbert Museum
     kinds:
@@ -440,6 +493,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-palazzo-vecchio
     name: Palazzo Vecchio
     kinds:
@@ -448,6 +503,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Old town centre
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-ponte-vecchio
     name: Ponte Vecchio
     kinds:
@@ -458,6 +515,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Old town centre
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-santa-croce
     name: Santa Croce
     kinds:
@@ -468,6 +527,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Old town centre
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-santa-maria-novella
     name: Santa Maria Novella
     kinds:
@@ -479,6 +540,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Old town centre
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-orsanmichele
     name: Orsanmichele
     kinds:
@@ -489,6 +552,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Old town centre
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-san-lorenzo
     name: San Lorenzo
     kinds:
@@ -498,6 +563,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Old town centre
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-san-marco-convent
     name: San Marco Convent
     kinds:
@@ -507,6 +574,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Old town centre
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-great-synagogue-and-jewish-museum-of-florence
     name: Great Synagogue and Jewish Museum of Florence
     kinds:
@@ -517,6 +586,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Old town centre
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-the-english-cemetery
     name: The English Cemetery
     kinds:
@@ -526,6 +597,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Old town centre
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-piazza-della-signoria
     name: Piazza della Signoria
     kinds:
@@ -535,6 +608,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > Old town centre
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-santa-felicita
     name: Santa Felicita
     kinds:
@@ -543,6 +618,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > South bank of the Arno
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-boboli-gardens
     name: Boboli Gardens
     kinds:
@@ -553,6 +630,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > South bank of the Arno
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-santa-maria-del-carmine
     name: Santa Maria del Carmine
     kinds:
@@ -562,6 +641,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > South bank of the Arno
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-piazzale-michelangelo
     name: Piazzale Michelangelo
     kinds:
@@ -570,6 +651,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > South bank of the Arno
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-san-miniato-al-monte
     name: San Miniato al Monte
     kinds:
@@ -578,6 +661,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > South bank of the Arno
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-pitti-palace
     name: Pitti Palace
     kinds:
@@ -587,6 +672,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > South bank of the Arno
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-natural-history-museum
     name: Natural History Museum
     kinds:
@@ -596,6 +683,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > South bank of the Arno
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-museo-stefano-bardini
     name: Museo Stefano Bardini
     kinds:
@@ -604,6 +693,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > South bank of the Arno
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-villa-di-castello
     name: Villa di Castello
     kinds:
@@ -612,6 +703,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > See > North of the city center
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-enjoy-the-view-from-the-piazzale-michelangelo
     name: Enjoy the view from the Piazzale Michelangelo
     kinds:
@@ -620,6 +713,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-firenze-rafting
     name: Firenze Rafting
     kinds:
@@ -627,8 +722,20 @@ pois:
       - adventure
     description: Guided rafting trips on the Arno through the historic centre, passing beneath Ponte Vecchio. Tours last about one hour, require no previous experience and are run in inflatable rafts with an instructor in each boat. Equipment is provided; participants should expect to get wet. Booking in advance is required.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
     source_ref: Florence > Do
+    crowd_evidence: []
+    months_evidence:
+      - '(price: from €35 per person; hours: Mar-Nov, departures every day)'
   - id: tuscany-florence-climb-the-duomo-or-campanile
     name: Climb the Duomo or Campanile
     kinds:
@@ -639,6 +746,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-stroll-the-boboli-gardens
     name: Stroll the Boboli Gardens
     kinds:
@@ -648,6 +757,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-street-performers
     name: Street performers
     kinds:
@@ -656,14 +767,19 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-florence-join-a-monastery
     name: Join a monastery
     kinds:
       - religious_site
     description: "Join a monastery: those aged 18-35 are invited to take a two-day spiritual retreat at Badia Fiorentina on Via del Proconsolo. Or just come to hear sung vespers at 18:00 and mass at 18:30 nightly in this peaceful church, filled with artwork. It's central yet virtually free of tourists."
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Florence > Do
+    crowd_evidence:
+      - Or just come to hear sung vespers at 18:00 and mass at 18:30 nightly in this peaceful church, filled with artwork.
+    months_evidence: []
   - id: tuscany-florence-impruneta-spa
     name: Impruneta spa
     kinds:
@@ -672,6 +788,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Florence > Do > Further out
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-torre-pendente
     name: Torre Pendente
     kinds:
@@ -684,6 +802,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Piazza dei Miracoli
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-duomo-di-pisa
     name: Duomo di Pisa
     kinds:
@@ -693,6 +813,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Piazza dei Miracoli
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-battistero-di-san-giovanni
     name: Battistero di San Giovanni
     kinds:
@@ -702,6 +824,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Piazza dei Miracoli
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-camposanto-monumentale
     name: Camposanto Monumentale
     kinds:
@@ -710,6 +834,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Piazza dei Miracoli
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-museo-dellopera-del-duomo
     name: Museo dell'Opera del Duomo
     kinds:
@@ -720,6 +846,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Piazza dei Miracoli
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-museo-delle-sinopie
     name: Museo delle Sinopie
     kinds:
@@ -728,6 +856,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Piazza dei Miracoli
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-piazza-dei-cavalieri
     name: Piazza dei Cavalieri
     kinds:
@@ -737,6 +867,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Piazza dei Cavalieri
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-palazzo-della-carovana
     name: Palazzo della Carovana
     kinds:
@@ -745,6 +877,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Piazza dei Cavalieri
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-palazzo-dellorologio
     name: Palazzo dell'Orologio
     kinds:
@@ -753,6 +887,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Piazza dei Cavalieri
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-chiesa-di-santo-stefano
     name: Chiesa di Santo Stefano
     kinds:
@@ -761,6 +897,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Piazza dei Cavalieri
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-museo-nazionale-di-san-matteo
     name: Museo Nazionale di San Matteo
     kinds:
@@ -770,6 +908,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Along the riverbank
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-piazza-garibaldi-and-piazza-xx-settembre
     name: Piazza Garibaldi and Piazza XX Settembre
     kinds:
@@ -779,6 +919,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Along the riverbank
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-santo-sepolcro
     name: Santo Sepolcro
     kinds:
@@ -787,6 +929,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Along the riverbank
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-ussero-cafe-founded-on-1775
     name: Ussero Café founded on 1775
     kinds:
@@ -795,6 +939,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Along the riverbank
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-santa-maria-della-spina
     name: Santa Maria della Spina
     kinds:
@@ -803,6 +949,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Along the riverbank
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-giardino-scotto
     name: Giardino Scotto
     kinds:
@@ -810,8 +958,14 @@ pois:
       - historic_site
     description: A fortress converted to a public park which opens in summer for open air cinema, music shows and other events.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 7
+      - 8
     source_ref: Pisa > See > Along the riverbank
+    crowd_evidence: []
+    months_evidence:
+      - '**Giardino Scotto** — A fortress converted to a public park which opens in summer for open air cinema, music shows and other events.'
   - id: tuscany-pisa-la-cittadella
     name: La Cittadella
     kinds:
@@ -820,6 +974,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Along the riverbank
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-university-botanical-garden
     name: University Botanical Garden
     kinds:
@@ -828,6 +984,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Other parts of the city
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-museum-of-computing-instruments
     name: Museum of Computing Instruments
     kinds:
@@ -836,6 +994,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Other parts of the city
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-tuttomondo
     name: Tuttomondo
     kinds:
@@ -844,6 +1004,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Other parts of the city
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-marina-di-pisa
     name: Marina di Pisa
     kinds:
@@ -853,6 +1015,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > See > Further away
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-casciana-terme
     name: Casciana Terme
     kinds:
@@ -861,6 +1025,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > Do > Spas
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-pisa-san-giuliano-terme
     name: San Giuliano Terme
     kinds:
@@ -869,14 +1035,19 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Pisa > Do > Spas
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-city-walls
     name: City Walls
     kinds:
       - historic_site
     description: You can walk or cycle on top of the ancient city walls. The entire perimeter is approximately 4 km. This gives a good introduction to the city layout. Expect crowds in the summer months.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Lucca > See
+    crowd_evidence:
+      - Expect crowds in the summer months.
+    months_evidence: []
   - id: tuscany-lucca-piazza-dellanfiteatro
     name: Piazza dell'Anfiteatro
     kinds:
@@ -885,6 +1056,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-duomo-di-san-martino
     name: Duomo di San Martino
     kinds:
@@ -893,6 +1066,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-torre-guinigi
     name: Torre Guinigi
     kinds:
@@ -901,6 +1076,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-torre-delle-ore
     name: Torre delle Ore
     kinds:
@@ -909,6 +1086,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-puccini-museum
     name: Puccini Museum
     kinds:
@@ -917,6 +1096,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-palazzo-mansi
     name: Palazzo Mansi
     kinds:
@@ -925,6 +1106,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-saint-michaels-church
     name: Saint Michael's Church
     kinds:
@@ -933,6 +1116,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-saint-fredianos-church
     name: Saint Frediano's Church
     kinds:
@@ -941,6 +1126,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-via-fillungo
     name: Via Fillungo
     kinds:
@@ -949,6 +1136,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-palazzo-pfanner
     name: Palazzo Pfanner
     kinds:
@@ -958,6 +1147,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-piazza-napoleone
     name: Piazza Napoleone
     kinds:
@@ -966,6 +1157,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-domus-romana
     name: Domus Romana
     kinds:
@@ -974,6 +1167,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-statue-of-luigi-boccherini
     name: Statue of Luigi Boccherini
     kinds:
@@ -982,6 +1177,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > See
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-bagni-di-luccas-spa
     name: Bagni di Lucca's spa
     kinds:
@@ -990,6 +1187,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-puccini-opera-recitals
     name: Puccini opera & recitals
     kinds:
@@ -999,30 +1198,47 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-lucca-puccini-festival
     name: Puccini festival
     kinds:
       - other
     description: An opera festival dedicated to Puccini, staging all his best-loved works. It is held July to August in Torre del Lago on the coast near Lucca.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 7
+      - 8
     source_ref: Lucca > Do > Festivals
+    crowd_evidence: []
+    months_evidence:
+      - It is held July to August in Torre del Lago on the coast near Lucca.
   - id: tuscany-lucca-lucca-summer-festival
     name: Lucca summer festival
     kinds:
       - historic_site
     description: A series of concerts by major international rock stars, held annually end of June into July. It's not like a "greenfield" rock festival with concentrated venue, time-span and mud. Most events are in Piazza Napoleone in the old town centre. Standing-room tickets are available, these are released separately as each act confirms their dates.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 7
+      - 8
     source_ref: Lucca > Do > Festivals
+    crowd_evidence: []
+    months_evidence:
+      - '**Lucca summer festival** — A series of concerts by major international rock stars, held annually end of June into July.'
   - id: tuscany-lucca-lucca-comics-and-games
     name: Lucca Comics and Games
     kinds:
       - food
     description: The largest comic book and gaming festival in Europe, held in the long week-end around November 1, a national holiday in Italy. It includes many events, guests and open-air market stands around the city centre, and the city is full with cosplayers in colourful costumes.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 11
     source_ref: Lucca > Do > Festivals
+    crowd_evidence: []
+    months_evidence:
+      - '**Lucca Comics and Games** — The largest comic book and gaming festival in Europe, held in the long week-end around November 1, a national holiday in Italy.'
   - id: tuscany-lucca-bagni-di-lucca
     name: Bagni di Lucca
     kinds:
@@ -1033,6 +1249,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Lucca > Do > Festivals
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-palazzo-pubblico
     name: Palazzo Pubblico
     kinds:
@@ -1043,6 +1261,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Piazza del Campo
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-palazzo-piccolomini
     name: Palazzo Piccolomini
     kinds:
@@ -1051,6 +1271,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Piazza del Campo
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-palazzo-sansedoni
     name: Palazzo Sansedoni
     kinds:
@@ -1059,6 +1281,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Piazza del Campo
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-fonte-gaia
     name: Fonte Gaia
     kinds:
@@ -1067,6 +1291,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Piazza del Campo
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-duomo-di-siena
     name: Duomo di Siena
     kinds:
@@ -1077,6 +1303,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Other major sights
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-museo-dellopera-del-duomo
     name: Museo dell'Opera del Duomo
     kinds:
@@ -1089,6 +1317,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Other major sights
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-pinacoteca-nazionale-di-siena
     name: Pinacoteca Nazionale di Siena
     kinds:
@@ -1097,6 +1327,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Other major sights
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-piazza-salimbeni
     name: Piazza Salimbeni
     kinds:
@@ -1105,6 +1337,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Secondary sights > Piazze and palazzi
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-palazzo-salimbeni
     name: Palazzo Salimbeni
     kinds:
@@ -1113,6 +1347,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Secondary sights > Piazze and palazzi
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-palazzo-santucci
     name: Palazzo Santucci
     kinds:
@@ -1121,6 +1357,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Secondary sights > Piazze and palazzi
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-palazzo-chigi-saracini
     name: Palazzo Chigi-Saracini
     kinds:
@@ -1129,6 +1367,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Secondary sights > Piazze and palazzi > Via di Città
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-palazzo-tolomei
     name: Palazzo Tolomei
     kinds:
@@ -1138,6 +1378,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Secondary sights > Piazze and palazzi > Piazza Tolomei
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-basilica-cateriniana-san-domenico
     name: Basilica Cateriniana San Domenico
     kinds:
@@ -1146,6 +1388,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Secondary sights > Religious buildings
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-basilica-of-san-francesco
     name: Basilica of San Francesco
     kinds:
@@ -1154,6 +1398,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Secondary sights > Religious buildings
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-birth-house-of-st-catherine-of-siena
     name: Birth House of St. Catherine of Siena
     kinds:
@@ -1162,6 +1408,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Secondary sights > Religious buildings
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-santagostino
     name: Sant'Agostino
     kinds:
@@ -1171,6 +1419,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Secondary sights > Religious buildings
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-santa-maria-dei-servi
     name: Santa Maria dei Servi
     kinds:
@@ -1179,6 +1429,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Secondary sights > Religious buildings
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-fontebranda
     name: Fontebranda
     kinds:
@@ -1187,6 +1439,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Secondary sights > Fountains
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-santa-maria-della-scala
     name: Santa Maria della Scala
     kinds:
@@ -1196,6 +1450,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > See > Secondary sights > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-palio-horse-race
     name: Palio Horse Race
     kinds:
@@ -1204,6 +1460,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-siena-jazz-festival
     name: Siena Jazz Festival
     kinds:
@@ -1212,14 +1470,22 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Siena > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: tuscany-siena-classical-concerts
     name: Classical concerts
     kinds:
       - other
     description: Classical concerts during the summer at the Accademia Musicale Chigiana, and at various locations in the city during the Chigiana International Festival.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 7
+      - 8
     source_ref: Siena > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - Classical concerts during the summer at the Accademia Musicale Chigiana, and at various locations in the city during the Chigiana International Festival.
 extraction:
   listings: 313
   listings_by_type:

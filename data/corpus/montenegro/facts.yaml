@@ -206,6 +206,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-biogradska-gora-national-park
     name: Biogradska Gora National Park
     kinds:
@@ -214,6 +216,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-durmitor-national-park
     name: Durmitor National Park
     kinds:
@@ -223,6 +227,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-lovcen-national-park
     name: Lovćen National Park
     kinds:
@@ -232,6 +238,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-mount-ostrog
     name: Mount Ostrog
     kinds:
@@ -241,6 +249,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-perast
     name: Perast
     kinds:
@@ -250,6 +260,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-prokletije-national-park
     name: Prokletije National Park
     kinds:
@@ -260,6 +272,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-skadar-lake-national-park
     name: Skadar Lake National Park
     kinds:
@@ -268,6 +282,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-sveti-stefan
     name: Sveti Stefan
     kinds:
@@ -276,6 +292,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-rafting
     name: Rafting
     kinds:
@@ -285,6 +303,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-hiking-trekking-biking
     name: Hiking/Trekking/Biking
     kinds:
@@ -296,6 +316,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-cruise-and-dive-in-the-bay-of-kotor
     name: Cruise and dive in the Bay of Kotor
     kinds:
@@ -306,6 +328,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-paragliding-over-budva-riviera
     name: Paragliding over Budva Riviera
     kinds:
@@ -315,6 +339,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-kite-surfing-on-the-ada-bojana
     name: Kite-surfing on the Ada Bojana
     kinds:
@@ -324,6 +350,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-summer-skiing-snowboarding
     name: (summer) Skiing/Snowboarding
     kinds:
@@ -333,22 +361,34 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-bokeska-noc
     name: Bokeška Noć
     kinds:
       - historic_site
     description: Celebrations under masks by the iconic fortifications of Kotor where each year a hateful figure is burned, and celebrations out in the open continues till early morning.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 8
     source_ref: Montenegro > Do > Festivals
+    crowd_evidence: []
+    months_evidence:
+      - Bokeška Noć (3rd week of August) - Celebrations under masks by the iconic fortifications of Kotor where each year a hateful figure is burned, and celebrations out in the open continues till early morning.
   - id: montenegro-sea-dance-festival
     name: Sea Dance Festival
     kinds:
       - beach
     description: infamous Exit festival has found a new home for summer season and the biggest music happening in SE Europe is hosted on Jaz beach in Budva.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 7
+      - 8
     source_ref: Montenegro > Do > Festivals
+    crowd_evidence: []
+    months_evidence:
+      - Sea Dance Festival (end of July) - infamous Exit festival has found a new home for summer season and the biggest music happening in SE Europe is hosted on Jaz beach in Budva.
   - id: montenegro-days-of-wine-and-fish-in-virpazar
     name: Days of Wine and Fish in Virpazar
     kinds:
@@ -357,9 +397,12 @@ pois:
       - viewpoint
       - wine
     description: worth experiencing. Gathering of wine and fish lovers in a scenic local village on the Skadar Lake. Very crowded, and smoky from fish frying.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Montenegro > Do > Festivals
+    crowd_evidence:
+      - Very crowded, and smoky from fish frying.
+    months_evidence: []
   - id: montenegro-petrovacka-noc
     name: Petrovačka noć
     kinds:
@@ -368,14 +411,22 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Do > Festivals
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-spring-break
     name: Spring Break
     kinds:
       - beach
     description: typical music festival with plenty of DJs on Kamenovo beach
     crowd_level: null
-    best_months: []
+    best_months:
+      - 3
+      - 4
+      - 5
     source_ref: Montenegro > Do > Festivals
+    crowd_evidence: []
+    months_evidence:
+      - Spring Break - typical music festival with plenty of DJs on Kamenovo beach
   - id: montenegro-blueberry-days
     name: Blueberry Days
     kinds:
@@ -384,6 +435,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Do > Festivals
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-pasticada-fest
     name: Pasticada Fest
     kinds:
@@ -392,6 +445,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Do > Festivals
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-suncane-skale
     name: Sunčane Skale
     kinds:
@@ -400,6 +455,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Do > Festivals
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-dani-mimoze
     name: Dani Mimoze
     kinds:
@@ -408,6 +465,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Do > Festivals
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-southern-soul-festival
     name: Southern Soul Festival
     kinds:
@@ -416,6 +475,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Montenegro > Do > Festivals
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-ulcinj-ulcinj-old-town
     name: Ulcinj Old Town
     kinds:
@@ -424,6 +485,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ulcinj > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-ulcinj-svac
     name: Svač
     kinds:
@@ -434,6 +497,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ulcinj > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-ulcinj-pashas-mosque
     name: Pasha's Mosque
     kinds:
@@ -442,6 +507,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ulcinj > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-ulcinj-clock-tower
     name: Clock Tower
     kinds:
@@ -450,6 +517,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ulcinj > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-ulcinj-monument-freedom
     name: Monument Freedom
     kinds:
@@ -458,6 +527,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ulcinj > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-ulcinj-velika-plaza-beach
     name: Velika Plaža Beach
     kinds:
@@ -466,6 +537,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ulcinj > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-ulcinj-ada-bojana
     name: Ada Bojana
     kinds:
@@ -475,6 +548,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ulcinj > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-ulcinj-usce
     name: Ušće
     kinds:
@@ -483,6 +558,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ulcinj > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-ulcinj-go-for-a-walk
     name: Go for a walk
     kinds:
@@ -491,6 +568,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ulcinj > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-old-turkish-town
     name: Old Turkish town
     kinds:
@@ -500,6 +579,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-skaline
     name: Skaline
     kinds:
@@ -508,6 +589,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-monument-to-king-nikola
     name: Monument to King Nikola
     kinds:
@@ -516,6 +599,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-hercegovacka-pedestrian-street
     name: Hercegovačka pedestrian street
     kinds:
@@ -524,6 +609,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-trg-republike
     name: Trg Republike
     kinds:
@@ -532,6 +619,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-st-georges-church
     name: St. George's church
     kinds:
@@ -540,6 +629,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-catholic-church
     name: Catholic Church
     kinds:
@@ -548,6 +639,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-millennium-bridge
     name: Millennium Bridge
     kinds:
@@ -556,6 +649,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-dvorac-petrovica-king-nikolas-castle
     name: Dvorac Petrovića (King Nikola's castle)
     kinds:
@@ -566,6 +661,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-cathedral-of-the-resurrection
     name: Cathedral of the Resurrection
     kinds:
@@ -575,6 +672,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-church-of-the-great-martyr-holy-dimitrije
     name: Church of the Great Martyr Holy Dimitrije
     kinds:
@@ -583,6 +682,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-rimski-trg
     name: Rimski Trg
     kinds:
@@ -591,6 +692,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-moraca-river-canyon
     name: Morača river canyon
     kinds:
@@ -600,6 +703,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See > Further afield
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-doclea
     name: Doclea
     kinds:
@@ -608,6 +713,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See > Further afield
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-meteon
     name: Meteon
     kinds:
@@ -616,6 +723,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > See > Further afield
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-rogami-beach
     name: Rogami Beach
     kinds:
@@ -625,6 +734,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-podgorica-podgorica-city-stadium
     name: Podgorica City Stadium
     kinds:
@@ -633,6 +744,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Podgorica > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-budva-stari-grad-old-town
     name: Stari Grad (Old Town)
     kinds:
@@ -641,6 +754,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Budva > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-budva-budva-citadel
     name: Budva Citadel
     kinds:
@@ -649,6 +764,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Budva > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-budva-museum-of-the-town-of-budva-archaeology-museum
     name: Museum of the Town of Budva / Archaeology Museum
     kinds:
@@ -658,15 +775,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Budva > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-budva-mogren-beach
     name: Mogren Beach
     kinds:
       - beach
       - nature
     description: Crowded beach but nice water. Don't stop at the first stretch of beach, now designated Mogren 1, continue around the sunbathers to the far end and through the coves to Mogren 2. The music from Mogren 1 is much less obtrusive there. If you're really adventurous continue around the perimeter of the small bay to what is referred to as shark's rock, which daredevils jump off of. Because of the trees and nearby cliff the afternoon shade covers the far half of Mogren 2 earlier than the rest.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Budva > See > Beaches
+    crowd_evidence:
+      - '**Mogren Beach** — Crowded beach but nice water.'
+    months_evidence: []
   - id: montenegro-budva-dancing-girl-statue
     name: Dancing Girl Statue
     kinds:
@@ -677,6 +799,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Budva > See > Beaches
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-budva-church-of-saint-john
     name: Church of Saint John
     kinds:
@@ -686,6 +810,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Budva > See > Churches
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-budva-church-of-holy-trinity
     name: Church of Holy Trinity
     kinds:
@@ -695,6 +821,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Budva > See > Churches
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-budva-church-of-saint-sava
     name: Church of Saint Sava
     kinds:
@@ -704,6 +832,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Budva > See > Churches
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-budva-boat-trip-around-budva-riviera
     name: Boat Trip around Budva Riviera
     kinds:
@@ -715,6 +845,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Budva > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-budva-bungee-jumping
     name: Bungee jumping
     kinds:
@@ -723,6 +855,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Budva > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-budva-paragliding
     name: Paragliding
     kinds:
@@ -731,6 +865,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Budva > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-budva-hike-old-cliffy-road-above-the-sea
     name: Hike old cliffy-road above the sea
     kinds:
@@ -744,6 +880,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Budva > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-kotor-st-tryphons-cathedral
     name: St Tryphon's Cathedral
     kinds:
@@ -752,6 +890,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Kotor > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-kotor-st-nicolas-church
     name: St Nicolas Church
     kinds:
@@ -761,6 +901,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Kotor > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-kotor-maritime-museum
     name: Maritime Museum
     kinds:
@@ -769,6 +911,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Kotor > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-kotor-castle-of-san-giovanni
     name: Castle of San Giovanni
     kinds:
@@ -779,6 +923,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Kotor > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-kotor-church-of-our-lady-of-remedy
     name: Church of Our Lady of Remedy
     kinds:
@@ -791,6 +937,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Kotor > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-kotor-aquarium-boka
     name: Aquarium Boka
     kinds:
@@ -799,6 +947,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Kotor > See
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-kotor-stroll-on-the-wall-around-kotor
     name: Stroll on the wall around Kotor
     kinds:
@@ -807,6 +957,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Kotor > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-kotor-boat-trips
     name: Boat Trips
     kinds:
@@ -816,6 +968,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Kotor > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-kotor-climb-up-inside-the-fortress
     name: Climb up inside the Fortress
     kinds:
@@ -827,6 +981,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Kotor > Do > Hiking
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-kotor-climb-up-outside-the-fortress
     name: Climb up outside the Fortress
     kinds:
@@ -839,6 +995,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Kotor > Do > Hiking
+    crowd_evidence: []
+    months_evidence: []
   - id: montenegro-kotor-hike-to-mausoleum-of-njegos
     name: Hike to Mausoleum of Njegoš
     kinds:
@@ -850,6 +1008,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Kotor > Do > Hiking
+    crowd_evidence: []
+    months_evidence: []
 extraction:
   listings: 159
   listings_by_type:

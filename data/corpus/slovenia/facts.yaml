@@ -195,6 +195,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Slovenia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-triglav-national-park
     name: Triglav National Park
     kinds:
@@ -203,6 +205,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Slovenia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-soca-valley
     name: Soča Valley
     kinds:
@@ -211,6 +215,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Slovenia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-adrenaline-adventures
     name: Adrenaline adventures
     kinds:
@@ -220,6 +226,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Slovenia > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-lake-bled
     name: Lake Bled
     kinds:
@@ -228,6 +236,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-bled-castle
     name: Bled Castle
     kinds:
@@ -240,6 +250,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-bled-island
     name: Bled Island
     kinds:
@@ -248,6 +260,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-church-of-the-assumption
     name: Church of the Assumption
     kinds:
@@ -256,6 +270,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-iglica-waterfall
     name: Iglica Waterfall
     kinds:
@@ -265,14 +281,22 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-babji-zob-hags-tooth-caves
     name: Babji Zob (Hag's Tooth) Caves
     kinds:
       - nature
     description: 300-m cave system includes rare helictites (calcium deposits) and a tooth-shaped pillar atop a 1128-m peak. Very different than other caves in Slovenia. Three-hour tours take place Wednesdays, Saturdays, and Sundays in the summer. Meet at Bohinjska Bela 34.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 7
+      - 8
     source_ref: Bled > See
+    crowd_evidence: []
+    months_evidence:
+      - Three-hour tours take place Wednesdays, Saturdays, and Sundays in the summer.
   - id: slovenia-bled-houraway
     name: HourAway
     kinds:
@@ -282,6 +306,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-altitude-activities
     name: Altitude Activities
     kinds:
@@ -292,6 +318,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-hiking
     name: Hiking
     kinds:
@@ -302,6 +330,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-swimming-at-grajsko-kopalisce-castle-bathing-area
     name: Swimming at Grajsko kopališče (Castle Bathing Area)
     kinds:
@@ -311,8 +341,15 @@ pois:
       - adventure
     description: 6,000-m² area, a great place to swim, also has two waterslides, a trampoline, a climbing wall, four outdoor swimming pools, a jump board as well as climbers, swings and a sandbox for children, table tennis, chess, 1,000 changing rooms, 107 lockers, boat rental, snack shop, and a grassy beach.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 7
+      - 8
+      - 9
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence:
+      - '(price: €6 for a daily ticket, €3 after noon; hours: Mid Jun-Sep 08:00-19:00)'
   - id: slovenia-bled-strel-swimming-adventures
     name: Strel Swimming Adventures
     kinds:
@@ -323,6 +360,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-indoor-ice-skating-at-sportna-dvorana
     name: Indoor Ice Skating at Sportna Dvorana
     kinds:
@@ -331,6 +370,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-bled-golf-country-club
     name: Bled Golf & Country Club
     kinds:
@@ -339,6 +380,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-mini-golf
     name: Mini Golf
     kinds:
@@ -347,6 +390,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-spas-wellness-centers
     name: Spas & Wellness Centers
     kinds:
@@ -355,6 +400,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-ziva-wellness-centre
     name: Ziva Wellness Centre
     kinds:
@@ -363,14 +410,22 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-summer-tobogganing
     name: Summer tobogganing
     kinds:
       - other
     description: Open only during the summer. Ride down a 520-m track on a 131-m hill in a small cart. Speeds top out at 40 km/h.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 7
+      - 8
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence:
+      - '**Summer tobogganing** — Open only during the summer.'
   - id: slovenia-bled-fishing
     name: Fishing
     kinds:
@@ -379,6 +434,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-hot-air-balloon-flights
     name: Hot Air Balloon Flights
     kinds:
@@ -387,6 +444,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-a-adventure-factory
     name: A Adventure Factory
     kinds:
@@ -395,6 +454,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-take-amazing-photos
     name: Take amazing photos
     kinds:
@@ -406,30 +467,44 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Bled > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-bled-bled-days
     name: Bled Days
     kinds:
       - nature
     description: Three days of fairs and concerts. The event culminates in fireworks and the lighting of thousands of candles on the lake.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 7
     source_ref: Bled > Do > Festivals
+    crowd_evidence: []
+    months_evidence:
+      - '(hours: On the 4th weekend of July)'
   - id: slovenia-bled-international-music-festival-bled
     name: International Music Festival Bled
     kinds:
       - other
     description: Classical music festival.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 7
     source_ref: Bled > Do > Festivals
+    crowd_evidence: []
+    months_evidence:
+      - '(hours: Early July)'
   - id: slovenia-bled-medieval-days
     name: Medieval days
     kinds:
       - historic_site
     description: Medieval days A weekend festival that takes place on first weekend in June at Bled Castle
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
     source_ref: Bled > Do > Festivals
+    crowd_evidence: []
+    months_evidence:
+      - Medieval days A weekend festival that takes place on first weekend in June at Bled Castle
   - id: slovenia-ljubljana-triple-bridge
     name: Triple Bridge
     kinds:
@@ -438,6 +513,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-old-town
     name: Old Town
     kinds:
@@ -447,6 +524,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-dragon-bridge
     name: Dragon Bridge
     kinds:
@@ -455,6 +534,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-ljubljana-castle
     name: Ljubljana Castle
     kinds:
@@ -463,6 +544,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-republic-square
     name: Republic Square
     kinds:
@@ -471,6 +554,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-roman-ruins
     name: Roman Ruins
     kinds:
@@ -479,6 +564,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-krakovo
     name: Krakovo
     kinds:
@@ -487,14 +574,19 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-metelkova
     name: Metelkova
     kinds:
       - nightlife
     description: A self-declared autonomous culture place to gather for alternative artists, many subcultures and youth. What used to be a military barracks is now full of underground artists, bars and nightclubs. Metelkova can get crowded on Fridays and Saturdays. It is within 5 minute of walk from main Train Station, and it is home to a renowned hostel Celica.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence:
+      - Metelkova can get crowded on Fridays and Saturdays.
+    months_evidence: []
   - id: slovenia-ljubljana-ljubljana-zoo
     name: Ljubljana Zoo
     kinds:
@@ -503,6 +595,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-university-botanic-gardens-ljubljana
     name: University Botanic gardens Ljubljana
     kinds:
@@ -511,6 +605,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-tomb-of-national-heroes
     name: Tomb of National Heroes
     kinds:
@@ -519,6 +615,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-ursuline-church-of-the-holy-trinity
     name: Ursuline Church of the Holy Trinity
     kinds:
@@ -527,6 +625,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-congress-square
     name: Congress Square
     kinds:
@@ -535,6 +635,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-neboticnik
     name: Nebotičnik
     kinds:
@@ -543,6 +645,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-sts-cyril-and-methodius-church
     name: Sts. Cyril and Methodius Church
     kinds:
@@ -551,6 +655,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-franciscan-church-of-the-annunciation
     name: Franciscan Church of the Annunciation
     kinds:
@@ -560,6 +666,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-ljubljana-cathedral
     name: Ljubljana Cathedral
     kinds:
@@ -568,6 +676,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-ljubljana-mosque
     name: Ljubljana Mosque
     kinds:
@@ -576,6 +686,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-tivoli-park
     name: Tivoli Park
     kinds:
@@ -584,6 +696,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-museum-of-architecture-and-design
     name: Museum of Architecture and Design
     kinds:
@@ -592,6 +706,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-plecnik-house
     name: Plečnik House
     kinds:
@@ -600,6 +716,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-museum-of-modern-art
     name: Museum of Modern Art
     kinds:
@@ -608,6 +726,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-museum-of-contemporary-art
     name: Museum of Contemporary Art
     kinds:
@@ -616,6 +736,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-national-gallery
     name: National Gallery
     kinds:
@@ -625,6 +747,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-national-museum-of-slovenia-presernova
     name: National Museum of Slovenia - Prešernova
     kinds:
@@ -633,6 +757,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-national-museum-of-slovenia-metelkova
     name: National Museum of Slovenia - Metelkova
     kinds:
@@ -641,6 +767,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-national-museum-of-contemporary-history
     name: National Museum of Contemporary History
     kinds:
@@ -649,6 +777,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-slovenian-museum-of-natural-history
     name: Slovenian Museum of Natural History
     kinds:
@@ -658,6 +788,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-mglc-international-centre-of-graphic-arts
     name: MGLC International Centre of Graphic Arts
     kinds:
@@ -666,6 +798,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-city-museum-of-ljubljana
     name: City Museum of Ljubljana
     kinds:
@@ -674,6 +808,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-railway-museum
     name: Railway Museum
     kinds:
@@ -683,6 +819,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-house-of-experiments
     name: House of experiments
     kinds:
@@ -692,6 +830,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > See > Museums
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-hot-air-balloon-flights
     name: Hot Air Balloon Flights
     kinds:
@@ -700,6 +840,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-olimpija-ljubljana
     name: Olimpija Ljubljana
     kinds:
@@ -708,6 +850,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-water-city-of-atlantis
     name: Water City of Atlantis
     kinds:
@@ -717,6 +861,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > Do > Water parks
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-laguna-fun-spa
     name: Laguna Fun & Spa
     kinds:
@@ -724,8 +870,15 @@ pois:
       - family
     description: Offers open-air pools during the day and themed parties at night.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 7
+      - 8
+      - 9
     source_ref: Ljubljana > Do > Water parks
+    crowd_evidence: []
+    months_evidence:
+      - '(price: €6–12; hours: Only Jun–Sep)'
   - id: slovenia-ljubljana-cankarjev-dom
     name: Cankarjev Dom
     kinds:
@@ -734,6 +887,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > Do > Opera & Theatre
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-slovenian-philharmonic-orchestra
     name: Slovenian Philharmonic Orchestra
     kinds:
@@ -742,6 +897,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > Do > Opera & Theatre
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-slovene-national-theatre-narodno-gledalisce
     name: Slovene National Theatre (Narodno Gledalisce)
     kinds:
@@ -750,6 +907,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > Do > Opera & Theatre
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-puppet-theatre-lutkovno-gledalisce
     name: Puppet Theatre (Lutkovno Gledalisce)
     kinds:
@@ -758,6 +917,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > Do > Opera & Theatre
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-ljubljana-opera-house
     name: Ljubljana Opera House
     kinds:
@@ -766,6 +927,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > Do > Opera & Theatre
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-krizanke-outdoor-theatre
     name: Križanke Outdoor Theatre
     kinds:
@@ -774,6 +937,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > Do > Opera & Theatre
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-ljubljana-city-theatre
     name: Ljubljana City Theatre
     kinds:
@@ -782,14 +947,22 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > Do > Opera & Theatre
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-ljubljana-summer-festival
     name: Ljubljana Summer Festival
     kinds:
       - other
     description: Opera, ballet and theatre festival held in July and August.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 7
+      - 8
     source_ref: Ljubljana > Do > Opera & Theatre
+    crowd_evidence: []
+    months_evidence:
+      - '**Ljubljana Summer Festival** — Opera, ballet and theatre festival held in July and August.'
   - id: slovenia-ljubljana-kinoteka
     name: Kinoteka
     kinds:
@@ -797,8 +970,21 @@ pois:
       - family
     description: Ljubljana's charming film museum where they have at least two movies a day. The movies range from classics to cult movies, from trash and horror to artistic masterpieces. All movies are presented in the original audio language, and equipped with Slovenian subtitles, sometimes also English. On Saturday mornings they have special projections for children. There are also some special events, round tables, premiers etc. all the time. It's a must visit for every film lover. It has also a nice little cafe with small prices
     crowd_level: null
-    best_months: []
+    best_months:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 9
+      - 10
+      - 11
+      - 12
     source_ref: Ljubljana > Do > Cinema
+    crowd_evidence: []
+    months_evidence:
+      - 'It has also a nice little cafe with small prices (price: €3; hours: Open daily, but closed on Sundays and in July and August)'
   - id: slovenia-ljubljana-kinodvor
     name: Kinodvor
     kinds:
@@ -807,6 +993,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > Do > Cinema
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-arena-play-party
     name: Arena Play & Party
     kinds:
@@ -815,6 +1003,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > Do > Cinema
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-cineplexx
     name: Cineplexx
     kinds:
@@ -823,15 +1013,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > Do > Cinema
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-smarna-gora
     name: Šmarna gora
     kinds:
       - hiking
       - adventure
     description: Šmarna gora (662 m) is on the northern edge of the city, so it's popular, indeed crowded on fine weekends. For 30–60 minutes of easy climbing you will be rewarded by a nice views. Take Bus 8 to Tacenski most.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Ljubljana > Do > Hiking
+    crowd_evidence:
+      - Šmarna gora (662 m) is on the northern edge of the city, so it's popular, indeed crowded on fine weekends.
+    months_evidence: []
   - id: slovenia-ljubljana-krim
     name: Krim
     kinds:
@@ -841,15 +1036,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ljubljana > Do > Hiking
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-ljubljana-houraway
     name: HourAway
     kinds:
       - nature
       - viewpoint
     description: Houraway offers high-quality bike rentals, including e-bikes, road bikes, and gravel bikes, along with guided and self-guided cycling tours. Their expertly designed day and multi-day tours cater to all fitness levels, showcasing Slovenia’s scenic landscapes, from peaceful countryside paths to challenging mountain routes.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Ljubljana > Do > Cycling
+    crowd_evidence:
+      - Their expertly designed day and multi-day tours cater to all fitness levels, showcasing Slovenia’s scenic landscapes, from peaceful countryside paths to challenging mountain routes.
+    months_evidence: []
   - id: slovenia-piran-tartini-square
     name: Tartini Square
     kinds:
@@ -858,6 +1058,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Piran > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-piran-venetian-house
     name: Venetian House
     kinds:
@@ -866,6 +1068,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Piran > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-piran-sergej-masera-maritime-museum
     name: Sergej Mašera Maritime Museum
     kinds:
@@ -875,6 +1079,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Piran > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-piran-church-of-st-george
     name: Church of St. George
     kinds:
@@ -884,6 +1090,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Piran > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-piran-reliquary
     name: Reliquary
     kinds:
@@ -892,6 +1100,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Piran > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-piran-bell-tower
     name: Bell tower
     kinds:
@@ -901,6 +1111,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Piran > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-piran-magical-world-of-shells-museum
     name: Magical World of Shells Museum
     kinds:
@@ -909,6 +1121,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Piran > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-piran-aquarium
     name: Aquarium
     kinds:
@@ -917,6 +1131,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Piran > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-piran-lighthouse
     name: Lighthouse
     kinds:
@@ -925,6 +1141,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Piran > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-piran-watch-the-sunset
     name: Watch the Sunset
     kinds:
@@ -933,6 +1151,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Piran > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-piran-swim
     name: Swim
     kinds:
@@ -941,6 +1161,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Piran > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-piran-diving-school
     name: Diving School
     kinds:
@@ -949,6 +1171,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Piran > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-piran-city-walls
     name: City walls
     kinds:
@@ -958,6 +1182,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Piran > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-piran-coastal-path-to-fiesa
     name: Coastal path to Fiesa
     kinds:
@@ -968,6 +1194,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Piran > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-pretorian-palace
     name: Pretorian Palace
     kinds:
@@ -976,6 +1204,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-cathedral-of-the-assumption-of-the-blessed-virgin-mary
     name: Cathedral of the Assumption of the Blessed Virgin Mary
     kinds:
@@ -985,6 +1215,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-bell-tower-city-tower
     name: Bell Tower (City Tower)
     kinds:
@@ -994,6 +1226,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-armoury-and-foresteria-palace
     name: Armoury and Foresteria Palace
     kinds:
@@ -1003,6 +1237,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-loggia-palace
     name: Loggia Palace
     kinds:
@@ -1011,6 +1247,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-taverna-koper-st-marks-storage
     name: Taverna Koper / St Mark’s storage
     kinds:
@@ -1019,6 +1257,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-carpaccio-house
     name: Carpaccio House
     kinds:
@@ -1027,6 +1267,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-da-ponte-fountain
     name: Da Ponte Fountain
     kinds:
@@ -1035,6 +1277,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-muda-gate
     name: Muda Gate
     kinds:
@@ -1043,6 +1287,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-fontico
     name: Fontico
     kinds:
@@ -1051,6 +1297,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-koper-regional-museum
     name: Koper Regional Museum
     kinds:
@@ -1059,6 +1307,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-church-of-the-holy-trinity-hrastovlje
     name: Church of the Holy Trinity, Hrastovlje
     kinds:
@@ -1068,6 +1318,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-defence-tower-podpec
     name: Defence tower, Podpeč
     kinds:
@@ -1076,6 +1328,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-skocjanski-zatok-nature-reserve
     name: Škocjanski zatok Nature Reserve
     kinds:
@@ -1084,6 +1338,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-church-of-st-roch-and-st-sebastian-borst
     name: Church of St. Roch and St. Sebastian, Boršt
     kinds:
@@ -1093,6 +1349,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-the-benko-house-crni-kal
     name: The Benko house, Črni Kal
     kinds:
@@ -1101,6 +1359,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-coat-of-arms-of-the-decani-family-dekani
     name: Coat-of-arms of the De’Cani family, Dekani
     kinds:
@@ -1110,6 +1370,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-church-of-st-nicholas-gracisce
     name: Church of St. Nicholas, Gračišče
     kinds:
@@ -1119,6 +1381,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-village-architecture-abitanti
     name: Village architecture, Abitanti
     kinds:
@@ -1127,6 +1391,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-church-of-st-michael-tinjan
     name: Church of St. Michael, Tinjan
     kinds:
@@ -1137,6 +1403,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-the-krkavce-stone-krkavce
     name: The Krkavče Stone, Krkavče
     kinds:
@@ -1145,6 +1413,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-the-dragonja-valley
     name: The Dragonja valley
     kinds:
@@ -1154,6 +1424,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-marezganska-kanava-marezige
     name: Marežganska Kanava, Marezige
     kinds:
@@ -1162,6 +1434,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-the-bardinc-house-lopar
     name: The Bardinc House, Lopar
     kinds:
@@ -1171,6 +1445,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-rock-shelters-the-ears-of-istria-and-natural-bridge-socerga
     name: Rock shelters (“The Ears of Istria”) and natural bridge, Sočerga
     kinds:
@@ -1181,6 +1457,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-slavnik-podgorje
     name: Slavnik, Podgorje
     kinds:
@@ -1190,6 +1468,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-strmec-castle-socerb
     name: Strmec Castle, Socerb
     kinds:
@@ -1200,6 +1480,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-sacred-cave-socerb
     name: Sacred Cave, Socerb
     kinds:
@@ -1209,6 +1491,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-church-of-the-immaculate-mother-of-god-village-square-and-stone-window-smarje
     name: Church of the Immaculate Mother of God, village square and stone window, Šmarje
     kinds:
@@ -1219,6 +1503,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-the-supot-waterfall-and-views
     name: The Supot waterfall and views
     kinds:
@@ -1227,6 +1513,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
   - id: slovenia-koper-mediterranean-herb-garden-manzan
     name: Mediterranean herb garden, Manžan
     kinds:
@@ -1236,6 +1524,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Koper > See
+    crowd_evidence: []
+    months_evidence: []
 extraction:
   listings: 340
   listings_by_type:

@@ -205,6 +205,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ubeda
     name: Úbeda
     kinds:
@@ -213,6 +215,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-donana-national-park
     name: Doñana National Park
     kinds:
@@ -221,6 +225,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-cabo-de-gata-nijar-natural-park
     name: Cabo de Gata-Níjar Natural Park
     kinds:
@@ -229,6 +235,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-alhama-de-granada
     name: Alhama de Granada
     kinds:
@@ -238,6 +246,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-baza-natural-park
     name: Baza Natural Park
     kinds:
@@ -246,6 +256,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-costa-del-sol
     name: Costa del Sol
     kinds:
@@ -255,6 +267,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-juzcar
     name: Júzcar
     kinds:
@@ -263,6 +277,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-la-alpujarra
     name: La Alpujarra
     kinds:
@@ -271,6 +287,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-sierra-nevada
     name: Sierra Nevada
     kinds:
@@ -281,6 +299,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > Other destinations
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-moorish-architecture
     name: Moorish architecture
     kinds:
@@ -289,6 +309,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-lake-negratin
     name: Lake Negratin
     kinds:
@@ -299,6 +321,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seron
     name: Seron
     kinds:
@@ -307,6 +331,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-las-menas
     name: Las Menas
     kinds:
@@ -316,6 +342,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-andaventur-granada-adventure-company
     name: Andaventur Granada Adventure Company
     kinds:
@@ -326,6 +354,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-rock-climbing-company
     name: Rock Climbing Company
     kinds:
@@ -335,6 +365,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-horse-riding-and-spain
     name: Horse riding and Spain
     kinds:
@@ -345,6 +377,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-andalusia-day
     name: Andalusia day
     kinds:
@@ -353,15 +387,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Andalusia > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-cathedral
     name: Cathedral
     kinds:
       - historic_site
       - religious_site
     description: "Huge 15th-century church on the site of the former great mosque; richly decorated with the central nave rising to 37 m. An ornate canopy and statue marks the final resting place of Christopher Columbus. If there's a queue for tickets then go to the nearby Church of Salvador (Iglesia del Salvador) and buy a combi ticket. Cathedral admission includes La Giralda, the minaret that is now the magnificent bell tower. Within, you ascend 34 ramps - no need to keep count as they're tallied on the wall - then a last short flight of steps brings you onto the viewing terrace. Church of Salvador: all of its Rocco altarpieces were cleaned and excavations revealed remains from an Islamic mosque and earlier Christian churches, now accessible in the crypt. Unless you like massive cathedrals, the effect is much more impressive."
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence:
+      - If there's a queue for tickets then go to the nearby Church of Salvador (Iglesia del Salvador) and buy a combi ticket.
+    months_evidence: []
   - id: andalusia-seville-real-alcazar
     name: Real Alcázar
     kinds:
@@ -370,9 +409,12 @@ pois:
       - religious_site
       - family
     description: 'A beautiful palace in Mudéjar (Moorish) style, built in the 12th century by the Almohad Caliphs. Greatly remodelled and extended in the 14th century by Pedro I the Cruel, its myriad rooms, extravagant architecture, lavish gardens including a maze, with many courtyards, ponds and secrets to be explored, make it a fascinating place to visit. The room where Christopher Columbus''s journey across the Atlantic was planned has his coat of arms embroidered on the wall along with those of royalty. The Royal Apartments are open to tours whenever the royal family aren''t using them. In the heat of summer the palace is a cool retreat from the sun''s glare, and there are night tours Mar-Oct. There are toilets and a cafe within the walls of the site. It gets busy in high season: buy tickets online in advance, and only from the official website. The tourist entrance, "The Lion''s Gate", is on the side facing the cathedral and has a large image of a lion above it.'
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence:
+      - 'It gets busy in high season: buy tickets online in advance, and only from the official website.'
+    months_evidence: []
   - id: andalusia-seville-hospital-de-los-venerables
     name: Hospital de los Venerables
     kinds:
@@ -381,6 +423,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-torre-del-oro
     name: Torre del Oro
     kinds:
@@ -391,14 +435,19 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-alameda-de-hercules
     name: Alameda de Hercules
     kinds:
       - food
     description: Authentic and less touristy plaza with local food opportunities.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence:
+      - '**Alameda de Hercules** — Authentic and less touristy plaza with local food opportunities.'
+    months_evidence: []
   - id: andalusia-seville-parque-maria-luisa
     name: Parque María Luisa
     kinds:
@@ -408,6 +457,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-palacio-de-las-duenas
     name: Palacio de Las Dueñas
     kinds:
@@ -417,6 +468,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-plaza-de-espana
     name: Plaza de España
     kinds:
@@ -425,6 +478,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-real-fabrica-de-tabacos
     name: Real Fábrica de Tabacos
     kinds:
@@ -435,6 +490,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-palacio-de-la-condesa-de-lebrija
     name: Palacio de la Condesa de Lebrija
     kinds:
@@ -443,6 +500,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-casa-de-pilatos
     name: Casa de Pilatos
     kinds:
@@ -451,6 +510,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-palacio-arzobispal
     name: Palacio Arzobispal
     kinds:
@@ -459,6 +520,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-archivo-general-de-indias
     name: Archivo General de Indias
     kinds:
@@ -467,6 +530,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-metropol-parasol
     name: Metropol Parasol
     kinds:
@@ -477,15 +542,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-barrio-santa-cruz
     name: Barrio Santa Cruz
     kinds:
       - religious_site
       - nightlife
     description: Barrio Santa Cruz is the old Jewish Quarter, the winding narrow lanes just east of the cathedral and north of Alcázar. It's the most charming part of the city, with lots of bars and eating places, but it's also the most touristy.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Seville > See > Landmarks
+    crowd_evidence:
+      - It's the most charming part of the city, with lots of bars and eating places, but it's also the most touristy.
+    months_evidence: []
   - id: andalusia-seville-museo-de-bellas-artes
     name: Museo de Bellas Artes
     kinds:
@@ -496,6 +566,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Museums and galleries
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-museo-arqueologico-de-sevilla
     name: Museo Arqueológico de Sevilla
     kinds:
@@ -504,6 +576,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Museums and galleries
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-museo-antiquarium
     name: Museo Antiquarium
     kinds:
@@ -513,6 +587,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Museums and galleries
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-centro-andaluz-de-arte-contempraneo
     name: Centro Andaluz de Arte Contempraneo
     kinds:
@@ -522,6 +598,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > See > Museums and galleries
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-horse-drawn-carriage
     name: Horse-drawn carriage
     kinds:
@@ -531,6 +609,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-museo-del-baile-flamenco
     name: Museo del Baile Flamenco
     kinds:
@@ -540,6 +620,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > Do > Flamenco
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-la-casa-del-flamenco
     name: La Casa del Flamenco
     kinds:
@@ -548,6 +630,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > Do > Flamenco
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-la-carboneria
     name: La Carbonería
     kinds:
@@ -556,6 +640,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > Do > Flamenco
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-semana-santa
     name: Semana Santa
     kinds:
@@ -564,6 +650,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > Do > Festivals
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-feria-de-abril
     name: Feria de Abril
     kinds:
@@ -572,6 +660,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > Do > Festivals
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-real-betis
     name: Real Betis
     kinds:
@@ -580,6 +670,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > Do > Sport and outdoor activities
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-sevilla-fc
     name: Sevilla FC
     kinds:
@@ -588,6 +680,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > Do > Sport and outdoor activities
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-plaza-de-toros-de-la-real-maestranza
     name: Plaza de Toros de la Real Maestranza
     kinds:
@@ -596,6 +690,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > Do > Sport and outdoor activities
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-rugby-union
     name: Rugby Union
     kinds:
@@ -604,6 +700,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > Do > Sport and outdoor activities
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-cerro-de-carambolo
     name: Cerro de Carambolo
     kinds:
@@ -612,6 +710,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > Do > Sport and outdoor activities
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-seville-skydive-spain
     name: Skydive Spain
     kinds:
@@ -620,6 +720,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Seville > Do > Sport and outdoor activities
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-puente-nuevo
     name: Puente Nuevo
     kinds:
@@ -629,6 +731,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-plaza-de-toros
     name: Plaza de Toros
     kinds:
@@ -637,6 +741,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See > Mercadillo
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-parque-alameda
     name: Parque Alameda
     kinds:
@@ -647,6 +753,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See > Mercadillo
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-iglesia-de-santa-maria-la-mayor
     name: Iglesia de Santa Maria la Mayor
     kinds:
@@ -657,6 +765,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See > La Ciudad
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-iglesia-de-espiritu-santo
     name: Iglesia de Espíritu Santo
     kinds:
@@ -666,6 +776,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See > La Ciudad
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-palacio-de-mondragon
     name: Palacio de Mondragón
     kinds:
@@ -675,6 +787,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See > La Ciudad
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-puente-viejo
     name: Puente Viejo
     kinds:
@@ -683,6 +797,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See > La Ciudad
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-arco-de-felipe-v
     name: Arco de Felipe V
     kinds:
@@ -691,6 +807,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See > La Ciudad
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-banos-arabes
     name: Baños Árabes
     kinds:
@@ -699,6 +817,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See > La Ciudad
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-museo-de-peinado
     name: Museo de Peinado
     kinds:
@@ -708,6 +828,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See > La Ciudad
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-museo-lara
     name: Museo Lara
     kinds:
@@ -716,6 +838,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See > La Ciudad
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-puerta-de-almocabar
     name: Puerta de Almocábar
     kinds:
@@ -724,6 +848,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See > La Ciudad
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-casa-del-gigante
     name: Casa del Gigante
     kinds:
@@ -732,6 +858,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See > La Ciudad
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-palacio-del-marques-de-salvatierra
     name: Palacio del Marqués de Salvatierra
     kinds:
@@ -740,6 +868,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See > La Ciudad
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-casa-de-san-juan-bosco
     name: Casa de San Juan Bosco
     kinds:
@@ -748,6 +878,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > See > La Ciudad
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-interpretation-center-of-ronda-wine
     name: Interpretation Center of Ronda Wine
     kinds:
@@ -757,6 +889,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-la-casa-del-rey-moro
     name: La Casa Del Rey Moro
     kinds:
@@ -766,14 +900,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-feria-de-pedro-romero
     name: Feria de Pedro Romero
     kinds:
       - other
     description: Celebrated with parades and bullfights.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 9
     source_ref: Ronda > Do
+    crowd_evidence: []
+    months_evidence:
+      - '(hours: Beginning of September)'
   - id: andalusia-ronda-hiking
     name: Hiking
     kinds:
@@ -784,6 +924,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-ronda-sportmountain
     name: Sportmountain
     kinds:
@@ -792,6 +934,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Ronda > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-plaza-isabel-la-catolica
     name: Plaza Isabel la Catolica
     kinds:
@@ -800,6 +944,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Central Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-cathedral-of-granada
     name: Cathedral of Granada
     kinds:
@@ -810,6 +956,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Central Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-royal-chapel
     name: Royal Chapel
     kinds:
@@ -820,6 +968,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Central Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-plaza-de-bib-rambla
     name: Plaza de Bib-Rambla
     kinds:
@@ -827,9 +977,12 @@ pois:
       - religious_site
       - food
     description: A pleasant square with a view of the cathedral's tower, this plaza was originally the center of Moorish Granada, a bustling focus point of markets and festivals. Under Christian rule the square was expanded and used as a focal point of Catholic processions. Today the square is a quiet place to relax, enjoy a coffee or a meal, or take in the colorful flowers and bubbling fountain.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Granada > See > Central Granada
+    crowd_evidence:
+      - Today the square is a quiet place to relax, enjoy a coffee or a meal, or take in the colorful flowers and bubbling fountain.
+    months_evidence: []
   - id: andalusia-granada-alcaiceria
     name: Alcaiceria
     kinds:
@@ -839,6 +992,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Central Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-corral-del-carbon
     name: Corral del Carbón
     kinds:
@@ -847,6 +1002,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Central Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-plaza-nueva
     name: Plaza Nueva
     kinds:
@@ -858,6 +1015,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Central Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-museo-san-juan-de-dios
     name: Museo San Juan de Dios
     kinds:
@@ -866,6 +1025,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Central Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-centro-jose-guerrero
     name: Centro José Guerrero
     kinds:
@@ -874,6 +1035,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Central Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-alcazaba
     name: Alcazaba
     kinds:
@@ -881,9 +1044,12 @@ pois:
       - historic_site
       - viewpoint
     description: Alcazaba. The ruins of a massive fortress perched atop the crest of the hill overlooking the city, this is the oldest part of the Alhambra and offers some of the finest views of anywhere in the complex, with an expansive panorama from the top of the prominent tower that gives you a spectacular view of nearly the entire city and the Sierra Nevada mountains. Within the fort's walls are the ruins of a town which once held soldier's homes and baths, though today only the outline of these rooms remain.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Granada > See > The Alhambra
+    crowd_evidence:
+      - While it requires an uphill hike and is isolated from the rest of the grounds, the Silla offers what may be the most spectacular view in all of Granada, giving you a rare opportunity to look down at the Alhambra palace, as well as a sweeping vista of the city, the valley and the surrounding mountains, with the added benefit of not being nearly as crowded as the San Nicolas Viewpoint in the Albayzín or requiring admission like the Alcazaba.
+    months_evidence: []
   - id: andalusia-granada-palace-of-charles-v
     name: Palace of Charles V
     kinds:
@@ -893,15 +1059,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > The Alhambra
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-palacios-nazaries
     name: Palacios Nazaries
     kinds:
       - nature
       - historic_site
     description: Palacios Nazaries. The Nasrid royal palace and the primary (and thus most crowded) attraction of the Alhambra complex, the palace is an impressive, at times breathtakingly beautiful work of architecture. Visitors get to see spectacular archways and windows, carved wooden ceilings, intricate molded-plaster work and colourful ceramic tiles at nearly every turn as they meander between lovely rooms and lush courtyards. Everyone starts their tour in the Mexuar, a set of administrative rooms with a beautiful prayer room and a small square courtyard with the golden Façade of Comares, before emerging in the Court of the Myrtles, a rectangular courtyard with a long pool of water flanked on each side by a myrtle hedge (hence the name). At the end of the courtyard you can enter a room to view the twelve Lion Statues from the fountain in the Court of the Lions, which is undergoing renovation. Cross to the other end of the Court of the Myrtles to enter the Ship Room, with its spectacular carved wooden ceiling in the shape of an upside-down hull, and the Chamber of the Ambassadors, the palace's largest and perhaps most spectacular room, which once functioned as the throne room and features a star-studded wooden ceiling, intricately carved stucco walls and beautiful arched windows. From here you'll pass through a series of small rooms, including the Washington Irving Room, where Washington Irving wrote Tales of the Alhambra, as well as down an open-air hallway with an excellent view of an adjacent courtyard (the Court of Linda-Raja) and the Albayzín. Passing by the old bath house you'll enter the Hall of the Two Sisters, a spectacular domed room with an intricate stucco ceiling and lovely views of the Court of Linda-Raja. From here you can navigate around the edge of the Court of the Lions (under renovation) to the Hall of the Abencerrages, structurally similar to the Hall of the Two Sisters. At this point you can exit the palace, which will place you near the entrance to the Partal Gardens.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Granada > See > The Alhambra
+    crowd_evidence:
+      - The Nasrid royal palace and the primary (and thus most crowded) attraction of the Alhambra complex, the palace is an impressive, at times breathtakingly beautiful work of architecture.
+    months_evidence: []
   - id: andalusia-granada-generalife
     name: Generalife
     kinds:
@@ -911,6 +1082,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > The Alhambra
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-san-jose-church
     name: San José Church
     kinds:
@@ -920,6 +1093,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Albayzín
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-san-nicolas-viewpoint
     name: San Nicolas Viewpoint
     kinds:
@@ -929,6 +1104,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Albayzín
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-mosque-of-granada
     name: Mosque of Granada
     kinds:
@@ -939,6 +1116,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Albayzín
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-plaza-larga
     name: Plaza Larga
     kinds:
@@ -948,6 +1127,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Albayzín
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-hamman-el-banuelo
     name: Hamman El Bañuelo
     kinds:
@@ -957,15 +1138,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Albayzín
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-paseo-de-los-tristes
     name: Paseo de los Tristes
     kinds:
       - historic_site
       - food
     description: Perched above the Rio Darro at the end of Carrera del Darro, this plaza was once on the busiest gathering spots in Granada, positioned along a curve of the river between the Alhambra and the Albayzin. Today it is a popular place to eat owing to the restaurants lining the north side of the square and the magnificent views of the Alhambra palace it offers.
-    crowd_level: null
+    crowd_level: 4
     best_months: []
     source_ref: Granada > See > Albayzín
+    crowd_evidence:
+      - '**Paseo de los Tristes** — Perched above the Rio Darro at the end of Carrera del Darro, this plaza was once on the busiest gathering spots in Granada, positioned along a curve of the river between the Alhambra and the Albayzin.'
+    months_evidence: []
   - id: andalusia-granada-museo-cuevas-sacromonte
     name: Museo Cuevas Sacromonte
     kinds:
@@ -976,6 +1162,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Sacromonte
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-sacromonte-abbey
     name: Sacromonte Abbey
     kinds:
@@ -984,6 +1172,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > Sacromonte
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-elviras-gate
     name: Elvira's Gate
     kinds:
@@ -992,6 +1182,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > North Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-hospital-real
     name: Hospital Real
     kinds:
@@ -1000,6 +1192,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > North Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-triunfo-gardens
     name: Triunfo Gardens
     kinds:
@@ -1009,15 +1203,20 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > North Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-cartuja-monastery
     name: Cartuja Monastery
     kinds:
       - nature
       - religious_site
     description: A spectacular example of Baroque-style architecture, this monastery was commissioned in the 16th century but construction was interrupted and not completed until over three centuries later. Upon entering you'll pass through a cloister garden that serves as the building's tranquil courtyard, with small rooms splitting off from here, many with grisly paintings of martyrs meeting their fates. The single-nave church is spectacular and lavishly decorated, with the sanctuary and sacristy containing many beautifully crafted and intricate artworks.
-    crowd_level: null
+    crowd_level: 2
     best_months: []
     source_ref: Granada > See > North Granada
+    crowd_evidence:
+      - Upon entering you'll pass through a cloister garden that serves as the building's tranquil courtyard, with small rooms splitting off from here, many with grisly paintings of martyrs meeting their fates.
+    months_evidence: []
   - id: andalusia-granada-san-jeronimo-monastery
     name: San Jeronimo Monastery
     kinds:
@@ -1026,6 +1225,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > North Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-basilica-san-juan-de-dios
     name: Basilica San Juan de Dios
     kinds:
@@ -1036,6 +1237,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > North Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-santo-domingo-church
     name: Santo Domingo Church
     kinds:
@@ -1045,6 +1248,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > South Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-carmen-de-los-martires
     name: Carmen de los Mártires
     kinds:
@@ -1053,6 +1258,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > South Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-federico-garcia-lorca-museum
     name: Federico García Lorca Museum
     kinds:
@@ -1063,6 +1270,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > South Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-basilica-nuestra-senora-de-las-angustias
     name: Basilica Nuestra Señora de Las Angustias
     kinds:
@@ -1072,6 +1281,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > South Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-rio-genil
     name: Rio Genil
     kinds:
@@ -1081,6 +1292,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > South Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-parque-de-las-ciencias
     name: Parque de las Ciencias
     kinds:
@@ -1090,6 +1303,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > See > South Granada
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-aquaola
     name: Aquaola
     kinds:
@@ -1099,6 +1314,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-hammam-arab-baths
     name: Hammam Arab Baths
     kinds:
@@ -1107,6 +1324,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-granada-plaza-de-toros-de-granada
     name: Plaza de Toros de Granada
     kinds:
@@ -1115,6 +1334,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Granada > Do
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-plaza-de-los-naranjos
     name: Plaza de los Naranjos
     kinds:
@@ -1125,6 +1346,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-parque-de-alameda
     name: Parque de Alameda
     kinds:
@@ -1133,6 +1356,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-avenida-del-mar
     name: Avenida del Mar
     kinds:
@@ -1141,6 +1366,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-nuestra-senora-de-la-encarnacion
     name: Nuestra Señora de la Encarnacion
     kinds:
@@ -1149,6 +1376,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-ermita-de-santiago
     name: Ermita de Santiago
     kinds:
@@ -1157,6 +1386,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-capilla-del-santo-sepulcro
     name: Capilla del Santo Sepulcro
     kinds:
@@ -1165,6 +1396,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-capilla-de-san-juan-de-dios
     name: Capilla de San Juan de Dios
     kinds:
@@ -1173,6 +1406,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-virgen-de-los-dolores
     name: Virgen de los Dolores
     kinds:
@@ -1181,6 +1416,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-moorish-walls
     name: Moorish walls
     kinds:
@@ -1189,6 +1426,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-parque-de-la-represa
     name: Parque de la Represa
     kinds:
@@ -1199,6 +1438,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-paseo-maritimo
     name: Paseo Maritimo
     kinds:
@@ -1209,6 +1450,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-museo-del-grabado
     name: Museo del Grabado
     kinds:
@@ -1217,14 +1460,23 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > See
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-parasailing-activity
     name: Parasailing activity
     kinds:
       - other
     description: The activity takes place at Puerto Deportivo of Marbella and consists of 12 minutes of flying over the sea, at a height of over 70 m. The company offers you a lifejacket, harness and other equipment needed. Then a boat will pull you across the water until you take off and during your flight. Then you're brought back to land.
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 7
+      - 8
+      - 10
     source_ref: Marbella > Do > Sea
+    crowd_evidence: []
+    months_evidence:
+      - '(price: €55; hours: summer season, Easter–October)'
   - id: andalusia-marbella-sunbathing-and-swimming
     name: Sunbathing and swimming
     kinds:
@@ -1233,6 +1485,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > Do > Sea
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-guadalmina-club-de-golf
     name: Guadalmina Club de Golf
     kinds:
@@ -1241,6 +1495,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > Do > Land
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-hipodromo-mijas-costa
     name: Hipodromo Mijas Costa
     kinds:
@@ -1250,6 +1506,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > Do > Land
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-easter-week
     name: Easter week
     kinds:
@@ -1258,6 +1516,8 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-may
     name: May
     kinds:
@@ -1266,22 +1526,33 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-june
     name: June
     kinds:
       - historic_site
     description: "June: La Fiera, a week-long party in the old town to honor San Bernabé who is the city's patron saint."
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 10
     source_ref: Marbella > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - Between the patron saint festivals in June and October, also several smaller fairs take place, the Feria y Fiestas de Nueva Andalucía, Las Chapas and El Ángel.
   - id: andalusia-marbella-july
     name: July
     kinds:
       - other
     description: 'July: The festival of Virgen del Carmen'
     crowd_level: null
-    best_months: []
+    best_months:
+      - 7
     source_ref: Marbella > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - 'July: The festival of Virgen del Carmen'
   - id: andalusia-marbella-august
     name: August
     kinds:
@@ -1290,22 +1561,34 @@ pois:
     crowd_level: null
     best_months: []
     source_ref: Marbella > Do > Events
+    crowd_evidence: []
+    months_evidence: []
   - id: andalusia-marbella-october
     name: October
     kinds:
       - other
     description: 'October: The fair and festival to honour the parton of nearby San Pedro Alcantara'
     crowd_level: null
-    best_months: []
+    best_months:
+      - 6
+      - 10
     source_ref: Marbella > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - 'October: The fair and festival to honour the parton of nearby San Pedro Alcantara'
+      - Between the patron saint festivals in June and October, also several smaller fairs take place, the Feria y Fiestas de Nueva Andalucía, Las Chapas and El Ángel.
   - id: andalusia-marbella-november
     name: November
     kinds:
       - other
     description: 'November: Día del Tostón, a day celebrated by roasting chestnuts'
     crowd_level: null
-    best_months: []
+    best_months:
+      - 11
     source_ref: Marbella > Do > Events
+    crowd_evidence: []
+    months_evidence:
+      - 'November: Día del Tostón, a day celebrated by roasting chestnuts'
 extraction:
   listings: 271
   listings_by_type:
