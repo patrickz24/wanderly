@@ -1,5 +1,6 @@
 import type { ApiErrorCode, ApiErrorResponse } from '@wanderly/contracts';
 import { hasZodFastifySchemaValidationErrors } from 'fastify-type-provider-zod';
+import { isApplicationError, type KnownApplicationError } from '../application/errors.js';
 import { isDomainError, type DomainErrorCode } from '../domain/errors.js';
 
 /**
@@ -47,6 +48,32 @@ const DOMAIN_ERRORS = {
   { statusCode: number; message: string }
 >;
 
+/**
+ * Application rules broken by a request: a conflict with the conversation's state (409). The
+ * client can fix it (start a new conversation, wait for the reply), hence a 4xx code.
+ */
+function applicationError(error: KnownApplicationError): {
+  statusCode: number;
+  code: ApiErrorCode;
+  message: string;
+} {
+  switch (error.code) {
+    case 'TURN_LIMIT_REACHED':
+      return {
+        statusCode: 409,
+        code: 'VALIDATION_ERROR',
+        message: `This conversation has reached its limit of ${error.limit} messages. Please start a new conversation.`,
+      };
+    case 'CONVERSATION_BUSY':
+      return {
+        statusCode: 409,
+        code: 'VALIDATION_ERROR',
+        message:
+          'A reply is still being written for this conversation. Please wait for it to finish.',
+      };
+  }
+}
+
 export const INTERNAL_ERROR_MESSAGE = 'Something went wrong on our side. Please try again.';
 export const ROUTE_NOT_FOUND_MESSAGE = 'Route not found.';
 const MAX_CLIENT_MESSAGE_LENGTH = 300;
@@ -74,6 +101,11 @@ export function mapError(error: unknown, requestId: string): MappedError {
       body: errorBody(error.code, error.message, requestId),
       logLevel: error.statusCode >= 500 ? 'error' : 'info',
     };
+  }
+
+  if (isApplicationError(error)) {
+    const { statusCode, code, message } = applicationError(error);
+    return client(statusCode, code, message, requestId);
   }
 
   if (isDomainError(error)) {
