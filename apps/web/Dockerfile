@@ -51,6 +51,16 @@ LABEL org.opencontainers.image.title="wanderly-web" \
       org.opencontainers.image.source="https://github.com/patrickz24/wanderly" \
       org.opencontainers.image.licenses="MIT"
 
+# The base image runs as uid 101; package changes need root, restored below.
+USER root
+# 1. Remove the optional dynamic modules (image-filter, xslt, geoip, njs): this config loads none
+#    of them, and they pull in libgd, libtiff, libxslt and GeoIP (attack surface + CVEs).
+# 2. Alpine security updates released after the base image was built (the image scan fails on
+#    fixable HIGH/CRITICAL; the layer is rebuilt whenever Dependabot refreshes the base digest).
+RUN apk del --no-cache nginx-module-image-filter nginx-module-xslt nginx-module-geoip \
+        nginx-module-njs \
+    && apk upgrade --no-cache
+
 # Files are owned by root and only readable by the nginx user (uid 101): the server cannot
 # rewrite its own config or content.
 COPY apps/web/nginx.conf /etc/nginx/conf.d/default.conf
