@@ -1,6 +1,13 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { hangingFetch, jsonResponse, stubFetch } from '../test/fetch';
-import { ApiError, apiRequest, getHealth, normalizeBaseUrl, resolveApiUrl } from './api';
+import {
+  ApiError,
+  apiRequest,
+  getHealth,
+  normalizeBaseUrl,
+  parseRetryAfter,
+  resolveApiUrl,
+} from './api';
 
 const identity = (data: unknown): unknown => data;
 
@@ -179,5 +186,49 @@ describe('getHealth', () => {
     stubFetch(async () => jsonResponse({ status: 'maybe' }));
 
     await expect(getHealth()).rejects.toMatchObject({ kind: 'invalid-response' });
+  });
+});
+
+describe('parseRetryAfter', () => {
+  const now = Date.parse('2026-10-10T09:00:00Z');
+
+  it.each([
+    [null, null],
+    ['', null],
+    ['  ', null],
+    ['0', 0],
+    ['42', 42_000],
+    [' 120 ', 120_000],
+    ['Sat, 10 Oct 2026 09:01:30 GMT', 90_000],
+    ['Sat, 10 Oct 2026 08:00:00 GMT', 0],
+    ['soon', null],
+    ['-5', null],
+    ['1.5', null],
+  ])('parses %j as %j ms', (value, expected) => {
+    expect(parseRetryAfter(value, now)).toBe(expected);
+  });
+});
+
+describe('apiRequest Retry-After', () => {
+  it('exposes the Retry-After delay of a refused request', async () => {
+    stubFetch(async () => {
+      const response = jsonResponse(
+        { error: { code: 'RATE_LIMITED', message: 'Too many requests.' } },
+        429,
+      );
+      response.headers.set('Retry-After', '30');
+      return response;
+    });
+
+    await expect(apiRequest('/api/conversations', identity)).rejects.toMatchObject({
+      code: 'RATE_LIMITED',
+      retryAfterMs: 30_000,
+    });
+  });
+
+  it('leaves retryAfterMs null when the header is absent', async () => {
+    stubFetch(async () => new Response('', { status: 503 }));
+
+    await expect(apiRequest('/health', identity)).rejects.toMatchObject({ retryAfterMs: null });
   });
 });

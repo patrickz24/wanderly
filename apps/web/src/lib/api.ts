@@ -22,6 +22,8 @@ interface ApiErrorDetails {
   readonly status?: number;
   readonly code?: ApiErrorCode;
   readonly requestId?: string;
+  /** From the `Retry-After` header, when the server sent one. */
+  readonly retryAfterMs?: number;
   readonly cause?: unknown;
 }
 
@@ -34,6 +36,8 @@ export class ApiError extends Error {
   /** Stable code from the API error envelope, when the body carried one. */
   readonly code: ApiErrorCode | null;
   readonly requestId: string | null;
+  /** How long the server asked us to wait before retrying (`Retry-After`), otherwise `null`. */
+  readonly retryAfterMs: number | null;
 
   constructor(kind: ApiFailureKind, message: string, details: ApiErrorDetails = {}) {
     super(message, { cause: details.cause });
@@ -41,6 +45,7 @@ export class ApiError extends Error {
     this.status = details.status ?? null;
     this.code = details.code ?? null;
     this.requestId = details.requestId ?? null;
+    this.retryAfterMs = details.retryAfterMs ?? null;
   }
 }
 
@@ -88,15 +93,36 @@ function parseJson(text: string): JsonParseResult {
   }
 }
 
+/**
+ * Parses a `Retry-After` header: delay-seconds or an HTTP date (RFC 9110 §10.2.3).
+ * Returns the wait in milliseconds, or `null` when the header is absent or malformed.
+ */
+export function parseRetryAfter(value: string | null, now: number = Date.now()): number | null {
+  const trimmed = value?.trim() ?? '';
+  if (trimmed === '') {
+    return null;
+  }
+  if (/^\d+$/.test(trimmed)) {
+    return Number(trimmed) * 1000;
+  }
+  // HTTP dates start with the day name; this keeps Date.parse's leniency ("-5", "1.5") out.
+  if (!/^[A-Za-z]{3},? /.test(trimmed)) {
+    return null;
+  }
+  const date = Date.parse(trimmed);
+  return Number.isNaN(date) ? null : Math.max(0, date - now);
+}
+
 /** Builds an `http` error, using the API error envelope when the body is one. */
-function toHttpError(status: number, body: string): ApiError {
+export function toHttpError(status: number, body: string, headers?: Headers): ApiError {
+  const retryAfterMs = parseRetryAfter(headers?.get('Retry-After') ?? null) ?? undefined;
   const parsed = parseJson(body);
   const envelope = parsed.ok ? ApiErrorResponseSchema.safeParse(parsed.value) : null;
   if (envelope?.success === true) {
     const { code, message, requestId } = envelope.data.error;
-    return new ApiError('http', message, { status, code, requestId });
+    return new ApiError('http', message, { status, code, requestId, retryAfterMs });
   }
-  return new ApiError('http', `The API responded with HTTP ${status}.`, { status });
+  return new ApiError('http', `The API responded with HTTP ${status}.`, { status, retryAfterMs });
 }
 
 function decodeBody<T>(body: string, decode: Decoder<T>): T {
@@ -159,7 +185,7 @@ export async function apiRequest<T>(
     const response = await fetch(url, buildInit(method, body, controller.signal));
     const text = await response.text();
     if (!response.ok) {
-      throw toHttpError(response.status, text);
+      throw toHttpError(response.status, text, response.headers);
     }
     return decodeBody(text, decode);
   } catch (error) {
