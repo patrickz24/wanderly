@@ -12,6 +12,9 @@ Git history shows how the project was built. To write a new one, follow
 | [0000](0000-template.md)                                   | Template                                                            | —        | —         |
 | [0001](0001-monorepo-and-stack.md)                         | npm workspaces monorepo and core TypeScript stack                   | Accepted | 1         |
 | [0002](0002-layered-architecture-and-ports.md)             | Layered architecture with ports and adapters                        | Accepted | 1         |
+| [0003](0003-corpus-and-structure-aware-chunking.md)        | Wikivoyage corpus and structure-aware chunking                      | Accepted | 2         |
+| [0004](0004-local-embeddings.md)                           | Local embeddings with bge-small-en-v1.5 behind the `Embedder` port  | Accepted | 2         |
+| [0005](0005-hybrid-retrieval-with-rrf.md)                  | Hybrid retrieval with Reciprocal Rank Fusion in Postgres            | Accepted | 2         |
 | [0006](0006-hand-written-agent-runtime.md)                 | Hand-written agent runtime with terminal tools                      | Accepted | 3         |
 | [0007](0007-llm-provider-abstraction-and-opaque-blocks.md) | LLM provider abstraction with opaque provider blocks                | Accepted | 3         |
 | [0008](0008-observability-with-langfuse.md)                | Observability with Langfuse behind a `Tracer` port                  | Accepted | 3         |
@@ -24,11 +27,8 @@ Git history shows how the project was built. To write a new one, follow
 These decisions are scheduled in the project plan. Each file appears when its milestone starts; the
 titles may change.
 
-| ADR  | Topic                                        | Milestone |
-| ---- | -------------------------------------------- | --------- |
-| 0003 | Corpus source and chunking strategy          | 2         |
-| 0004 | Local embeddings behind an `Embedder` port   | 2         |
-| 0005 | Hybrid retrieval with Reciprocal Rank Fusion | 2         |
-| 0012 | Evaluation strategy and CI gates             | 5         |
-| 0013 | LLM-as-judge and its calibration             | 5         |
-| 0014 | Hosting                                      | 7         |
+| ADR  | Topic                            | Milestone |
+| ---- | -------------------------------- | --------- |
+| 0012 | Evaluation strategy and CI gates | 5         |
+| 0013 | LLM-as-judge and its calibration | 5         |
+| 0014 | Hosting                          | 7         |
