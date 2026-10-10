@@ -26,8 +26,9 @@
 COMPOSE ?= docker compose
 SERVICE ?=
 LOCAL_DATABASE_URL := postgres://wanderly:wanderly@localhost:5432/wanderly
-WITH_ENV = set -a; if [ -f .env ]; then . ./.env; fi; set +a; \
-	export DATABASE_URL="$${DATABASE_URL:-$(LOCAL_DATABASE_URL)}";
+# A DATABASE_URL given on the command line wins over .env (e.g. `DATABASE_URL=<neon> make seed`).
+WITH_ENV = caller_db="$${DATABASE_URL:-}"; set -a; if [ -f .env ]; then . ./.env; fi; set +a; \
+	export DATABASE_URL="$${caller_db:-$${DATABASE_URL:-$(LOCAL_DATABASE_URL)}}";
 
 # Fly.io (docs/DEPLOYMENT.md). App names are read from the config files.
 FLY_API_CONFIG := infra/fly/api.fly.toml
