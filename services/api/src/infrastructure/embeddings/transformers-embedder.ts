@@ -125,10 +125,18 @@ export class TransformersEmbedder implements Embedder {
     if (texts.length === 0) return [];
     const extractor = await this.#extractor();
     const inputs = kind === 'query' ? texts.map((text) => this.queryPrefix + text) : [...texts];
-    const vectors: number[][] = [];
-    for (let start = 0; start < inputs.length; start += this.#batchSize) {
-      const batch = inputs.slice(start, start + this.#batchSize);
-      vectors.push(...(await this.#run(extractor, batch)));
+    // A batch is padded to its longest text: batching texts of similar length (longest first)
+    // avoids computing attention over padding. Results are put back in input order.
+    const order = inputs
+      .map((text, index) => ({ index, length: text.length }))
+      .sort((left, right) => right.length - left.length || left.index - right.index)
+      .map((entry) => entry.index);
+    const vectors = new Array<number[]>(inputs.length);
+    for (let start = 0; start < order.length; start += this.#batchSize) {
+      const indexes = order.slice(start, start + this.#batchSize);
+      const batch = indexes.map((index) => inputs[index] as string);
+      const embedded = await this.#run(extractor, batch);
+      indexes.forEach((index, position) => (vectors[index] = embedded[position] as number[]));
     }
     return vectors;
   }

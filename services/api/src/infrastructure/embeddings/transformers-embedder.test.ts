@@ -86,6 +86,28 @@ describe('TransformersEmbedder', () => {
     ]);
   });
 
+  it('batches texts of similar length together and restores the input order', async () => {
+    const batches: string[][] = [];
+    const { extractor } = fakeExtractor(4, {
+      // The first value of each vector is the length of its text.
+      async extract(texts) {
+        batches.push(texts);
+        const data = new Float32Array(texts.length * 4);
+        texts.forEach((text, row) => (data[row * 4] = text.length));
+        return { dims: [texts.length, 4], data };
+      },
+    });
+    const { embedder } = embedderWith(extractor, { batchSize: 2 });
+
+    const vectors = await embedder.embed(['x', 'xxxx', 'xx', 'xxx'], 'document');
+
+    expect(batches.slice(1)).toEqual([
+      ['xxxx', 'xxx'],
+      ['xx', 'x'],
+    ]);
+    expect(vectors.map((vector) => vector[0])).toEqual([1, 4, 2, 3]);
+  });
+
   it('loads the model lazily, once, even with concurrent callers', async () => {
     const { extractor } = fakeExtractor();
     const { embedder, loadExtractor } = embedderWith(extractor);
