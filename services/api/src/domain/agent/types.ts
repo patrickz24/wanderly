@@ -22,7 +22,10 @@ export interface AgentLimits {
   readonly runDeadlineMs: number;
   /** `max_tokens` of each LLM call (reasoning + output). */
   readonly maxOutputTokens: number;
-  /** Hard ceiling on the run's cost; the loop stops before exceeding it. */
+  /**
+   * Hard ceiling on the run's cost: the loop does not start a call whose worst-case cost (whole
+   * prompt at the cache-write rate + `maxOutputTokens` of output) could cross it.
+   */
   readonly maxRunCostUsd: number;
 }
 
@@ -58,13 +61,39 @@ export interface AgentRunDeps {
   /** Prices used to cost each LLM call (USD per million tokens). */
   readonly pricing: ModelPricing;
   readonly onEvent: (event: AgentStepEvent) => void;
+  /**
+   * Secret marker placed in the system prompt; finding it in a response means the prompt leaked.
+   * Must be stable across restarts (it is part of the cached prompt prefix) and ≥ 16 characters.
+   */
+  readonly canaryToken: string;
+  /**
+   * Cancels the run (e.g. the client disconnected). On abort, `runAgent` rejects with the
+   * signal's reason; nothing of the run should be persisted.
+   */
+  readonly signal?: AbortSignal;
 }
 
-export interface ModelPricing {
+/** USD per million tokens. */
+export interface ModelRates {
   readonly inputPerMTok: number;
   readonly outputPerMTok: number;
   readonly cacheReadPerMTok: number;
   readonly cacheWritePerMTok: number;
+}
+
+export interface ModelPricing extends ModelRates {
+  /** Rates billed instead when a prompt exceeds `thresholdTokens` (e.g. Haiku 5.5 above 100K). */
+  readonly longContext?: { readonly thresholdTokens: number; readonly rates: ModelRates };
+}
+
+/** What the guardrails observed during the run (for traces and evals; never shown to users). */
+export interface AgentRunSignals {
+  /** The canary token appeared in a terminal output; that output was blocked. */
+  readonly canaryLeak: boolean;
+  /** The provider refused (safety classifiers); the response is a synthesized `decline`. */
+  readonly providerRefusal: boolean;
+  /** Prompt-injection heuristics that matched the user text or tool outputs (signals only). */
+  readonly injectionSignals: readonly string[];
 }
 
 interface AgentRunCommon {
@@ -78,7 +107,25 @@ interface AgentRunCommon {
   /** Repairs used after invalid terminal calls. */
   readonly repairs: number;
   readonly latencyMs: number;
+  readonly signals: AgentRunSignals;
 }
+
+/** Why a run failed, finer than the error code (agent_runs, eval error logs). */
+export type AgentFailureReason =
+  /** One LLM call exceeded `llmTimeoutMs` (LLM_TIMEOUT). */
+  | 'llm_timeout'
+  /** The run exceeded `runDeadlineMs` (LLM_TIMEOUT). */
+  | 'run_deadline'
+  /** 429 / 5xx / 529 / connection errors after the adapter's retries (PROVIDER_UNAVAILABLE). */
+  | 'provider_unavailable'
+  /** The model hit `max_tokens` (INVALID_OUTPUT). */
+  | 'truncated'
+  /** Terminal output still invalid after the repairs, or plain text after the reminder. */
+  | 'invalid_output'
+  /** `maxSteps` LLM calls without a valid terminal call (INVALID_OUTPUT). */
+  | 'step_limit'
+  /** The next call could have crossed `maxRunCostUsd` (INVALID_OUTPUT). */
+  | 'cost_ceiling';
 
 export type AgentRunResult =
   | (AgentRunCommon & {
@@ -92,4 +139,5 @@ export type AgentRunResult =
   | (AgentRunCommon & {
       readonly status: 'error';
       readonly error: KnownDomainError;
+      readonly reason: AgentFailureReason;
     });
