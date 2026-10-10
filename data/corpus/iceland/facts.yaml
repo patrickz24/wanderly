@@ -15,6 +15,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Iceland
   revision_id: 5376726
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: iceland
+    title: Iceland
+    url: https://en.wikivoyage.org/wiki/Iceland
+    revision_id: 5376726
+    license: CC BY-SA 4.0
+  - file: places/reykjavik.md
+    role: place
+    id: reykjavik
+    title: Reykjavík
+    url: https://en.wikivoyage.org/wiki/Reykjav%C3%ADk
+    revision_id: 5380327
+    license: CC BY-SA 4.0
+  - file: places/akureyri.md
+    role: place
+    id: akureyri
+    title: Akureyri
+    url: https://en.wikivoyage.org/wiki/Akureyri
+    revision_id: 5377203
+    license: CC BY-SA 4.0
+  - file: places/vatnajokull-national-park.md
+    role: place
+    id: vatnajokull-national-park
+    title: Vatnajökull National Park
+    url: https://en.wikivoyage.org/wiki/Vatnaj%C3%B6kull_National_Park
+    revision_id: 5258427
+    license: CC BY-SA 4.0
+  - file: places/hofn.md
+    role: place
+    id: hofn
+    title: Höfn
+    url: https://en.wikivoyage.org/wiki/H%C3%B6fn
+    revision_id: 5384068
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -93,29 +129,73 @@ climate:
       rain_days: 16.6
       precipitation_mm: 111.5
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
-    meal: null
-    notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+    lodging_night:
+      median: 15000
+      min: 1100
+      max: 40000
+      currency: kr
+      sample_size: 25
+      excluded_other_currency: 10
+    meal:
+      median: 4000
+      min: 300
+      max: 6000
+      currency: kr
+      sample_size: 14
+      excluded_other_currency: 0
+    notes: []
   levels:
     budget:
-      lodging_night: null
-      meal: null
+      lodging_night:
+        median: 10475
+        min: 1100
+        max: 15600
+        currency: kr
+        sample_size: 6
+        excluded_other_currency: 2
+      meal:
+        median: 1135
+        min: 420
+        max: 2500
+        currency: kr
+        sample_size: 2
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - Eat figure under Budget rests on only 2 listing(s).
     mid:
-      lodging_night: null
-      meal: null
-      notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+      lodging_night:
+        median: 20500
+        min: 10000
+        max: 30000
+        currency: kr
+        sample_size: 8
+        excluded_other_currency: 0
+      meal:
+        median: 4000
+        min: 300
+        max: 6000
+        currency: kr
+        sample_size: 9
+        excluded_other_currency: 0
+      notes: []
     comfort:
-      lodging_night: null
-      meal: null
-      notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+      lodging_night:
+        median: 30000
+        min: 30000
+        max: 40000
+        currency: kr
+        sample_size: 3
+        excluded_other_currency: 1
+      meal:
+        median: 5500
+        min: 5000
+        max: 6000
+        currency: kr
+        sample_size: 3
+        excluded_other_currency: 0
+      notes: []
 pois:
   - id: iceland-thingvellir-national-park
     name: Þingvellir National Park
@@ -124,7 +204,7 @@ pois:
     description: "A UNESCO World Heritage site. 30 to 50 km east of Reykjavík. Interesting for a number of reasons: it is the original site of the longest running parliament in the world (the name literally means 'parliamentary fields'), and it's where the North-American and European continental shelf plates are being torn apart."
     crowd_level: null
     best_months: []
-    source_ref: Other destinations > National parks
+    source_ref: Iceland > Other destinations > National parks
   - id: iceland-vatnajokull-national-park
     name: Vatnajökull National Park
     kinds:
@@ -133,7 +213,7 @@ pois:
     description: Iceland's newest national park is Europe's largest national park at 12,000 km², covering about 12% of the surface of Iceland. The park is home to Iceland's highest mountain, Hvannadalshnúkur, largest glacier, Vatnajökull, the Jökulsárlón ice lagoon, and Europe's largest waterfall in terms of volume discharge, Dettifoss.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations > National parks
+    source_ref: Iceland > Other destinations > National parks
   - id: iceland-snaefellsjokull-national-park
     name: Snæfellsjökull National Park
     kinds:
@@ -142,7 +222,7 @@ pois:
     description: Located on the tip of the Snæfellsnes Peninsula in western Iceland, this park is home to the ice-covered volcanic crater that was the setting for Jules Verne's book Journey to the Center of the Earth.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations > National parks
+    source_ref: Iceland > Other destinations > National parks
   - id: iceland-blue-lagoon
     name: Blue Lagoon
     kinds:
@@ -150,7 +230,7 @@ pois:
     description: famous outdoor pool and health centre. The spa is in Grindavík on the Reykjanes Peninsula, south-western Iceland. It is situated approximately 13 km (8 mi) from the Keflavík International Airport and 39 km (24 mi) from Reykjavík. This geothermal spa in the middle of a lava field with its milky blue water is quite surreal. The hot water is sourced from the outlet of the nearby geothermal plant which extracts most of the heat energy and reduces the superheated water to a temperature that humans enjoy.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations > Other attractions
+    source_ref: Iceland > Other destinations > Other attractions
   - id: iceland-myvatn
     name: Mývatn
     kinds:
@@ -158,7 +238,7 @@ pois:
     description: 'a lake region near Akureyri in the North of Iceland, Mývatn has an unearthly appearance owing to special types of volcanic craters throughout the lake. There are plenty of activities in this area: Smajfall (desert where sulphuric steam comes out of the ground) and Dimmuborgir (aka the Black City and the Gates of Hell).'
     crowd_level: null
     best_months: []
-    source_ref: Other destinations > Other attractions
+    source_ref: Iceland > Other destinations > Other attractions
   - id: iceland-gullfoss
     name: Gullfoss
     kinds:
@@ -166,7 +246,7 @@ pois:
     description: the Golden Falls. On the edge of the inhospitable Interior of Iceland about 100 km east of Reykjavík, the river Hvítá plunges down a double cascade to create what many people believe is the most beautiful waterfall in Iceland
     crowd_level: null
     best_months: []
-    source_ref: Other destinations > Other attractions
+    source_ref: Iceland > Other destinations > Other attractions
   - id: iceland-langjokull
     name: Langjökull
     kinds:
@@ -174,7 +254,7 @@ pois:
     description: the country's second-largest glacier, sprawling across an impressive 935 km² of the western highlands, is an expansive icy wilderness. Not far away, on the popular Golden Circle route, meltwater from Langjökull feeds into the Gullfoss waterfall, creating a cascade, and flows into the geysers in the Geysir hot springs area.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations > Other attractions
+    source_ref: Iceland > Other destinations > Other attractions
   - id: iceland-geysir
     name: Geysir
     kinds:
@@ -182,7 +262,7 @@ pois:
     description: geothermal hot spot located 10 km west of Gullfoss. Geysir itself (from which the English word "geyser" derives) is no longer reliably active, but fortunately Strokkur next door goes off every five to ten minutes.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations > Other attractions
+    source_ref: Iceland > Other destinations > Other attractions
   - id: iceland-jokulsarlon
     name: Jökulsárlón
     kinds:
@@ -190,7 +270,7 @@ pois:
     description: the majestic glacial lagoon in southeast Iceland located near Höfn on Route 1. Breiðamerkurjökull glacier retreated quickly from 1920 to 1965 leaving this breathtaking lagoon, which is up to 190 m deep. Ice breaks off from the glacier keeping the lagoon stocked with icebergs all year round.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations > Other attractions
+    source_ref: Iceland > Other destinations > Other attractions
   - id: iceland-landmannalaugar
     name: Landmannalaugar
     kinds:
@@ -198,7 +278,7 @@ pois:
     description: a region of outstanding natural beauty reachable by bus (or 4x4) from Reykjavík. Situated in the Interior, it gives a taste of the uninhabited highlands at Iceland’s core.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations > Other attractions
+    source_ref: Iceland > Other destinations > Other attractions
   - id: iceland-reykholt
     name: Reykholt
     kinds:
@@ -206,7 +286,7 @@ pois:
     description: former home of Snorri Sturluson, a medieval poet, author and chieftain who is best known for compiling the Prose Edda, which is today considered the authoritative source for pre-Christian Norse mythology.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations > Other attractions
+    source_ref: Iceland > Other destinations > Other attractions
   - id: iceland-thorsmork
     name: Thórsmörk
     kinds:
@@ -215,7 +295,7 @@ pois:
     description: 'tucked away between three glaciers, Þórsmörk is an incredibly beautiful and relatively isolated area. Icelanders enjoy camping there in the summer. There are many hiking trails all over the area, which provide breathtaking views of the surrounding glaciers and lava formations. It is accessible only by truck or bus: it is a good idea to enquire about trips to Þórsmörk at a tourist information centre.'
     crowd_level: null
     best_months: []
-    source_ref: Other destinations > Other attractions
+    source_ref: Iceland > Other destinations > Other attractions
   - id: iceland-vatnajokull-glacier
     name: Vatnajökull glacier
     kinds:
@@ -223,32 +303,694 @@ pois:
     description: Vatnajökull glacier is in Southeast Iceland and is Europe's largest glacier.
     crowd_level: null
     best_months: []
-    source_ref: See
-  - id: iceland-glacier-hiking
-    name: Glacier hiking
+    source_ref: Iceland > See
+  - id: iceland-reykjavik-tjornin
+    name: Tjörnin
+    kinds:
+      - nature
+    description: A small lake in the centre of the city where young and old often gather to feed the ducks. The Icelandic name, Tjörnin, literally means "The Pond". Tjörnin is mostly surrounded by a park called Hljómskálagarðurinn (Music Pavilion Park) which gets very popular in good weather. The southern end of Tjörnin links it to the Vatnsmýri swamp, a small bird reserve with paths open to the public except during egg hatching season. Built into Tjörnin on the northern side is Reykjavík City Hall.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Parks and open areas
+  - id: iceland-reykjavik-austurvollur
+    name: Austurvöllur
+    kinds:
+      - nature
+      - religious_site
+    description: A small park (or square, depending on definitions) in the heart of Reykjavík. It's many locals' favorite place to spend sunny days, either at one of the cafés lining the north of the square or simply having a picnic on the grass. The parliament and the national cathedral both stand by Austurvöllur.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Parks and open areas
+  - id: iceland-reykjavik-klambratun
+    name: Klambratún
+    kinds:
+      - nature
+      - museum
+    description: Klambratún is a park just east of the city centre on an area which remained farmland while the city was built up around it. The area was later converted into one of the largest public parks in the city and often hosts various events. One of the houses of the Reykjavík Art Museum, Kjarvalsstaðir, is inside the park.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Parks and open areas
+  - id: iceland-reykjavik-reykjavik-botanical-gardens
+    name: Reykjavík Botanical Gardens
+    kinds:
+      - nature
+    description: The Reykjavík Botanical Gardens are not large, but they're nice for a short stroll and a good place to see some of the plants that grow in Iceland.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Parks and open areas
+  - id: iceland-reykjavik-videy
+    name: Viðey
+    kinds:
+      - nature
+      - historic_site
+      - village
+    description: Viðey is a large island in Kollafjörður, the fjord to the north of Reykjavík. It used to be inhabited, and in the early 20th century it had a small fishing village. Nobody lives there anymore apart from the birds, but it's a popular way to get away from the city without leaving it. During the summer, a café is operated in one of the houses on the island. The building was built for Skúli Magnússon, an 18th-century politician often called "the founder of Reykjavík" and designed by the same man as the royal palace in Copenhagen - although it is not quite of the same scale. Among its more modern architecture, Viðey is home to the Imagine Peace Tower by Yoko Ono (see below). To get to Viðey you must take a ferry from Sundahöfn, some distance from central Reykjavík (on bus route 5). The schedule and prices can be found here.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Parks and open areas
+  - id: iceland-reykjavik-grotta
+    name: Grótta
+    kinds:
+      - nature
+    description: At the far western end of the peninsula on which Reykjavík sits there is a small island. This island, called Grótta, is connected to the mainland on low tides and open to the public most of the year (closed May 1-Jul 15). Just make sure you don't get stuck on the island when the tide comes in!
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Parks and open areas
+  - id: iceland-reykjavik-althingi
+    name: Alþingi
+    kinds:
+      - nature
+    description: On the southern edge of Austurvöllur is a small building of hewn stone, but don't let its size fool you. This is the building of the Icelandic parliament, known as Alþingi. The institution has in fact long since outgrown the building which was built in 1881 for a nation of a little over 60,000. Today the upper floors of most houses on the north and west sides of the park also house parliamentary offices. The Alþingi building today houses only the debating chamber of the unicameral institution and the party meeting rooms. When Alþingi is in session it is possible to go up to the viewing platforms and watch the debates, otherwise only groups affiliated with educational institutions are permitted to tour the inside of the building.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Buildings
+  - id: iceland-reykjavik-reykjavik-cathedral
+    name: Reykjavík Cathedral
+    kinds:
+      - religious_site
+    description: The church beside the parliament is Reykjavík Cathedral, the mother church of the Church of Iceland, the country's national church and part of the Lutheran denomination. Similarly deceptive in size, it has been beautifully renovated both inside and out to reflect its original 18th-century architecture.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Buildings
+  - id: iceland-reykjavik-city-hall
+    name: City Hall
+    kinds:
+      - museum
+    description: One of the best examples of late 20th-century architecture in Iceland, built into Tjörnin (The Pond). On the ground floor, which is open to the public, there is a large relief map of the whole country as well as a café and an exhibition hall.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Buildings
+  - id: iceland-reykjavik-hallgrimskirkja
+    name: Hallgrímskirkja
+    kinds:
+      - historic_site
+    description: This can't miss attraction towers over the city on top of a hill. In front is a statue of Leif Ericsson (Leifur Eiríksson in Icelandic), the Norse explorer who sailed to North America in the 10th century. The United States gave this statue to Iceland in 1930, in honor of the 1,000th anniversary of the Althingi, the Iceland parliament.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Buildings
+  - id: iceland-reykjavik-harpa
+    name: Harpa
+    kinds:
+      - other
+    description: Harpa is a new concert hall and conference centre at the heart of Reykjavík. It is the home of the Icelandic Symphony Orchestra and regularly host to other acts as well.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Buildings
+  - id: iceland-reykjavik-perlan
+    name: Perlan
+    kinds:
+      - beach
+      - food
+    description: An iconic building on top of a wooded hill called Öskjuhlíð, to the southeast of the city centre. Perlan is built on top of five hot water storage tanks and offers fantastic views of the entire city from a viewing platform open to the public and from a rotating restaurant at the top. If the restaurant is too expensive for you (it is for most), there is also a small cafeteria on the same floor as the viewing platform. For the price of admission, one can view and interact with exhibits related to the geology, geological history, and natural history of Iceland. There are some shows related to these topics as well covered with the tickets.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Buildings
+  - id: iceland-reykjavik-imagine-peace-tower
+    name: Imagine Peace Tower
+    kinds:
+      - historic_site
+    description: Yoko Ono's memorial to John Lennon, projecting a "tower of light" into the air that can be seen from around Reykjavík. The tower is turned on October 9-December 8, December 21–28, December 31 and March 21–28.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Buildings
+  - id: iceland-reykjavik-christ-the-king-cathedral
+    name: Christ the King Cathedral
+    kinds:
+      - religious_site
+    description: The Catholic cathedral of Iceland.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Buildings
+  - id: iceland-reykjavik-national-gallery-of-iceland
+    name: National Gallery of Iceland
+    kinds:
+      - museum
+    description: The National Gallery of Iceland is a national museum and the main emphasis of the collection is on 20th and 21st century Icelandic art, but international art is featured as well. The museum owns the most valuable collection of works by Icelandic artists in the country. The National Gallery of Iceland regularly holds exhibitions reflecting its collections as well as exhibitions by individual artists, Icelandic as well as foreign ones. The National Gallery's of Iceland buildings at Fríkirkjuvegur 7 houses four exhibition halls on three floors, a gift shop and a small café. The National Gallery is in three locations, ticket price includes admission to all three.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Museums
+  - id: iceland-reykjavik-reykjavik-art-museum-hafnarhus
+    name: Reykjavík Art Museum - Hafnarhús
+    kinds:
+      - museum
+    description: By the old harbour in Reykjavík, Hafnarhúsið hosts a rotating exhibitions of the work of Icelandic artist Erró and temporary exhibitions often showcase other local artists.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Museums
+  - id: iceland-reykjavik-reykjavik-art-museum-kjarvalsstadir
+    name: Reykjavík Art Museum - Kjarvalsstaðir
+    kinds:
+      - museum
+    description: It is safe to say that Jóhannes Kjarval (1885-1972) is the single biggest name in Icelandic painting. Kjarvalsstaðir hosts a collection of his work, as well as hosting other temporary exhibitions.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Museums
+  - id: iceland-reykjavik-reykjavik-museum-of-photography
+    name: Reykjavik Museum of Photography
+    kinds:
+      - museum
+    description: A very small museum with a nice library and reading room where you can find some older (but good) books about photography and current and past issues of photography magazines. It also has a huge collection of Icelandic photographs.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Museums
+  - id: iceland-reykjavik-national-museum-of-iceland
+    name: National Museum of Iceland
+    kinds:
+      - museum
+    description: This museum, by the University of Iceland campus, takes the visitor through the history of a nation from settlement to today. Includes a café and a museum shop.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Museums
+  - id: iceland-reykjavik-reykjavik-city-museum
+    name: Reykjavík City Museum
+    kinds:
+      - museum
+      - village
+    description: In the suburb of Árbær, and frequently called Árbæjarsafn (Árbær museum), this open air museum contains both the old farm of Árbær and many buildings from central Reykjavík that were moved there to make way for construction. The result is a village of old buildings where the staff take you through the story of a city. The staff are dressed in old Icelandic clothing styles and trained in various traditional techniques, for example in making dairy products or preparing wool.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Museums
+  - id: iceland-reykjavik-871-2
+    name: 871±2
+    kinds:
+      - historic_site
+      - museum
+    description: Run by the Reykjavík City Museum, this exhibition in central Reykjavík was built around the oldest archaeological ruins in Iceland. As the name indicates, these ruins date to around the year 870. This interactive exhibitions brings you the early history of the area that today forms central Reykjavík.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Museums
+  - id: iceland-reykjavik-the-house-of-collections
+    name: The House of Collections
+    kinds:
+      - museum
+    description: The House of Collections, built in 1906, has housed all the major Icelandic collections at some point. It houses the semi-permanent exhibition Resistance which is an interdisciplinary exhibition that bridges the gap between visual arts and science. The works include some of the pearls of Icelandic art from the collection of the National Gallery of Iceland. The House of Collections is one of three locations of the National Gallery of Iceland, ticket price includes admission to all three.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Museums
+  - id: iceland-reykjavik-the-icelandic-phallological-museum
+    name: The Icelandic Phallological Museum
+    kinds:
+      - museum
+    description: A museum dedicated to Phallology, the study of penises. This museum features phalluses of numerous animals from various whales to a human specimen.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Museums
+  - id: iceland-reykjavik-hellisheidi-geothermal-plant
+    name: Hellisheiði Geothermal Plant
+    kinds:
+      - museum
+    description: Get a tour of the geothermal power plant that provides Reykjavik with heating and hot water.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Museums
+  - id: iceland-reykjavik-icelandic-punk-museum
+    name: Icelandic Punk Museum
+    kinds:
+      - museum
+    description: A small museum devoted to the history of punk music in Iceland, located in a former underground public toilet facility. In the final room you can listen to Icelandic punk music through headphones, and there are guitars and leather jackets to try on and pose with.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > See > Museums
+  - id: iceland-reykjavik-nordic-house
+    name: Nordic House
+    kinds:
+      - museum
+    description: A cultural centre in Vatnsmýri designed by Finnish architect Alvar Aalto, just south of the city centre. Art exhibitions, concerts, poetry readings and other cultural events frequently take place here.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Music and theatre
+  - id: iceland-reykjavik-national-theatre-of-iceland
+    name: National Theatre of Iceland
+    kinds:
+      - other
+    description: A theatre in the centre of Reykjavík, in many ways the focal point of Icelandic theatre. The repertoire is a mix of Icelandic and international plays, both new and old.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Music and theatre
+  - id: iceland-reykjavik-reykjavik-city-theatre
+    name: Reykjavík City Theatre
+    kinds:
+      - other
+    description: Like the national theatre, the city theatre puts on a mix of new Icelandic plays and highlights of international theatre.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Music and theatre
+  - id: iceland-reykjavik-vesturport
+    name: Vesturport
+    kinds:
+      - family
+    description: This experimental theatre group has toured the world and won many prizes for its daring productions which include Romeo and Juliet, and Woyczek. They have also made films including the acclaimed Children and Parents, in 2006 and 2007 respectively.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Music and theatre
+  - id: iceland-reykjavik-culture-night
+    name: Culture Night
+    kinds:
+      - other
+    description: This is the biggest date in the cultural calendar of Reykjavík. What started out in 1996 as only an evening celebration today starts already in the morning with the Reykjavík Marathon. The day progresses with ever more cultural activities, most of them free, in central Reykjavík and culminates in several huge concerts and a fireworks show by the harbour. Attendance is usually around 100,000 or half of the population of the city.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Festivals
+  - id: iceland-reykjavik-gay-pride
+    name: Gay Pride
+    kinds:
+      - nightlife
+    description: Icelanders are proud of their LGBT community, and every August they show it with one of the biggest annual festivals in Reykjavík. Typically a parade will wind its way through the city with floats of varying degrees of outrageousness. It then ends at Arnarhóll with a large outdoors concert. Gay bars and bars that normally don't self-identify as gay tend to be very full this evening. In the preceding days there are various events celebrating LGBT culture.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Festivals
+  - id: iceland-reykjavik-national-day
+    name: National Day
+    kinds:
+      - family
+    description: It may come as a surprise, but the National Day celebrations on 17 June every year are probably the smallest of the three festivals mentioned here. Nonetheless, it is a public holiday day of festivities in the city where people (especially families with children) celebrate the date Iceland was declared a republic in 1944. The date was selected because it is the birthday of the Icelandic independence hero Jón Sigurðsson.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Festivals
+  - id: iceland-reykjavik-iceland-airwaves
+    name: Iceland Airwaves
+    kinds:
+      - nightlife
+    description: A music festival held in pubs, bars and clubs in downtown Reykjavík. It literally takes over the city for a few days in October. Airwaves prides itself of frequently having artists on the line-up that are just about to make it and become world famous, before you've ever heard of them. They usually have a wide selection of Icelandic and international acts, but keep the "big names" to a minimum. Book early, in 2011 the tickets sold up 5 weeks in advance.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Festivals
+  - id: iceland-reykjavik-reykjavik-international-film-festival
+    name: Reykjavík International Film Festival
+    kinds:
+      - other
+    description: Several days of excellent cinema. Screenings of most Icelandic productions of the last year, short and feature length as well as documentaries, and the best of what's happening around the world. The main prize, the Golden Puffin, is awarded in a category called "New Visions" which is limited to directors' first or second films.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Festivals
+  - id: iceland-reykjavik-whale-watching
+    name: Whale watching
+    kinds:
+      - nature
+      - boat_trip
+    description: With the exception of Húsavík in the north, Reykjavík is actually one of the very best places to go whale watching in Iceland. Whales frequently come into Faxaflói, the large bay which Reykjavík sits by and on a typical trip of around 3 hours you can almost be guaranteed to see at least some minke whales and possibly even a humpback. The companies offering whale watching mostly occupy a small area in the old harbour called Ægisgarður, close to the whaling ships. All sail out to the same bay but since conditions there change make sure you are on a good ship.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Get in touch with nature
+  - id: iceland-reykjavik-puffin-safaris
+    name: Puffin Safaris
+    kinds:
+      - beach
+      - nature
+      - boat_trip
+    description: The same companies that offer whale watching, also offer puffin safaris, about one to one and a half hours in length. A little boat takes you next to islands some 15 minutes out where puffins nest, swim around and catch fish. They have binoculars onboard to borrow so you can get a good look of the birds.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Get in touch with nature
+  - id: iceland-reykjavik-hiking
+    name: Hiking
     kinds:
       - hiking
       - nature
-    description: Glacier hiking is one of Iceland´s most popular tourist things to do, with the area of Skaftafell in the south-east being the centre of the activity. There are also other ways to explore the glaciers.
+      - adventure
+    description: The immediate vicinity of Reykjavík offers some good hiking opportunities. By far the most popular among these is Esjan, the mountain that dominates the view to the north from much of the capital and is easily accessible by bus nr. 57. It's a relatively easy hike although there is a steep patch early on and at the tops there are some cliffs to climb. You can estimate 4-5 hours to get to the top and back again, although experienced walkers will be quicker. Another popular place to experience nature is Heiðmörk, a green belt to the southeast of the capital. Heiðmörk mostly flat and there are many paths criss-crossing the area, but getting there may be difficult without a car.
     crowd_level: null
     best_months: []
-    source_ref: Do
-  - id: iceland-whale-watching
-    name: Whale watching
+    source_ref: Reykjavík > Do > Get in touch with nature
+  - id: iceland-reykjavik-reykjavik-domestic-animal-zoo
+    name: Reykjavík Domestic Animal Zoo
+    kinds:
+      - nature
+      - family
+    description: This small zoo, in the middle of Reykjavík, is a place where city children can come and get in touch with some of the farming heritage of the country, with most species of domestic animals found in Iceland represented. They also have some non-domestic animals including reindeer and seals.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Get in touch with nature
+  - id: iceland-reykjavik-aurora-borealis-northern-lights-watching
+    name: Aurora Borealis (Northern lights) watching
+    kinds:
+      - nature
+    description: Iceland is very favorably located within the aurora belt and chances of observing the beautiful atmospheric phenomenon are rather high between September and March even in the vicinity of the capital; in summer months lack of darkness is the limiting factor. To boost your viewing chances commons sense suggests escaping from the city lights. Due to the tree-free character of the Icelandic countryside only clouds can obstruct your view then. A valuable tool for getting prepared for your observation is the local meteorological office's Aurora site, forecasting both auroral activity and cloudiness. If you don't have a car available, there are plenty of agencies organising short trips who pick you up at your hotel.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Get in touch with nature
+  - id: iceland-reykjavik-inside-the-volcano
+    name: Inside the Volcano
+    kinds:
+      - nature
+    description: Descend into the magma chamber of the Thrihnukagigur volcano. Transport provided from the city for the 30 minute drive to the starting point, or you can drive yourself.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Get in touch with nature
+  - id: iceland-reykjavik-islenski-hesturinn
+    name: Islenski Hesturinn
+    kinds:
+      - family
+    description: Operated by a small group of friends and family, Islenski Hesturinn offers excellent service and tours with hotel pickup. Riders of all skills are welcome and matched to horses of their ability and personality, and various tours are available through Icelandic lava fields.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Sports
+  - id: iceland-reykjavik-laugardalslaug
+    name: Laugardalslaug
+    kinds:
+      - beach
+      - nature
+    description: The city's largest pool with extensive facilities, in Laugardalur Valley east of the city centre. It has two large pools for swimming, several hot-pots, a seawater bath, a steam bath, and water slide. It is a well-used large complex that is starting to show its age a little but it is still the best option in the city. It is undergoing quite a lot of renovation work, but the pool remains open.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Geothermal swimming pools
+  - id: iceland-reykjavik-arbaejarlaug
+    name: Árbæjarlaug
+    kinds:
+      - beach
+      - viewpoint
+      - family
+    description: A brand new complex on the outskirts of the city, it has nice views over the city centre and is a nice place to watch the sunset. There is an indoor and outdoor pool, a waterslide, several hot-pots and a steam bath. This is a favourite with families and is perhaps the nicest of the city's pools. Buses run here from central Reykjavik.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Geothermal swimming pools
+  - id: iceland-reykjavik-sundhollin
+    name: Sundhöllin
+    kinds:
+      - beach
+    description: The city's oldest and only indoor pool (with outdoor hot-pots), located in the city centre. Has a more municipal feel than the other pools, but has a very central location.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Geothermal swimming pools
+  - id: iceland-reykjavik-vesturbaejarlaug
+    name: Vesturbæjarlaug
+    kinds:
+      - hiking
+      - beach
+    description: The city's oldest outdoor pool. Located in a residential area. Of the pools on this list, this is the only one within a moderate walking distance of the city centre.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Geothermal swimming pools
+  - id: iceland-reykjavik-nautholsvik-thermal-beach
+    name: Nautholsvík Thermal Beach
+    kinds:
+      - beach
+    description: Here you can swim in the Atlantic, because they pipe hot water into the ocean. A beach of golden sand has been created and a “pool” has been enclosed nearby, where the water temperature is about 20°C. There are several hot-pots. Refreshments and various services are available at the beach.
+    crowd_level: null
+    best_months: []
+    source_ref: Reykjavík > Do > Geothermal swimming pools
+  - id: iceland-akureyri-akureyri-art-museum
+    name: Akureyri Art Museum
+    kinds:
+      - museum
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Akureyri > See
+  - id: iceland-akureyri-aviation-museum-of-iceland
+    name: Aviation Museum of Iceland
+    kinds:
+      - museum
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Akureyri > See
+  - id: iceland-akureyri-akureyri-botanical-garden
+    name: Akureyri Botanical Garden
+    kinds:
+      - nature
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Akureyri > See
+  - id: iceland-akureyri-akureyrarkirkja
+    name: Akureyrarkirkja
+    kinds:
+      - religious_site
+    description: A church
+    crowd_level: null
+    best_months: []
+    source_ref: Akureyri > See
+  - id: iceland-akureyri-gasir
+    name: Gásir
+    kinds:
+      - historic_site
+    description: Gásir is the site of a medieval trading post, located 11 km north of Akureyri. In July, locals stage medieval reenactments here. At other times of year, it is a sparse area. It is also a reasonably good place to view the Northern Lights if you do not want to drive a long distance from town. You can pull into a parking area after dark.
+    crowd_level: null
+    best_months: []
+    source_ref: Akureyri > See
+  - id: iceland-akureyri-icelandic-aviation-museum
+    name: Icelandic Aviation Museum
+    kinds:
+      - museum
+    description: Opened in 2000, it is in a large hangar at Akureyri Airport. It has static display of aircraft, helicopter and the history of aviation in Iceland.
+    crowd_level: null
+    best_months: []
+    source_ref: Akureyri > See
+  - id: iceland-akureyri-akureyri-drama-society
+    name: Akureyri Drama Society
+    kinds:
+      - other
+    description: The only professional theatre in Iceland outside of Reykjavík.
+    crowd_level: null
+    best_months: []
+    source_ref: Akureyri > Do
+  - id: iceland-akureyri-akureyri-swimming-pool
+    name: Akureyri Swimming Pool
+    kinds:
+      - beach
+      - family
+    description: Two pools for swimming, several hot tubs, three water slides and a children's pool.
+    crowd_level: null
+    best_months: []
+    source_ref: Akureyri > Do
+  - id: iceland-akureyri-hof
+    name: Hof
+    kinds:
+      - other
+    description: Akureyri's house of culture, home to the North Iceland Symphony Orchestra (Sinfóníuhljómsveit Norðurlands) and regularly host to other performances.
+    crowd_level: null
+    best_months: []
+    source_ref: Akureyri > Do
+  - id: iceland-akureyri-skautafelag-akureyrar
+    name: Skautafelag Akureyrar
+    kinds:
+      - other
+    description: Indoor ice rink (ice hockey, figure skating and curling).
+    crowd_level: null
+    best_months: []
+    source_ref: Akureyri > Do
+  - id: iceland-akureyri-graeni-hatturinn
+    name: Græni hatturinn
+    kinds:
+      - nightlife
+    description: Night club, live music.
+    crowd_level: null
+    best_months: []
+    source_ref: Akureyri > Do
+  - id: iceland-akureyri-sambio
+    name: SAMbíó
+    kinds:
+      - other
+    description: Another cinema.
+    crowd_level: null
+    best_months: []
+    source_ref: Akureyri > Do
+  - id: iceland-akureyri-idnadarsafnid
+    name: Iðnaðarsafnið
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Akureyri > Do
+  - id: iceland-akureyri-elding-whale-watching-akureyri
+    name: Elding Whale Watching Akureyri
     kinds:
       - boat_trip
-    description: Whale watching is available all year from Reykjavík and during the summer from Husavik.
+    description: Whale watching, midnight sun cruises (summer), northern lights cruises (winter).
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Akureyri > Do
+  - id: iceland-akureyri-strytan-divecenter
+    name: Strýtan DiveCenter
+    kinds:
+      - adventure
+    description: A PADI diving centre
+    crowd_level: null
+    best_months: []
+    source_ref: Akureyri > Do > Diving
+  - id: iceland-vatnajokull-national-park-jokulsargljufur
+    name: Jökulsárgljúfur
+    kinds:
+      - nature
+    description: Further inland, along the glacial river that once shaped Ásbyrgi are the canyons through which the mighty river still flows. Among the sights in the area is Dettifoss, the most powerful waterfall in Iceland. Previously a national park of their own, Jökulsárgljúfur are today a part of the Vatnajökull National Park.
+    crowd_level: null
+    best_months: []
+    source_ref: Vatnajökull National Park > See
+  - id: iceland-vatnajokull-national-park-jokulsarlon
+    name: Jökulsárlón
+    kinds:
+      - nature
+      - boat_trip
+    description: A large glacial lake where you can take boat tours to see the ever-changing ice formations.
+    crowd_level: null
+    best_months: []
+    source_ref: Vatnajökull National Park > See
+  - id: iceland-vatnajokull-national-park-morsarfoss
+    name: Morsárfoss
+    kinds:
+      - nature
+    description: Iceland's highest waterfall with a drop of over 240 metres.
+    crowd_level: null
+    best_months: []
+    source_ref: Vatnajökull National Park > See
+  - id: iceland-vatnajokull-national-park-mulagljufur-canyon
+    name: Múlagljúfur Canyon
+    kinds:
+      - beach
+      - nature
+    description: A canyon of winding rivers, covered in lush moss and dramatic cliffs.
+    crowd_level: null
+    best_months: []
+    source_ref: Vatnajökull National Park > See
+  - id: iceland-vatnajokull-national-park-askja
+    name: Askja
+    kinds:
+      - nature
+    description: A volcano that collapsed in on itself after an eruption in 1875. Since then, water has accumulated in the crater, making a 220 metre deep pool of water.
+    crowd_level: null
+    best_months: []
+    source_ref: Vatnajökull National Park > See
+  - id: iceland-vatnajokull-national-park-herdubreid
+    name: Herðubreið
+    kinds:
+      - nature
+    description: This tuya, surrounded by a lava field, was not ascended until 1908. At a height of 1700 m it is known as "the Queen of Icelandic Mountains" and was added to Vatnajökull National Park in 2019.
+    crowd_level: null
+    best_months: []
+    source_ref: Vatnajökull National Park > See
+  - id: iceland-vatnajokull-national-park-glacier-guides
+    name: Glacier Guides
+    kinds:
+      - hiking
+      - nature
+      - adventure
+    description: Offers tours, ice walks and ice climbing around Skaftafell
+    crowd_level: null
+    best_months: []
+    source_ref: Vatnajökull National Park > Do
+  - id: iceland-vatnajokull-national-park-bergmenn-mountain-guides
+    name: Bergmenn Mountain Guides
+    kinds:
+      - nature
+    description: Certified mountain guides offering guided ascents within Vatnajokull National Park.
+    crowd_level: null
+    best_months: []
+    source_ref: Vatnajökull National Park > Do
+  - id: iceland-vatnajokull-national-park-adventure-tours-on-vatnajokull
+    name: Adventure tours on Vatnajokull
+    kinds:
+      - hiking
+      - boat_trip
+      - adventure
+    description: Organized skidoo tours, snowmobile, superjeep safari, ice-climbing, trekking and sailing between the icebergs in Jökulsárlón.
+    crowd_level: null
+    best_months: []
+    source_ref: Vatnajökull National Park > Do
+  - id: iceland-vatnajokull-national-park-icelandic-mountain-guides
+    name: Icelandic Mountain Guides
+    kinds:
+      - hiking
+      - nature
+      - adventure
+    description: Have offered easy glacier tours and ice climbing from Skaftafell since 1994 as well as guided hikes to Hvannadalshnúkur, Iceland's highest peak.
+    crowd_level: null
+    best_months: []
+    source_ref: Vatnajökull National Park > Do
+  - id: iceland-vatnajokull-national-park-melrakki-adventures
+    name: Melrakki Adventures
+    kinds:
+      - hiking
+      - nature
+      - adventure
+    description: Melrakki Adventures is a small tour operator in Skaftafell. Certified glacier guides offering extra small group glacier hikes and ice cave tours.
+    crowd_level: null
+    best_months: []
+    source_ref: Vatnajökull National Park > Do
+  - id: iceland-hofn-gamlabud-folk-museum
+    name: Gamlabúð Folk Museum
+    kinds:
+      - museum
+    description: In an old, white timber building on the outskirts of town, this museum focuses on the lives of local people during the period between 1850 and 1950. (The building and the museum have been moved to the harbor area.)
+    crowd_level: null
+    best_months: []
+    source_ref: Höfn > See > In Höfn
+  - id: iceland-hofn-hornafjordur-art-museum
+    name: Hornafjörður Art Museum
+    kinds:
+      - museum
+    description: A small gallery which hosts exhibitions of the municipal art collection and contemporary local artists.
+    crowd_level: null
+    best_months: []
+    source_ref: Höfn > See > In Höfn
+  - id: iceland-hofn-huldusteinn
+    name: Huldusteinn
+    kinds:
+      - beach
+    description: Collecting rocks is a popular hobby in East Iceland. This private collection of rocks has been opened in Höfn's old swimming pool. Rather odd, but definitely interesting for geology enthusiasts.
+    crowd_level: null
+    best_months: []
+    source_ref: Höfn > See > In Höfn
+  - id: iceland-hofn-swimming-pool
+    name: Swimming pool
+    kinds:
+      - beach
+    description: The town offers few activities, although the swimming pool is impressive for a town of this size.
+    crowd_level: null
+    best_months: []
+    source_ref: Höfn > Do > In Höfn
+  - id: iceland-hofn-vatnajokull-travel
+    name: Vatnajokull Travel
+    kinds:
+      - nature
+    description: Transportation and travel packages in the region of Vatnajökull Glacier, all year round.
+    crowd_level: null
+    best_months: []
+    source_ref: Höfn > Do > Outside Höfn
+  - id: iceland-hofn-from-coast-to-mountain
+    name: From Coast to Mountain
+    kinds:
+      - nature
+      - adventure
+    description: A number of different tours including ice climbing, kayaking and bird watching.
+    crowd_level: null
+    best_months: []
+    source_ref: Höfn > Do > Outside Höfn
+  - id: iceland-hofn-glacierjeeps
+    name: Glacierjeeps
+    kinds:
+      - nature
+    description: Jeep tours on to Vatnajökull from a base at Skálfellsjökull icefall.
+    crowd_level: null
+    best_months: []
+    source_ref: Höfn > Do > Outside Höfn
+  - id: iceland-hofn-jokulsarlon
+    name: Jökulsárlón
+    kinds:
+      - nature
+      - boat_trip
+    description: Boat tours are available on the glacier lagoon, lasting 30-40 minutes.
+    crowd_level: null
+    best_months: []
+    source_ref: Höfn > Do > Outside Höfn
 extraction:
-  listings: 0
-  listings_by_type: {}
+  listings: 208
+  listings_by_type:
+    buy: 1
+    do: 43
+    drink: 10
+    eat: 40
+    go: 5
+    listing: 23
+    see: 40
+    sleep: 46
   priced_listings:
-    sleep: 0
-    eat: 0
+    sleep: 35
+    eat: 14
   poi_sources:
-    listing: 0
+    listing: 80
     marker: 12
-    named: 3
-  duplicate_pois_dropped: 4
+    named: 1
+  duplicate_pois_dropped: 5
+  generic_items_pruned: 5
