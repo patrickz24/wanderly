@@ -368,9 +368,8 @@ push cancels the previous run.
 ### Reproduce
 
 ```sh
-# Keyless controls (any OS)
-npm run eval:agent -w @wanderly/evals -- --mode oracle
-npm run eval:agent -w @wanderly/evals -- --mode null-decline
+# Keyless controls (any OS): oracle, null-decline and null-empty
+npm run eval:controls -w @wanderly/evals
 
 # Real evaluation (ANTHROPIC_API_KEY in .env; Postgres + pgvector with the corpus ingested)
 npm run migrate && npm run ingest
@@ -378,6 +377,7 @@ npm run eval:agent -w @wanderly/evals -- --max-usd 2            # agent + judge,
 npm run eval:agent -w @wanderly/evals -- --reps 3 --max-usd 5   # variance and tighter intervals
 npm run eval:agent -w @wanderly/evals -- --category direct_injection,indirect_injection
 npm run eval:agent -w @wanderly/evals -- --model claude-sonnet-5-5 --max-run-usd 1 --max-usd 10
+npm run eval:agent -w @wanderly/evals -- --compare evals/results/<earlier run>   # paired differences
 npm run eval:agent -w @wanderly/evals -- --write                # update the baseline and this page
 ```
 

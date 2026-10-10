@@ -26,6 +26,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import pg from 'pg';
+import { z } from 'zod';
 import { agentLimits, createAgentLlm } from '../../services/api/src/composition/agent-deps.js';
 import { loadConfig } from '../../services/api/src/config.js';
 import { DEFAULT_AGENT_LIMITS } from '../../services/api/src/domain/agent/limits.js';
@@ -42,9 +43,9 @@ import { PgRetriever } from '../../services/api/src/infrastructure/knowledge/pg-
 import { pricingFor } from '../../services/api/src/infrastructure/llm/pricing.js';
 import { createAnthropicJudge, isJudgeable, type Judge, type JudgeResult } from '../judge/judge.js';
 import { JUDGE_PROMPT_VERSION } from '../judge/judge-prompts.js';
-import { renderAgentReport, replaceSection } from '../report/agent-report.js';
-import { LOWER_IS_BETTER, scoreRun } from '../scorers/agent-metrics.js';
-import { summarizeRun, type ScoredRow } from '../scorers/agent-summary.js';
+import { renderAgentReport, renderComparison, replaceSection } from '../report/agent-report.js';
+import { AGENT_METRICS, LOWER_IS_BETTER, scoreRun } from '../scorers/agent-metrics.js';
+import { compareRuns, summarizeRun, type ScoredRow } from '../scorers/agent-summary.js';
 import type { CASE_CATEGORIES } from './agent-dataset.js';
 import {
   CaseCategorySchema,
@@ -101,6 +102,8 @@ interface Options {
   readonly gate: boolean;
   readonly write: boolean;
   readonly allowSameJudge: boolean;
+  /** Results folder of an earlier run to compare with, paired on shared cases. */
+  readonly compare: string | undefined;
 }
 
 function parseOptions(): Options {
@@ -120,6 +123,7 @@ function parseOptions(): Options {
       gate: { type: 'boolean', default: false },
       write: { type: 'boolean', default: false },
       'allow-same-judge': { type: 'boolean', default: false },
+      compare: { type: 'string' },
     },
   });
   const mode = values.mode;
@@ -157,6 +161,7 @@ function parseOptions(): Options {
     gate: values.gate,
     write: values.write,
     allowSameJudge: values['allow-same-judge'],
+    compare: values.compare,
   };
 }
 
@@ -448,6 +453,7 @@ async function main(): Promise<void> {
   }
 
   const summary = summarizeRun(rows);
+  const baselineRows = options.compare === undefined ? [] : await loadRows(options.compare);
   const finalFailures = errors.filter((row) => row.final && row.class !== 'judge_error').length;
   const scoredFraction = rows.length / Math.max(1, rows.length + finalFailures);
   const gates: { title: string; result: GateResult }[] = [];
@@ -459,7 +465,9 @@ async function main(): Promise<void> {
   } else {
     gates.push({
       title: `Harness check: the ${options.mode} control ${options.mode === 'oracle' ? 'must score near 100 %' : 'must score low'}`,
-      result: evaluateHarnessCheck(summary, thresholds, options.mode),
+      result: evaluateHarnessCheck(summary, thresholds, options.mode, {
+        fullDataset: options.ids.length === 0 && options.categories.length === 0,
+      }),
     });
   }
   const infraFailures: Record<string, number> = {};
@@ -467,21 +475,36 @@ async function main(): Promise<void> {
   const gitSha = currentSha();
   const command =
     `npm run eval:agent -w @wanderly/evals -- ${process.argv.slice(2).join(' ')}`.trim();
-  const report = renderAgentReport(
-    {
-      generatedAt: startedAt.toISOString(),
-      mode: options.mode,
-      agentModel: backend.agentModel,
-      judgeModel: backend.judge?.model ?? null,
-      promptVersion: PROMPT_VERSION,
-      gitSha,
-      command,
-      infraFailures,
-      abortedReason,
-    },
-    summary,
-    gates,
-  );
+  const comparison =
+    options.compare === undefined
+      ? ''
+      : renderComparison(
+          path.basename(fromInvocationDir(options.compare)),
+          AGENT_METRICS.flatMap((metric) => {
+            const difference = compareRuns(baselineRows, rows, metric);
+            return difference === undefined ? [] : [{ metric, ...difference }];
+          }),
+        );
+  const report = [
+    renderAgentReport(
+      {
+        generatedAt: startedAt.toISOString(),
+        mode: options.mode,
+        agentModel: backend.agentModel,
+        judgeModel: backend.judge?.model ?? null,
+        promptVersion: PROMPT_VERSION,
+        gitSha,
+        command,
+        infraFailures,
+        abortedReason,
+      },
+      summary,
+      gates,
+    ),
+    comparison,
+  ]
+    .filter((part) => part !== '')
+    .join('\n\n');
   const proposals =
     options.mode === 'real'
       ? proposeSoftThresholds(summary, thresholds, LOWER_IS_BETTER, startedAt.toISOString())
@@ -522,6 +545,26 @@ async function main(): Promise<void> {
 
   const failed = gates.some((gate) => gate.result.verdict === 'fail');
   if (failed && (options.gate || options.mode !== 'real')) process.exitCode = 1;
+}
+
+const ScoredRowSchema = z.looseObject({
+  caseId: z.string(),
+  rep: z.int(),
+  scores: z.record(z.string(), z.number().nullable()),
+});
+
+/** Scored rows of an earlier run (its results.jsonl). */
+async function loadRows(resultsDir: string): Promise<ScoredRow[]> {
+  const text = await readFile(path.join(fromInvocationDir(resultsDir), 'results.jsonl'), 'utf8');
+  return text
+    .split('\n')
+    .filter((line) => line.trim() !== '')
+    .map((line) => ScoredRowSchema.parse(JSON.parse(line)) as unknown as ScoredRow);
+}
+
+/** Paths given on the command line are relative to where npm was started (npm runs scripts in the workspace). */
+function fromInvocationDir(relative: string): string {
+  return path.resolve(process.env['INIT_CWD'] ?? process.cwd(), relative);
 }
 
 function currentSha(): string | null {

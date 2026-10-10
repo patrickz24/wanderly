@@ -9,7 +9,9 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "eval:retrieval": "tsx --conditions=development --env-file-if-exists=../.env runner/retrieval.ts",
     "eval:agent": "tsx --conditions=development --env-file-if-exists=../.env runner/agent.ts",
-    "eval:judge-calibration": "tsx --conditions=development --env-file-if-exists=../.env judge/calibration.ts"
+    "eval:judge-calibration": "tsx --conditions=development --env-file-if-exists=../.env judge/calibration.ts",
+    "eval:controls": "npm run eval:agent -- --mode oracle && npm run eval:agent -- --mode null-decline && npm run eval:agent -- --mode null-empty",
+    "eval": "npm run eval:retrieval && npm run eval:agent"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.132.1",

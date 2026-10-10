@@ -127,6 +127,8 @@ export function evaluateHarnessCheck(
   summary: RunSummary,
   thresholds: Thresholds,
   policy: string,
+  /** On the full dataset (no filter), a metric with no applicable case fails: broken wiring. */
+  options: { readonly fullDataset: boolean } = { fullDataset: true },
 ): GateResult {
   const limits = thresholds.harnessCheck[policy];
   if (limits === undefined) throw new Error(`No harness check for policy "${policy}"`);
@@ -137,9 +139,11 @@ export function evaluateHarnessCheck(
   for (const [metric, max] of Object.entries(limits.max ?? {})) {
     checks.push(check('harness', metric, { max }, summary.metrics[metric]?.mean ?? null));
   }
-  // A control metric with no applicable case means the wiring is broken, not "not applicable".
+  // On the full dataset, a control metric with no applicable case means broken wiring.
   const strict = checks.map((item) =>
-    item.outcome === 'not_applicable' ? { ...item, outcome: 'fail' as const } : item,
+    options.fullDataset && item.outcome === 'not_applicable'
+      ? { ...item, outcome: 'fail' as const }
+      : item,
   );
   return {
     verdict: strict.some((item) => item.outcome === 'fail') ? 'fail' : 'pass',

@@ -161,7 +161,12 @@ async function main(): Promise<void> {
   const text = await readFile(DATASET_FILE, 'utf8');
   const set = CalibrationSetSchema.parse(parse(text));
   if (values.export !== undefined) {
-    const added = await exportItems(path.resolve(values.export), Number(values.limit), set.items);
+    const added = await exportItems(
+      // Relative to where npm was started (npm runs scripts in the workspace directory).
+      path.resolve(process.env['INIT_CWD'] ?? process.cwd(), values.export),
+      Number(values.limit),
+      set.items,
+    );
     const header = text.slice(0, text.indexOf('version: 1'));
     await writeFile(
       DATASET_FILE,

@@ -7,7 +7,7 @@ import {
   proposeSoftThresholds,
   type Thresholds,
 } from '../runner/agent-gate.js';
-import { renderAgentReport, replaceSection } from '../report/agent-report.js';
+import { renderAgentReport, renderComparison, replaceSection } from '../report/agent-report.js';
 
 const blank = Object.fromEntries(AGENT_METRICS.map((metric) => [metric, null])) as Record<
   keyof MetricScores,
@@ -177,6 +177,12 @@ describe('evaluateHarnessCheck', () => {
     expect(evaluateHarnessCheck(empty, thresholds, 'null-decline').verdict).toBe('fail');
   });
 
+  it('treats a metric without applicable case as not applicable on a filtered run', () => {
+    const empty = summarizeRun([row('a', 1, { response_type_correct: 0 })]);
+    const gate = evaluateHarnessCheck(empty, thresholds, 'null-decline', { fullDataset: false });
+    expect(gate.verdict).toBe('pass');
+  });
+
   it('rejects an unknown policy', () => {
     expect(() => evaluateHarnessCheck(summarizeRun([]), thresholds, 'nope')).toThrow(
       /No harness check/,
@@ -226,5 +232,15 @@ describe('agent report', () => {
     expect(updated.endsWith('<!-- agent-results:end -->\noutro')).toBe(true);
     expect(updated).not.toContain('\nold\n');
     expect(() => replaceSection('no markers', 'x')).toThrow(/markers/);
+  });
+});
+
+describe('renderComparison', () => {
+  it('renders paired differences in points, or says there is nothing to compare', () => {
+    const table = renderComparison('run-a', [
+      { metric: 'constraint_fit', mean: -0.25, low: -0.5, high: 0, n: 8 },
+    ]);
+    expect(table).toContain('| constraint_fit | -25.0 | -50.0 to 0.0 | 8 |');
+    expect(renderComparison('run-a', [])).toMatch(/nothing to compare/);
   });
 });

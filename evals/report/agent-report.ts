@@ -125,3 +125,31 @@ export function replaceSection(
   if (from === -1 || to === -1 || to < from) throw new Error(`markers ${start} … ${end} not found`);
   return `${document.slice(0, from + start.length)}\n\n${content.trim()}\n\n${document.slice(to)}`;
 }
+
+export interface MetricDifference {
+  readonly metric: string;
+  readonly mean: number;
+  readonly low: number;
+  readonly high: number;
+  readonly n: number;
+}
+
+/** Paired differences (this run minus an earlier one) on the cases both runs scored. */
+export function renderComparison(
+  against: string,
+  differences: readonly MetricDifference[],
+): string {
+  if (differences.length === 0)
+    return `No shared scored case with \`${against}\`: nothing to compare.`;
+  const points = (value: number): string => (value * 100).toFixed(1);
+  return [
+    `Paired differences with \`${against}\` (this run minus that run, same cases, 95 % bootstrap interval; an interval that contains 0 is not an established difference):`,
+    '',
+    '| Metric | Difference (points) | 95 % CI | Shared cases |',
+    '|---|---:|---:|---:|',
+    ...differences.map(
+      (item) =>
+        `| ${item.metric} | ${points(item.mean)} | ${points(item.low)} to ${points(item.high)} | ${item.n} |`,
+    ),
+  ].join('\n');
+}
