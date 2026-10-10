@@ -88,6 +88,34 @@ export default tseslint.config(
       ],
     },
   },
+  // Layering: HTTP adapters talk to use cases, never to infrastructure adapters directly.
+  {
+    files: ['services/api/src/api/**/*.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['**/infrastructure/**'],
+              message: 'HTTP routes call use cases; wiring belongs in the composition root.',
+            },
+            {
+              group: [
+                'pg',
+                'pgvector',
+                'pgvector/*',
+                '@anthropic-ai/*',
+                '@langfuse/*',
+                '@huggingface/*',
+              ],
+              message: 'HTTP routes must not use infrastructure SDKs.',
+            },
+          ],
+        },
+      ],
+    },
+  },
   // Web client.
   {
     files: ['apps/web/**/*.{ts,tsx}'],
