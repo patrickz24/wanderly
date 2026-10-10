@@ -12,13 +12,22 @@ import {
 } from 'fastify-type-provider-zod';
 import { ROUTE_NOT_FOUND_MESSAGE, HttpError, errorBody, mapError } from './api/errors.js';
 import { buildLoggerOptions, type LogDestination } from './api/logger.js';
+import { conversationRoutes, type ConversationUseCases } from './api/routes/conversations.js';
 import { healthRoutes } from './api/routes/health.js';
 import type { ReadinessProbe } from './application/ports/readiness.js';
 import type { Config } from './config.js';
 
+/** What the conversation API needs; omitted only by tests of the platform routes. */
+export interface ApiDependencies {
+  readonly useCases: ConversationUseCases;
+  /** SSE heartbeat period (tests shorten it). */
+  readonly sseHeartbeatMs?: number;
+}
+
 export interface AppDependencies {
   readonly config: Config;
   readonly readinessProbe: ReadinessProbe;
+  readonly api?: ApiDependencies;
   /** Log destination override (tests capture logs in memory). Defaults to stdout. */
   readonly logDestination?: LogDestination;
 }
@@ -45,7 +54,7 @@ export function requestIdFrom(request: Pick<IncomingMessage, 'headers'>): string
  * Builds the HTTP application. Every external dependency is injected, so tests
  * exercise the real app with fakes through `app.inject()`.
  */
-export async function buildApp({ config, readinessProbe, logDestination }: AppDependencies) {
+export async function buildApp({ config, readinessProbe, api, logDestination }: AppDependencies) {
   const app = Fastify({
     logger: buildLoggerOptions(config.logLevel, config.env, logDestination),
     trustProxy:
@@ -127,6 +136,16 @@ export async function buildApp({ config, readinessProbe, logDestination }: AppDe
   );
 
   await app.register(healthRoutes, { readinessProbe, logLevel: config.logLevel });
+
+  if (api !== undefined) {
+    await app.register(conversationRoutes, {
+      prefix: '/api',
+      useCases: api.useCases,
+      apiRateLimit: { max: config.apiRateLimit.max, timeWindow: config.apiRateLimit.windowMs },
+      secureCookies: config.env === 'production',
+      ...(api.sseHeartbeatMs === undefined ? {} : { sseHeartbeatMs: api.sseHeartbeatMs }),
+    });
+  }
 
   return app;
 }

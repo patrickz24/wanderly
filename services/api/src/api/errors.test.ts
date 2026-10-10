@@ -1,5 +1,6 @@
 import { ApiErrorResponseSchema } from '@wanderly/contracts';
 import { describe, expect, it } from 'vitest';
+import { ConversationBusyError, TurnLimitReachedError } from '../application/errors.js';
 import {
   BudgetExceededError,
   InvalidOutputError,
@@ -36,6 +37,24 @@ describe('mapError', () => {
     // The internal domain message (ids, amounts, issues) never reaches the client.
     expect(mapped.body.error.message).not.toBe(error.message);
     expect(ApiErrorResponseSchema.safeParse(mapped.body).success).toBe(true);
+  });
+
+  it.each([
+    [
+      new TurnLimitReachedError('c-1', 12),
+      'This conversation has reached its limit of 12 messages. Please start a new conversation.',
+    ],
+    [
+      new ConversationBusyError('c-1'),
+      'A reply is still being written for this conversation. Please wait for it to finish.',
+    ],
+  ])('maps the application error %s to a 409 the client can act on', (error, message) => {
+    expect(mapError(error, REQUEST_ID)).toEqual({
+      statusCode: 409,
+      logLevel: 'info',
+      body: { error: { code: 'VALIDATION_ERROR', message, requestId: REQUEST_ID } },
+    });
+    expect(message).not.toContain('c-1');
   });
 
   it('passes HttpError through, its message being public by construction', () => {
