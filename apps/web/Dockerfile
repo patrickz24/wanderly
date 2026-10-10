@@ -51,8 +51,8 @@ LABEL org.opencontainers.image.title="wanderly-web" \
       org.opencontainers.image.source="https://github.com/patrickz24/wanderly" \
       org.opencontainers.image.licenses="MIT"
 
-# The base image runs as uid 101; package changes need root, restored below.
-USER root
+# The base image runs as uid 101; package changes need root (uid 0), dropped again below.
+USER 0
 # 1. Remove the optional dynamic modules (image-filter, xslt, geoip, njs): this config loads none
 #    of them, and they pull in libgd, libtiff, libxslt and GeoIP (attack surface + CVEs).
 # 2. Alpine security updates released after the base image was built (the image scan fails on

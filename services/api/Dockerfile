@@ -81,6 +81,17 @@ ENV NODE_ENV=production \
     PORT=3000 \
     EMBEDDING_CACHE_DIR=/app/.cache/models
 
+# 1. Debian security updates released after the base image was built (the image scan fails on
+#    fixable HIGH/CRITICAL; the layer is rebuilt whenever Dependabot refreshes the base digest).
+# 2. The runtime only runs `node` (migrations included): drop the bundled package managers
+#    (npm, npx, corepack, yarn), which are attack surface and carry their own vulnerable deps.
+RUN apt-get update \
+    && apt-get upgrade -y --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/* \
+    && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
+              /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack \
+              /opt/yarn-* /usr/local/bin/yarn /usr/local/bin/yarnpkg
+
 WORKDIR /app
 
 # Application files stay owned by root (read-only for the runtime user); only the model cache
@@ -99,7 +110,8 @@ RUN mkdir -p /app/.cache/models && chown node:node /app/.cache/models
 
 # Same working directory as `npm start` / `npm run migrate` in the workspace.
 WORKDIR /app/services/api
-USER node
+# The base image's `node` user, by numeric id so that runtimes enforcing runAsNonRoot can verify it.
+USER 1000:1000
 EXPOSE 3000
 
 # Liveness only (/health). Readiness (/ready) is checked by the orchestrator. slim images ship no
