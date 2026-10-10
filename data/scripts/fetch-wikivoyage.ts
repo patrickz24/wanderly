@@ -2,7 +2,7 @@
  * Downloads the Wikivoyage articles listed in data/destinations.yaml and writes
  * data/corpus/<id>/guide.md (Markdown + YAML front matter with provenance and licence).
  *
- * Usage: npx tsx data/scripts/fetch-wikivoyage.ts [--only <id>] [--latest]
+ * Usage: npx tsx --conditions=development data/scripts/fetch-wikivoyage.ts [--only <id>] [--latest]
  *
  * Reproducibility: by default the revision recorded in an existing guide.md is re-used (from the
  * raw cache, or fetched by revision id), so regenerating gives the same text. `--latest` moves
@@ -13,7 +13,7 @@
 import { parseCliArgs } from './cli-args.js';
 import { type Destination, loadDestinations, selectDestinations } from './destinations.js';
 import { withFrontMatter, parseFrontMatter } from './front-matter.js';
-import { type GuideFrontMatter, GuideFrontMatterSchema } from './guide-schema.js';
+import { type GuideFrontMatter, GuideFrontMatterSchema } from '@wanderly/contracts';
 import { RequestPacer } from './http.js';
 import {
   type SiteLicense,

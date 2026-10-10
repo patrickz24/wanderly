@@ -1,12 +1,14 @@
 /**
- * Zod schema of `data/corpus/<id>/facts.yaml`, the structured half of the corpus.
+ * Schemas of the destination corpus in `data/corpus/<id>/`: the YAML front matter of the
+ * Markdown guides (provenance and licence) and `facts.yaml` (the structured half: identity,
+ * climate normals, costs, POIs). Produced by the scripts in `data/scripts/` and validated again
+ * by the API when it ingests the corpus.
  *
- * Self-contained on purpose (only depends on Zod) so that the API can reuse it at milestone 2
- * to validate the corpus at ingestion. Every number in a facts file is derived from a source:
- * climate normals from Open-Meteo, costs from prices written in Wikivoyage listings. Unknown
- * values are `null`, never estimates.
+ * Every number in a facts file is derived from a source: climate normals from Open-Meteo, costs
+ * from prices written in Wikivoyage listings. Unknown values are `null`, never estimates.
  */
 import { z } from 'zod';
+import { type BudgetLevel, BudgetLevelSchema } from './agent.js';
 
 export const FACTS_SCHEMA_VERSION = 1;
 
@@ -100,8 +102,9 @@ export const CostLevelSchema = z.strictObject({
 });
 export type CostLevel = z.infer<typeof CostLevelSchema>;
 
-export const COST_LEVELS = ['budget', 'mid', 'comfort'] as const;
-export type CostLevelName = (typeof COST_LEVELS)[number];
+/** Cost levels share the agent's budget vocabulary (`BudgetLevelSchema`). */
+export const COST_LEVELS = BudgetLevelSchema.options;
+export type CostLevelName = BudgetLevel;
 
 export const CostsSchema = z.strictObject({
   derivation: nonEmpty,
@@ -187,3 +190,22 @@ export const FactsSchema = z
     });
   });
 export type Facts = z.infer<typeof FactsSchema>;
+
+// ---------------------------------------------------------------------------------------------
+// Guide front matter
+// ---------------------------------------------------------------------------------------------
+
+export const GuideFrontMatterSchema = z.strictObject({
+  id: z.string().regex(SLUG),
+  title: nonEmpty,
+  source_url: z.url(),
+  revision_id: z.int().positive(),
+  revision_timestamp: z.iso.datetime(),
+  revision_url: z.url(),
+  retrieved_at: z.iso.datetime(),
+  license: nonEmpty,
+  license_url: z.url(),
+  attribution: nonEmpty,
+  is_part_of: z.array(nonEmpty),
+});
+export type GuideFrontMatter = z.infer<typeof GuideFrontMatterSchema>;

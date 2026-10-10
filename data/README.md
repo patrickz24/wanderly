@@ -24,7 +24,7 @@ data/
 
 ### `guide.md`
 
-YAML front matter, validated by `scripts/guide-schema.ts`:
+YAML front matter, validated by `GuideFrontMatterSchema` (`packages/contracts/src/corpus.ts`):
 
 | Field                                   | Meaning                                                                   |
 | --------------------------------------- | ------------------------------------------------------------------------- |
@@ -57,7 +57,7 @@ The chunker (milestone 2) can split on `##`/`###` and use the heading path as a 
 
 ### `facts.yaml`
 
-Validated by `scripts/facts-schema.ts` (Zod, no other dependency, reusable by the API):
+Validated by `FactsSchema` in `packages/contracts/src/corpus.ts` (shared with the API ingestion):
 
 - **Identity**: `id`, `name`, `country`, `aliases` (from `destinations.yaml`), `is_part_of`,
   `source` (guide revision and licence).
@@ -110,13 +110,16 @@ precipitation means.
 ## Regenerating
 
 ```sh
-npx tsx data/scripts/fetch-wikivoyage.ts [--only <id>] [--latest]   # → corpus/<id>/guide.md
-npx tsx data/scripts/fetch-climate.ts [--only <id>] [--refresh]     # → climate/<id>.yaml
-npx tsx data/scripts/build-facts.ts [--only <id>]                   # → corpus/<id>/facts.yaml, ATTRIBUTION.md
-npx tsx data/scripts/validate.ts                                    # exit 1 if anything is invalid
+npx tsx --conditions=development data/scripts/fetch-wikivoyage.ts [--only <id>] [--latest]   # → corpus/<id>/guide.md
+npx tsx --conditions=development data/scripts/fetch-climate.ts [--only <id>] [--refresh]     # → climate/<id>.yaml
+npx tsx --conditions=development data/scripts/build-facts.ts [--only <id>]                   # → corpus/<id>/facts.yaml, ATTRIBUTION.md
+npx tsx --conditions=development data/scripts/validate.ts                                    # exit 1 if anything is invalid
 npx vitest run --root data                                          # unit tests of the pure parts
 ```
 
+- `--conditions=development` makes `@wanderly/contracts` resolve to its TypeScript sources (the
+  corpus schemas live in `packages/contracts/src/corpus.ts`); without it Node loads the built
+  `dist/`, which may be missing or stale.
 - **Pinned by default.** `fetch-wikivoyage` re-uses the revision recorded in the existing
   `guide.md` (from `data/raw/` or fetched by revision id), so regenerating gives the same text.
   `--latest` moves to the current revisions; review the diff before committing.

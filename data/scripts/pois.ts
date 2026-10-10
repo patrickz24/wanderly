@@ -11,7 +11,7 @@
  *   the later curation pass.
  * Cities/towns, regions, and Get in / Eat / Sleep listings are not POIs.
  */
-import type { Poi } from './facts-schema.js';
+import type { Poi } from '@wanderly/contracts';
 import { mapKinds } from './poi-kinds.js';
 import type { GuideDocument } from './wikitext.js';
 

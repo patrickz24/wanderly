@@ -3,15 +3,14 @@
  * valid front matter and a facts.yaml valid against the Zod schema, consistent with each other.
  * Prints per-destination statistics. Exits with code 1 when anything is invalid.
  *
- * Usage: npx tsx data/scripts/validate.ts
+ * Usage: npx tsx --conditions=development data/scripts/validate.ts
  */
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { z } from 'zod';
 import { loadDestinations } from './destinations.js';
-import { FactsSchema } from './facts-schema.js';
+import { FactsSchema, GuideFrontMatterSchema } from '@wanderly/contracts';
 import { parseFrontMatter } from './front-matter.js';
-import { GuideFrontMatterSchema } from './guide-schema.js';
 import { CORPUS_DIR, factsPath, guidePath } from './paths.js';
 import { countContentWords } from './wikitext.js';
 import { readTextIfExists, readYamlFile } from './yaml-io.js';

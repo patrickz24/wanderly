@@ -3,7 +3,7 @@
  * Levels follow the Wikivoyage convention of Budget / Mid-range / Splurge subsections.
  * Anything that cannot be derived is `null` with a note; nothing is estimated.
  */
-import type { CostFigure, CostLevel, CostLevelName, Costs } from './facts-schema.js';
+import type { CostFigure, CostLevel, CostLevelName, Costs } from '@wanderly/contracts';
 import { type ParsedPrice, isLongStayPrice, parsePrice, summarisePrices } from './prices.js';
 import type { GuideDocument } from './wikitext.js';
 

@@ -2,7 +2,7 @@
  * Computes monthly climate normals for every destination from the Open-Meteo Historical Weather
  * API (daily ERA5-Seamless reanalysis, 2015-2024) and writes data/climate/<id>.yaml.
  *
- * Usage: npx tsx data/scripts/fetch-climate.ts [--only <id>] [--refresh]
+ * Usage: npx tsx --conditions=development data/scripts/fetch-climate.ts [--only <id>] [--refresh]
  *
  * Raw responses are cached in data/raw/open-meteo/ (gitignored) keyed by request URL, so a re-run
  * is deterministic and offline; `--refresh` downloads again. The free API is for non-commercial

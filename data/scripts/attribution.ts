@@ -1,7 +1,7 @@
 /** Renders data/corpus/ATTRIBUTION.md from the guide front matter and climate files (pure). */
 import type { ClimateFile } from './climate.js';
 import type { Destination } from './destinations.js';
-import type { GuideFrontMatter } from './guide-schema.js';
+import type { GuideFrontMatter } from '@wanderly/contracts';
 
 export interface AttributionEntry {
   readonly destination: Destination;

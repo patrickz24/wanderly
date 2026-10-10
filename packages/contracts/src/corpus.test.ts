@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { type Facts, FactsSchema } from './facts-schema.js';
-import { GuideFrontMatterSchema } from './guide-schema.js';
+import { COST_LEVELS, type Facts, FactsSchema, GuideFrontMatterSchema } from './corpus.js';
 
 const month = (m: number): Facts['climate']['months'][number] => ({
   month: m,
@@ -116,5 +115,11 @@ describe('GuideFrontMatterSchema', () => {
     expect(GuideFrontMatterSchema.safeParse(frontMatter).success).toBe(true);
     const { license: _license, ...withoutLicense } = frontMatter;
     expect(GuideFrontMatterSchema.safeParse(withoutLicense).success).toBe(false);
+  });
+});
+
+describe('COST_LEVELS', () => {
+  it("uses the agent's budget vocabulary", () => {
+    expect(COST_LEVELS).toEqual(['budget', 'mid', 'comfort']);
   });
 });

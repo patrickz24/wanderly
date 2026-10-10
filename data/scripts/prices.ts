@@ -9,7 +9,7 @@
  * - a listing is represented by the midpoint of its lowest and highest amount;
  * - statistics are medians over listings that share the majority currency of the group.
  */
-import type { CostFigure } from './facts-schema.js';
+import type { CostFigure } from '@wanderly/contracts';
 
 /** Currency tokens recognised next to an amount, longest first. Kept as written in the output. */
 const CURRENCY_TOKENS = [

@@ -3,7 +3,7 @@
  * description and its section heading path (e.g. "See > Museums"). A POI can have several kinds;
  * when no keyword matches it gets `other`. No model, no guess beyond the table below.
  */
-import { POI_KINDS, type PoiKind } from './facts-schema.js';
+import { POI_KINDS, type PoiKind } from '@wanderly/contracts';
 
 /**
  * Keyword table (case-insensitive, matched on word boundaries; `*` = any word ending).

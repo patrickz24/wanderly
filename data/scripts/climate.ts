@@ -9,7 +9,7 @@
  * means rather than counted as dry. Values are rounded to one decimal.
  */
 import { z } from 'zod';
-import { type ClimateMonth, ClimateMonthSchema } from './facts-schema.js';
+import { type ClimateMonth, ClimateMonthSchema } from '@wanderly/contracts';
 
 export const RAIN_DAY_THRESHOLD_MM = 1;
 

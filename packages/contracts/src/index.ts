@@ -16,3 +16,4 @@ export {
 } from './health.js';
 export * from './agent.js';
 export * from './conversation.js';
+export * from './corpus.js';
