@@ -8,6 +8,7 @@ const TABLES = [
   'chunks',
   'climate_normals',
   'conversations',
+  'cost_figures',
   'cost_profiles',
   'destinations',
   'documents',
@@ -173,20 +174,22 @@ describe('SQL migrations on a fresh pgvector database', () => {
       await expectSqlState(
         client,
         checkViolation,
-        `INSERT INTO climate_normals (destination_id, month, avg_high_c, avg_low_c, source)
-         VALUES ('sicily', 13, 20, 10, 'open-meteo')`,
+        `INSERT INTO climate_normals
+           (destination_id, month, avg_high_c, avg_low_c, rain_days, precipitation_mm, source)
+         VALUES ('sicily', 13, 20, 10, 5, 40, 'open-meteo')`,
       );
       await expectSqlState(
         client,
         checkViolation,
-        `INSERT INTO climate_normals (destination_id, month, avg_high_c, avg_low_c, source)
-         VALUES ('sicily', 5, 10, 20, 'open-meteo')`,
+        `INSERT INTO climate_normals
+           (destination_id, month, avg_high_c, avg_low_c, rain_days, precipitation_mm, source)
+         VALUES ('sicily', 5, 10, 20, 5, 40, 'open-meteo')`,
       );
       await expectSqlState(
         client,
         checkViolation,
-        `INSERT INTO cost_profiles (destination_id, level, currency, as_of, source)
-         VALUES ('sicily', 'luxury', 'EUR', '2026-01-01', 'corpus')`,
+        `INSERT INTO cost_profiles (destination_id, level, as_of, source)
+         VALUES ('sicily', 'luxury', '2026-01-01', 'corpus')`,
       );
       await expectSqlState(
         client,
@@ -206,8 +209,8 @@ describe('SQL migrations on a fresh pgvector database', () => {
 
       // Unknown values are allowed where the corpus may lack data.
       await client.query(
-        `INSERT INTO cost_profiles (destination_id, level, currency, as_of, source)
-         VALUES ('sicily', 'mid', 'EUR', '2026-01-01', 'corpus')`,
+        `INSERT INTO cost_profiles (destination_id, level, as_of, source)
+         VALUES ('sicily', 'mid', '2026-01-01', 'corpus')`,
       );
       await client.query(
         `INSERT INTO pois (id, destination_id, name, best_months) VALUES ('mount-etna', 'sicily', 'Etna', '{4,5,9,10}')`,
