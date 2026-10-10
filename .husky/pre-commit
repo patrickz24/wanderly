@@ -1,1 +1,1 @@
-npx lint-staged --no-revert
+npx lint-staged --no-revert --fail-on-changes
