@@ -1,9 +1,15 @@
+import { readFile } from 'node:fs/promises';
 import type Anthropic from '@anthropic-ai/sdk';
 import { EMPTY_TRIP_BRIEF, type AgentResponse } from '@wanderly/contracts';
 import { describe, expect, it } from 'vitest';
 import { ServedModelMismatchError } from '../runner/agent-wrappers.js';
 import { createJudge, JudgeError, type JudgeMessagesApi } from './judge.js';
-import { fence, type JudgeInput } from './judge-prompts.js';
+import {
+  FAITHFULNESS_RUBRIC,
+  fence,
+  REQUEST_FIT_RUBRIC,
+  type JudgeInput,
+} from './judge-prompts.js';
 
 const MODEL = 'claude-sonnet-5-5';
 
@@ -229,5 +235,13 @@ describe('judge failures are errors, never scores', () => {
 describe('fence', () => {
   it('wraps content in tags', () => {
     expect(fence('a', 'x')).toBe('<a>\nx\n</a>');
+  });
+});
+
+describe('documentation', () => {
+  it('quotes both rubrics verbatim in docs/EVALUATIONS.md', async () => {
+    const document = await readFile(new URL('../../docs/EVALUATIONS.md', import.meta.url), 'utf8');
+    expect(document).toContain(FAITHFULNESS_RUBRIC);
+    expect(document).toContain(REQUEST_FIT_RUBRIC);
   });
 });
