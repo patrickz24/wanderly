@@ -1,36 +1,46 @@
+import { useState } from 'react';
 import { ApiStatusIndicator } from './components/ApiStatusIndicator';
 import { AppHeader } from './components/AppHeader';
+import { ChatApp } from './components/chat/ChatApp';
+import { DemoBadge, DemoModeBanner } from './components/DemoModeBanner';
 import { DemoNotice } from './components/DemoNotice';
-import { PlaceholderPanel } from './components/PlaceholderPanel';
+import { SiteFooter } from './components/SiteFooter';
 import { SkipLink } from './components/SkipLink';
+import { httpTransport, type ChatTransport } from './lib/chatApi';
 
 const MAIN_ID = 'main';
 
-export function App() {
+interface AppProps {
+  /** Demo mode: sample data, no API (see `src/demo`). */
+  readonly demo?: boolean;
+  /** Overrides the transport (demo mode, tests). Defaults to the HTTP API. */
+  readonly transport?: ChatTransport;
+  /** Conversation opened on load. */
+  readonly initialConversationId?: string | null;
+}
+
+export function App({ demo = false, transport, initialConversationId = null }: AppProps) {
+  // Chosen once: swapping transports mid-session would mix two data sources.
+  const [chatTransport] = useState<ChatTransport>(() => transport ?? httpTransport);
+
   return (
     <div className="flex min-h-dvh flex-col">
       <SkipLink targetId={MAIN_ID} />
-      <AppHeader status={<ApiStatusIndicator />} />
+      <AppHeader status={demo ? <DemoBadge /> : <ApiStatusIndicator />} />
       <DemoNotice />
+      {demo && <DemoModeBanner />}
       <main
         id={MAIN_ID}
         tabIndex={-1}
-        className="mx-auto grid w-full max-w-6xl flex-1 grid-cols-1 gap-6 px-4 py-6 focus:outline-none sm:px-6 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]"
+        className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 focus:outline-none sm:px-6"
       >
-        <PlaceholderPanel title="Conversation">
-          <p>
-            Describe the trip you have in mind: destination, dates, budget, pace. The planning agent
-            asks follow-up questions when something is unclear.
-          </p>
-          <p className="font-medium">The chat is coming soon.</p>
-        </PlaceholderPanel>
-        <PlaceholderPanel title="Itinerary and sources">
-          <p>
-            Your day-by-day itinerary will appear here, next to the guide excerpts and tools the
-            agent used to build it.
-          </p>
-        </PlaceholderPanel>
+        <ChatApp
+          transport={chatTransport}
+          initialConversationId={initialConversationId}
+          illustrativeStats={demo}
+        />
       </main>
+      <SiteFooter />
     </div>
   );
 }
