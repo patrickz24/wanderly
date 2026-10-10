@@ -16,6 +16,14 @@ source:
   url: https://en.wikivoyage.org/wiki/Hvar
   revision_id: 5340186
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: hvar
+    title: Hvar
+    url: https://en.wikivoyage.org/wiki/Hvar
+    revision_id: 5340186
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -94,7 +102,7 @@ climate:
       rain_days: 11
       precipitation_mm: 150.7
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
     lodging_night:
       median: 28.5
@@ -111,34 +119,25 @@ costs:
       sample_size: 1
       excluded_other_currency: 0
     notes:
-      - 1 Sleep listing price(s) in the article had no amount with a currency.
-      - Eat figure in the article rests on only 1 listing(s).
+      - 1 Sleep listing price(s) in the documents had no amount with a currency.
+      - Eat figure in the documents rests on only 1 listing(s).
   levels:
     budget:
       lodging_night: null
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No document has priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
     mid:
       lodging_night: null
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No document has priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
     comfort:
       lodging_night: null
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No document has priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
 pois:
-  - id: hvar-town-square
-    name: Town Square
-    kinds:
-      - hiking
-      - historic_site
-    description: The Town Square in Hvar is among the most beautiful and the largest in Croatia. The square measures 4500 m², and the town has developed around this square, starting north of the square in the 13th century and then circling to the south of the square in the 15th century. There is also a fortress at the top of the hill with walls that encompass parts of the city. It's an easy walk, although uphill, to the fortress. It's worth the trek however because of the wonderful views you have of the harbor and surrounding areas. Don't forget to bring your cameras. There is a small eatery in the middle of the fortress where you can purchase drinks and snacks.
-    crowd_level: null
-    best_months: []
-    source_ref: See > Hvar (city) and surroundings
   - id: hvar-cathedral-of-st-stephen
     name: Cathedral of St. Stephen
     kinds:
@@ -147,7 +146,7 @@ pois:
     description: The Cathedral of St. Stephen (Trg Sveti Stjepana) dominates one end of the Town Square, and was built during the 16th and 17th centuries. The bell tower of this cathedral is four-stories high, with each level more elaborately decorated than the last. The cathedral was built over an existing cathedral that was destroyed by the Turks. Parts of this older cathedral can be seen inside the church, but most of the interior was rebuilt.
     crowd_level: null
     best_months: []
-    source_ref: See > Hvar (city) and surroundings
+    source_ref: Hvar > See > Hvar (city) and surroundings
   - id: hvar-bishops-treasury
     name: Bishop's Treasury
     kinds:
@@ -155,7 +154,7 @@ pois:
     description: The Bishop's Treasury, adjacent to the cathedral, contains silver vessels, embroidered Mass robes, numerous Madonnas, icons dating from the 13th century, and an elaborately carved sarcophagus.
     crowd_level: null
     best_months: []
-    source_ref: See > Hvar (city) and surroundings
+    source_ref: Hvar > See > Hvar (city) and surroundings
   - id: hvar-humac
     name: Humac
     kinds:
@@ -163,7 +162,7 @@ pois:
     description: null
     crowd_level: null
     best_months: []
-    source_ref: See > Humac
+    source_ref: Hvar > See > Humac
   - id: hvar-grapceva-cave
     name: Grapčeva cave
     kinds:
@@ -172,7 +171,7 @@ pois:
     description: a typical Dalmatian cave with stalactites and stalagmites, where archeological findings, especially engraved and colored ceramics, have been made and prove neolithic settlement of the island
     crowd_level: null
     best_months: []
-    source_ref: See > Humac
+    source_ref: Hvar > See > Humac
   - id: hvar-adventure-park-hvar-jelsa
     name: Adventure park Hvar Jelsa
     kinds:
@@ -182,15 +181,7 @@ pois:
     description: Offers paintball, splatmaster, cageball, beach volleyball, badminton, human table football, archery, bocce, giant boxing.
     crowd_level: null
     best_months: []
-    source_ref: Do
-  - id: hvar-rent-a-scooter
-    name: Rent a scooter
-    kinds:
-      - other
-    description: Rent a scooter for €33.50 a day and go around the island. There is lots to see and many interesting stopping points.
-    crowd_level: null
-    best_months: []
-    source_ref: Do
+    source_ref: Hvar > Do
 extraction:
   listings: 24
   listings_by_type:
@@ -206,5 +197,6 @@ extraction:
   poi_sources:
     listing: 3
     marker: 0
-    named: 4
+    named: 2
   duplicate_pois_dropped: 0
+  generic_items_pruned: 2

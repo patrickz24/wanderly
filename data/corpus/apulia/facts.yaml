@@ -15,6 +15,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Apulia
   revision_id: 5306367
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: apulia
+    title: Apulia
+    url: https://en.wikivoyage.org/wiki/Apulia
+    revision_id: 5306367
+    license: CC BY-SA 4.0
+  - file: places/bari.md
+    role: place
+    id: bari
+    title: Bari
+    url: https://en.wikivoyage.org/wiki/Bari
+    revision_id: 5379861
+    license: CC BY-SA 4.0
+  - file: places/monopoli.md
+    role: place
+    id: monopoli
+    title: Monopoli
+    url: https://en.wikivoyage.org/wiki/Monopoli
+    revision_id: 5353843
+    license: CC BY-SA 4.0
+  - file: places/gallipoli-italy.md
+    role: place
+    id: gallipoli-italy
+    title: Gallipoli (Italy)
+    url: https://en.wikivoyage.org/wiki/Gallipoli_(Italy)
+    revision_id: 5359750
+    license: CC BY-SA 4.0
+  - file: places/tremiti-islands.md
+    role: place
+    id: tremiti-islands
+    title: Tremiti Islands
+    url: https://en.wikivoyage.org/wiki/Tremiti_Islands
+    revision_id: 5357417
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -93,29 +129,49 @@ climate:
       rain_days: 7.6
       precipitation_mm: 40.5
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
-    meal: null
+    lodging_night:
+      median: 45
+      min: 20
+      max: 190
+      currency: €
+      sample_size: 8
+      excluded_other_currency: 0
+    meal:
+      median: 28
+      min: 15
+      max: 41
+      currency: €
+      sample_size: 2
+      excluded_other_currency: 0
     notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+      - 1 Sleep listing price(s) in the documents had no amount with a currency.
+      - Eat figure in the documents rests on only 2 listing(s).
   levels:
     budget:
-      lodging_night: null
+      lodging_night:
+        median: 20
+        min: 20
+        max: 40
+        currency: €
+        sample_size: 3
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Eat listing under Budget has a parseable price: value unknown.'
     mid:
       lodging_night: null
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Sleep listing under Mid-range has a parseable price: value unknown.'
+        - 'No Eat listing under Mid-range has a parseable price: value unknown.'
     comfort:
       lodging_night: null
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Sleep listing under Splurge has a parseable price: value unknown.'
+        - 'No Eat listing under Splurge has a parseable price: value unknown.'
 pois:
   - id: apulia-alberobello
     name: Alberobello
@@ -124,7 +180,7 @@ pois:
     description: (literally "beautiful tree"), magical village known in the world for its famous "trulli" (UNESCO World Heritage)
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Apulia > Other destinations
   - id: apulia-andria
     name: Andria
     kinds:
@@ -132,7 +188,7 @@ pois:
     description: home of the medieval fortress of Castel del Monte, built by Emperor Frederick II (UNESCO World Heritage)
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Apulia > Other destinations
   - id: apulia-gallipoli
     name: Gallipoli
     kinds:
@@ -141,7 +197,7 @@ pois:
     description: (meaning "beautiful city"), a fascinating old town situated on an island and sandy beach resorts
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Apulia > Other destinations
   - id: apulia-monte-santangelo
     name: Monte Sant'Angelo
     kinds:
@@ -150,7 +206,7 @@ pois:
     description: characteristic village situated on the Gargano promontory, with the Longobard Sanctuary of San Michele (UNESCO World Heritage)
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Apulia > Other destinations
   - id: apulia-otranto
     name: Otranto
     kinds:
@@ -158,7 +214,7 @@ pois:
     description: the easternmost town of Italy and one of its most beautiful villages
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Apulia > Other destinations
   - id: apulia-specchia
     name: Specchia
     kinds:
@@ -166,7 +222,7 @@ pois:
     description: one of Italy's most beautiful villages, in the heart of Salento
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Apulia > Other destinations
   - id: apulia-tremiti-islands
     name: Tremiti Islands
     kinds:
@@ -174,7 +230,7 @@ pois:
     description: stunning archipelago in the Adriatic Sea
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Apulia > Other destinations
   - id: apulia-notte-della-taranta
     name: Notte della Taranta
     kinds:
@@ -182,16 +238,359 @@ pois:
     description: A large itinerant festival of popular Salento music (Pizzica and Taranta) that takes place in the first half of August, culminating in a final open-air concert in the municipality of Melpignano, province of Lecce. The night of the great concert (concertone) has each year a different national-famous music director and involves more than 100.000 spectators.
     crowd_level: null
     best_months: []
-    source_ref: Do > Festivals
+    source_ref: Apulia > Do > Festivals
+  - id: apulia-bari-basilica-of-saint-nicholas
+    name: Basilica of Saint Nicholas
+    kinds:
+      - historic_site
+      - religious_site
+    description: This romanic church with a gold ceiling and a crypt contains many medieval attractions, including the magnificent cathedra of Bishop Elias.
+    crowd_level: null
+    best_months: []
+    source_ref: Bari > See
+  - id: apulia-bari-bari-cathedral
+    name: Bari Cathedral
+    kinds:
+      - historic_site
+      - religious_site
+    description: A Roman church even older than St. Nicolas', though later refurbished in baroque style, and equally interesting.
+    crowd_level: null
+    best_months: []
+    source_ref: Bari > See
+  - id: apulia-bari-castello-normanno-svevo
+    name: Castello normanno-svevo
+    kinds:
+      - historic_site
+    description: 'The symbolic fortress of the city: built in the 12th century, destroyed and then rebuilt during the 13th century by Frederick II.'
+    crowd_level: null
+    best_months: []
+    source_ref: Bari > See
+  - id: apulia-bari-chiesa-di-santanna
+    name: Chiesa di Sant’Anna
+    kinds:
+      - historic_site
+      - museum
+      - religious_site
+    description: 'St. Anna Church was built between 1246-1247 as a synagogue, known as “Scola Grande”. It was later converted into a Christian Church and entrusted to the Confraternity of St. Anna. Finally, in 2009, the Church became a museum. Its history is rooted to ancient times, when there was a significant Jewish community in Apulia, mostly composed of traders and farmers. During the early Middle Ages, the Jewish culture experienced an intense growth and several Talmudic schools were established in Apulia. Rabbenu Tam considered them to be very prestigious institutions, declaring that: “For out of Bari goes forth the Law and the word of the Lord from Otranto". In the 11th century Apulia fell under the rule of the Normans and, after a couple of centuries, to the Swabians, with Frederick II, also known as "Stupor Mundi" (“Wonder of the World”), who protected the Jewish community and gave Jews rights by reason of their presence in politics and their personal history. The Angioinians, instead, ordered the forced conversion of most Jews to Catholicism and, when Naples and part of Southern Italy fell to the Spanish in 1510, the Jewish community was completely expelled. The church is located in the local Giudecca and is also close to the city harbour and the Cathedral.'
+    crowd_level: null
+    best_months: []
+    source_ref: Bari > See
+  - id: apulia-bari-church-of-santa-chiara
+    name: Church of Santa Chiara
+    kinds:
+      - historic_site
+      - religious_site
+    description: Built on the site of the medieval Santa Maria degli Alemanni church, this site was acquired by the Order of Saint Clare in 1429. After various renovations in the 16th century, the church was completely rebuilt in its current Baroque style during the early 18th century.
+    crowd_level: null
+    best_months: []
+    source_ref: Bari > See
+  - id: apulia-bari-teatro-petruzzelli
+    name: Teatro Petruzzelli
+    kinds:
+      - other
+    description: The largest theatre of the city and the fourth Italian theatre by size. Its season feature high quality productions of prose, opera, ballet and classical music.
+    crowd_level: null
+    best_months: []
+    source_ref: Bari > Do
+  - id: apulia-bari-festa-di-san-nicola-patrono-di-bari
+    name: Festa di San Nicola Patrono di Bari
+    kinds:
+      - historic_site
+      - religious_site
+      - food
+    description: The Saint of the city is Saint Nicholas. He is celebrated by the Catholic Church on December 6. In Bari, several masses take place early in the morning (as early as 04:00) of December 6. A huge crowd and lots of fast food stands fill the old town through the night. The city's main celebration of Saint Nicholas, however, takes place in May 6–8 with historical reconstructions, popular music and a two-day fireworks contest. For this event many pilgrims come from all over the world.
+    crowd_level: null
+    best_months: []
+    source_ref: Bari > Do > Events
+  - id: apulia-bari-fiera-del-levante
+    name: Fiera del Levante
+    kinds:
+      - museum
+    description: Hosted yearly during September, the Fiera del Levante is no longer just an exhibition, where you can also find stands for many countries in the world, but now also a place for hosting conferences and musical events.
+    crowd_level: null
+    best_months: []
+    source_ref: Bari > Do > Events
+  - id: apulia-bari-bari-international-film-festival
+    name: Bari International Film Festival
+    kinds:
+      - other
+    description: It is an annual film festival held since 2009.
+    crowd_level: null
+    best_months: []
+    source_ref: Bari > Do > Events
+  - id: apulia-monopoli-monopoli-cathedral
+    name: Monopoli Cathedral
+    kinds:
+      - religious_site
+    description: 18th century, minor basilica
+    crowd_level: null
+    best_months: []
+    source_ref: Monopoli > See
+  - id: apulia-monopoli-castle-of-charles-v
+    name: Castle of Charles V
+    kinds:
+      - historic_site
+      - museum
+    description: Finished in 1525, it has a pentagonal plan. It is on a promontory which was separated from the medieval city. It was restored and enlarged in the 17th century. Starting from the early 19th century, it was used as a jail, a status it kept until 1969. It is the seat of an art exhibition and cultural events.
+    crowd_level: null
+    best_months: []
+    source_ref: Monopoli > See
+  - id: apulia-monopoli-castle-of-santo-stefano
+    name: Castle of Santo Stefano
+    kinds:
+      - historic_site
+      - religious_site
+    description: Coastal castle of St. Stephen, built by the Norman lord Godfrey of Conversano in 1086. It was later turned into a Benedictine monastery.
+    crowd_level: null
+    best_months: []
+    source_ref: Monopoli > See
+  - id: apulia-monopoli-jerusalem-hospital
+    name: Jerusalem Hospital,
+    kinds:
+      - other
+    description: founded in 1350 by the Hospitallers
+    crowd_level: null
+    best_months: []
+    source_ref: Monopoli > See
+  - id: apulia-monopoli-palazzo-palmieri
+    name: Palazzo Palmieri
+    kinds:
+      - other
+    description: 18th century Palazzo
+    crowd_level: null
+    best_months: []
+    source_ref: Monopoli > See
+  - id: apulia-monopoli-church-of-s-domenico
+    name: Church of S. Domenico
+    kinds:
+      - religious_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Monopoli > See
+  - id: apulia-monopoli-porto-antico
+    name: Porto Antico
+    kinds:
+      - historic_site
+      - viewpoint
+    description: Porto Antico di Monopoli is the historic old harbour of Monopoli, framed by whitewashed buildings, small fishing boats, and defensive sea walls that reflect the town’s long maritime tradition. Once a key trading and fishing port in the Adriatic, it remains active today, with local fishermen still working alongside leisure craft. The surrounding lanes and waterfront create a picturesque setting, especially at sunrise and sunset, when the harbour is at its most atmospheric.
+    crowd_level: null
+    best_months: []
+    source_ref: Monopoli > See
+  - id: apulia-gallipoli-italy-cathedral
+    name: Cathedral
+    kinds:
+      - historic_site
+      - religious_site
+    description: Imposing Baroque church completed in 1696, with the facade in Lecce stone and the Latin cross plan interior rich of statues and paintings. It has been declared Italian national monument in 1940.
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > See > Old city
+  - id: apulia-gallipoli-italy-santa-maria-della-purita
+    name: Santa Maria della Purità
+    kinds:
+      - beach
+      - religious_site
+    description: Baroque church built in 1665 overlooking the Seno della Purità (Cove of the Purity). The sober facade hides a single nave interior rich of paintings, one by Luca Giordano.
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > See > Old city
+  - id: apulia-gallipoli-italy-san-francesco-dassisi
+    name: San Francesco d'Assisi
+    kinds:
+      - historic_site
+      - religious_site
+    description: Ancient medieval church of the 13th century, completely renovated in the 18th century in baroque architectural style. The two aisles contains ten richly decorated altars.
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > See > Old city
+  - id: apulia-gallipoli-italy-angevin-aragonese-castle
+    name: Angevin-Aragonese Castle
+    kinds:
+      - beach
+      - historic_site
+    description: A wooden drawbridge permits the entry to this imposing defensive structure of the 11th century, rebuilt and restored several times. It is border by the sea on three sides, while the semi-circular bastion, overlooking the modern centre, is completely surrounded by the waters of the Seno del Canneto (Cove of the Cane field).
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > See > Old city
+  - id: apulia-gallipoli-italy-santissimo-crocifisso
+    name: Santissimo Crocifisso
+    kinds:
+      - religious_site
+    description: Sanctuary erected in 1750 along the promenade. The exterior is quite simple and sober, while the single nave interior is almost totally white and is a true triumph of baroque decorations and stuccoes.
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > See > Old city
+  - id: apulia-gallipoli-italy-santa-maria-degli-angeli
+    name: Santa Maria degli Angeli
+    kinds:
+      - other
+    description: A dazzling white facade enriched by a pediment in limestone. Inside it is possible to admire a majestic harmonium of the 18th century.
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > See > Old city
+  - id: apulia-gallipoli-italy-san-francesco-di-paola
+    name: San Francesco di Paola
+    kinds:
+      - other
+    description: Sober white exterior and a decorated interior rich of floral designs.
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > See > Old city
+  - id: apulia-gallipoli-italy-diocesan-museum
+    name: Diocesan Museum
+    kinds:
+      - museum
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > See > Museums
+  - id: apulia-gallipoli-italy-museo-civico-emanuele-barba
+    name: Museo civico Emanuele Barba
+    kinds:
+      - museum
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > See > Museums
+  - id: apulia-gallipoli-italy-marea
+    name: Marea
+    kinds:
+      - nature
+      - museum
+    description: Multimedia museum about the sea and its flora.
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > See > Museums
+  - id: apulia-gallipoli-italy-greek-fountain
+    name: Greek Fountain
+    kinds:
+      - historic_site
+    description: The name derives from the presence of caryatids and bas-reliefs depicting the mythological metamorphosis of Dirce, Salmacis, and Byblis.. It had been considered the most ancient fountain of Italy, also if many consider it dating to the Renaissance. The exact dating remains a mystery.
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > See > Mainland
+  - id: apulia-gallipoli-italy-santa-maria-del-canneto
+    name: Santa Maria del Canneto
+    kinds:
+      - religious_site
+    description: Baroque sanctuary facing the characteristic fishing port of Seno del Canneto. It was built in the late 17th century on the site of a church owned by the Teutonic Order. The interior is preceded by a portico with three round-arches and is decorated various paintings and a XVIII century harmonium.
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > See > Mainland
+  - id: apulia-gallipoli-italy-acquapark-splash
+    name: Acquapark Splash!
+    kinds:
+      - nature
+      - family
+    description: A large water park with giant slides and many other attractions, 2 km north of the city centre.
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > Do
+  - id: apulia-gallipoli-italy-festa-di-santa-cristina
+    name: Festa di Santa Cristina
+    kinds:
+      - other
+    description: "Festa di Santa Cristina (Festival of Saint Christina): the most important religious festival in the town, in honor of the town's patron saint. The event takes place on 23, 24 and 25 July, when the statue of Saint Christina is procession over the sea and Corso Roma is decorated with spectacular and colored illuminations, in addiction to many stalls. This is a really can't-miss events if you choose to visit Gallipoli during this period."
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > Do
+  - id: apulia-gallipoli-italy-teatro-garibaldi
+    name: Teatro Garibaldi
+    kinds:
+      - historic_site
+      - museum
+    description: The most ancient theatre of Apulia, built in 1825 as Teatro del Giglio, in honour to the House of Bourbon. It is the most elegant one of the city and it's focused on theatrical exhibitions, conferences with actors and musicians and cinema projections of cultural interest.
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > Do > Theatres
+  - id: apulia-gallipoli-italy-cinema-teatro-italia
+    name: Cinema Teatro Italia
+    kinds:
+      - other
+    description: Built in 1976 with a capacity of 1550 viewers. It is mainly used as a cinema, but sometimes it hosts theatrical performances.
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > Do > Theatres
+  - id: apulia-gallipoli-italy-cinema-teatro-schipa
+    name: Cinema Teatro Schipa
+    kinds:
+      - other
+    description: 500-seat hall built in 1900 and dedicated to Tito Schipa, one of the greatest leggero tenors of all times. It is mainly focused on cinema projections.
+    crowd_level: null
+    best_months: []
+    source_ref: Gallipoli (Italy) > Do > Theatres
+  - id: apulia-tremiti-islands-abbey-of-santa-maria-a-mare
+    name: Abbey of Santa Maria a Mare
+    kinds:
+      - historic_site
+      - religious_site
+      - family
+    description: 'The Sanctuary of Santa Maria a Mare is a Catholic Church, which was also a monastery and an abbey through the centuries. The impressive and majestic Abbey of Santa Maria was built, according to historical data, in the 9th century by the Benedictine monks of Monte Cassino, later renovated in 1045, until, following the invasion of Dalmatian corsairs, despite the fortress being surrounded by walls and fortifications, it was sacked in 1334, where the monks were killed. According to mythology, the abbey was built by the hermit San Nicola, to whom, it seems, the Madonna appeared requesting him the construction of a sanctuary. In any case, the abbey of San Nicola became a real fortress, which over the centuries has also suffered numerous other attacks and invasions, until, in 1700, King Ferdinand IV of Naples transformed it into a penal colony, making it also a theatre of naval battles (in fact it is still possible to notice the presence of cannon holes). In the Fascist period it was used to imprison political and homosexual prisoners. Later, the façade and the portal were modified through the addiction of some decorative patterns in Renaissance style. These modifications were commissioned by the Canons Regular of the Lateran. On the portal there are delicate reliefs portraying the Virgin Mary with Saints and Cherubim. The church''s interior retains its original structure intact: it has a rectangular plan with three naves and a double deambulatory. Special attention should be paid to the works of art present in this church, such as: the wooden cross, with a particular shape, typical of Greek-Byzantine iconography; the wooden statue "S. Maria a Mare", that represents the Virgin and Child; the Wooden Polyptych on the main altar, a gold laminated carving; the mosaic floor that, after several restorations, can now be admired on the central nave, and that probably is the most significant piece in the Church. The cloister of the monastery is also worth mentioning: the first cloister (the most ancient one) has an 18th-century well in the middle, with water coming from a big underground cistern.'
+    crowd_level: null
+    best_months: []
+    source_ref: Tremiti Islands > See > San Nicola
+  - id: apulia-tremiti-islands-grotta-delle-rondinelle
+    name: Grotta delle Rondinelle
+    kinds:
+      - nature
+      - viewpoint
+    description: 'It takes its name from the swallows that nest there in springtime. The grotto is supported by two big natural pillars. A magical place, known for the way it looks at sunset during the hottest days of summer: the rays of sun that pass through the cave’s entrance create a game of reflections between the water and the walls showing an enchanting variety of colours.'
+    crowd_level: null
+    best_months: []
+    source_ref: Tremiti Islands > See > San Domino
+  - id: apulia-tremiti-islands-grotta-del-bue-marino
+    name: Grotta del Bue Marino
+    kinds:
+      - beach
+      - nature
+    description: The cave owes its name to monk seals (almost totally extinct in the Mediterranean by now) that in old times inhabited the area, and until a few decades ago wallowed in the waters of the archipelago. It is 70 m long, but only 2 m deep, and has a tiny sandy beach in the back. Due to the shallow depth of the sea in this point, the sunlight gets across the water giving a turquoise colour to the whole space. It sits at the foot of the Ripa dei Falconi, where the legendary birds, the Diomedea, are said to nest. On its ceiling are found the oldest rocks of the islands, dolomitic limestone of fossil origin. As you enter the cave, the light gradually decreases until it is totally devoid of light in the innermost part. Furthermore, the innermost part of the cave divides into two branches, one of which overlooks a small beach.
+    crowd_level: null
+    best_months: []
+    source_ref: Tremiti Islands > See > San Domino
+  - id: apulia-tremiti-islands-grotta-delle-viole
+    name: Grotta delle Viole
+    kinds:
+      - beach
+      - nature
+    description: Called by many “the fairy cave”. Its name can refer to the purplish shades that can be admired especially in the early morning during summertime, thanks to the combination of the limpid and bluish water with the wide range of wonderfully coloured fish, that emanate charming nuances when they are illuminated by the sunlight; it may also refer to the abundance of violets and other flowers that cover the grotto's sloping rocks.
+    crowd_level: null
+    best_months: []
+    source_ref: Tremiti Islands > See > San Domino
+  - id: apulia-tremiti-islands-pineta-di-san-domino
+    name: Pineta di San Domino
+    kinds:
+      - hiking
+      - nature
+    description: It rises 116 m above sea level, consisting of a long path of Aleppo pines, as wild as it is bucolic and poetic, which reaches the coast by two rocky paths; walking through the pine forest, you will arrive at the lighthouse of the island, now defunct and rumoured to soon become part of a luxury tourist resort. It offers beautiful views of the archipelago.
+    crowd_level: null
+    best_months: []
+    source_ref: Tremiti Islands > See > San Domino
+  - id: apulia-tremiti-islands-ditta-i-saraceni-group
+    name: Ditta I Saraceni Group
+    kinds:
+      - other
+    description: Rental of motor-powered inflatable rafts.
+    crowd_level: null
+    best_months: []
+    source_ref: Tremiti Islands > Do
 extraction:
-  listings: 1
+  listings: 134
   listings_by_type:
-    do: 1
+    buy: 10
+    do: 7
+    drink: 5
+    eat: 20
+    go: 5
+    listing: 31
+    see: 29
+    sleep: 27
   priced_listings:
-    sleep: 0
-    eat: 0
+    sleep: 9
+    eat: 2
   poi_sources:
-    listing: 1
+    listing: 39
     marker: 7
-    named: 0
+    named: 1
   duplicate_pois_dropped: 0
+  generic_items_pruned: 1

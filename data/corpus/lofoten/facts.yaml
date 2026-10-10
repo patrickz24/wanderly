@@ -16,6 +16,21 @@ source:
   url: https://en.wikivoyage.org/wiki/Lofoten
   revision_id: 5353105
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: lofoten
+    title: Lofoten
+    url: https://en.wikivoyage.org/wiki/Lofoten
+    revision_id: 5353105
+    license: CC BY-SA 4.0
+  - file: places/vaeroy.md
+    role: place
+    id: vaeroy
+    title: Værøy
+    url: https://en.wikivoyage.org/wiki/V%C3%A6r%C3%B8y
+    revision_id: 5360979
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -94,7 +109,7 @@ climate:
       rain_days: 18.8
       precipitation_mm: 145.5
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
     lodging_night:
       median: 550
@@ -111,24 +126,24 @@ costs:
       sample_size: 1
       excluded_other_currency: 0
     notes:
-      - Sleep figure in the article rests on only 2 listing(s).
-      - Eat figure in the article rests on only 1 listing(s).
+      - Sleep figure in the documents rests on only 2 listing(s).
+      - Eat figure in the documents rests on only 1 listing(s).
   levels:
     budget:
       lodging_night: null
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No document has priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
     mid:
       lodging_night: null
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No document has priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
     comfort:
       lodging_night: null
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No document has priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
 pois:
   - id: lofoten-moskstraumen
     name: Moskstraumen
@@ -137,7 +152,7 @@ pois:
     description: The Moskstraumen, popularly known as the Maelstrom is a very powerful tidal current forming twice a day between Vaeroy and Meskenesoy. It has been featured in many works, usually in an exaggerated form (for instance Edgar Allan Poe's Descent into the Maelstrom). Captain Ahab in Hermann Melville's famous Moby-Dick mentions the maelstrom. In Jules Verne's Twenty Thousand Leagues Under the Sea the submarine encounters the whirlpool. It is unusual because it occurs in open sea. Simply do not go there and expect giant whirlpools...
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Lofoten > Other destinations
   - id: lofoten-trollfjord
     name: Trollfjord
     kinds:
@@ -146,7 +161,7 @@ pois:
     description: a fjord so narrow that the Hurtigrute boats, except for the very newest, have to do a three point turn. Navigation banned in spring because of falling rock, but otherwise visited on the southbound voyage of the Hurtigruten. Alternatively reached by a boat trip from Svolvær.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Lofoten > Other destinations
   - id: lofoten-vaeroy
     name: Værøy
     kinds:
@@ -154,7 +169,7 @@ pois:
     description: Værøy is a small island around six hours from Bodø by ferry (via Moskenes) and around 2 hours by ferry from Moskenes. The island has a mountainous ridge running through the centre and flat farmland below the mountains. It is famous both for its scenery and the abundance of puffins who nest here over the summer.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations > Islands
+    source_ref: Lofoten > Other destinations > Islands
   - id: lofoten-kollhellaren
     name: Kollhellaren
     kinds:
@@ -163,7 +178,7 @@ pois:
     description: A tall cave near the shoreline. The cave was well known, but prehistoric paintings were discovered 1989 by archaeology students. The cave was then protected by law and can now only be visited with a licensed guide.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Lofoten > See
   - id: lofoten-lofotr-viking-museum
     name: Lofotr Viking Museum
     kinds:
@@ -172,7 +187,7 @@ pois:
     description: On the green and fertile island Vestvågøy in the middle of Lofoten. Airport and Hurtigruten piers are close by. The main road E10 runs just a few metres from the museum.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Lofoten > See
   - id: lofoten-reine-fishing-village
     name: Reine Fishing village
     kinds:
@@ -180,7 +195,7 @@ pois:
     description: A charming group of traditional fishing houses.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Lofoten > See
   - id: lofoten-reine-kultursenter
     name: Reine Kultursenter
     kinds:
@@ -188,7 +203,7 @@ pois:
     description: null
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Lofoten > See
   - id: lofoten-galleri-espolin
     name: Galleri Espolin
     kinds:
@@ -196,7 +211,7 @@ pois:
     description: null
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Lofoten > See
   - id: lofoten-galleri-lille-kabelvag
     name: Galleri Lille Kabelvåg
     kinds:
@@ -204,7 +219,7 @@ pois:
     description: Paintings, pictures and other exciting exhibitions.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Lofoten > See
   - id: lofoten-langasen-sculpture-park
     name: Langåsen Sculpture Park
     kinds:
@@ -212,7 +227,7 @@ pois:
     description: A small park with a few sculptures in the center of Svolvær, free entry and always open. Has a small version of the famous Svolvær goat.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Lofoten > See
   - id: lofoten-lofotakvariet
     name: Lofotakvariet
     kinds:
@@ -220,7 +235,7 @@ pois:
     description: At the Lofoten Aquarium you have the chance to study some types of marine life, with fish and sea mammals from Lofoten and the North Norwegian coastline and Tromsø.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Lofoten > See
   - id: lofoten-lofotmuseet
     name: Lofotmuseet
     kinds:
@@ -228,7 +243,7 @@ pois:
     description: At the Lofotmuseum you can explore authentic environments from the 1800s, in a beautiful scenic setting.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Lofoten > See
   - id: lofoten-svolvaer-tourist-information
     name: Svolvær tourist information
     kinds:
@@ -236,7 +251,7 @@ pois:
     description: null
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Lofoten > See
   - id: lofoten-lofoten-war-memorial-museum
     name: Lofoten War Memorial Museum
     kinds:
@@ -244,7 +259,7 @@ pois:
     description: World War II Museum with its incredible collection of uniforms and its original chilling, Gestapo interrogation room. Part of Museum Nord.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Lofoten > See
   - id: lofoten-rando-lofoten
     name: Rando Lofoten
     kinds:
@@ -252,7 +267,7 @@ pois:
     description: Rando Lofoten, a 200 km trek from Delp to Å.
     crowd_level: null
     best_months: []
-    source_ref: See > Itineraries
+    source_ref: Lofoten > See > Itineraries
   - id: lofoten-reinebringen
     name: Reinebringen
     kinds:
@@ -260,23 +275,96 @@ pois:
     description: A trip to Reine is not complete without a climb to Reinebringen. Be aware that the path is not easy though, and very steep most of the way. Even worse, it was very much damaged after heavy rains in 2015, and the climb is now fairly dangerous (a warning has been issued at the beginning of the path). Count about 2 hr (one way) considering the current state of the path. Of course, once on top (almost 400 m above sea level), the view is really amazing.
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Lofoten > Do
+  - id: lofoten-vaeroy-turistkontor-ferjekaia
+    name: Turistkontor ferjekaia
+    kinds:
+      - other
+    description: Free maps, and information on Værøy. English-speaking staff.
+    crowd_level: null
+    best_months: []
+    source_ref: Værøy > See
+  - id: lofoten-vaeroy-turistkontor-husfliden-sentrum
+    name: Turistkontor Husfliden sentrum
+    kinds:
+      - other
+    description: Free maps, and information on Værøy. English-speaking staff. Also sell souvenirs and home-made handcraft.
+    crowd_level: null
+    best_months: []
+    source_ref: Værøy > See
+  - id: lofoten-vaeroy-vaeroy-nye-kirke
+    name: Værøy nye kirke
+    kinds:
+      - other
+    description: Built in 1939 by Harald Sund. Closed for renovation as of 2015.
+    crowd_level: null
+    best_months: []
+    source_ref: Værøy > See
+  - id: lofoten-vaeroy-vaeroy-gamle-kirke
+    name: Værøy gamle kirke
+    kinds:
+      - religious_site
+    description: A nice red-colored wooden church with its bulb. Built around 1740 in Vågan, and moved to Værøy in 1799. Contains statues from Nottingham (England) dating from the 1430s. Restored in 2017 and open for visitors 10am-8pm.
+    crowd_level: null
+    best_months: []
+    source_ref: Værøy > See
+  - id: lofoten-vaeroy-ornhus
+    name: Ørnhus
+    kinds:
+      - historic_site
+    description: In fact only ruins. Catching eagles with bare hands used to be a popular activity in Værøy until 1972.
+    crowd_level: null
+    best_months: []
+    source_ref: Værøy > See
+  - id: lofoten-vaeroy-puffins
+    name: Puffins
+    kinds:
+      - other
+    description: Puffins, who nest here over the summer; however, they will be gone by early August.
+    crowd_level: null
+    best_months: []
+    source_ref: Værøy > See
+  - id: lofoten-vaeroy-nordlanshagen-beach
+    name: Nordlanshagen beach
+    kinds:
+      - beach
+    description: A nice almost-white sand beach. Parking lot, free toilets, drainage facilities for camping-cars.
+    crowd_level: null
+    best_months: []
+    source_ref: Værøy > Do > Beaches
+  - id: lofoten-vaeroy-punn-sanden-beach
+    name: Punn Sanden beach
+    kinds:
+      - beach
+    description: A beautiful almost-white sand beach. Apparently only reachable from the sea.
+    crowd_level: null
+    best_months: []
+    source_ref: Værøy > Do > Beaches
+  - id: lofoten-vaeroy-sorlandshagen-beach
+    name: Sørlandshagen beach
+    kinds:
+      - beach
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Værøy > Do > Beaches
 extraction:
-  listings: 39
+  listings: 54
   listings_by_type:
-    buy: 3
-    do: 1
+    buy: 6
+    do: 3
     drink: 3
-    eat: 3
+    eat: 4
     go: 5
-    listing: 1
-    see: 11
-    sleep: 12
+    listing: 4
+    see: 14
+    sleep: 15
   priced_listings:
     sleep: 2
     eat: 1
   poi_sources:
-    listing: 12
+    listing: 19
     marker: 0
-    named: 4
+    named: 6
   duplicate_pois_dropped: 0
+  generic_items_pruned: 0

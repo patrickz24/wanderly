@@ -15,6 +15,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Sicily
   revision_id: 5320270
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: sicily
+    title: Sicily
+    url: https://en.wikivoyage.org/wiki/Sicily
+    revision_id: 5320270
+    license: CC BY-SA 4.0
+  - file: places/catania.md
+    role: place
+    id: catania
+    title: Catania
+    url: https://en.wikivoyage.org/wiki/Catania
+    revision_id: 5382687
+    license: CC BY-SA 4.0
+  - file: places/syracuse-italy.md
+    role: place
+    id: syracuse-italy
+    title: Syracuse (Italy)
+    url: https://en.wikivoyage.org/wiki/Syracuse_(Italy)
+    revision_id: 5356941
+    license: CC BY-SA 4.0
+  - file: places/palermo.md
+    role: place
+    id: palermo
+    title: Palermo
+    url: https://en.wikivoyage.org/wiki/Palermo
+    revision_id: 5354768
+    license: CC BY-SA 4.0
+  - file: places/agrigento.md
+    role: place
+    id: agrigento
+    title: Agrigento
+    url: https://en.wikivoyage.org/wiki/Agrigento
+    revision_id: 5377125
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -93,29 +129,54 @@ climate:
       rain_days: 8.9
       precipitation_mm: 50.3
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
+    lodging_night:
+      median: 47.5
+      min: 14
+      max: 500
+      currency: €
+      sample_size: 30
+      excluded_other_currency: 0
     meal: null
     notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+      - 1 Eat listing price(s) in the documents had no amount with a currency.
+      - 'No Eat listing in the documents has a parseable price: value unknown.'
   levels:
     budget:
-      lodging_night: null
+      lodging_night:
+        median: 40
+        min: 14
+        max: 80
+        currency: €
+        sample_size: 16
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Eat listing under Budget has a parseable price: value unknown.'
     mid:
-      lodging_night: null
+      lodging_night:
+        median: 50
+        min: 24
+        max: 500
+        currency: €
+        sample_size: 11
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 1 Eat listing price(s) under Mid-range had no amount with a currency.
+        - 'No Eat listing under Mid-range has a parseable price: value unknown.'
     comfort:
-      lodging_night: null
+      lodging_night:
+        median: 225
+        min: 80
+        max: 480
+        currency: €
+        sample_size: 3
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Eat listing under Splurge has a parseable price: value unknown.'
 pois:
   - id: sicily-madonie-regional-natural-park
     name: Madonie Regional Natural Park
@@ -126,7 +187,7 @@ pois:
     description: Mountainous reserve east of Palermo with charming villages, hiking trails, and biodiversity.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Sicily > Other destinations
   - id: sicily-mount-etna
     name: Mount Etna
     kinds:
@@ -134,7 +195,7 @@ pois:
     description: Europe’s highest active volcano, with craters, lava flows, and cable cars near Catania.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Sicily > Other destinations
   - id: sicily-mozia
     name: Mozia
     kinds:
@@ -143,7 +204,7 @@ pois:
     description: Ancient Phoenician settlement on an island in the Stagnone Lagoon near Marsala.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Sicily > Other destinations
   - id: sicily-pantelleria
     name: Pantelleria
     kinds:
@@ -151,7 +212,7 @@ pois:
     description: Volcanic island closer to Tunisia than Sicily, known for thermal springs, dammusi houses, and capers.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Sicily > Other destinations
   - id: sicily-pantalica
     name: Pantalica
     kinds:
@@ -161,7 +222,7 @@ pois:
     description: Vast necropolis with thousands of rock-cut tombs, set in a scenic gorge near Syracuse.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Sicily > Other destinations
   - id: sicily-segesta
     name: Segesta
     kinds:
@@ -169,7 +230,7 @@ pois:
     description: Well-preserved Doric temple and theatre in a bucolic setting.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Sicily > Other destinations
   - id: sicily-valley-of-the-temples
     name: Valley of the Temples
     kinds:
@@ -178,15 +239,785 @@ pois:
     description: Iconic archaeological park of ancient Akragas, featuring remarkably preserved Greek temples; a UNESCO World Heritage Site.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Sicily > Other destinations
+  - id: sicily-catania-piazza-del-duomo
+    name: Piazza del Duomo
+    kinds:
+      - religious_site
+    description: An attractive, lively baroque square. Here you can find the Fontana dell'Elefante (Elephant Fountain) or U Liotru - the symbol of the city. There are three buildings here that are World Heritage Sites. The square is also an entrance to the elegant via Etnea, the main shopping street.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-cattedrale-di-santagata
+    name: Cattedrale di Sant'Agata
+    kinds:
+      - museum
+      - religious_site
+    description: An imposing cathedral, well worth visiting. Also see for Terme Achilliane and Museo Diocesano which are located there.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-museo-diocesano
+    name: Museo Diocesano
+    kinds:
+      - museum
+      - religious_site
+    description: The collection of the museum contains various religious artefacts from the Cathedral and some other churches around. Its ticket office also sells tickets to the Terme Achilliane.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-palazzo-degli-elefanti
+    name: Palazzo degli Elefanti
+    kinds:
+      - other
+    description: Construction begin in 1696. In 1736 a statue of an elephant carrying an obelisk was erected in front of the palazzo.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-palazzo-dei-chierici
+    name: Palazzo dei Chierici
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-chiesa-della-badia-di-santagata
+    name: Chiesa della Badia di Sant'Agata
+    kinds:
+      - religious_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-castello-ursino
+    name: Castello Ursino
+    kinds:
+      - historic_site
+      - museum
+    description: It was built in the 13th century as a royal castle of the Kingdom of Sicily, and ilater became the seat of the Sicilian Parliament. It hosts the Museo Civico (civic museum), which displays Greek and Roman artifacts from the city; art from the 17th-19th centuries; 2000 bronze figurines from the Archaic, Siceliot, Greek, Etruscan-Italic and Hellenistic eras; and temporary exhibitions.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-monastero-dei-benedettini-di-san-nicolo-larena
+    name: Monastero dei Benedettini di San Nicolò l'Arena
+    kinds:
+      - religious_site
+    description: It is the oldest one in Sicily and it is one of the biggest monasteries in Europe. It hosts now the Faculty of Literature of the University of Catania.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-chiesa-di-san-nicolo-larena
+    name: Chiesa di San Nicolò l'Arena
+    kinds:
+      - religious_site
+    description: It is an unachieved church which was supposed to be the biggest one in Sicily.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-via-crociferi
+    name: Via Crociferi
+    kinds:
+      - religious_site
+    description: "It's a centre of an ecclesiastical architecture in Catania: in no more than 200 m there are 4 churches, 3 monasteries and a college."
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-monastero-di-san-benedetto
+    name: Monastero di San Benedetto
+    kinds:
+      - historic_site
+      - religious_site
+    description: A splendid baroque monument.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-chiesa-di-san-francesco-borgia
+    name: Chiesa di San Francesco Borgia
+    kinds:
+      - religious_site
+    description: Today the church used for various cultural events. Next to the church is a former Jesuit college.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-chiesa-di-san-giuliano
+    name: Chiesa di San Giuliano
+    kinds:
+      - religious_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-villa-cerami
+    name: Villa Cerami
+    kinds:
+      - other
+    description: A Baroque villa. It hosts Faculty of Law of the University.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-basilica-maria-santissima-dellelemosina
+    name: Basilica Maria Santissima dell'Elemosina
+    kinds:
+      - religious_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-palazzo-biscari
+    name: Palazzo Biscari
+    kinds:
+      - historic_site
+    description: It is one of the most interesting baroque palaces in Catania. The palace is privately owned. Check with the tourist office to arrange a visit.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > World Heritage Sites
+  - id: sicily-catania-teatro-romano-e-odeon
+    name: Teatro Romano e Odeon
+    kinds:
+      - historic_site
+    description: The theatre dates back to the 1st century CE when it was built on the remains of the Greek theatre it used to hold up to 7000 spectators. Odeon, a smaller theatrical building, was built next to it in the 2nd century CE.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > Ancient Roman and Greek
+  - id: sicily-catania-terme-della-rotonda
+    name: Terme della Rotonda
+    kinds:
+      - historic_site
+    description: The remains of ancient Roman baths.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > Ancient Roman and Greek
+  - id: sicily-catania-anfiteatro-romano
+    name: Anfiteatro Romano
+    kinds:
+      - historic_site
+    description: Some modest remains amidst the square.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > Ancient Roman and Greek
+  - id: sicily-catania-terme-achilliane
+    name: Terme Achilliane
+    kinds:
+      - historic_site
+      - religious_site
+    description: The remains of a small part of a large ancient baths located underground is open for the public. It's under the Catania's Cathedral square. Some parts of mosaics and marble floor as well as some remains of decorated walls. The remains are still quite impressive.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > Ancient Roman and Greek
+  - id: sicily-catania-teatro-massimo-bellini
+    name: Teatro Massimo Bellini
+    kinds:
+      - other
+    description: A 19th-century opera theatre named after the Catania-born composer Vincenzo Bellini. The square before the theatre is a popular meeting place among the local young people, so its neighbourhood is very lively and busy by night.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > Other notable attractions
+  - id: sicily-catania-palazzo-delluniversita
+    name: Palazzo dell'Università
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > Other notable attractions
+  - id: sicily-catania-palazzo-della-cultura
+    name: Palazzo Della Cultura
+    kinds:
+      - museum
+      - religious_site
+    description: A former monastery, it's now a venue for various exhibitions. It also hosts the access point, an information office of the municipal museums (M-Sa 09:00-13:00).
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > Other notable attractions
+  - id: sicily-catania-palazzo-gravina-cruyllas
+    name: Palazzo Gravina-Cruyllas
+    kinds:
+      - museum
+    description: It is the birthplace of Vincenzo Bellini. Thete are two museums here.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > Other notable attractions
+  - id: sicily-catania-museo-belliniano
+    name: Museo Belliniano
+    kinds:
+      - museum
+    description: A museum devoted to Vincenzo Bellini, a famous Italian composer.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > Other notable attractions
+  - id: sicily-catania-museo-emilio-greco
+    name: Museo Emilio Greco
+    kinds:
+      - museum
+    description: A museum devoted to Italian artist Emilio Greco.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > Other notable attractions
+  - id: sicily-catania-quattro-canti
+    name: Quattro Canti
+    kinds:
+      - religious_site
+    description: 'A square at the intersection of Via Etnea with Via di Sangiuliano. It is somewhat reminiscent to the other octagonal squares in Italy: Quattro Canti at the piazza Vigliena in Palermo, Quattro Canti in Paternò, and Quattro Fontane in Rome, next to the church of San Carlino by Francesco Borromini.'
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > Other notable attractions
+  - id: sicily-catania-porta-garibaldi
+    name: Porta Garibaldi
+    kinds:
+      - family
+    description: The gates erected in 1768 in honor of King Ferdinand IV and his family.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > Other notable attractions
+  - id: sicily-catania-giardino-bellini
+    name: Giardino Bellini
+    kinds:
+      - nature
+    description: Charming 19th-century park. The oldest part of it, the Prince of Biscari's Maze or Laberinto Biscari, dates back to the 18th century.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > Parks and gardens
+  - id: sicily-catania-orto-botanico-delluniversita-di-catania
+    name: Orto Botanico dell'Università di Catania
+    kinds:
+      - nature
+    description: Small botanical garden of the University of Catania.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > See > Parks and gardens
+  - id: sicily-catania-via-etnea
+    name: Via Etnea
+    kinds:
+      - religious_site
+    description: Walk the main shopping avenue, running north from the Piazza del Duomo has most of the city's imposing building and is busy throughout the day and evening. Lots of churches. This road is the equivalent of Las Ramblas in Barcelona, so in the evenings the local people put on their Sunday clothes and walk at a relaxed pace along this avenue.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > Do
+  - id: sicily-catania-etnaway
+    name: EtnaWay
+    kinds:
+      - hiking
+      - nature
+    description: Guided excursions on mount Etna, with transfer from Catania, Giarre or Taormina by jeep and 4x4. Visit of summit craters and most beautiful places of the volcano.
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > Do
+  - id: sicily-catania-la-plaja
+    name: La Plaja
+    kinds:
+      - beach
+    description: La Plaja, sandy beaches south of the city along the bay
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > Do
+  - id: sicily-catania-riviera-dei-ciclopi
+    name: Riviera dei ciclopi
+    kinds:
+      - nature
+    description: The Riviera dei ciclopi, a rocky, volcano coast north of the city, stretching almost to Taormina
+    crowd_level: null
+    best_months: []
+    source_ref: Catania > Do
+  - id: sicily-syracuse-italy-tempio-di-apollo
+    name: Tempio di Apollo
+    kinds:
+      - historic_site
+    description: The first sight you reach after crossing the bridge are these remnants of a temple to Apollo, with two columns and part of the wall. You can't enter, just look over the railings.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Isola di Ortigia
+  - id: sicily-syracuse-italy-cattedrale-della-nativita-di-maria-santissima
+    name: Cattedrale della Natività di Maria Santissima
+    kinds:
+      - historic_site
+      - religious_site
+    description: This was built as a Greek Temple of Athena in the 5th century BC on older foundations. In the 7th century it was converted to a church, incorporating most of its former construction including the Doric columns. In the 9th century, it became a mosque; in the 11th century the Normans converted it back into a church adding a new roof with mosaics in the apses. Then after the 1693 Sicily earthquake it was rebuilt in grand Baroque style.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Isola di Ortigia
+  - id: sicily-syracuse-italy-chiesa-di-santa-lucia-alla-badia
+    name: Chiesa di Santa Lucia alla Badia
+    kinds:
+      - religious_site
+    description: In the apse, behind the altar, there was a large painting of the "Burial of Saint Lucy" by Caravaggio which was returned to Chiesa di Santa Lucia al Sepolcro.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Isola di Ortigia
+  - id: sicily-syracuse-italy-antica-fonte-aretusa
+    name: Antica Fonte Aretusa
+    kinds:
+      - other
+    description: It's a pond with a fresh water source surrounded by papyrus reeds, which inspired many poets and writers. The legend says that Alpheus, son of Oceanus, fell madly in love with a nymph named Aretusa. The nymph didn't share his feelings. To save her, Artemis turned her into a water source. Zeus also turned Alpheus into a river, allowing him to meet up with Aretusa, but these watery legends are sending a stern strategic message. Ortigia has its own fresh water supply, drawn from the limestone aquifers, so its enemies should think twice about trying to besiege it.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Isola di Ortigia
+  - id: sicily-syracuse-italy-castello-maniace
+    name: Castello Maniace
+    kinds:
+      - historic_site
+      - museum
+    description: 'In the middle ages Syracuse was fortified as a bulwark against Ottoman expansion. The island of Ortigia was guarded by fortresses at each end: the northern Marchetti fortress has long gone. The smaller, later Maniace fortress remains at the southern tip, with Vauban-style bastions and a dry moat cut between fort and city. There are small exhibitions on the history of the fortress, and of Norman ceramics discovered at the site.'
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Isola di Ortigia
+  - id: sicily-syracuse-italy-parco-archeologico-della-neapolis
+    name: Parco Archeologico della Neapolis
+    kinds:
+      - historic_site
+      - food
+    description: East side of Via Cavallari are the ticket offices, a large parking lot for buses, toilets & fast food, and a vast display of tourist tat. Buy tickets there or across the road at the complex of ruins and sights on the west side. The order of listings below follows the recommended itinerary, though you're not tied to it, so if one area is congested by tour groups, it's easy to skip and come back to it later.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Neapolis
+  - id: sicily-syracuse-italy-latomia-del-paradiso
+    name: Latomia del Paradiso
+    kinds:
+      - nature
+      - historic_site
+      - museum
+      - religious_site
+    description: 'From the entrance, follow the driveway to descend into a great bosky hollow. These are the ancient stone quarries, worked on from the sixth century BC. Two grottos or galleries burrow into the rockface. Largest is Orecchio di Dionisio or "Ear of Dionysius". Some grotto! - its dimensions are worthy of the gothic nave of a city cathedral. The name arises from its acoustics: the legend says that the tyrant Dionysios could stand outside and listen to whispered conversations of those imprisoned therein. Difficult to believe this, once you''ve savoured the distorted echoing babble of tourists. The second and smaller is Grotto dei Cordari ie the cave of cordwainers or ropemakers. Dark, not particularly straight, far from dry, so it''s not obvious why they would work here. At the very north end of the quarries are Necropoli Grotticelle - which supposedly contains Archimedes'' tomb, but the site of this is unknown. It''s probably easier to view from the street after leaving the park.'
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Neapolis
+  - id: sicily-syracuse-italy-teatro-greco
+    name: Teatro Greco
+    kinds:
+      - historic_site
+      - viewpoint
+    description: "Built circa 470 BC but with reconstruction in the 3rd century BC and Roman period. Further work continues today, so you can look down on it but can't enter: they're rebuilding the stage, and a tier of wooden bleachers. Greek drama is performed here May - July, typically at sunset. These performances are in Italian, without amplification as the natural acoustics are so good. It is the largest remaining Greek theatre on Sicily, but there isn't much left other than the seats."
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Neapolis
+  - id: sicily-syracuse-italy-ara-di-ierone-ii
+    name: Ara di Ierone II
+    kinds:
+      - historic_site
+    description: This massive piece of rock, 199 m long by 23 m wide, was the foundation block of an altar, the largest known from the ancient world. It was built by King Hiero II (who had Archimedes in his employ) some time before 200 BC. Nothing else remains of the temple here; classicists believe it was probably built to the glory of the deity Zeus, and definitely built to glorify Hiero himself.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Neapolis
+  - id: sicily-syracuse-italy-anfiteatro-romano
+    name: Anfiteatro romano
+    kinds:
+      - other
+    description: Built 60-40 BC under Augustus or Julius Caesar, this is mostly carved out of the hillside, with no superstructure surviving. So effectively it's a grassy pit 140 m long by 119 m wide, and you'll have to use your imagination to see the tiered seating and walkways. The pit in the centre held machinery for stage effects.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Neapolis
+  - id: sicily-syracuse-italy-museo-archeologico-regionale-paolo-orsi
+    name: Museo Archeologico Regionale "Paolo Orsi"
+    kinds:
+      - historic_site
+      - museum
+    description: The second most important archeology museum in Sicily.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Other sites
+  - id: sicily-syracuse-italy-chiesa-di-santa-lucia-al-sepolcro
+    name: Chiesa di Santa Lucia al Sepolcro
+    kinds:
+      - historic_site
+      - religious_site
+    description: Also known as Chiesa di Santa Lucia fuori le mura as it was behind the walls (extra moenia) a Byzantine church built, according to tradition, in the same place of the martyrdom of the saint in 303 AD. The current appearance is from the 15th-16th centuries. The most ancient parts still preserved include the portal, the three half-circular apses and the first two orders of the belfry. Next to the church is located the sepolcro (tomb) of the Santa Lucia, at the place where she as regarded was executed. This church hosts "Burial of Saint Lucy" by Caravaggio which was located at the Chiesa di Santa Lucia alla Badia at the Piazza Duomo. Under the church there are catacombs which are not open to the public.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Other sites
+  - id: sicily-syracuse-italy-basilica-santuario-madonna-delle-lacrime
+    name: Basilica Santuario Madonna delle Lacrime
+    kinds:
+      - historic_site
+      - religious_site
+    description: This church is a huge concrete cone built from 1966 but only completed in 1994, inspired by a mass-produced Madonna statue that is said to have cried real tears in 1953. The interior is a great circular expanse, with six of the 20-some side spaces dedicated as chapels, with the tower above like some colossal machine part. The lower floor or crypt is an equally large circular space.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Other sites
+  - id: sicily-syracuse-italy-chiesa-di-san-giovanni-alle-catacombe
+    name: Chiesa di San Giovanni alle catacombe
+    kinds:
+      - historic_site
+      - religious_site
+    description: An underground necropolis dating back to the 4th century AD.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Other sites
+  - id: sicily-syracuse-italy-latomia-dei-cappuccini
+    name: Latomia dei Cappuccini
+    kinds:
+      - historic_site
+      - religious_site
+    description: An ancient quarry next to the Capuchin monastery.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Other sites
+  - id: sicily-syracuse-italy-galleria-regionale-di-palazzo-bellomo
+    name: Galleria Regionale di Palazzo Bellomo
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Other sites
+  - id: sicily-syracuse-italy-castello-eurialo-e-mura-di-dionigi
+    name: Castello Eurialo e mura di Dionigi
+    kinds:
+      - historic_site
+    description: The remains of one of the biggest fortresses in Sicily built between 402 and 397 BC. Closed as of 2023, no interesting views from public roads.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > See > Other sites
+  - id: sicily-syracuse-italy-foro-vittorio-emanuele-ii
+    name: Foro Vittorio Emanuele II
+    kinds:
+      - other
+    description: This is a beautiful promenade, where many come to walk and relax. It is said that the trees make people want to spend the day under them.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > Do
+  - id: sicily-syracuse-italy-percorso-ipogeico-di-piazza-duomo
+    name: Percorso ipogeico di Piazza Duomo
+    kinds:
+      - religious_site
+    description: A sort of dungeon under the Piazza Duomo decorated with theatrical setting from the various Greek performances.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > Do
+  - id: sicily-syracuse-italy-bagno-ebraico
+    name: Bagno ebraico
+    kinds:
+      - historic_site
+      - adventure
+    description: 'Another underground adventure: the ancient ritual Jewish baths discovered some 25 years ago. A tour lasts about 15 min.'
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > Do
+  - id: sicily-syracuse-italy-pista-ciclabile-rossana-maiorca
+    name: Pista ciclabile Rossana Maiorca
+    kinds:
+      - other
+    description: Take a cycleway along the coast at the former railway track.
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > Do > Cycling
+  - id: sicily-syracuse-italy-nolo-point
+    name: Nolo Point
+    kinds:
+      - adventure
+    description: 'Nolo Point, Gazebo Pz Pncali, tel: +39 348 9506338. Rents out electrical bicycles, scooters, canoes, campers etc.'
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > Do > Cycling
+  - id: sicily-syracuse-italy-festival-of-santa-lucia
+    name: Festival of Santa Lucia
+    kinds:
+      - religious_site
+    description: 'Festival of Santa Lucia: Takes place on December 13. A solid silver statue of the patron saint is carried to Basilica del Sepolcro where it remains for eight days.'
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > Do > Events
+  - id: sicily-syracuse-italy-theatrical-season-at-the-greek-theatre
+    name: Theatrical Season at the Greek Theatre
+    kinds:
+      - other
+    description: 'Theatrical Season at the Greek Theatre: Goes from May to July. Throughout these months, they stage dramas by famous authors such as Aeschylus and Euripides.'
+    crowd_level: null
+    best_months: []
+    source_ref: Syracuse (Italy) > Do > Events
+  - id: sicily-palermo-palermo-cathedral
+    name: Palermo Cathedral
+    kinds:
+      - religious_site
+    description: Honey-coloured and Catalan influenced. Frederick II, Barbarossa's grandson, died in 1250 and is buried here, far from his ancestral home above Hohenstaufen, Germany. Frederick's sarcophagus is of porphyry dyed with imperial purple.
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-palatine-chapel
+    name: Palatine Chapel
+    kinds:
+      - historic_site
+      - religious_site
+    description: "It's one of the artistic gems of Palermo: a chapel with magnificent mosaics and Arabian-style decorations, among the most beautiful in the world. It is inside of Palazzo dei Normanni."
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-palazzo-dei-normanni
+    name: Palazzo dei Normanni
+    kinds:
+      - historic_site
+    description: The oldest royal residence in Europe, the home of the rulers of the Kingdom of Sicily and imperial seat of the Emperor Frederick II. The palace contains the Cappella Palatina, the best example of the Arab-Norman style of Sicily. Nowadays it is the seat of the Sicilian Parliament.
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-san-giovanni-degli-eremiti
+    name: San Giovanni degli Eremiti
+    kinds:
+      - nature
+      - historic_site
+      - religious_site
+    description: Church notable for its brilliant red domes, which show the persistence of the Arab influences in the 12th century, with its typical Arab-Norman style. The €6 admission ensures that the lovely garden is quiet and peaceful.
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-museo-archeologico
+    name: Museo Archeologico
+    kinds:
+      - historic_site
+      - museum
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-catacombe-dei-cappuccini
+    name: Catacombe dei Cappuccini
+    kinds:
+      - religious_site
+      - village
+      - family
+    description: The catacombs of the Capuchin convent contain over 8,000 mummified ex-residents from Palermo and its surrounding villages, some merely clothed skeletons, other remarkably well-preserved and lifelike. Well worth a visit, interesting, if slightly morbid. Children may either find it exciting or terrifying, and it must be the responsibility of their parents to think carefully before taking them. You can arrive via the tram line and a 10- to 15-minute walk. Your visit will not take longer than one hour. No photography allowed
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-church-of-the-gesu
+    name: Church of the Gesù
+    kinds:
+      - religious_site
+    description: The Gesu Church is one of the most architecturally important in Palermo. Constructed between 1564–1633, its late date of completion resulted in an abundant use of polychrome marbles on both floors and walls. This form of decoration, which gradually evolved in Sicily from the beginning of the 17th century, was a mark of the beginning of the Sicilian Baroque period, which was to give Sicily almost an architectural national identity. The church has a modest facade and it's hidden in back street in central Palermo, unlike the great cathedral this one you have to look for.
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-piazza-pretoria-and-the-fontana-pretoria
+    name: Piazza Pretoria and the Fontana Pretoria
+    kinds:
+      - historic_site
+    description: In 1573 the Senate of Palermo bought a fountain intended for the Palace of San Clemente in Florence, with the intention of placing it in the square. The large central fountain is the focal point for 16 nude statues of nymphs, humans, mermaids and satyrs. In 1860, the fountain was considered the representation of corrupt municipalities, and Palermo nicknamed the square with the nudity of the statues, the Square of Shame (Piazza della vergogna). This may have also been reflecting the prevailing influence of the Spanish Inquisition during that time.
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-praetorian-palace-or-palace-of-the-eagles
+    name: Praetorian Palace or Palace of the Eagles
+    kinds:
+      - historic_site
+    description: The building has an important role in the political life of the city, since it houses the mayor and the offices of the municipality of Palermo. Construction began in 1463. It is open for visits to see the sumptuous meeting rooms, the "Sala Rossa" (seat of the mayor), the "Sala Gialla" (seat of the municipal government), the "Sala delle Lapidi" (seat of the city council), and the "Sala Garibaldi".
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-monreale
+    name: Monreale
+    kinds:
+      - historic_site
+      - religious_site
+      - village
+    description: A village 8 km west of Palermo, sitting on the hill with a great view back towards the city and the sea. It is home to a historical Norman-Byzantine cathedral, which has been designated as one of several buildings named in a UNESCO World Heritage Site
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-monreale-cathedral
+    name: Monreale Cathedral
+    kinds:
+      - historic_site
+      - religious_site
+    description: The cathedral of Monreale is one of the greatest extant examples of Norman architecture. It was begun in 1174 by William II and completed four years later. The church is a national monument of Italy and one of the most important attractions of Sicily. The cloister has 228 small columns, each with different decorations influenced by Provençal, Burgundian, Arab and Salerno medieval art.
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-palermo-botanical-garden
+    name: Palermo Botanical Garden
+    kinds:
+      - nature
+      - historic_site
+    description: Historical city botanical gardens featuring many collections of plants, trees, and aquaculture. The garden is associated with the neighbouring university and contains a number of experimental gardens to test acclimation of plant species to Sicily.
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-museo-delle-maioliche-museum-of-maiolica-tile
+    name: Museo delle Maioliche (Museum of Maiolica Tile)
+    kinds:
+      - historic_site
+      - museum
+    description: Beautiful private museum of historical tiles produced both locally and in Naples. Guided tours available in English or Italian will take you through the techniques and historical considerations of tile making and its importance across Italy.
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-quattro-canti
+    name: Quattro Canti
+    kinds:
+      - historic_site
+      - religious_site
+    description: the symbolic crossroads at the old centre of the city and the nearby small, but pretty La Martorana church with Byzantine mosaics inside.
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-piazza-garraffello
+    name: Piazza Garraffello
+    kinds:
+      - nightlife
+    description: Piazza Garraffello near Vucciria on Friday nights a DJ is playing open air if the weather is good. Huge crowd dancing. There are also lots of bars right next to the square.
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-palermo-the-zisa-and-the-cuba
+    name: The Zisa and the Cuba
+    kinds:
+      - historic_site
+    description: The Zisa and the Cuba, Arabic-Norman royal palaces. The Zisa is in Piazza Zisa; the Cuba in Corso Calatafimi.
+    crowd_level: null
+    best_months: []
+    source_ref: Palermo > See
+  - id: sicily-agrigento-museo-archeologico-regionale-pietro-griffo
+    name: Museo Archeologico Regionale "Pietro Griffo"
+    kinds:
+      - nature
+      - historic_site
+      - museum
+    description: This modern museum sits halfway between the city and the Valley of the Temples. Its exhibits showcase artifacts from ancient Akragas, including an impressive reconstructed telamon from the Temple of Olympian Zeus.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > See > Museums
+  - id: sicily-agrigento-museo-diocesano-di-agrigento
+    name: Museo Diocesano di Agrigento
+    kinds:
+      - historic_site
+      - museum
+      - religious_site
+    description: Located beside the cathedral, this museum showcases sacred art, liturgical vestments, silverware, and documents spanning centuries of ecclesiastical history. Housed in the 17th-century Episcopal Palace, its highlight is a richly decorated hall with coffered ceilings and Renaissance paintings.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > See > Museums
+  - id: sicily-agrigento-casa-natale-di-luigi-pirandello
+    name: Casa Natale di Luigi Pirandello
+    kinds:
+      - museum
+      - family
+    description: The childhood home of Luigi Pirandello, Nobel laureate in literature (1934), houses a small museum with photographs, manuscripts, and personal belongings. Outside is a pine tree mentioned in his writings, and nearby is the site of his ashes.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > See > Museums
+  - id: sicily-agrigento-valley-of-the-temples
+    name: Valley of the Temples
+    kinds:
+      - nature
+      - historic_site
+    description: One of Sicily’s most important archaeological parks and a UNESCO World Heritage Site, the Valley of the Temples spans several kilometres of ancient Greek ruins. Its string of monumental Doric temples is comparable to Athens’ Acropolis. For detailed listings of each temple and how to visit, see the Valley of the Temples page.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > See > Archaeology
+  - id: sicily-agrigento-quartiere-ellenistico-romano
+    name: Quartiere Ellenistico–Romano
+    kinds:
+      - historic_site
+    description: The remains of the ancient city’s residential area. You’ll find paved streets, cisterns, and several houses with original mosaics and walls.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > See > Archaeology
+  - id: sicily-agrigento-cattedrale-di-san-gerlando
+    name: Cattedrale di San Gerlando
+    kinds:
+      - nature
+      - religious_site
+    description: The large cathedral is uphill in the northwestern corner of the town center on Via Duomo. Built around 1000 AD it has since been altered several times but today offers grand views across the valley.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > See > Architecture
+  - id: sicily-agrigento-chiesa-di-santa-maria-dei-greci
+    name: Chiesa di Santa Maria dei Greci
+    kinds:
+      - historic_site
+      - religious_site
+    description: An interesting Norman church built some 1000 years ago on the site of an ancient Greek temple.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > See > Architecture
+  - id: sicily-agrigento-monastero-di-santo-spirito
+    name: Monastero di Santo Spirito
+    kinds:
+      - religious_site
+      - food
+    description: A Cistercian monastery and former convent with a richly decorated Baroque interior, built between the 13th–14th centuries. It’s known for its stuccoes, cloister, and traditional almond pastries still made by the nuns.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > See > Architecture
+  - id: sicily-agrigento-biblioteca-lucchesiana
+    name: Biblioteca Lucchesiana
+    kinds:
+      - other
+    description: Founded in 1765, this elegant ecclesiastical library has a stunning wood-panelled interior and holds thousands of rare manuscripts, parchments, and incunabula. A hidden gem for architecture and book lovers.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > See > Architecture
+  - id: sicily-agrigento-church-of-san-lorenzo-del-purgatorio
+    name: Church of San Lorenzo (del Purgatorio)
+    kinds:
+      - religious_site
+    description: A lovely Baroque church with dramatic interiors and stucco work by Giacomo Serpotta. Worth stepping into if you’re strolling Via Atenea.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > See > Architecture
+  - id: sicily-agrigento-villa-bonfiglio
+    name: Villa Bonfiglio
+    kinds:
+      - hiking
+      - nature
+    description: A pleasant municipal park with shady walking paths, benches, fountains, and sea views. Popular with locals for a relaxing stroll or resting under pine trees, especially in the late afternoon.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > Do > Walks
+  - id: sicily-agrigento-via-atenea
+    name: Via Atenea
+    kinds:
+      - hiking
+      - historic_site
+      - religious_site
+      - viewpoint
+      - food
+    description: The heart of Agrigento’s historic centre, this pedestrian-friendly street is lined with elegant palazzi, boutique shops, historic cafés, gelaterie, and restaurants. In the early evening, it comes alive with locals enjoying the traditional passeggiata — a leisurely stroll and social ritual. A great place to browse, people-watch, or stop for a coffee or aperitivo. Keep an eye out for side alleys and stairways leading to picturesque viewpoints and hidden churches.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > Do > Walks
+  - id: sicily-agrigento-ridge-trail-in-the-valley-of-the-temples
+    name: Ridge Trail in the Valley of the Temples
+    kinds:
+      - hiking
+      - nature
+      - historic_site
+    description: A flat and well-marked ~3 km loop (~1.8 mi) that's ideal for all levels. It links the Valley’s major temples and archaeological sites in a single stroll. Offers excellent views, ancient ruins, and interpretive signs along the route. Built paths make it accessible in dry weather, but bring water and sun protection in summer.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > Do > Walks
+  - id: sicily-agrigento-road-cycling-loop-agrigento-to-porto-empedocle-and-back
+    name: 'Road‑cycling loop: Agrigento to Porto Empedocle and back'
+    kinds:
+      - village
+      - viewpoint
+    description: A scenic ~65 km (~40 mi) ride through undulating farmland and coastal roads. Moderate difficulty (~600 m elevation gain), suitable for experienced cyclists. Along the way you’ll pass olive groves, seaside villages, and the harbor town of Porto Empedocle. This route is popular on Saturday mornings in spring.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > Do > Cycling
+  - id: sicily-agrigento-festa-del-mandorlo-in-fiore
+    name: Festa del Mandorlo in Fiore
+    kinds:
+      - other
+    description: Festa del Mandorlo in Fiore (almond Blossom Festival) towards the end of February is to be commended.
+    crowd_level: null
+    best_months: []
+    source_ref: Agrigento > Do > Events
 extraction:
-  listings: 0
-  listings_by_type: {}
+  listings: 256
+  listings_by_type:
+    buy: 9
+    do: 11
+    drink: 6
+    eat: 44
+    go: 15
+    listing: 12
+    see: 71
+    sleep: 88
   priced_listings:
-    sleep: 0
-    eat: 0
+    sleep: 30
+    eat: 1
   poi_sources:
-    listing: 0
+    listing: 80
     marker: 7
-    named: 0
+    named: 9
   duplicate_pois_dropped: 0
+  generic_items_pruned: 1

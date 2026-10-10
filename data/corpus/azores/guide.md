@@ -152,7 +152,7 @@ On most islands there are bus services, crossing the main villages. On the small
 
 ### By taxi
 
-Taxis are centrally regulated throughout the islands so visitors pay the same rate as locals. In São Miguel (2015), it costs about €10 between the two ends of Ponta Delgada; out of town trips are €20-30 or €40-50 to the farthest parts of the island. In Terceira (2026) it cost € 24.50 from the airport to a hotel in Angra.
+Taxis are centrally regulated throughout the islands so visitors pay the same rate as locals. In São Miguel (2015), it costs about €10 between the two ends of Ponta Delgada; out of town trips are €20-30 or €40-50 to the farthest parts of the island. In Terceira (2026) it cost €24.50 from the airport to a hotel in Angra.
 
 Taxis are generally not visually identifiable as such, but sometimes they park in parking stalls with the word "TAXI" painted on the ground. If in doubt, look around outside the airport or ferry terminal (especially soon after the arrival of a flight or ferry), or ask a local.
 

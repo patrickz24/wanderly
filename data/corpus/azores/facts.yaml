@@ -15,6 +15,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Azores
   revision_id: 5336126
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: azores
+    title: Azores
+    url: https://en.wikivoyage.org/wiki/Azores
+    revision_id: 5336126
+    license: CC BY-SA 4.0
+  - file: places/pico.md
+    role: place
+    id: pico
+    title: Pico
+    url: https://en.wikivoyage.org/wiki/Pico
+    revision_id: 5355031
+    license: CC BY-SA 4.0
+  - file: places/sao-jorge-azores.md
+    role: place
+    id: sao-jorge-azores
+    title: São Jorge (Azores)
+    url: https://en.wikivoyage.org/wiki/S%C3%A3o_Jorge_(Azores)
+    revision_id: 5356964
+    license: CC BY-SA 4.0
+  - file: places/faial.md
+    role: place
+    id: faial
+    title: Faial
+    url: https://en.wikivoyage.org/wiki/Faial
+    revision_id: 5350830
+    license: CC BY-SA 4.0
+  - file: places/flores-azores.md
+    role: place
+    id: flores-azores
+    title: Flores (Azores)
+    url: https://en.wikivoyage.org/wiki/Flores_(Azores)
+    revision_id: 5328093
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -93,119 +129,50 @@ climate:
       rain_days: 14.8
       precipitation_mm: 136.4
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
-    meal: null
+    lodging_night:
+      median: 79.25
+      min: 3
+      max: 162
+      currency: €
+      sample_size: 8
+      excluded_other_currency: 0
+    meal:
+      median: 11.75
+      min: 1
+      max: 40
+      currency: €
+      sample_size: 6
+      excluded_other_currency: 0
     notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+      - 3 Eat listing price(s) in the documents had no amount with a currency.
   levels:
     budget:
-      lodging_night: null
+      lodging_night:
+        median: 34
+        min: 3
+        max: 65
+        currency: €
+        sample_size: 1
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - Sleep figure under Budget rests on only 1 listing(s).
+        - 'No Eat listing under Budget has a parseable price: value unknown.'
     mid:
       lodging_night: null
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Sleep listing under Mid-range has a parseable price: value unknown.'
+        - 'No Eat listing under Mid-range has a parseable price: value unknown.'
     comfort:
       lodging_night: null
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Sleep listing under Splurge has a parseable price: value unknown.'
+        - 'No Eat listing under Splurge has a parseable price: value unknown.'
 pois:
-  - id: azores-whale-and-dolphin-watching
-    name: Whale and dolphin watching
-    kinds:
-      - boat_trip
-    description: Whale and dolphin watching. Every town with a marina offers whale watching. They take you out on small boats and often get you within ten yards of the whale. Futurismo is a recommended provider for whale watching tours.
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: azores-off-road-mountain-bike-circuits
-    name: Off-road mountain bike circuits
-    kinds:
-      - nature
-      - adventure
-    description: null
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: azores-moto-4-rides
-    name: Moto 4 Rides
-    kinds:
-      - other
-    description: null
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: azores-bird-watching
-    name: Bird Watching
-    kinds:
-      - nature
-    description: null
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: azores-donkey-rides
-    name: Donkey Rides
-    kinds:
-      - other
-    description: null
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: azores-fishing
-    name: Fishing
-    kinds:
-      - other
-    description: null
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: azores-sport-fishing
-    name: Sport Fishing
-    kinds:
-      - other
-    description: null
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: azores-ferry
-    name: Ferry
-    kinds:
-      - other
-    description: null
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: azores-yachting
-    name: Yachting
-    kinds:
-      - boat_trip
-    description: null
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: azores-rental-bike
-    name: Rental Bike
-    kinds:
-      - other
-    description: Rental Bike, riding bike is a great way to get to know the islands.
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: azores-guided-tours
-    name: Guided Tours
-    kinds:
-      - other
-    description: Guided Tours, the best way to get to know the islands is to take a guided tour.
-    crowd_level: null
-    best_months: []
-    source_ref: Do
   - id: azores-volcano-climbing-at-pico-island
     name: Volcano Climbing at Pico island
     kinds:
@@ -214,24 +181,360 @@ pois:
     description: null
     crowd_level: null
     best_months: []
-    source_ref: Do
-  - id: azores-hiking
-    name: Hiking
+    source_ref: Azores > Do
+  - id: azores-pico-the-gruta-das-torres
+    name: The Gruta das Torres
+    kinds:
+      - other
+    description: A lava tube over 5 km long. 90-min tours available that take you 450 m into the tube. Reservations are required. Not suitable for people with mobility impairments.
+    crowd_level: null
+    best_months: []
+    source_ref: Pico > See
+  - id: azores-pico-landscape-of-the-pico-island-vineyard-culture
+    name: Landscape of the Pico Island Vineyard Culture
+    kinds:
+      - wine
+    description: The wine-growing area on the west coast of the island has been a UNESCO World Heritage Site since 2004.
+    crowd_level: null
+    best_months: []
+    source_ref: Pico > See
+  - id: azores-pico-museu-do-vinho
+    name: Museu do Vinho
+    kinds:
+      - museum
+      - wine
+    description: A museum on the history of Pico wine making, with English explanations.
+    crowd_level: null
+    best_months: []
+    source_ref: Pico > See
+  - id: azores-pico-house-of-volcanoes
+    name: House of Volcanoes
+    kinds:
+      - nature
+      - museum
+    description: A small museum that explains the geologic history of the island, with a video simulation of a journey to the centre of the earth, and a virtual reality simulation of two earthquakes.
+    crowd_level: null
+    best_months: []
+    source_ref: Pico > See
+  - id: azores-pico-mount-pico
+    name: Mount Pico
     kinds:
       - hiking
+      - nature
+      - viewpoint
+      - adventure
+    description: A stratovolcano 2351 m above sea level. It is the tallest mountain in Portugal. Climb the mountain in the afternoon so you can see the sunset when you reach the summit. Normally it takes 2 to 3 hours to climb, more if you are not fit. Then in the morning to see the sunrise, climb a little mountain called Pico Pequenino (Little Pico) that the mountain has on top. From there you can see the islands of Faial and São Jorge perfectly. To climb Mt Pico, you must register at the Mountain House at the base of the mountain, which controls the number of climbers each day, or register in advance (recommended) at montanhapico.azores.gov.pt.
+    crowd_level: null
+    best_months: []
+    source_ref: Pico > Do
+  - id: azores-sao-jorge-azores-igreja-de-santa-barbara
+    name: Igreja de Santa Bárbara
+    kinds:
+      - historic_site
+      - religious_site
+    description: Church built in 1770 over the ruins of an earlier church from 1485.
+    crowd_level: null
+    best_months: []
+    source_ref: São Jorge (Azores) > See
+  - id: azores-faial-horta-harbour
+    name: Horta Harbour
+    kinds:
+      - boat_trip
+    description: Where many sailing vessels stop and sailors leave some graphics on the walls and also on the floor as a memory for crossing the Atlantic.
+    crowd_level: null
+    best_months: []
+    source_ref: Faial > See
+  - id: azores-faial-caldeira
+    name: Caldeira
+    kinds:
+      - beach
+      - nature
+      - village
+      - viewpoint
+    description: The centre of Faial is occupied by a large crater, called "Caldeira". The road from the capital passes through Flamengos, the first village to be founded by European settlers. In its vicinity is the botanical garden. Also interesting is the trip along the "Ribeira dos Flamengos", a stream that crosses a very green valley. The descent into the crater is challenging and generally requires a local guide. You can observe the laurel forests that once covered the whole island. Once you have visited the Caldeira it is possible to descend in the direction of Praia Norte or in the area of ​​Capelo dominated by the lunar landscapes of the coast. The 3-km path, called "covered by Levada", is easily accessible. An extension of it begins near an artificial lake and penetrates through a tunnel inside a basaltic volcano "Cabeço dos Trinta" and then flows directly into the crater. Another excursion is to "Cabeço Gordo", the highest point of the island (1043 m) Which offers a panoramic view of the Caldeira.
+    crowd_level: null
+    best_months: []
+    source_ref: Faial > See
+  - id: azores-faial-capelinhos-volcano
+    name: Capelinhos volcano
+    kinds:
+      - hiking
+      - nature
+      - historic_site
+    description: A volcanic eruption lasted for 13 months, from 27 September 1957 until 24 October 1958, which may have been two overlapping volcanic eruptions. While enlarging the land by 2.4 km², it spawned 300 seismic events, hurled ash 1 km, destroyed 300 houses in the parishes of Capelo and Praia do Norte and caused the evacuation of 2,000 people (many of whom emigrated to the US and Canada). The ruined lighthouse and Visitors Center (which lies along the cliff from the volcano) are a tourist destination. A trail network runs from the Visitors Center and lighthouse to the caldera summit.
+    crowd_level: null
+    best_months: []
+    source_ref: Faial > See
+  - id: azores-faial-lighthouse-of-ponta-dos-capelinhos
+    name: Lighthouse of Ponta dos Capelinhos
+    kinds:
+      - nature
+    description: A former beacon/lighthouse on the coastal peninsula of Ponta dos Capelinhos and Costa Nau that was constructed in the late 19th century. It is a symbol on the island, for the eruption of Capelinhos volcano, which occurred in 1957-58.
+    crowd_level: null
+    best_months: []
+    source_ref: Faial > See
+  - id: azores-faial-santa-cruz
+    name: Santa Cruz
+    kinds:
+      - historic_site
+    description: A fortress built in 1597 that is a national monument with a luxury hotel.
+    crowd_level: null
+    best_months: []
+    source_ref: Faial > See
+  - id: azores-faial-manuel-de-arriaga-museum
+    name: Manuel de Arriaga Museum
+    kinds:
+      - museum
+    description: Birthplace of the first elected President of Portugal, 1911. The exhibition opened here to mark the 100th anniversary.
+    crowd_level: null
+    best_months: []
+    source_ref: Faial > See
+  - id: azores-faial-horta-museum
+    name: Horta Museum
+    kinds:
+      - museum
+    description: The local history museum.
+    crowd_level: null
+    best_months: []
+    source_ref: Faial > See
+  - id: azores-faial-tower-of-relogio
+    name: Tower of Relogio
+    kinds:
+      - historic_site
+      - religious_site
+    description: Clock tower of the Igreja Nossa Senhora da Conceição church in Horta, which was demolished in 1941.
+    crowd_level: null
+    best_months: []
+    source_ref: Faial > See
+  - id: azores-faial-rua-conselheiro-medeiros-horta
+    name: Rua Conselheiro Medeiros, Horta
+    kinds:
+      - other
+    description: With residential buildings in the Art Deco style.
+    crowd_level: null
+    best_months: []
+    source_ref: Faial > See
+  - id: azores-faial-jardim-botanico-do-faial
+    name: Jardim Botânico do Faial
+    kinds:
+      - nature
+    description: Botanical garden with a beautiful orchid collection in the glass house and park, some of which are scientifically labelled.
+    crowd_level: null
+    best_months: []
+    source_ref: Faial > See
+  - id: azores-faial-fabrica-da-baleia-de-porto-pim
+    name: Fábrica da Baleia de Porto Pim
+    kinds:
+      - museum
+    description: A hall in which whales were processed serves as a museum. A model of a sperm whale that was ten metres long when it was alive hangs from the ceiling of the house,
+    crowd_level: null
+    best_months: []
+    source_ref: Faial > See
+  - id: azores-faial-pista-da-caldeira
+    name: Pista da Caldeira
+    kinds:
+      - hiking
+    description: The 12-km-long, easy Levanda hiking trail begins not far from Centro de Artesanato do Capeloon the EN1-1A. The red-leaved tree ferns are striking along the way. You should plan four hours.
+    crowd_level: null
+    best_months: []
+    source_ref: Faial > Do
+  - id: azores-faial-falca-park
+    name: Falca Park
+    kinds:
+      - nature
+    description: 14 hectares at 400 metres above sea level, with a grove of tall sickle firs.
+    crowd_level: null
+    best_months: []
+    source_ref: Faial > Do
+  - id: azores-faial-semana-do-mar
+    name: Semana do Mar
+    kinds:
+      - hiking
+      - museum
+      - boat_trip
+    description: The Semana do Mar (Week of the Sea) takes place at the beginning of August. It is a week-long celebration in Horta of Faial's link to the sea, celebrated in song, dance, exhibitions and kiosks selling different foods (of local and continental Portugal) and goods. During the day there are several sailing competitions and exhibits, while in the evening while many sample foods along the Avenida Marginal, others listen and/or dance to popular and/or traditional musical acts on one of several platforms devoted to bands, traditional and modern/contemporary musical artists.* Pista da Caldeira — The 12-km-long, easy Levanda hiking trail begins not far from Centro de Artesanato do Capeloon the EN1-1A. The red-leaved tree ferns are striking along the way. You should plan four hours.
+    crowd_level: null
+    best_months: []
+    source_ref: Faial > Do
+  - id: azores-flores-azores-lagoa-funda
+    name: Lagoa Funda
+    kinds:
+      - other
     description: null
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Flores (Azores) > See
+  - id: azores-flores-azores-lagoa-comprida
+    name: Lagoa Comprida
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > See
+  - id: azores-flores-azores-lagoa-funda-das-lajes
+    name: Lagoa Funda das Lajes
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > See
+  - id: azores-flores-azores-rocha-dos-bordoes
+    name: Rocha dos Bordões
+    kinds:
+      - other
+    description: Basalt organ pipes.
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > See
+  - id: azores-flores-azores-aguas-quentes
+    name: Aguas Quentes
+    kinds:
+      - other
+    description: Small hot sulphur springs.
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > See
+  - id: azores-flores-azores-sete-pes
+    name: Sete Pes
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > See
+  - id: azores-flores-azores-burrinha
+    name: Burrinha
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > See
+  - id: azores-flores-azores-marcel
+    name: Marcel
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > See
+  - id: azores-flores-azores-morro-alto
+    name: Morro Alto
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > See
+  - id: azores-flores-azores-gruta-dos-enxareus
+    name: Gruta dos Enxaréus
+    kinds:
+      - nature
+      - boat_trip
+    description: Visible only by boat, the grotto is the largest of the myriad caves that open at the base of the promontory "La Caveira", about 3 km south of the capital. The marine cave measures 25 x 50 m and is of volcanic origin. Like the nearby "gruta de galo", it used to be a hiding place for pirate ships that then gave themselves to the boarding of the galleons coming from Brazil and the other Portuguese colonies. Today Gruta dos Enxaréus is one of the major natural attractions of Flores.
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > See
+  - id: azores-flores-azores-lagoa-dos-patos
+    name: Lagoa dos Patos
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > See
+  - id: azores-flores-azores-cascata-do-poco-do-bacalhau
+    name: Cascata do Poço do Bacalhau
+    kinds:
+      - beach
+      - nature
+    description: 90m high waterfall, active in the rainy season. During summer a bathing pond.
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > See
+  - id: azores-flores-azores-poco-da-ribeira-do-ferreiro
+    name: Poco da Ribeira do Ferreiro
+    kinds:
+      - hiking
+      - nature
+    description: Poco da Ribeira do Ferreiro. A wall of Waterfalls fall into the Lagoa dos Patos lake, right out of a fairytale. Lies on the trail between Faja Grande and Fajazinha. Alternatively take a bus and tell the driver to leave you there, or walk up the main street from Faja Grande (takes about 45 min.)
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > See
+  - id: azores-flores-azores-faja-grande
+    name: Fajã Grande
+    kinds:
+      - beach
+    description: With a natural swimming pool.
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > Do > Beaches
+  - id: azores-flores-azores-ponta-de-faja-grande
+    name: Ponta de Fajã Grande
+    kinds:
+      - beach
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > Do > Beaches
+  - id: azores-flores-azores-faja-de-lopo-vaz
+    name: Fajã de Lopo Vaz
+    kinds:
+      - beach
+    description: With a dark sand.
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > Do > Beaches
+  - id: azores-flores-azores-fajazinha
+    name: Fajãzinha
+    kinds:
+      - beach
+    description: In Riberira Grande.
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > Do > Beaches
+  - id: azores-flores-azores-lajes-das-flores
+    name: Lajes das Flores
+    kinds:
+      - beach
+    description: With a small sandy beach.
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > Do > Beaches
+  - id: azores-flores-azores-ponta-delgada
+    name: Ponta Delgada
+    kinds:
+      - beach
+    description: In the harbor bay.
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > Do > Beaches
+  - id: azores-flores-azores-santa-cruz-das-flores
+    name: Santa Cruz das Flores
+    kinds:
+      - beach
+    description: Multiple natural swimming pools.
+    crowd_level: null
+    best_months: []
+    source_ref: Flores (Azores) > Do > Beaches
 extraction:
-  listings: 1
+  listings: 78
   listings_by_type:
-    listing: 1
+    city: 6
+    do: 10
+    eat: 11
+    go: 6
+    listing: 4
+    see: 28
+    sleep: 13
   priced_listings:
-    sleep: 0
-    eat: 0
+    sleep: 8
+    eat: 9
   poi_sources:
-    listing: 0
+    listing: 38
     marker: 0
-    named: 13
+    named: 3
   duplicate_pois_dropped: 0
+  generic_items_pruned: 13

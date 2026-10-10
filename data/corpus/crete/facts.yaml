@@ -16,6 +16,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Crete
   revision_id: 5321566
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: crete
+    title: Crete
+    url: https://en.wikivoyage.org/wiki/Crete
+    revision_id: 5321566
+    license: CC BY-SA 4.0
+  - file: places/heraklion.md
+    role: place
+    id: heraklion
+    title: Heraklion
+    url: https://en.wikivoyage.org/wiki/Heraklion
+    revision_id: 5383964
+    license: CC BY-SA 4.0
+  - file: places/rethymno.md
+    role: place
+    id: rethymno
+    title: Rethymno
+    url: https://en.wikivoyage.org/wiki/Rethymno
+    revision_id: 5345207
+    license: CC BY-SA 4.0
+  - file: places/chania.md
+    role: place
+    id: chania
+    title: Chania
+    url: https://en.wikivoyage.org/wiki/Chania
+    revision_id: 5310491
+    license: CC BY-SA 4.0
+  - file: places/agios-nikolaos.md
+    role: place
+    id: agios-nikolaos
+    title: Agios Nikolaos
+    url: https://en.wikivoyage.org/wiki/Agios_Nikolaos
+    revision_id: 5200840
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -94,29 +130,61 @@ climate:
       rain_days: 10.8
       precipitation_mm: 58.1
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
-    meal: null
+    lodging_night:
+      median: 76
+      min: 12
+      max: 380
+      currency: €
+      sample_size: 9
+      excluded_other_currency: 0
+    meal:
+      median: 18.25
+      min: 4
+      max: 30
+      currency: €
+      sample_size: 4
+      excluded_other_currency: 0
     notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+      - 1 Sleep listing price(s) in the documents had no amount with a currency.
+      - 1 Eat listing price(s) in the documents had no amount with a currency.
   levels:
     budget:
-      lodging_night: null
+      lodging_night:
+        median: 32.5
+        min: 30
+        max: 35
+        currency: €
+        sample_size: 1
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - Sleep figure under Budget rests on only 1 listing(s).
+        - 'No Eat listing under Budget has a parseable price: value unknown.'
     mid:
       lodging_night: null
-      meal: null
+      meal:
+        median: 10
+        min: 4
+        max: 16
+        currency: €
+        sample_size: 1
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Sleep listing under Mid-range has a parseable price: value unknown.'
+        - Eat figure under Mid-range rests on only 1 listing(s).
     comfort:
-      lodging_night: null
+      lodging_night:
+        median: 161.75
+        min: 73.5
+        max: 380
+        currency: €
+        sample_size: 3
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Eat listing under Splurge has a parseable price: value unknown.'
 pois:
   - id: crete-samaria-national-park
     name: Samaria National Park
@@ -126,7 +194,7 @@ pois:
     description: A breathtaking gorge on the southern part of Chania Prefecture open for the 5- to 7-hour moderately strenuous hike from 1 May until mid-October.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Crete > Other destinations
   - id: crete-lasithi-plateau
     name: Lasithi Plateau
     kinds:
@@ -135,7 +203,7 @@ pois:
     description: A large fertile plateau in the centre of Lassithi Prefecture at an altitude of 840 meters (2,760 ft). Once, as many as 10,000 white-sailed windmills operated on the plateau, but these have largely been replaced by diesel and electric irrigation pumps. Numerous old stone windmills (some ruins, some beautifully restored) still stand along the passes above the plateau.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Crete > Other destinations
   - id: crete-vai-palm-forest
     name: Vai palm forest
     kinds:
@@ -143,7 +211,7 @@ pois:
     description: The largest palm-forest of Europe, spanning 250 stremmata (Greek unit of surface equal with 1000m²) consisted by Phoenix theophrastii (Cretan palm), an indigenous species of palm.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Crete > Other destinations
   - id: crete-gramvousa
     name: Gramvousa
     kinds:
@@ -151,7 +219,7 @@ pois:
     description: Small rocky island with marvellous beaches. Ferry connections from Kissamos.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Crete > Other destinations
   - id: crete-elafonisi
     name: Elafonisi
     kinds:
@@ -159,77 +227,371 @@ pois:
     description: A small island with an impressive beach with crystal clear water and pink sand. Elafonisi is a favourite place for relaxing and swimming.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
-  - id: crete-archeological-sites
-    name: Archeological sites
+    source_ref: Crete > Other destinations
+  - id: crete-heraklion-heraklion-archaeological-museum
+    name: Heraklion Archaeological Museum
     kinds:
       - historic_site
-    description: Archeological sites, primarily ancient Minoan palaces and settlements, including Knossos, Phaistos, Gortyn, Malia, and Gournia.
+      - museum
+    description: Houses the most important and representative finds from Minoan civilisation and excavations across the island of Crete. Highlights include statues of the Snake Goddess, the Bull-Leaping Fresco, the Phaistos Disk, and Minoan seals and jewellery. Also includes a number of finds from Classical Greek and Roman periods.
     crowd_level: null
     best_months: []
-    source_ref: See
-  - id: crete-monasteries-and-convents
-    name: Monasteries and convents
-    kinds:
-      - religious_site
-    description: Monasteries and convents. As true throughout Greece, the Cretan monastic tradition is strong. There are hundreds of monasteries and convents on the island, and most are open to visitors.
-    crowd_level: null
-    best_months: []
-    source_ref: See
-  - id: crete-churches
-    name: Churches
+    source_ref: Heraklion > See
+  - id: crete-heraklion-palace-of-knossos
+    name: Palace of Knossos
     kinds:
       - historic_site
-      - religious_site
-      - village
-    description: Churches. There are even more churches on Crete than monasteries. Even small villages will have a main church or two and several chapels. Many of the churches are open to visitors, especially the more historic ones in cities like Chania, Rethymnon, and Heraklion.
+    description: If you see just one ruin on Crete, see Knossos (in Greek it’s Κνωσός, stress is on the second syllable). The site is fairly compact, and much of it is accessible with restricted mobility. But 30 minutes will do it. It is one of six Minoan Palatial Centres to be listed as a world heritage site.
     crowd_level: null
     best_months: []
-    source_ref: See
-  - id: crete-architecture
-    name: Architecture
-    kinds:
-      - historic_site
-      - religious_site
-    description: Architecture. Because of invasion and occupation over centuries, there is varied architecture to admire, including Venetian fortresses and castles, Byzantine churches, Roman aqueducts, and Turkish villas and baths. Examples can be found all over the island, but are primarily concentrated in and around the main port cities.
-    crowd_level: null
-    best_months: []
-    source_ref: See
-  - id: crete-scenery
-    name: Scenery
+    source_ref: Heraklion > See
+  - id: crete-heraklion-koules
+    name: Koules
     kinds:
       - nature
-      - viewpoint
-    description: Scenery. The scenery of this mountainous island is quite varied. The high mountains that stretch across the interior from east to west have blessed Crete with scenic valleys, dramatic gorges like the Gorge of Samaria, thousands of caves, rivers and lakes. The east end of the island is semi-arid, and the western end is more lush with forests. All of this scenery can be seen in a good day's drive.
+    description: 'Koules (Greek: Κούλες) was built by the Venetians in the 16th C. From the parapet, enjoy the view towards Dia Islet, where Jacques Cousteau found many sunken remains of Cretan sea trade.'
     crowd_level: null
     best_months: []
-    source_ref: See
-  - id: crete-beaches
-    name: Beaches
+    source_ref: Heraklion > See
+  - id: crete-heraklion-fortifications-of-heraklion
+    name: Fortifications of Heraklion
+    kinds:
+      - historic_site
+    description: The Fortifications of Heraklion are among the most impressive Venetian defensive works in the Mediterranean, encircling the old city of Heraklion. Built between the 15th and 17th centuries, their massive walls and bastions helped the city withstand a 21-year Ottoman siege—the longest in history—before falling in 1669. Much of the circuit survives today and can be walked, offering sweeping views and access to key monuments like the harbour fortress.
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > See
+  - id: crete-heraklion-historical-museum-of-crete
+    name: Historical Museum of Crete
     kinds:
       - beach
-      - nature
-    description: Beaches. There are beautiful beaches all around the island, such as Agios Pavlos, Balos, Vai on the far eastern tip that has the largest palm (Cretan date palms) forest in Europe, uninhabited Chrysi Island off the coast of Ierapetra, which boasts the largest natural-growth Lebanese cedar forest in Europe, and the red sand beach of Matala made famous by the hippies who resided in caves here in the 1960s and 70s (and by the 1971 Joni Mitchell song "Carey"). You can also find official Nudist-Beaches, which is rare on other islands in Greece.
+      - historic_site
+      - museum
+    description: Covers the story of Crete from the Byzantine era to the present day. It includes material on World War II and the German occupation, which was displayed in the “Museum of the Battle for Crete and National Resistance” until it closed.
     crowd_level: null
     best_months: []
-    source_ref: See
-  - id: crete-traditional-villages
-    name: Traditional villages
+    source_ref: Heraklion > See
+  - id: crete-heraklion-loggia
+    name: Loggia
     kinds:
-      - village
-    description: Traditional villages. Head off the beaten path to discover traditional villages where life goes on much as it did hundreds of years ago.
+      - other
+    description: An elegant city meeting place, built in 1628.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Heraklion > See
+  - id: crete-heraklion-morosini-fountain
+    name: Morosini Fountain
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > See
+  - id: crete-heraklion-st-minas-cathedral
+    name: St Minas Cathedral
+    kinds:
+      - religious_site
+    description: '(Greek: Άγιος Μηνάς)'
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > See
+  - id: crete-heraklion-st-titus-church
+    name: St Titus Church
+    kinds:
+      - religious_site
+    description: '(Greek: Άγιος Τίτος) Known for housing the skull of St. Titus.'
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > See
+  - id: crete-heraklion-st-catherine-of-the-sinaites-church
+    name: St Catherine of the Sinaites Church
+    kinds:
+      - religious_site
+    description: '(Greek: Αγία Αικατερίνη Σιναϊτών).'
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > See
+  - id: crete-heraklion-st-marks-basilica
+    name: St Mark's Basilica
+    kinds:
+      - religious_site
+    description: '(Greek: Βασιλική Αγίου Μάρκου).'
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > See
+  - id: crete-heraklion-dominican-church-of-st-peter
+    name: Dominican Church of St Peter
+    kinds:
+      - religious_site
+    description: '(Greek: Άγιος Πέτρος Δομηνικανών).'
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > See
+  - id: crete-heraklion-natural-history-museum-of-crete
+    name: Natural History Museum of Crete
+    kinds:
+      - museum
+    description: The Natural History Museum of Crete shows the natural environment of the Eastern Mediterranean area with a special emphasis on Greece and Crete.
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > See
+  - id: crete-heraklion-nikos-kazantzakis-museum
+    name: Nikos Kazantzakis Museum
+    kinds:
+      - museum
+      - village
+    description: This museum in the village of Myrtia (Varvari), 20 km south of Heraklion, focuses on Crete's most prominent modern intellectual figure.
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > See
+  - id: crete-heraklion-cretaquarium-thalassokosmos
+    name: CretAquarium Thalassokosmos
+    kinds:
+      - family
+    description: The biggest aquarium in the Eastern Mediterranean.
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > See
+  - id: crete-heraklion-lychnostatis-open-air-museum
+    name: Lychnostatis Open-Air Museum
+    kinds:
+      - museum
+    description: Open-air Cretan folklore museum.
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > See
+  - id: crete-heraklion-amoudara
+    name: Amoudara
+    kinds:
+      - beach
+      - nightlife
+    description: Amoudara the city's beach area; a 6 km strip of sandy beach, lots of cafes, bars and hotels and the site of "Technopolis", a modern multiplex cinema and open-air theatre.
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > Do
+  - id: crete-heraklion-horseback-riding
+    name: Horseback riding
+    kinds:
+      - beach
+    description: Horseback riding, experienced and amateur riders can ride at the beach of Karteros, or take riding lessons at Ippikos Omilos Hrakliou, located 6 km east of Heraklion, in Karteros.
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > Do
+  - id: crete-heraklion-water-fun
+    name: Water fun
+    kinds:
+      - nature
+      - family
+    description: Water fun at Water City and Aqua Plus water parks.
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > Do
+  - id: crete-heraklion-heraklion-sailing-club
+    name: Heraklion Sailing Club
+    kinds:
+      - boat_trip
+      - food
+    description: Heraklion Sailing Club (Ιστιοπλοϊκός Όμιλος Ηρακλείου) offers sailing lessons, sailing trips, yacht charters and has its own seafood restaurant. It's on the former premises of the port refrigeration plant, east of the Port Authorities.
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > Do
+  - id: crete-heraklion-heraklion-summer-arts-festival
+    name: Heraklion Summer Arts Festival
+    kinds:
+      - other
+    description: Heraklion Summer Arts Festival is held from June to September.
+    crowd_level: null
+    best_months: []
+    source_ref: Heraklion > Do
+  - id: crete-rethymno-arkadi-monastery
+    name: Arkadi Monastery
+    kinds:
+      - nature
+      - museum
+      - religious_site
+    description: It has a museum and a gallery. The local people sacrificed themselves for freedom on this place on the November 8th, 1866 by blewing it up. It is southeast of Rethymno toward Heraklion, on a fertile plateau 23 km from the city. It is still inhabited by some monks and it still has its own Orthodox celebration days.
+    crowd_level: null
+    best_months: []
+    source_ref: Rethymno > See
+  - id: crete-rethymno-damnoni
+    name: Damnoni
+    kinds:
+      - beach
+    description: A beach in southern Rethymno
+    crowd_level: null
+    best_months: []
+    source_ref: Rethymno > See
+  - id: crete-rethymno-eleftherna
+    name: Eleftherna
+    kinds:
+      - historic_site
+      - museum
+    description: An ancient Greek city (perhaps a city-state) with a preserved archeological site. A museum about it is also near the site.
+    crowd_level: null
+    best_months: []
+    source_ref: Rethymno > See
+  - id: crete-rethymno-fortezza-of-rethymnon
+    name: Fortezza of Rethymnon
+    kinds:
+      - historic_site
+      - religious_site
+    description: The preserverd fortified acropolis of the city. A mosque, though not operating, is still preserved, and so do a few other buildings and walls. Built on a small hill near the coast, it has a breathtaking view of the city and the sea.
+    crowd_level: null
+    best_months: []
+    source_ref: Rethymno > See
+  - id: crete-rethymno-kotsifou-gorge
+    name: Kotsifou gorge
+    kinds:
+      - nature
+    description: A breathtaking canyon stretching through a local road.
+    crowd_level: null
+    best_months: []
+    source_ref: Rethymno > See
+  - id: crete-rethymno-mount-ida
+    name: Mount Ida
+    kinds:
+      - nature
+      - adventure
+    description: The largest mountain in Crete at 2400 m and a UNESCO Geopark. Be careful when climbing there due to the unstable terrain.
+    crowd_level: null
+    best_months: []
+    source_ref: Rethymno > See
+  - id: crete-rethymno-neratze-mosque-and-mikrasiaton-square
+    name: Neratze Mosque and Mikrasiaton square
+    kinds:
+      - religious_site
+    description: A preserved Ottoman mosque with its minaret now used as a concert hall. A square called the Mikrasiaton is near the mosque and the 1st Primary (Elementary) School is visible from the square.
+    crowd_level: null
+    best_months: []
+    source_ref: Rethymno > See
+  - id: crete-rethymno-preveli
+    name: Preveli
+    kinds:
+      - religious_site
+    description: A monastery complex 37 km south of Rethymno consisting of two monasteries; the Κάτω (Kato, "lower") and the Πίσω (Piso, "back"). The main one is a Stavropegiac and Patriarchal Monastery dedicated to Saint John the Theologian (Evangelist). Also known as the "great river" (Μεγάλου Ποταμού) monastery, it is known for the revoluition against the Axis during World War II.
+    crowd_level: null
+    best_months: []
+    source_ref: Rethymno > See
+  - id: crete-rethymno-rimondi-fountain
+    name: Rimondi Fountain
+    kinds:
+      - historic_site
+      - family
+    description: A preserved Venetian fountain built by an aristocratic family. It has three mask-shaped taps/faucets with constant water flowing. The water, through potable, it is not recommended to drink from there, unless you are 100% sure. Ask a local.
+    crowd_level: null
+    best_months: []
+    source_ref: Rethymno > See
+  - id: crete-rethymno-historic-buildings
+    name: Historic buildings
+    kinds:
+      - historic_site
+    description: Historic buildings. Rethimno has many historic buildings remaining from the Venetian occupation of Crete, including the Fortessa and the lighthouse.
+    crowd_level: null
+    best_months: []
+    source_ref: Rethymno > See
+  - id: crete-rethymno-boardwalk
+    name: Boardwalk
+    kinds:
+      - food
+      - nightlife
+    description: Boardwalk. Walk around the very well-kept boardwalk by the sea. Plenty of bars and restaurants with great views of the sea.
+    crowd_level: null
+    best_months: []
+    source_ref: Rethymno > See
+  - id: crete-chania-etz-hayyim-synagogue
+    name: Etz Hayyim Synagogue
+    kinds:
+      - historic_site
+      - religious_site
+    description: "Until 1999 Etz Hayyim was a house of prayer that remained the sole Jewish monument on Crete after the destruction of Crete's Jewish community in 1944. Essentially it stood as a monument to the success of the Nazis in obliterating 2,300 years of Jewish life on Crete. Between 1996 and the year of its rededication in 1999, the structure was painstakingly restored. The philosophy that directed this work is summed up in the Hebrew Am Israel Hayy: 'The people of Israel live'. It used to be on the World Monument Fund's list of most endangered sites."
+    crowd_level: null
+    best_months: []
+    source_ref: Chania > See
+  - id: crete-chania-maleme-village
+    name: Maleme village
+    kinds:
+      - beach
+      - historic_site
+      - village
+    description: See the German cemetery on Kaukales hill at Maleme, the historical airport battlefield, the beach of Gerani where the sea turtle Caretta caretta is preserved.
+    crowd_level: null
+    best_months: []
+    source_ref: Chania > See
+  - id: crete-chania-archaeological-museum-of-hania
+    name: Archaeological Museum of Hania
+    kinds:
+      - historic_site
+      - museum
+    description: The Archaeological Museum of Hania, Skra Street 15, has unfortunately been moved out of the city center, but buses 11, 28 and 23 will take you there. It is well worth a visit. Open 8 a.m. to 8 p.m., closed on Tuesdays. 6 Eur, 3 Euro reduced ticket.
+    crowd_level: null
+    best_months: []
+    source_ref: Chania > See
+  - id: crete-chania-samaria-gorge
+    name: Samaria Gorge
+    kinds:
+      - nature
+    description: Samaria Gorge is an easy and popular day trip from here.
+    crowd_level: null
+    best_months: []
+    source_ref: Chania > See
+  - id: crete-agios-nikolaos-spinalonga
+    name: Spinalonga
+    kinds:
+      - historic_site
+    description: The old leper colony (formerly a Venetian fortress).
+    crowd_level: null
+    best_months: []
+    source_ref: Agios Nikolaos > See
+  - id: crete-agios-nikolaos-barbarossas-cave
+    name: Barbarossa's Cave
+    kinds:
+      - nature
+      - boat_trip
+    description: There are boat trips up the coast to see Barbarossa's Cave.
+    crowd_level: null
+    best_months: []
+    source_ref: Agios Nikolaos > See
+  - id: crete-agios-nikolaos-lato
+    name: Lato
+    kinds:
+      - historic_site
+    description: Ancient city which are just small excavated ruins.
+    crowd_level: null
+    best_months: []
+    source_ref: Agios Nikolaos > See
+  - id: crete-agios-nikolaos-archaeological-museum
+    name: Archaeological Museum
+    kinds:
+      - historic_site
+      - museum
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Agios Nikolaos > See
+  - id: crete-agios-nikolaos-semi-submarine
+    name: Semi-submarine
+    kinds:
+      - other
+    description: A boat with windows underwater, that takes a round-trip around the bay, showcasing some underwater fish (supported by feeding them) and sea ground. In the second part of the trip, a few notable buildings/hotels at the shore are shown..
+    crowd_level: null
+    best_months: []
+    source_ref: Agios Nikolaos > See
 extraction:
-  listings: 3
+  listings: 99
   listings_by_type:
-    go: 3
+    around: 1
+    drink: 2
+    eat: 21
+    go: 7
+    listing: 3
+    see: 32
+    sleep: 33
   priced_listings:
-    sleep: 0
-    eat: 0
+    sleep: 10
+    eat: 5
   poi_sources:
-    listing: 0
+    listing: 32
     marker: 5
-    named: 7
+    named: 9
   duplicate_pois_dropped: 0
+  generic_items_pruned: 12

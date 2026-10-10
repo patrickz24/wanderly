@@ -15,6 +15,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Mallorca
   revision_id: 5327510
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: mallorca
+    title: Mallorca
+    url: https://en.wikivoyage.org/wiki/Mallorca
+    revision_id: 5327510
+    license: CC BY-SA 4.0
+  - file: places/palma-de-mallorca.md
+    role: place
+    id: palma-de-mallorca
+    title: Palma de Mallorca
+    url: https://en.wikivoyage.org/wiki/Palma_de_Mallorca
+    revision_id: 5354777
+    license: CC BY-SA 4.0
+  - file: places/alcudia.md
+    role: place
+    id: alcudia
+    title: Alcúdia
+    url: https://en.wikivoyage.org/wiki/Alc%C3%BAdia
+    revision_id: 5377973
+    license: CC BY-SA 4.0
+  - file: places/cala-millor.md
+    role: place
+    id: cala-millor
+    title: Cala Millor
+    url: https://en.wikivoyage.org/wiki/Cala_Millor
+    revision_id: 5320357
+    license: CC BY-SA 4.0
+  - file: places/calvia.md
+    role: place
+    id: calvia
+    title: Calvià
+    url: https://en.wikivoyage.org/wiki/Calvi%C3%A0
+    revision_id: 5349445
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -93,29 +129,53 @@ climate:
       rain_days: 5.6
       precipitation_mm: 28.5
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
+    lodging_night:
+      median: 180
+      min: 33
+      max: 600
+      currency: €
+      sample_size: 57
+      excluded_other_currency: 0
     meal: null
     notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+      - 'No Eat listing in the documents has a parseable price: value unknown.'
   levels:
     budget:
-      lodging_night: null
+      lodging_night:
+        median: 33
+        min: 33
+        max: 33
+        currency: €
+        sample_size: 1
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - Sleep figure under Budget rests on only 1 listing(s).
+        - 'No Eat listing under Budget has a parseable price: value unknown.'
     mid:
-      lodging_night: null
+      lodging_night:
+        median: 200
+        min: 100
+        max: 450
+        currency: €
+        sample_size: 15
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Eat listing under Mid-range has a parseable price: value unknown.'
     comfort:
-      lodging_night: null
+      lodging_night:
+        median: 268.75
+        min: 170
+        max: 600
+        currency: €
+        sample_size: 4
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Eat listing under Splurge has a parseable price: value unknown.'
 pois:
   - id: mallorca-santuari-de-lluc
     name: Santuari de Lluc
@@ -125,7 +185,7 @@ pois:
     description: Santuari de Lluc is a monastery in the Tramuntana mountains.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Mallorca > Other destinations
   - id: mallorca-sa-calobra
     name: Sa Calobra
     kinds:
@@ -133,7 +193,7 @@ pois:
     description: Sa Calobra and Torrent de Pareis are Mallorca's "Grand Canyon".
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Mallorca > Other destinations
   - id: mallorca-san-salvador-monastery
     name: San Salvador Monastery
     kinds:
@@ -142,7 +202,7 @@ pois:
     description: San Salvador Monastery sits atop a mountain near Porto Colom and Felanitx.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Mallorca > Other destinations
   - id: mallorca-cabrera
     name: Cabrera
     kinds:
@@ -150,7 +210,7 @@ pois:
     description: Cabrera is the largest island of an uninhabited archipelago and National Park 20 km south of Mallorca.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Mallorca > Other destinations
   - id: mallorca-palma-old-town
     name: Palma old town
     kinds:
@@ -160,15 +220,7 @@ pois:
     description: Palma old town is centred on its cathedral. Medieval city walls still stand, with narrow streets within. There are several museums.
     crowd_level: null
     best_months: []
-    source_ref: See
-  - id: mallorca-churches
-    name: Churches
-    kinds:
-      - religious_site
-    description: 'Churches are the centrepiece of many other towns, often 17th century Baroque. The oddest is in Sa Servera near Cala Millor: the shell of an uncompleted Gothic church.'
-    crowd_level: null
-    best_months: []
-    source_ref: See
+    source_ref: Mallorca > See
   - id: mallorca-valldemossa
     name: Valldemossa
     kinds:
@@ -177,7 +229,7 @@ pois:
     description: Valldemossa Charterhouse was originally a royal palace then a monastery, then accommodation where Frédéric Chopin once stayed with George Sand.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Mallorca > See
   - id: mallorca-salbufera
     name: S'Albufera
     kinds:
@@ -185,105 +237,665 @@ pois:
     description: S'Albufera is a salt marsh near Alcudia, where many bird species can be seen. Bird life can be seen at many other spots around the coast, such as the cliffs of Formentor.
     crowd_level: null
     best_months: []
-    source_ref: See
-  - id: mallorca-caves
-    name: Caves
-    kinds:
-      - nature
-    description: 'Caves: several are open to the public, such as the Dragon Caves near Cala Millor.'
-    crowd_level: null
-    best_months: []
-    source_ref: See
-  - id: mallorca-hiking
-    name: Hiking
-    kinds:
-      - hiking
-    description: 'Hiking: the principal trail is Ruta de Pedra (GR221, taking eight days along the northwest coast from Andratx to Port de Pollença.'
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: mallorca-cycling
-    name: Cycling
-    kinds:
-      - other
-    description: 'Cycling: the main roads are ratty, get off into the lanes, and the gradients of Serra de Tramuntana will get your attention. Vuelta Ciclista a Mallorca is four days of racing in Jan / Feb, which pro teams use as a warm-up for their coming season.'
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: mallorca-golf
-    name: Golf
-    kinds:
-      - other
-    description: 'Golf: some 18 courses are mainly in two areas, the Andratx - Calvià - Magaluf resorts west of Palma, and the Cala Ratjada - Sa Servera strip along the east coast.'
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: mallorca-tennis
-    name: Tennis
-    kinds:
-      - other
-    description: 'Tennis: the Nadal tennis academy is at Manacor.'
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: mallorca-beaches
-    name: Beaches
-    kinds:
-      - beach
-    description: 'Beaches: much of the coast is rocky. Sandy stretches attract a scrummage of boxy hotels and may be crowded. The best compromise may be in secluded coves, where the gradient to access and exit deters the crowds.'
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: mallorca-scuba-diving
-    name: Scuba diving
-    kinds:
-      - beach
-      - nature
-      - adventure
-    description: Scuba diving is ideal for beginners and occasional divers. There's no river outflow so the water is clear, warm especially in late summer, and non-tidal. The convoluted coast means there's always a sheltered cove if the wind and waves pick up, as they often do in the afternoon. Mallorca main island suffers the usual Med problems of stripped coral, fished out, and unregulated coastal development. Cabrera island has the best diving, as it's a national park with protected habitat.
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: mallorca-music
-    name: Music
-    kinds:
-      - other
-    description: 'Music: classical and other concerts are especially in summer, with some held open-air.'
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: mallorca-climbing
-    name: Climbing
-    kinds:
-      - adventure
-    description: 'Climbing: the limestone bluffs of Serra de Tramuntana have plenty of climbing routes. "Psicobloc" is the specialty of rock climbing above deep water.'
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: mallorca-fiestas
-    name: Fiestas
+    source_ref: Mallorca > See
+  - id: mallorca-palma-de-mallorca-palma-cathedral
+    name: Palma Cathedral
     kinds:
       - historic_site
-    description: 'Fiestas mostly have religious roots, with great Madonnas teetering in pomp down ancient streets. A few have always been secular: in Sóller, Es Firo in May involves pirates, enraged women, treacle and catapults. And Correfoc in August sees Sóller invaded by hellfire demons, until doused by the fire brigade.'
+      - museum
+      - religious_site
+    description: Huge ornate cathedral, impressive outside and within. It was started in 1229 but only completed in 1601, in mostly Gothic style; Gaudí had a go at improving it but quit in a strop. The Royal Chapel is the resting place of kings Jaime II and III. You can ascend the tower for an extra €15, but it's a lot of steps. The standard ticket includes Museo de Arte Sacro (aka Museu Diocesà), with religious paintings and silverware; this has a separate entrance east.
     crowd_level: null
     best_months: []
-    source_ref: Do
-  - id: mallorca-sailing-and-yachting
-    name: Sailing and yachting
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-royal-palace-of-la-almudaina
+    name: Royal Palace of La Almudaina
     kinds:
-      - boat_trip
-    description: 'Sailing and yachting: there are marinas at all the main coastal towns. Boat charter may be available.'
+      - historic_site
+      - family
+    description: The fortress dates back to Roman times but what you see now is a rebuild from 1309. The ground floor is medieval while the upper floor, added in the 16th century, has the grand state rooms and suites. It was a seat of the kings of Mallorca and is still used as a residence by the Spanish royal family.
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-banys-arabs
+    name: Banys Àrabs
+    kinds:
+      - nature
+    description: Sauna baths built in the tenth century, with under-floor heating; it's the only building in Palma dating to the Arab settlement. Only two or three small rooms are open, but there's a pleasant courtyard garden.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-museum-of-mallorca
+    name: Museum of Mallorca
+    kinds:
+      - museum
+    description: Small museum of city heritage, crowded with artworks.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-basilica-de-sant-francesc
+    name: Basílica de Sant Francesc
+    kinds:
+      - religious_site
+    description: Church and cloister founded in 1281, in similar style to the cathedral but without the tourist hordes. The Franciscan nuns moved in with the Poor Clares in the 19th century.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-fundacion-juan-march-palma
+    name: Fundación Juan March Palma
+    kinds:
+      - museum
+    description: Museum of modern art, a branch of the Madrid foundation of financier Juan March Ordinas (1880-1962). Big names on display here include Picasso, Miró and Dalí, and the building is a stately 17th century mansion.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-llotja-de-palma
+    name: Llotja de Palma
+    kinds:
+      - historic_site
+    description: Medieval mercantile building with impressive architectural features, near the waterfront. It is occasionally used as event space but stands empty most of the time.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-es-baluard-museu-dart-contemporani
+    name: Es Baluard Museu d'Art Contemporani
+    kinds:
+      - other
+    description: Three-storey collection of 19th-20th century works by artists from the Balearic islands.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-el-casco-antiguo
+    name: El Casco Antiguo
+    kinds:
+      - historic_site
+      - religious_site
+    description: El Casco Antiguo is the historical centre, encompassing most city sights such as the cathedral and Royal Palace. It's a pleasant area to stroll, with narrow shady streets and glimpses of private courtyards. It's bounded by city walls (Dalt Murada) with an inner elevated plaza, while the ring-road outside zig-zags past the Vauban fortifications.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-ses-voltes
+    name: Ses Voltes
+    kinds:
+      - religious_site
+    description: Ses Voltes is the plaza south side of the cathedral. It has views over Parc de la Mar and sometimes hosts events.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-short-del-rei
+    name: S'Hort del Rei
+    kinds:
+      - nature
+      - historic_site
+    description: S'Hort del Rei are Moorish gardens just west of the palace.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-convent-of-st-clara
+    name: Convent of St Clara
+    kinds:
+      - religious_site
+    description: Convent of St Clara is east side of Banys Àrabs. The "Poor Clares" (Hermanas Pobres) were founded in 1212 and the church is from 1671. The nuns make cookies, remaining in seclusion as you pass your money through a hatch and they push out the goodies.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-santa-eulalia
+    name: Santa Eulàlia
+    kinds:
+      - religious_site
+    description: Santa Eulàlia is an attractive Gothic church 100 m west of Sant Francesc, but many visitors feel it's not worth the €5.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-basilica-de-sant-miquel
+    name: Basílica de Sant Miquel
+    kinds:
+      - religious_site
+    description: Basílica de Sant Miquel is 100 m north of the Foundation. It was a mosque converted to a church in 1229, but re-built in the 14th century and expanded in the 17th.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-placa-del-mercat
+    name: Plaça del Mercat
+    kinds:
+      - religious_site
+    description: Plaça del Mercat is a leafy triangle in the west of Casco Antiguo with many interesting Art Nouveau buildings. The church of San Nicolás just south was completed in 1712.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > City centre
+  - id: mallorca-palma-de-mallorca-pueblo-espanol
+    name: Pueblo Español
+    kinds:
+      - village
+      - food
+      - nightlife
+    description: '"Village" containing replicas of notable Spanish buildings. In season there are artisan shops, restaurants and bars within, and it''s an events venue, but it''s a bit hollow at other times.'
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > Further out
+  - id: mallorca-palma-de-mallorca-castell-de-bellver
+    name: Castell de Bellver
+    kinds:
+      - historic_site
+      - museum
+    description: An unusual circular castle enclosing a courtyard, built in the 14th century over a Moorish fort. A circle is not the best design in the age of artillery, but there's an outer ravelin and it withstood two sieges. Within is a museum of archaeological finds and classical sculptures. Its hilltop site commands good views of the city and the bay.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > Further out
+  - id: mallorca-palma-de-mallorca-pilar-and-joan-miro-foundation
+    name: Pilar and Joan Miro Foundation
+    kinds:
+      - nature
+    description: Joan Miró lived mostly in Barcelona and Paris but had extended spells in Palma. His two former studios display 6000 works, and there's a sculpture garden.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > Further out
+  - id: mallorca-palma-de-mallorca-museu-historic-militar-de-sant-carles
+    name: Museu Històric Militar de Sant Carles
+    kinds:
+      - museum
+    description: Military museum in a 17th century Vauban-style bastion by the harbour.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > Further out
+  - id: mallorca-palma-de-mallorca-palma-aquarium
+    name: Palma Aquarium
+    kinds:
+      - family
+    description: Aquarium focused on Mediterranean and coastal ecosystems, with a huge shark tank and vast collection of live corals. Reservations advised.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > Further out
+  - id: mallorca-palma-de-mallorca-paseo-maritimo
+    name: Paseo Marítimo
+    kinds:
+      - nature
+      - religious_site
+      - nightlife
+    description: Paseo Marítimo is the promenade, flanked by busy Av de Gabriel Roca. Its east end is under the town walls, with Parc de la Mar and the artificial lake. It continues past Llotja and the marina, then the coast trends south to the ferry pier and main harbour. This south end is a pub and club strip, with discos thumping music till dawn, and the floodlit cathedral in the background.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > Further out
+  - id: mallorca-palma-de-mallorca-transilvania-cafeteria-museum
+    name: Transilvania Cafetería-Museum
+    kinds:
+      - museum
+    description: Transilvania Cafetería-Museum is a schlock-horror waxworks. It's at C de Jaume Ferran 38, 200 m north of Jacint Verdaguer railway station, and open Tu-Sa 17:00-00:00.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > See > Further out
+  - id: mallorca-palma-de-mallorca-aqualand-el-arenal
+    name: Aqualand El Arenal
+    kinds:
+      - nature
+      - family
+    description: This water park has slides and pools for kids of all ages.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > Do
+  - id: mallorca-palma-de-mallorca-platja-de-can-pere-antoni
+    name: Platja de Can Pere Antoni
+    kinds:
+      - beach
+      - religious_site
+    description: Platja de Can Pere Antoni is the most central beach, starting 500 m east of Parc de la Mar beneath the cathedral. Some traffic noise, the east end is a little quieter. There are showers and lockers here.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > Do
+  - id: mallorca-palma-de-mallorca-ciudad-jardin
+    name: Ciudad Jardín
+    kinds:
+      - beach
+    description: Ciudad Jardín is 2 km east of Platja de Can Pere Antoni. It's a white sandy strip 450 m long, seldom crowded, with a series of jetties to curb erosion.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > Do
+  - id: mallorca-palma-de-mallorca-can-pastilla
+    name: Ca'n Pastilla
+    kinds:
+      - beach
+      - family
+    description: Ca'n Pastilla beach starts further east near the aquarium and airport, and stretches 4 km to become Playa S'Arenal.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > Do
+  - id: mallorca-palma-de-mallorca-cala-major
+    name: Cala Major
+    kinds:
+      - beach
+    description: Cala Major is a suburb 4 km southwest of Palma de Mallorca with lots of high-rise hotels. The beach is 200 m long and 80 m wide and can get busy at the height of summer, but the water is crystal clear and suitable for kiddy-bathing.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > Do
+  - id: mallorca-palma-de-mallorca-marineland
+    name: Marineland
+    kinds:
+      - beach
+      - family
+    description: "Marineland: see Magaluf for this marine zoo to the west near Costa d'en Blanes beach."
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > Do
+  - id: mallorca-palma-de-mallorca-plaza-de-toros
+    name: Plaza de Toros
+    kinds:
+      - other
+    description: Plaza de Toros is the bullring, and still used for bullfights, but also stages concerts. It's at Av Gaspar de Bennazar 32, 500 m north of Jacint Verdaguer railway station.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > Do
+  - id: mallorca-palma-de-mallorca-mallorca-live
+    name: Mallorca Live
+    kinds:
+      - other
+    description: Mallorca Live is a rock and pop music festival in mid June.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > Do > Events
+  - id: mallorca-palma-de-mallorca-festival-de-pollenca
+    name: Festival de Pollença
+    kinds:
+      - other
+    description: Festival de Pollença is classical music, throughout August.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > Do > Events
+  - id: mallorca-palma-de-mallorca-evolution-film-festival
+    name: Evolution Film Festival
+    kinds:
+      - other
+    description: Evolution Film Festival is first week in November. Fonart Short Film Festival is no longer held.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > Do > Events
+  - id: mallorca-palma-de-mallorca-smooth-jazz-festival
+    name: Smooth Jazz Festival
+    kinds:
+      - other
+    description: Smooth Jazz Festival is likewise first week in November.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > Do > Events
+  - id: mallorca-palma-de-mallorca-festa-de-lestendard
+    name: Festa de l’Estendard
+    kinds:
+      - other
+    description: Festa de l’Estendard is an end-of-year event in December, with a Mass at La Seu.
+    crowd_level: null
+    best_months: []
+    source_ref: Palma de Mallorca > Do > Events
+  - id: mallorca-alcudia-church-of-sant-jaume
+    name: Church of Sant Jaume
+    kinds:
+      - historic_site
+      - museum
+      - religious_site
+    description: Church founded in 1302 and incorporated into the city walls, so it doubled as a watchtower. It was undermined by floods in 1870 and collapsed, and re-built in 1890s neo-gothic. The museum displays religious art.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > See
+  - id: mallorca-alcudia-bull-ring
+    name: Bull ring
+    kinds:
+      - other
+    description: This was built in the 1920s but no longer has bullfights. It's occasionally open for cultural events.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > See
+  - id: mallorca-alcudia-roman-pollentia
+    name: Roman Pollentia
+    kinds:
+      - historic_site
+    description: A Roman camp here was rebuilt as a civilian town from 70 BC, when this was Mallorca's main port for trade with Rome and the east Med, while Palma was the port for North Africa and Spain. There's a residential area, necropolis and small amphitheatre. Enter from the north through the town walls.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > See
+  - id: mallorca-alcudia-museu-sa-bassa-blanca
+    name: Museu sa Bassa Blanca
+    kinds:
+      - nature
+      - museum
+      - family
+    description: Art museum with a notable "Nins" gallery (portraits of children by Old Masters), Socrates gallery exploring relativistic space-time, and modern sculpture park.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > See
+  - id: mallorca-alcudia-parc-natural-de-salbufera
+    name: Parc Natural de s'Albufera
+    kinds:
+      - hiking
+      - nature
+    description: Wetland wildlife reserve, with bird hides and hiking trails. Some trails are lengthy so it's worth bringing a bike.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > See
+  - id: mallorca-alcudia-city-walls
+    name: City walls
+    kinds:
+      - historic_site
+    description: City walls encircle the old town, with a free walkway Camí de Ronda open 24 hours. Built 1298 to 1362, they're best preserved to the north and west, where two of the four city gates also survive. An outer wall was added in the 16th century but later demolished.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > See
+  - id: mallorca-alcudia-porta-del-moll
+    name: Porta del Moll
+    kinds:
+      - historic_site
+    description: Porta del Moll is one of the surviving city gates, two towers about an entrance through the walls.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > See
+  - id: mallorca-alcudia-museu-monografic
+    name: Museu Monogràfic
+    kinds:
+      - historic_site
+      - religious_site
+    description: Museu Monogràfic next to the Church of Sant Jaume displays findings from Roman Pollentia.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > See
+  - id: mallorca-alcudia-municipal-cemetery
+    name: Municipal Cemetery
+    kinds:
+      - historic_site
+    description: Municipal Cemetery is a riot of florid funerary monuments. It's open daily 08:00-18:00.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > See
+  - id: mallorca-alcudia-alcanada-lighthouse
+    name: Alcanada Lighthouse
+    kinds:
+      - beach
+      - nature
+    description: Alcanada Lighthouse was completed in 1861 and automated in 1960. It's on an islet 150 m out, within swimming or SUP distance.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > See
+  - id: mallorca-alcudia-ermita-de-la-victoria
+    name: Ermita de la Victoria
+    kinds:
+      - hiking
+      - nature
+      - religious_site
+      - food
+    description: Ermita de la Victoria was built as a watchtower in 1679 and is now a baroque church. You can drive here or take various hiking or cycling trails onto the forested headland. There's a restaurant adjacent.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > See
+  - id: mallorca-alcudia-talaia-dalcudia
+    name: Talaia d'Alcúdia
+    kinds:
+      - other
+    description: Talaia d'Alcúdia is the peak on the headland. The simplest ascent is from L'Ermita and might take 30 minutes.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > See
+  - id: mallorca-alcudia-end-point
+    name: End Point
+    kinds:
+      - other
+    description: End Point is the evocative name of the tip of Alcanada peninsula. Just north, tiny Zero Island is probably so named to prevent visitors wasting their time reaching it.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > See
+  - id: mallorca-alcudia-gran-irland
+    name: Gran Irland
+    kinds:
+      - nature
+      - nightlife
+    description: Gran Irland strange to say is not a Dublin-themed pub, but an islet in the lagoon reached by a causeway from the west. Wear scruffy old trainers, as the water laps over the causeway. Visitors often find it smelly and trash-strewn.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > See
+  - id: mallorca-alcudia-alcudia-beach
+    name: Alcúdia beach
+    kinds:
+      - beach
+    description: Alcúdia beach is a sandy bay 14 km long stretching to C'an Picafort, with Playa de Muro midway. The shore elsewhere is rocky.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > Do
+  - id: mallorca-alcudia-fira-de-la-sipia
+    name: Fira de la Sípia
+    kinds:
+      - food
+    description: Fira de la Sípia is a seafood festival in mid-April.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > Do > Events
+  - id: mallorca-alcudia-ironman-triathlon
+    name: Ironman Triathlon
+    kinds:
+      - other
+    description: Ironman Triathlon is held between Alcúdia and Palma in May.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > Do > Events
+  - id: mallorca-alcudia-festival-of-st-jaume
+    name: Festival of St Jaume
+    kinds:
+      - museum
+      - religious_site
+    description: Festival of St Jaume is over nine days in July. The apostle James the Great was martyred in 44 AD, with his pattern day taken as 25 July in western Christendom. He's the patron saint of Spain, where he's called Santiago, from Sancti Iacobi the church or sanctuary of Saint James. The town is decorated and there are various concerts, theatre, exhibitions, religious ceremonies and fireworks.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > Do > Events
+  - id: mallorca-alcudia-triennial-of-holy-christ
+    name: Triennial of Holy Christ
+    kinds:
+      - other
+    description: Triennial of Holy Christ is a religious procession where the population parades barefoot through town in silence. In 1507, goes the legend, an image of Christ sweated blood and water to relieve a drought, as apparently a simple downpour was beyond his divine powers. The next is in July 2028 then 2031 and so on.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > Do > Events
+  - id: mallorca-alcudia-alcudia-jazz-festival
+    name: Alcúdia Jazz Festival
+    kinds:
+      - other
+    description: Alcúdia Jazz Festival is held in September.
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > Do > Events
+  - id: mallorca-alcudia-agricultural-fair
+    name: Agricultural fair
+    kinds:
+      - other
+    description: Agricultural fair is in early October
+    crowd_level: null
+    best_months: []
+    source_ref: Alcúdia > Do > Events
+  - id: mallorca-cala-millor-drach-caves
+    name: Drach Caves
+    kinds:
+      - nature
+    description: Large karstic cave system west edge of Porto Cristo.
+    crowd_level: null
+    best_months: []
+    source_ref: Cala Millor > See
+  - id: mallorca-cala-millor-hams-caves
+    name: Hams' Caves
+    kinds:
+      - nature
+    description: The largest of Mallorca's karstic caves.
+    crowd_level: null
+    best_months: []
+    source_ref: Cala Millor > See
+  - id: mallorca-cala-millor-esglesia-nova
+    name: Església Nova
+    kinds:
+      - religious_site
+    description: Església Nova is an unfinished Gothic church in Sa Servera. It was started in 1905 but the money ran out in 1929.
+    crowd_level: null
+    best_months: []
+    source_ref: Cala Millor > See
+  - id: mallorca-cala-millor-molinos-del-cementerio
+    name: Molinos del cementerio
+    kinds:
+      - other
+    description: Molinos del cementerio are the stumps of three windmills on the hill 200 m west of Església Nova.
+    crowd_level: null
+    best_months: []
+    source_ref: Cala Millor > See
+  - id: mallorca-cala-millor-castillo-de-amer
+    name: Castillo de Amer
+    kinds:
+      - other
+    description: Castillo de Amer is a late 17th century turret on Punta de n'Amer headland, free to enter.
+    crowd_level: null
+    best_months: []
+    source_ref: Cala Millor > See
+  - id: mallorca-cala-millor-puig-de-na-penyal
+    name: Puig de na Penyal
+    kinds:
+      - hiking
+      - nature
+    description: Puig de na Penyal is the hill behind town, reached by a rough path from Bellavista Tennis Club. There's a cave hidden in the undergrowth near the summit.
+    crowd_level: null
+    best_months: []
+    source_ref: Cala Millor > See
+  - id: mallorca-cala-millor-poblat-talaiotic-de-lillot
+    name: Poblat talaiòtic de l'Illot
+    kinds:
+      - village
+    description: Poblat talaiòtic de l'Illot is the remains of a "talaiòt", a prehistoric village in S'Illot. It's free 24 hours.
+    crowd_level: null
+    best_months: []
+    source_ref: Cala Millor > See
+  - id: mallorca-cala-millor-sillot
+    name: S'Illot
+    kinds:
+      - nature
+    description: S'Illot is the itsy-bitsy islet giving its name to that resort. It's only 20 m long, of deeply eroded limestone so you'll cut yourself if you try to land.
+    crowd_level: null
+    best_months: []
+    source_ref: Cala Millor > See
+  - id: mallorca-cala-millor-portocristo
+    name: Portocristo
+    kinds:
+      - nature
+      - village
+    description: Portocristo is a small harbour and resort south near the show caves. Not much in the village itself, Plaça dels Enamorats - Lovers Square - has been quiet since the internet was invented.
+    crowd_level: null
+    best_months: []
+    source_ref: Cala Millor > See
+  - id: mallorca-cala-millor-fantasy-park
+    name: Fantasy Park
+    kinds:
+      - nature
+      - family
+      - adventure
+    description: Fantasy Park is an adventure park for younger children at Cristòfol Colom 102, open daily 17:00-00:00 long after they should be in bed.
+    crowd_level: null
+    best_months: []
+    source_ref: Cala Millor > Do
+  - id: mallorca-cala-millor-la-reserva
+    name: La Reserva
+    kinds:
+      - nature
+    description: La Reserva is an Africa-themed waterpark by Protur Safari Park Hotel. Non-residents can use it for €52 per day. It's open daily 10:30-17:30.
+    crowd_level: null
+    best_months: []
+    source_ref: Cala Millor > Do
+  - id: mallorca-cala-millor-safari-mallorca
+    name: Safari Mallorca
+    kinds:
+      - family
+    description: "Safari Mallorca is a zoo on Ma-2023 outside Sa Coma: you ride a miniature train through the main enclosures. It's open daily 10:00-18:00."
+    crowd_level: null
+    best_months: []
+    source_ref: Cala Millor > Do
+  - id: mallorca-calvia-moli-de-santa-ponca
+    name: Molí de Santa Ponça
+    kinds:
+      - other
+    description: Molí de Santa Ponça is an old windmill at the highway junction east edge of town. There's a small free parking lot for a photo but no interior access.
+    crowd_level: null
+    best_months: []
+    source_ref: Calvià > See
+  - id: mallorca-calvia-nostra-senyora-de-lesperanca
+    name: Nostra Senyora de l'Esperança
+    kinds:
+      - religious_site
+    description: Nostra Senyora de l'Esperança is the parish church. It's modern and open-air.
+    crowd_level: null
+    best_months: []
+    source_ref: Calvià > See
+  - id: mallorca-calvia-puig-de-sa-morisca
+    name: Puig de sa Morisca
+    kinds:
+      - historic_site
+      - viewpoint
+    description: Puig de sa Morisca is a viewpoint on the scrub-clad hill east of town, with a few stretches of medieval masonry. Open 24 hours, free, and best entered from the north off Av de Santa Ponça.
+    crowd_level: null
+    best_months: []
+    source_ref: Calvià > See
+  - id: mallorca-calvia-punta-de-el-toro
+    name: Punta de El Toro
+    kinds:
+      - nature
+    description: Punta de El Toro is a nature reserve, which continues beyond the point underwater.
+    crowd_level: null
+    best_months: []
+    source_ref: Calvià > See
+  - id: mallorca-calvia-calvia
+    name: Calvià
+    kinds:
+      - hiking
+    description: Calvià the area admin centre has little to divert the visitor, but there are hiking trails in the hills to the southeast.
+    crowd_level: null
+    best_months: []
+    source_ref: Calvià > See
+  - id: mallorca-calvia-jungle-parc-mallorca
+    name: Jungle Parc Mallorca
+    kinds:
+      - nature
+      - family
+      - adventure
+    description: Tree adventure park with one circuit for children aged 4-12, and an easy and a difficult circuit for adults. You move from tree to tree by bridges, ropes, vines and zip wires.
+    crowd_level: null
+    best_months: []
+    source_ref: Calvià > Do
+  - id: mallorca-calvia-piraten-park
+    name: Piraten Park
+    kinds:
+      - beach
+      - nature
+      - adventure
+    description: Piraten Park is a climbing park (age 6+) by Gran de Torà beach in Peguera, open M 12:00-21:00, Tu-Su 10:00-21:00. It also hires SUPs. The eccentric owner is rude to many visitors but helpful with others, there's no obvious pattern.
+    crowd_level: null
+    best_months: []
+    source_ref: Calvià > Do
+  - id: mallorca-calvia-port-adriano
+    name: Port Adriano
+    kinds:
+      - other
+    description: Port Adriano is the marina for leisure craft and base for boat-related activities. It's in El Toro the southern district of Santa Ponsa.
+    crowd_level: null
+    best_months: []
+    source_ref: Calvià > Do
+  - id: mallorca-calvia-fiestas-de-verano
+    name: Fiestas de Verano
+    kinds:
+      - other
+    description: Fiestas de Verano are music festivals held in several towns in summer. Peguera fiesta is late July, when rock music blares out until dawn. Calvià town fiesta is a more civic affair with mostly sports events, over a week in mid-July.
+    crowd_level: null
+    best_months: []
+    source_ref: Calvià > Do
 extraction:
-  listings: 0
-  listings_by_type: {}
+  listings: 99
+  listings_by_type:
+    do: 1
+    drink: 1
+    eat: 14
+    go: 1
+    see: 21
+    sleep: 61
   priced_listings:
-    sleep: 0
+    sleep: 57
     eat: 0
   poi_sources:
-    listing: 0
-    marker: 4
-    named: 15
+    listing: 22
+    marker: 21
+    named: 40
   duplicate_pois_dropped: 0
+  generic_items_pruned: 25

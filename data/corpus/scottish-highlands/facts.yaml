@@ -17,6 +17,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Scottish_Highlands
   revision_id: 5134975
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: scottish-highlands
+    title: Scottish Highlands
+    url: https://en.wikivoyage.org/wiki/Scottish_Highlands
+    revision_id: 5134975
+    license: CC BY-SA 4.0
+  - file: places/oban.md
+    role: place
+    id: oban
+    title: Oban
+    url: https://en.wikivoyage.org/wiki/Oban
+    revision_id: 5354486
+    license: CC BY-SA 4.0
+  - file: places/inverness.md
+    role: place
+    id: inverness
+    title: Inverness
+    url: https://en.wikivoyage.org/wiki/Inverness
+    revision_id: 5352010
+    license: CC BY-SA 4.0
+  - file: places/fort-william.md
+    role: place
+    id: fort-william
+    title: Fort William
+    url: https://en.wikivoyage.org/wiki/Fort_William
+    revision_id: 5350993
+    license: CC BY-SA 4.0
+  - file: places/aviemore.md
+    role: place
+    id: aviemore
+    title: Aviemore
+    url: https://en.wikivoyage.org/wiki/Aviemore
+    revision_id: 5378490
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -95,46 +131,61 @@ climate:
       rain_days: 20.4
       precipitation_mm: 183.5
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
-    meal: null
+    lodging_night:
+      median: 115
+      min: 3
+      max: 450
+      currency: £
+      sample_size: 52
+      excluded_other_currency: 0
+    meal:
+      median: 16
+      min: 14
+      max: 20
+      currency: £
+      sample_size: 2
+      excluded_other_currency: 0
     notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+      - 1 Sleep listing price(s) in the documents quoted per week or month were left out.
+      - Eat figure in the documents rests on only 2 listing(s).
   levels:
     budget:
-      lodging_night: null
+      lodging_night:
+        median: 44
+        min: 3
+        max: 120
+        currency: £
+        sample_size: 16
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Eat listing under Budget has a parseable price: value unknown.'
     mid:
-      lodging_night: null
+      lodging_night:
+        median: 130
+        min: 60
+        max: 200
+        currency: £
+        sample_size: 19
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Eat listing under Mid-range has a parseable price: value unknown.'
     comfort:
-      lodging_night: null
+      lodging_night:
+        median: 230
+        min: 130
+        max: 450
+        currency: £
+        sample_size: 8
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 1 Sleep listing price(s) under Splurge quoted per week or month were left out.
+        - 'No Eat listing under Splurge has a parseable price: value unknown.'
 pois:
-  - id: scottish-highlands-castles
-    name: Castles
-    kinds:
-      - historic_site
-    description: Castles for the most part are sternly defensive but tumbledown. Great examples are Eilean Donan at Dornie and Urquhart Castle at Drumnadrochit by Loch Ness. Luxury castles (Victorian gin-palaces with twiddly bits to make them look medieval) are Dunrobin Castle at Golspie and Castle of Mey near John o'Groats, plus the Georgian Inveraray. McCaig's Tower above Oban is a Victorian folly.
-    crowd_level: null
-    best_months: []
-    source_ref: See
-  - id: scottish-highlands-gardens
-    name: Gardens
-    kinds:
-      - nature
-    description: "Gardens: every west coast promenade is studded with palm trees shivering in the rain to make a point about the balmy Gulf Stream. What grows better is Himalayan species, and you know you're within five miles of a stately mansion when you encounter their escaped rhododendrons, a riot of colour in May. The standout gardens are Inverewe near Gairloch, Arduaine near Oban and Crarae near Inveraray."
-    crowd_level: null
-    best_months: []
-    source_ref: See
   - id: scottish-highlands-deserted-landscapes
     name: Deserted landscapes
     kinds:
@@ -142,7 +193,7 @@ pois:
     description: 'Deserted landscapes: the rural Highland population was once greater, but they left or were driven out. Haunting Glencoe was a 17th-century example, and Auchendrain near Inveraray depicts farmhouse life before the big exodus of the 18th and 19th centuries. On several hillsides you see abandoned villages, and at Helmsdale the reverse: the makeshift village erected by those evicted from their crofts, before they despaired and headed to the lowland cities.'
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Scottish Highlands > See
   - id: scottish-highlands-prehistoric-structures
     name: Prehistoric structures
     kinds:
@@ -150,17 +201,7 @@ pois:
     description: Prehistoric structures have mostly been obliterated by agriculture, the best are in the Hebrides and Orkneys, but there's a fine collection around Wick. Most common were "Duns" - fortified outcrops, often on the coast. They're scrappy and you mostly come for the sea view.
     crowd_level: null
     best_months: []
-    source_ref: See
-  - id: scottish-highlands-islands
-    name: Islands
-    kinds:
-      - hiking
-      - nature
-      - boat_trip
-    description: Islands involving a ferry ride are described elsewhere as part of the Hebrides, Orkneys or Shetland, but The Summer Isles are an example of an inshore archipelago, reached by boat trip from Achiltibuie. Unique within the UK are the "mainland islands", settlements and drivable lanes that have no road connection to the mainland network. The most populated is Knoydart, reached by ferry from Mallaig or by a very long hike across the moors. Several others such as Applecross were only connected in the late 20th century.
-    crowd_level: null
-    best_months: []
-    source_ref: See
+    source_ref: Scottish Highlands > See
   - id: scottish-highlands-north-coast-500
     name: North Coast 500
     kinds:
@@ -168,15 +209,807 @@ pois:
     description: North Coast 500 is a motoring itinerary of 500-or-so miles from Inverness to the northwest coast, north coast, John o'Groats and return to Inverness.
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Scottish Highlands > Do
+  - id: scottish-highlands-oban-mccaigs-tower
+    name: McCaig’s Tower
+    kinds:
+      - nature
+      - historic_site
+      - museum
+      - family
+    description: John Stuart McCaig (1823-1902), a local banker, was aiming for something like the Colosseum in Rome. At his death only the granite circular shell was complete, resembling a vast salad-drainer with its lancet windows, and dominating the view for miles around. Inside is simply a public garden and picnic spot where the pipe band sometimes plays, and the museum, art gallery and heroic statues of himself and family never happened. You can approach via "Jacob's Ladder", the steps from the Esplanade.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > See
+  - id: scottish-highlands-oban-oban-hydro
+    name: Oban Hydro
+    kinds:
+      - historic_site
+    description: was once as distinctive and hollow a monument on the skyline as McCaig's Tower, but has crumbled behind the engulfing jungle. It was built from 1881 as a spa hotel, but they grossly underestimated the cost, and it was abandoned when almost complete. The shareholders might have persevered if they foresaw what people pay nowadays to be assaulted with green mud.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > See
+  - id: scottish-highlands-oban-war-peace-museum
+    name: War & Peace Museum
+    kinds:
+      - museum
+    description: No, Tolstoy never visited Oban, though the works of Sir Walter Scott were among his influences. This museum describes Oban's role in wartime, and its blossoming in peacetime through tourism.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > See
+  - id: scottish-highlands-oban-st-johns-cathedral
+    name: St John's Cathedral
+    kinds:
+      - religious_site
+    description: Scottish Episcopal (Anglican) Cathedral hidden among the shops. Building started in 1863 and continued in several phases but lack of funds resulted in the present odd layout, with steel girders propping up unfinished work.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > See
+  - id: scottish-highlands-oban-st-columbas-cathedral
+    name: St Columba's Cathedral
+    kinds:
+      - historic_site
+      - religious_site
+    description: The Roman Catholic Cathedral was designed by Sir Giles Gilbert Scott (who designed the iconic red telephone box) and built in Neo-Gothic style between 1932 and 1959. In medieval times the area's senior church was St Moluag's on the Isle of Lismore, nowadays a Church of Scotland parish church. The RC Diocese of Argyll and The Isles was re-established in 1878 but bishop and congregation were in makeshift premises, including a tin hut, until St Columba's was completed.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > See
+  - id: scottish-highlands-oban-dunollie-castle
+    name: Dunollie Castle
+    kinds:
+      - nature
+      - historic_site
+      - museum
+    description: This 15th-century castle is a crumbling stump; its predecessors over 1000 years were repeatedly destroyed. You can clamber up the stairs within. In the grounds are pleasant gardens (dogs welcome) and a small museum.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > See
+  - id: scottish-highlands-oban-dunstaffnage-castle
+    name: Dunstaffnage Castle
+    kinds:
+      - historic_site
+      - religious_site
+    description: Stout, partly ruined castle dating to 13th century, with nearby chapel of similar date. The 16th-century gatehouse is the residence of the hereditary captain - he's still required to stay here three nights a year.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > See
+  - id: scottish-highlands-oban-ardchattan-priory
+    name: Ardchattan Priory
+    kinds:
+      - nature
+      - religious_site
+    description: This was a Valliscaulian monastery, an obscure 13th-century sect. There are scrappy remains of the church and High Cross but the main attraction is the gardens.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > See
+  - id: scottish-highlands-oban-castle-stalker
+    name: Castle Stalker
+    kinds:
+      - hiking
+      - nature
+      - historic_site
+    description: A well-preserved four-storey tower house on a tidal islet in Loch Linnhe, built from 1440. "Stalker" is from Gaelic Stalcaire, a hunter or falconer - King James IV often used it as a hunting lodge in the 1490s. The castle changed hands several times, often with murder involved (the last such being in Sarawak in 1947), and its last military role was as a government stronghold in the 1745 rebellion. It fell derelict from 1800 but was restored 1965-75. Tours are offered Apr-Sept but need high tide for boat access, the low tide causeway is too rough and slippery — see the castle website for availability. The photogenic site is sometimes a film location, best known is as "Castle Aaarrrrgghh" in Monty Python and the Holy Grail. To just admire the exterior, either have a cuppa at Castle Stalker View Cafe to use their car park, or use the free car park a mile north, and pick up the coast footpath.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > See
+  - id: scottish-highlands-oban-arduaine-garden
+    name: Arduaine Garden
+    kinds:
+      - nature
+    description: Gardens and woodlands in the care of National Trust for Scotland, a riot of rhododendrons in early summer.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > See
+  - id: scottish-highlands-oban-dunollie-lighthouse
+    name: Dunollie Lighthouse
+    kinds:
+      - historic_site
+    description: Dunollie Lighthouse is on Ganavan Road 200 yards south of the turn-off to the castle. It's a 20-foot tower first lit in 1892 and more accurately described as a "sector light" - the colour displayed indicates whether you're too far east or west, or correctly positioned entering the narrow channel to Oban harbour.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > See
+  - id: scottish-highlands-oban-the-dog-stone
+    name: The Dog Stone
+    kinds:
+      - beach
+    description: 'The Dog Stone just north of the lighthouse was once a sea stack and is now on a raised beach ashore. Legend invokes the Bran the dog of Fingal McCool, but truth is stranger: a flash flood in a desert 415 million years ago heaped up boulders that became conglomerated.'
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > See
+  - id: scottish-highlands-oban-sea-kayak-oban
+    name: Sea Kayak Oban
+    kinds:
+      - adventure
+    description: Kayak outfitter leads daily tours and also multi-day trips and courses. You can paddle right out of the harbour or rent a trolley and take your kayak on the ferries.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > Do
+  - id: scottish-highlands-oban-whats-on
+    name: What's on?
+    kinds:
+      - other
+    description: What's on? Read Oban Times.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > Do
+  - id: scottish-highlands-oban-atlantis-leisure
+    name: Atlantis Leisure
+    kinds:
+      - other
+    description: Atlantis Leisure has a gym, pool and fitness classes. It's up the hill on Dalriach Rd.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > Do
+  - id: scottish-highlands-oban-day-trips
+    name: Day trips
+    kinds:
+      - nature
+    description: Day trips to Mull, Iona and Fingal's Cave are run by West Coast Tours, Turus Mara and Staffa Tours. These use the Calmac ferry to reach Mull.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > Do
+  - id: scottish-highlands-oban-boat-cruises-to-st-kilda
+    name: Boat cruises to St Kilda
+    kinds:
+      - nature
+      - boat_trip
+      - adventure
+    description: Boat cruises to St Kilda and other remote Hebridean places sail from Dunstaffnage Marina. These are large live-aboard boats on 7- to 10-day itineraries. (Day trips to St Kilda use small boats from Skye or Harris, but from the mainland would be too far for a day.) Operators include Hebrides Cruises, Majestic Line and St Hilda Sea Adventures. It's best to reserve well in advance.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > Do
+  - id: scottish-highlands-oban-isle-of-kerrera
+    name: Isle of Kerrera
+    kinds:
+      - hiking
+      - historic_site
+    description: "Isle of Kerrera is reached by a short ferry ride from Gallanach south of town. From the landing pier are two hiking trails: south with Gylen Castle and north with Hutcheson's Monument."
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > Do
+  - id: scottish-highlands-oban-rugby-union
+    name: Rugby Union
+    kinds:
+      - nature
+    description: 'Rugby Union: Oban Lorne RFC play in the amateur leagues at Mossfield Park, east towards the golf course.'
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > Do
+  - id: scottish-highlands-oban-shinty
+    name: Shinty
+    kinds:
+      - other
+    description: 'Shinty: Oban Camanachd play in the MOWI Premiership, the top tier. The playing season is April-Oct.'
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > Do
+  - id: scottish-highlands-oban-oban-games-argyllshire-gathering
+    name: Oban Games & Argyllshire Gathering
+    kinds:
+      - nature
+    description: Oban Games & Argyllshire Gathering are held at Mossfield Park on the fourth Thursday in August, with the next on Th 27 Aug 2026.
+    crowd_level: null
+    best_months: []
+    source_ref: Oban > Do
+  - id: scottish-highlands-inverness-inverness-castle
+    name: Inverness Castle
+    kinds:
+      - historic_site
+    description: "A great defensive position it's not: castles on this site have been serially destroyed, most recently in 1746 when its Jacobite occupiers wrecked the medieval bastion to prevent its use by government forces. The elegant pink sandstone edifice that now stands here was built in 1847. Until 2020 It housed the law courts - they've moved to a modern building on Longman Rd. Castle reopened in December 2025 upgraded to a more immersive Inverness Castle Experience."
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > In town
+  - id: scottish-highlands-inverness-inverness-museum-art-gallery
+    name: Inverness Museum & Art Gallery
+    kinds:
+      - nature
+      - historic_site
+      - museum
+    description: The museum has a collection of Pictish stones and wildlife dioramas, as well as historic weapons. The gallery has art exhibitions on two floors, no permanent collection.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > In town
+  - id: scottish-highlands-inverness-victorian-market
+    name: Victorian Market
+    kinds:
+      - food
+    description: 19th-century shopping arcade opposite the railway station.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > In town
+  - id: scottish-highlands-inverness-abertarff-house
+    name: Abertarff House
+    kinds:
+      - nature
+      - museum
+    description: Built in 1593, the oldest house in Inverness, now run by the National Trust for Scotland, with a small exhibition and garden.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > In town
+  - id: scottish-highlands-inverness-old-high-church
+    name: Old High Church
+    kinds:
+      - religious_site
+    description: The oldest in Inverness, this Gothic Church of Scotland parish church was mostly built in the 18th century, and there's probably been a church on this site since St Columba's time. The congregation is referred to as "Old High St Stephens" reflecting a merger in 2003 between this and St Stephens, a 19th-century church half a mile south. Both churches remain active but nowadays all services are in St Stephens.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > In town
+  - id: scottish-highlands-inverness-chapel-yard-cemetery
+    name: Chapel Yard Cemetery
+    kinds:
+      - religious_site
+    description: Its denizens are mostly 19th-century, but the original Chapel of St Mary, part of a monastery, was 14th-century. Chapel and monastery are long gone as Cromwell carried off the masonry to build a bastion.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > In town
+  - id: scottish-highlands-inverness-inverness-cathedral
+    name: Inverness Cathedral
+    kinds:
+      - religious_site
+    description: Scottish Episcopal (Anglican) cathedral, built in 1869 in a mix of red sandstone and granite. Look up to the two giant spires... which aren't there, because the money for building ran out.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > In town
+  - id: scottish-highlands-inverness-st-marys-roman-catholic-church
+    name: St. Mary's Roman Catholic Church
+    kinds:
+      - historic_site
+      - religious_site
+    description: The main Roman Catholic church, built in 1837, with fine stained glass windows and altar. It's not a cathedral as the RC diocese is based in Aberdeen.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > In town
+  - id: scottish-highlands-inverness-balnain-house
+    name: Balnain House
+    kinds:
+      - other
+    description: A fine mansion of 1726 but only occasionally open.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > In town
+  - id: scottish-highlands-inverness-knocknagael-boar-stone
+    name: Knocknagael Boar Stone
+    kinds:
+      - other
+    description: Pictish, carved around 600 AD, showing a wild boar amidst spirals and bristles. It's been moved from the farm where it was found to the south side of the Highland Council offices on Glenurquhart Rd.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > In town
+  - id: scottish-highlands-inverness-inverness-botanic-gardens
+    name: Inverness Botanic Gardens
+    kinds:
+      - nature
+    description: Glasshouse and gardens, with a range of exotic plants, plus a cafe. Assistance dogs only.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > In town
+  - id: scottish-highlands-inverness-craig-phadrig
+    name: Craig Phadrig
+    kinds:
+      - nature
+      - historic_site
+    description: Craig Phadrig is a forested hill of 564 ft (172 m) topped by a vitrified fort, It was built around 4th century AD and occupied to the 7th, and is probably the place where St Columba met King Bridei mac Maelchon. But at some point the fort burned so furiously that its stone was fused into glass. It's an active forestry site so you may have to work around logging.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > Further out
+  - id: scottish-highlands-inverness-dochgarroch-locks
+    name: Dochgarroch Locks
+    kinds:
+      - other
+    description: Dochgarroch Locks are where Loch Ness drains into the Caledonian Canal towards town. This north tip of Loch Ness is called Loch Dochfour but it's the same body of water.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > Further out
+  - id: scottish-highlands-inverness-druid-temple
+    name: Druid Temple
+    kinds:
+      - historic_site
+    description: Druid Temple is more accurately a neolithic burial cairn and stone circle, rather overgrown. You may be able to access it via Druid Farm and Shop just east. A similar cairn and circle was found at Raigmore when the A9 was re-routed towards Kessock Bridge; it was moved to a nearby site which is now difficult to access amidst hospital and industrial buildings.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > Further out
+  - id: scottish-highlands-inverness-culloden
+    name: Culloden
+    kinds:
+      - historic_site
+    description: Culloden, five miles east, is best known for the 1746 battlefield where Bonny Prince Charlie's Jacobite army was finally shattered. It also has the Bronze Age "Clava Cairns", and Cawdor Castle associated with Shakespeare's Macbeth.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > See > Further out
+  - id: scottish-highlands-inverness-eden-court-theatre
+    name: Eden Court Theatre
+    kinds:
+      - other
+    description: A theatre, arts and cinema venue. They host Under Canvas music festival throughout July and August.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > Do
+  - id: scottish-highlands-inverness-river-ness
+    name: River Ness
+    kinds:
+      - nature
+    description: River Ness and Caledonian Canal stretch for eight miles between Loch Dochfour (the pool at the north end of Loch Ness) and Beauly Firth, the reach of sea just below Inverness. It's a pleasant picturesque stroll, or bike-ride if you're trying to reach the loch. Going upstream from town centre, follow either river bank up to the wooded Ness Islands. Above there, be on the west bank (passing the Botanic Gardens) to come onto the canal towpath, which is the best route upstream.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > Do
+  - id: scottish-highlands-inverness-vue-cinema
+    name: Vue Cinema
+    kinds:
+      - nature
+    description: Vue Cinema is on the big retail park east of town.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > Do
+  - id: scottish-highlands-inverness-rugby
+    name: Rugby
+    kinds:
+      - nature
+    description: 'Rugby: Highland RFC play rugby union in National League Two, the amateur third tier in Scotland. They play at Canal Park, two miles upriver.'
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > Do
+  - id: scottish-highlands-inverness-dolphin-spotting
+    name: Dolphin-spotting
+    kinds:
+      - beach
+      - religious_site
+      - boat_trip
+    description: 'Dolphin-spotting: boat trips run Apr-Oct from Inverness Marina. The main operator is Dolphin Spirit. They run trips in conventional motor boats, and Rib-rides that are wet and bouncy but cover more of the area. To see dolphins from shore, best cross to the Black Isle and stand at Chanonry Point as the tide starts to come in.'
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > Do
+  - id: scottish-highlands-inverness-boat-trips-on-loch-ness
+    name: Boat-trips on Loch Ness
+    kinds:
+      - historic_site
+      - boat_trip
+    description: 'Boat-trips on Loch Ness: Jacobite Cruises are based in Inverness and sail the north end of the loch. Others sail from Drumnadrochit and Fort Augustus.'
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > Do
+  - id: scottish-highlands-inverness-look-up-your-ancestors
+    name: Look up your ancestors
+    kinds:
+      - nature
+    description: 'Look up your ancestors: Highland Archive Centre is in Bught Park near the Botanic Garden, open M Tu Th 10AM-12:30PM, 2-4:30PM.'
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > Do
+  - id: scottish-highlands-inverness-great-glen-way
+    name: Great Glen Way
+    kinds:
+      - hiking
+      - historic_site
+    description: Great Glen Way is a long-distance hiking trail to Fort William, 73 miles / 116 km.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > Do
+  - id: scottish-highlands-inverness-inverness-music-festival
+    name: Inverness Music Festival
+    kinds:
+      - other
+    description: Inverness Music Festival is probably next held 4-14 March 2027, tbc.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > Do
+  - id: scottish-highlands-inverness-inverness-highland-games
+    name: Inverness Highland Games
+    kinds:
+      - nature
+    description: Inverness Highland Games are held on Bught Park. The next are on Sa 11 July 2026.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > Do
+  - id: scottish-highlands-inverness-tartan-heart-festival
+    name: Tartan Heart Festival
+    kinds:
+      - other
+    description: Tartan Heart Festival is held at Belladrum south of Beauly, with the next on July 30 - 1 Aug 2026.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > Do
+  - id: scottish-highlands-inverness-loch-ness-marathon
+    name: Loch Ness Marathon
+    kinds:
+      - historic_site
+    description: Loch Ness Marathon follows the minor roads along the east side of the loch from Fort Augustus to Inverness, with the next on Su 27 Sept 2026.
+    crowd_level: null
+    best_months: []
+    source_ref: Inverness > Do
+  - id: scottish-highlands-fort-william-west-highland-museum
+    name: West Highland Museum
+    kinds:
+      - museum
+    description: Regional history from earliest times through Jacobites and Victorians to the present.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > See
+  - id: scottish-highlands-fort-william-inverlochy-castle
+    name: Inverlochy Castle
+    kinds:
+      - historic_site
+    description: A ruined medieval castle built in the 1270s, and patched up but little altered since. It comprises a quadrangular courtyard, 31 m by 27 m, surrounded by a sturdy curtain wall with round towers at each corner. The largest, Comyn Tower, was the castle keep. The three sides not facing the river were protected by a water-filled ditch, and both entrances were defended by a portcullis. The ruins are unstable and fenced off for safety.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > See
+  - id: scottish-highlands-fort-william-treasures-of-the-earth
+    name: Treasures of the Earth
+    kinds:
+      - museum
+    description: Small geology museum and shop, with a collection of crystals, gemstones and fossils.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > See
+  - id: scottish-highlands-fort-william-the-fort
+    name: The Fort
+    kinds:
+      - historic_site
+    description: The Fort remains only as a sea wall near the breakwater, with views over Loch Linnhe. Town centre behind it is Victorian, a miniature Inverness, but suffers from poor planning, with the busy A82 cutting it off from the prom.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > See
+  - id: scottish-highlands-fort-william-the-caledonian-canal
+    name: The Caledonian Canal
+    kinds:
+      - other
+    description: The Caledonian Canal is a coast-to-coast channel built by Thomas Telford in the early 19th century. It uses the string of lochs and rivers along the Great Glen, so it's 60 miles long but only 22 miles are man-made. Commercially and strategically it was obsolete as soon as it was completed in 1822, as shipping had outgrown it, and round-the-coast navigation was much safer since the end of the Napoleonic wars. It fell into disrepair but was rehabilitated for pleasure craft. At the south end, it starts from Loch Linnhe by a short ladder of locks at Corpach.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > See
+  - id: scottish-highlands-fort-william-neptunes-staircase
+    name: Neptune's Staircase
+    kinds:
+      - other
+    description: Neptune's Staircase is a ladder of eight locks a mile inland at Banavie, great for photos, but a long afternoon's work to navigate.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > See
+  - id: scottish-highlands-fort-william-lock-lochy
+    name: Lock Lochy
+    kinds:
+      - other
+    description: Lock Lochy is the first natural water encountered on the canal, a nine mile reach to Laggan where the ascent continues. (So yes, these could be called the Loch Lochy locks, which, when locked ...) Another straight run connects Loch Oich, the highest part of the system. (Higher still, Loch Garry feeds water to the canal via the River Garry, but that river isn't navigable.) From Loch Oich the canal continues northeast, descending by another ladder of locks into Loch Ness, the magnificent natural channel at the heart of the canal system. At its north end, canal and River Ness flow down from Dochgarroch Weir towards the sea at Inverness.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > See
+  - id: scottish-highlands-fort-william-lochaber-geopark
+    name: Lochaber Geopark
+    kinds:
+      - nature
+    description: 'Lochaber Geopark in High St (M-Sa 10AM-4PM) promotes awareness and organises trips and study around the region''s weird geology. This played a key role in shaping 19th- and 20th-century understanding of how the world''s landscapes were constructed: it was realised that the Caledonian Mountains once stretched through Svalbard and Greenland into the Appalachians, until sundered by the new Atlantic Ocean. The geopark stretches from Rannoch Moor in the south to Glen Garry in the north, and from Loch Laggan in the east to the Small Isles out west. For instance 20 miles away are the "Roads of Glen Roy": this glen above the Spean valley has three long parallel ledges on the hillside that look man-made. They were in fact cut by ice grinding along the shore of a vanished lake, which lay at different levels during a cold period after the last Ice Age when arctic conditions returned.'
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > See
+  - id: scottish-highlands-fort-william-highland-cinema
+    name: Highland Cinema
+    kinds:
+      - other
+    description: Independent cinema and café bar with two cinema theatres, and café bar seating up to 84.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > Do
+  - id: scottish-highlands-fort-william-three-wise-monkeys-climbing-wall
+    name: Three Wise Monkeys Climbing Wall
+    kinds:
+      - religious_site
+      - adventure
+    description: Indoor climbing (roped) and bouldering (unroped) walls in an old church.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > Do
+  - id: scottish-highlands-fort-william-nevis-range
+    name: Nevis Range
+    kinds:
+      - hiking
+      - nature
+      - adventure
+    description: Nevis Range ski resort is on Aonach Mor, the mountain just north of Ben Nevis. From the car park (£5 / day) take the gondola to "Snowgoose" at 650 m. Chairlifts and tows lead to the summit plateau around 1221 m, with most pistes along this stretch. Just east are some hairy steep descents. Weather and snow conditions are highly variable, always check ahead on the resort website.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > Do
+  - id: scottish-highlands-fort-william-shinty
+    name: Shinty
+    kinds:
+      - nature
+      - historic_site
+    description: 'Shinty: Fort William play in Mowi Premiership, the top tier. Their home ground is the sports complex behind the Premier Inn. Kilmallie play in National Division the second tier, at Caol Canal Parks. Lochaber play at Spean Bridge: they were promoted in 2025 so they now play in the Premiership. The playing season is April-Oct.'
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > Do
+  - id: scottish-highlands-fort-william-long-distance-hikes
+    name: Long-distance hikes
+    kinds:
+      - hiking
+      - historic_site
+    description: "Long-distance hikes: the West Highland Way stretches from Milngavie near Glasgow to Fort William, and the Great Glen Way continues north to Inverness. They're usually done in stages in that direction, south to north, so the sun and the weather are on your back. But invest in good maps and plan your own itinerary."
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > Do
+  - id: scottish-highlands-fort-william-climb-ben-nevis
+    name: Climb Ben Nevis
+    kinds:
+      - nature
+      - adventure
+    description: 'Climb Ben Nevis, Britain''s highest mountain at 1345 m (4413 feet). This is no small task as you start from almost sea level. The usual route is the "Mountain Track", starting from the visitor centre in Glen Nevis: this is an arduous slog and scramble in good weather, and in winter it demands technical mountaineering skills. Other routes such as the CMD Arete are even more testing.'
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > Do
+  - id: scottish-highlands-fort-william-the-mamores
+    name: The Mamores
+    kinds:
+      - hiking
+      - adventure
+    description: The Mamores are the ridge above Glen Nevis, west and south of the river. They're opposite Ben Nevis so there's better views of it than on the Track, but far fewer climbers. The Mamores are crossed by the most northerly section of the West Highland Way, a 15-mile hike from Kinlochleven.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > Do
+  - id: scottish-highlands-fort-william-ski-or-snowboard-at
+    name: Ski or snowboard at
+    kinds:
+      - hiking
+      - nature
+      - family
+      - adventure
+    description: 'Ski or snowboard at Nevis Range — Nevis Range ski resort is on Aonach Mor, the mountain just north of Ben Nevis. From the car park (£5 / day) take the gondola to "Snowgoose" at 650 m. Chairlifts and tows lead to the summit plateau around 1221 m, with most pistes along this stretch. Just east are some hairy steep descents. Weather and snow conditions are highly variable, always check ahead on the resort website. (price: Adult lift pass £42, child or senior £27; hours: late Dec-Apr)'
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > Do
+  - id: scottish-highlands-fort-william-nevis-range-gondola
+    name: Nevis Range gondola
+    kinds:
+      - hiking
+      - nature
+      - adventure
+    description: Nevis Range gondola runs year round (day ticket £13) and is the access to other activities. It has six-seater enclosed cabins, dogs welcome but must be leashed on the mountain. Three easy hill walks loop from the Snowgoose station. Climbers ascending Ben Nevis by the North Face route often start by riding up the gondola. There are cross country and downhill mountain bike courses, and the UCI mountain bike World Cup is often held here in early June.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > Do
+  - id: scottish-highlands-fort-william-glen-nevis
+    name: Glen Nevis
+    kinds:
+      - hiking
+      - nature
+      - adventure
+    description: Glen Nevis is worth exploring, and not just as an access point for Ben Nevis, or as a fallback if you called off a climb. Drive up the south-bank road past the visitor centre and youth hostel to the Lower Falls (bus N42 comes this far in summer) and onward to the final car park "Nevis Gorge" (free). A trail leads up the gorge to the cable bridge, if you dare teeter across.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > Do
+  - id: scottish-highlands-fort-william-steall-falls
+    name: Steall Falls
+    kinds:
+      - hiking
+      - nature
+    description: Steall Falls are 200 yards above the cable bridge. An Steall Bàn means "The White Spout" in Gaelic; it's Scotland's second-highest waterfall, with a 120-m (390-ft) drop in three tiers. The walk from the car park and back is 4 miles, say 2 hours. An alternative route up Ben Nevis branches north from here, and trails south into the Mamores.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > Do
+  - id: scottish-highlands-fort-william-the-jacobite
+    name: The Jacobite
+    kinds:
+      - historic_site
+      - boat_trip
+    description: The Jacobite is a heritage steam train running daily Apr-Oct between Fort William and Mallaig. It's a six-hour excursion (depart 10:15AM, return by 4PM) staying two hours in Mallaig. May-Sep there's also an afternoon train (12:50-6:50PM), so you could have 4½ hours in Mallaig, time for a boat trip. Trains also stop at Glenfinnan for the obligatory photo of the viaduct, and by request at Arisaig. The morning excursion connects with the Caledonian Sleeper from London.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > Do
+  - id: scottish-highlands-fort-william-lochaber-live
+    name: Lochaber Live
+    kinds:
+      - other
+    description: Lochaber Live is a music festival on the shinty grounds. It's probably next held 11-13 Sep 2026, tbc.
+    crowd_level: null
+    best_months: []
+    source_ref: Fort William > Do
+  - id: scottish-highlands-aviemore-cairngorm-reindeer-centre
+    name: Cairngorm Reindeer Centre
+    kinds:
+      - hiking
+      - nature
+      - family
+    description: "Reindeer (Rangifer tarandus) roam free on the mountain tops, and may approach hikers for hand-outs, their great schnozzles searching like sticky hoover attachments. They especially expect to be fed on the hills around this Centre, which has guided walks two or three times a day. You need your own car to drive from the Centre to wherever the herd happens to be grazing. These walks are over rough boggy terrain: wellies or similar footwear is essential, and children should only join May-Dec when conditions are milder. A few reindeer stand in a paddock if you can't manage the walk or the weather's foul."
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > See
+  - id: scottish-highlands-aviemore-aviemore-stone-circle
+    name: Aviemore Stone Circle
+    kinds:
+      - other
+    description: "Aviemore Stone Circle sits incongruously amidst a housing estate: it's from the Bronze Age so it's about 5000 years old. The cairn within the stone circle has been grassed over for protection. This was a Clava-type annular burial chamber: cairns of this type were used once then sealed, without later burials or re-entry for ceremonies."
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > See
+  - id: scottish-highlands-aviemore-grenish-stone-circle
+    name: Grenish Stone Circle
+    kinds:
+      - nature
+      - historic_site
+    description: Grenish Stone Circle is two miles north in the forest next to the main railway line and is best reached from the path by the Strathspey Railway. It's similar to the Aviemore circle but the ruins of its annular cairn have been left uncovered.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > See
+  - id: scottish-highlands-aviemore-loch-an-eilein
+    name: Loch an Eilein
+    kinds:
+      - hiking
+      - nature
+      - historic_site
+      - adventure
+    description: Loch an Eilein is fringed by a path, a gentle 5-mile (8-km) circuit. In the woods are remains of old lime kilns and logging operations. However the main attraction is views of the ruined 14th-century castle on an islet; it could be reached by causeway until the loch water level was raised in the 18th century. In 1690 it saw the last action in Scotland of the original Jacobites, the forces of the ousted King James II / VII. Fleeing from a double drubbing at Cromdale, they tried to seize the castle but were repulsed by the stout widow who held it. The Hanoverians were hard on their heels so they scarpered, and it would fall to James' son the "Old Pretender" and grandson the "Young Pretender" (Bonnie Prince Charlie) to continue the cause. That was finally vanquished in 1746 at Culloden, to live on only in romanticising songs. The loch is reachable by a trail from Rothiemurchus. Bring a map or download an OpenStreetMap-based app like OsmAnd or Mapy.cz to help you navigate. Turn left just before Lochan Mor (the turn is slightly hard to spot, but if you miss it the other trail will also go to Loch An Eilein). You may see deer on the way, especially if you set off early before the other walkers have scared them away. It takes about an hour to walk to Loch An Eilein from Aviemore, and the loch is also reachable by car if you prefer. The circuit around the loch is popular with dog walkers and mountain bikers.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > See
+  - id: scottish-highlands-aviemore-loch-gamhna
+    name: Loch Gamhna
+    kinds:
+      - hiking
+    description: Loch Gamhna is 200 yards (190 meters) south of Loch an Eilein and is somehow even more peaceful. You'll probably have it to yourself. Reach it by one of the side trails from Loch an Eilein that say "Path not maintained". In spring and summer, keep an eye out for ducks with ducklings.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > See
+  - id: scottish-highlands-aviemore-ord-ban
+    name: Ord Ban
+    kinds:
+      - hiking
+    description: Ord Ban is a 400-m hill on the northwest flank of Loch An Eilein, another quieter (but muddy) trail. Compared to the path around the loch, this trail is much quieter, somewhat more challenging, and less maintained. The vegetation changes dramatically near the top of the hill, and the peak has views of the nearby landscape. If desired, this walk can be done in a loop that goes back to the loch. Wear long trousers because bare legs will attract ticks and midges.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > See
+  - id: scottish-highlands-aviemore-loch-morlich
+    name: Loch Morlich
+    kinds:
+      - hiking
+      - beach
+      - nature
+      - adventure
+    description: Loch Morlich is a freshwater lake just before the road begins its long climb to Cairngorm. It has a sandy beach and is used for watersports, see below, and there's an easy 4 mile walking trail around it.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > See
+  - id: scottish-highlands-aviemore-duke-of-gordons-monument
+    name: Duke of Gordon's Monument
+    kinds:
+      - historic_site
+      - family
+    description: Duke of Gordon's Monument is a tower in the woods commemorating George Gordon (1770-1836), Colonel-in-Chief of the Gordon Highlanders. His children were all illegitimate so the Dukedom died out with him. The tower was erected in 1840, as was his better-known commemorative tower at Elgin.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > See
+  - id: scottish-highlands-aviemore-delfour-stone-circle
+    name: Delfour Stone Circle
+    kinds:
+      - other
+    description: Delfour Stone Circle four miles southwest of town is of similar date and "Clava" design to the Aviemore ring but is a bit of a mess. Farmers have used it as a dumping ground for unwanted stones from the fields, so it's difficult to tell what's original circle or ring-cairn, and what's debris. It's on private land but you see enough from the lane.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > See
+  - id: scottish-highlands-aviemore-frank-bruce-sculpture-park
+    name: Frank Bruce Sculpture Park
+    kinds:
+      - hiking
+      - nature
+    description: Frank Bruce Sculpture Park is in the woods at Feshiebridge eight miles southwest of Aviemore. A free trail takes you past gnarly sculptures, now in decay — it was always the intention to let them rot.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > See
+  - id: scottish-highlands-aviemore-glenmore-lodge
+    name: Glenmore Lodge
+    kinds:
+      - other
+    description: Outdoor training centre above Loch Morlich offering residential courses for adults and youngsters.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > Do
+  - id: scottish-highlands-aviemore-g2-adventure-hub
+    name: G2 Adventure Hub
+    kinds:
+      - adventure
+    description: They run various summer and winter outdoor activities, the main attraction on site is their series of zip wires.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > Do
+  - id: scottish-highlands-aviemore-strathspey-railway
+    name: Strathspey Railway
+    kinds:
+      - family
+    description: Strathspey Railway is a 10-mile heritage standard-gauge railway, often steam-hauled, with its south terminus at Aviemore Station Platform 3. The main collection of locomotives and rolling stock is at Boat of Garten, where you can also start your trip, but excursions from Aviemore make a long stop there. The train then chuffs on to Broomhill, where the line ends in the fields, so it reverses. Extension to Grantown is thwarted by the A85, which the council promised to re-align then baulked at the cost. Trains run Apr-Oct W-Su, with three round trips taking 1 hr 45 min. Return fares in 2023 are adult £19.50, conc £17.50, child £9.75, dog £3, meals extra.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > Do
+  - id: scottish-highlands-aviemore-speyside-way
+    name: Speyside Way
+    kinds:
+      - hiking
+    description: Speyside Way is a hiking and cycling trail alongside the heritage railway from Aviemore to Boat of Garten and Broomhill. Thereafter it follows the old trackbed northeast via Nethy Bridge and Grantown-on-Spey to the coast at Buckie.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > Do
+  - id: scottish-highlands-aviemore-lairig-ghru
+    name: Lairig Ghru
+    kinds:
+      - other
+    description: Lairig Ghru is a 19-mile (31-km) route through the Cairngorms from Coylumbridge to Linn of Dee above Braemar. You need transport set up at both ends; the first bus of the day to Coylumbridge is leaving it late to get through the pass before nightfall. It's heavy, boggy going, with snow and ice underfoot in winter. There are no bail-out options if you get cold and weary midway.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > Do
+  - id: scottish-highlands-aviemore-spey-valley-cinema
+    name: Spey Valley Cinema
+    kinds:
+      - nature
+    description: Spey Valley Cinema is within Macdonald Resort Hotel.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > Do
+  - id: scottish-highlands-aviemore-craigellachie
+    name: Craigellachie
+    kinds:
+      - hiking
+      - nature
+    description: Craigellachie is a simple hike direct from Aviemore. The trail starts by Old Bridge Inn and ascends west though birch forest past a couple of lochans up the steep slope.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > Do
+  - id: scottish-highlands-aviemore-cairngorm-mountain-base
+    name: Cairngorm Mountain base
+    kinds:
+      - nature
+      - food
+      - adventure
+    description: Cairngorm Mountain base is the end of the road and bus route from Aviemore, and base station for the mountain railway, which is closed for engineering works as of January 2024. The car park costs £4 per day. The railway is a funicular, with the "up" car counterbalancing the "down" car. An adult return costs £22. Outside ski season, all you can do is ride up to Ptarmigan restaurant at the top station, admire the view and overpriced merchandise, then ride back down. You may not go out onto the hill — to prevent damaging footfall on the Alpine habitat — or bring dogs. Hill walkers aiming for the heights must therefore trudge up the slope from the car park, but are permitted to ride down again.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > Do
+  - id: scottish-highlands-aviemore-cairngorm-summit
+    name: Cairngorm summit
+    kinds:
+      - hiking
+      - nature
+      - adventure
+    description: 'Cairngorm summit is at 1245 m (4084 ft), a "Munro" and the sixth highest mountain in Britain. Ascend the rocky hillside to see tinkling brooks, nesting birds, and staggering views of the surrounding mountains (as long as clouds aren''t blocking the view). It''s only half a mile south of the funicular top station, but walkers must ascend from the base station. The simplest and shortest route is Windy Ridge, straight up alongside the funicular, but it misses the best of the scenery — you might want to come down that way. North Corries is a longer route taking in the tops of corries or cwms at the head of glaciated valleys. Skiers have the easiest ascent as you can park your kit around Ptarmigan at 1080 m then stride out. Of course that takes you off-piste in clumsy ski boots, beyond help from the ski patrol if you had a mishap. On the peak you''ll find a large cairn and an automated weather station. If you get to the peak and the view is hidden by clouds, never fear: they may dissipate in a few minutes, and if not, nearby side trails lead to lower vantage points with worthwhile views of their own.'
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > Do
+  - id: scottish-highlands-aviemore-ben-macdui
+    name: Ben Macdui
+    kinds:
+      - hiking
+      - nature
+      - adventure
+    description: Ben Macdui is the highest of the Cairngorms, at 1309 m (4295 ft). Since 1847 it's been the second highest mountain in Britain, when the Ordnance Survey showed that Ben Nevis pipped it at 1345 m (4411 ft). The trail is 11 miles (17.5 km) and takes 6-8 hours. Start from the base car park swinging west of Windy Ridge; the route is obvious and involves nothing technical, but keep a wary eye on the weather. You return via Cairngorm summit and Windy Ridge. Queen Victoria ascended in 1859 from the east, by pony from Balmoral to Loch Etchachan then hiking the rest. Hiking Ben Macdui may be tricky if you don't have a car, as it will be hard to make it back to the ski centre in time for the last bus back to Aviemore.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > Do
+  - id: scottish-highlands-aviemore-see-cairngorms-national-park
+    name: See Cairngorms National Park
+    kinds:
+      - nature
+    description: See Cairngorms National Park for other activities further out.
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > Do
+  - id: scottish-highlands-aviemore-highland-games
+    name: Highland Games
+    kinds:
+      - other
+    description: "Highland Games: Aviemore doesn't host its own, see Kingussie for the Newtonmore Games in August."
+    crowd_level: null
+    best_months: []
+    source_ref: Aviemore > Do
 extraction:
-  listings: 0
-  listings_by_type: {}
+  listings: 137
+  listings_by_type:
+    do: 7
+    drink: 24
+    eat: 22
+    go: 2
+    listing: 1
+    see: 25
+    sleep: 56
   priced_listings:
-    sleep: 0
-    eat: 0
+    sleep: 53
+    eat: 2
   poi_sources:
-    listing: 0
-    marker: 0
-    named: 6
+    listing: 32
+    marker: 17
+    named: 45
   duplicate_pois_dropped: 0
+  generic_items_pruned: 14

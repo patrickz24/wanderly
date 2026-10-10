@@ -15,6 +15,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Tuscany
   revision_id: 5334198
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: tuscany
+    title: Tuscany
+    url: https://en.wikivoyage.org/wiki/Tuscany
+    revision_id: 5334198
+    license: CC BY-SA 4.0
+  - file: places/florence.md
+    role: place
+    id: florence
+    title: Florence
+    url: https://en.wikivoyage.org/wiki/Florence
+    revision_id: 5383633
+    license: CC BY-SA 4.0
+  - file: places/pisa.md
+    role: place
+    id: pisa
+    title: Pisa
+    url: https://en.wikivoyage.org/wiki/Pisa
+    revision_id: 5355074
+    license: CC BY-SA 4.0
+  - file: places/lucca.md
+    role: place
+    id: lucca
+    title: Lucca
+    url: https://en.wikivoyage.org/wiki/Lucca
+    revision_id: 5328729
+    license: CC BY-SA 4.0
+  - file: places/siena.md
+    role: place
+    id: siena
+    title: Siena
+    url: https://en.wikivoyage.org/wiki/Siena
+    revision_id: 5356419
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -93,29 +129,75 @@ climate:
       rain_days: 10.7
       precipitation_mm: 82.3
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
-    meal: null
+    lodging_night:
+      median: 90
+      min: 15
+      max: 550
+      currency: €
+      sample_size: 90
+      excluded_other_currency: 0
+    meal:
+      median: 15
+      min: 3
+      max: 100
+      currency: €
+      sample_size: 13
+      excluded_other_currency: 0
     notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+      - 1 Sleep listing price(s) in the documents quoted per week or month were left out.
   levels:
     budget:
-      lodging_night: null
-      meal: null
-      notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+      lodging_night:
+        median: 75
+        min: 15
+        max: 100
+        currency: €
+        sample_size: 29
+        excluded_other_currency: 0
+      meal:
+        median: 10
+        min: 3
+        max: 25
+        currency: €
+        sample_size: 7
+        excluded_other_currency: 0
+      notes: []
     mid:
-      lodging_night: null
-      meal: null
+      lodging_night:
+        median: 85
+        min: 50
+        max: 150
+        currency: €
+        sample_size: 42
+        excluded_other_currency: 0
+      meal:
+        median: 25.5
+        min: 10
+        max: 40
+        currency: €
+        sample_size: 2
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - Eat figure under Mid-range rests on only 2 listing(s).
     comfort:
-      lodging_night: null
-      meal: null
+      lodging_night:
+        median: 150
+        min: 80
+        max: 550
+        currency: €
+        sample_size: 19
+        excluded_other_currency: 0
+      meal:
+        median: 75
+        min: 50
+        max: 100
+        currency: €
+        sample_size: 3
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 1 Sleep listing price(s) under Splurge quoted per week or month were left out.
 pois:
   - id: tuscany-the-national-park-of-the-tusco-emilian-apennines
     name: The National Park of the Tusco-Emilian Apennines
@@ -124,7 +206,7 @@ pois:
     description: extends lengthwise for about 60 km from the high valleys of the mountain torrents of Parma and Baganza up to the Passo delle Forbici, opening up to include on the Tuscan side the calcareous massif of the Pania di Corfino, and in Emilia the chain of the Alps of Succiso, of Monte Cusna, the valley of the river Secchia and the isolated range of the Pietra di Bismantova.
     crowd_level: null
     best_months: []
-    source_ref: See > Parks
+    source_ref: Tuscany > See > Parks
   - id: tuscany-the-national-park-of-the-tuscan-archipelago
     name: The National Park of the Tuscan Archipelago
     kinds:
@@ -133,7 +215,7 @@ pois:
     description: the Park was established in 1996 and it covers an area of over 18,000 hectares in addition to 40,000 hectares of sea. It is managed by an organization with the same name, that has its headquarters in Portoferraio (on Elba Island). The Park falls under the jurisdiction of the Province of Livorno and that of Grosseto.
     crowd_level: null
     best_months: []
-    source_ref: See > Parks
+    source_ref: Tuscany > See > Parks
   - id: tuscany-the-national-park-of-the-foreste-casentinesi-monte-falterona-and-campigna
     name: The National Park of the Foreste Casentinesi, Monte Falterona and Campigna
     kinds:
@@ -141,7 +223,7 @@ pois:
     description: 'Following the Arno upstream you enter the district of Casentino surrounded by mountains to the north and the east. Here the National Park of the Foreste Casentinesi, Monte Falterona and Campigna offers a uniquely moving and unforgettable experience: that of discovering one of the oldest forests in Europe.'
     crowd_level: null
     best_months: []
-    source_ref: See > Parks
+    source_ref: Tuscany > See > Parks
   - id: tuscany-the-maremma-regional-park
     name: The Maremma Regional Park
     kinds:
@@ -150,7 +232,7 @@ pois:
     description: the Maremma Regional Park (Parco Regionale della Maremma), also known as Uccellina Park (Parco dell’Uccellina) covers a coastal area between Principina a Mare and Talamone near Grosseto, Magliano in Toscana and Orbetello, right up to the Livorno – Rome train line.
     crowd_level: null
     best_months: []
-    source_ref: See > Parks
+    source_ref: Tuscany > See > Parks
   - id: tuscany-the-park-of-migliarino-san-rossore-and-massaciuccoli
     name: The Park of Migliarino, San Rossore and Massaciuccoli
     kinds:
@@ -159,7 +241,7 @@ pois:
     description: 'the Park of Migliarino, San Rossore and Massaciuccoli was established in 1975 and covers 24,000 hectares between Pisa, Viareggio, San Giuliano Terme, Vecchiano and Massarossa. What makes this park so special is what lies around its borders: the Tirrenian Sea, Lake Massaciuccoli and the rivers Arno, Serchio, Canale dei Navicelli and Morto e Burlamacca.'
     crowd_level: null
     best_months: []
-    source_ref: See > Parks
+    source_ref: Tuscany > See > Parks
   - id: tuscany-the-montioni-nature-park
     name: The Montioni nature park
     kinds:
@@ -168,7 +250,7 @@ pois:
     description: managed by the Municipale Administrations of Grosseto and Livorno. Park status from 1998. The park extends over 7000 hectares and rises to 300m at Poggio al Checco, its highest point. The territory has a large artistic and culture heritage, from ancient archeological finds to Etruscan and Roman remains which have been found under medieval constructions such as the Pievaccia, the ruins of Montioni Vecchio Castle and Montioni Thermal Baths.
     crowd_level: null
     best_months: []
-    source_ref: See > Parks
+    source_ref: Tuscany > See > Parks
   - id: tuscany-the-livorno-hills-park
     name: The Livorno Hills Park
     kinds:
@@ -177,7 +259,7 @@ pois:
     description: The Livorno Hills Park encompasses a vast area between the districts of Livorno, Collesalvetti and Rosignano Marittimo. Its nickname is ‘the lost island’ due to the fact that this stretch of land was an island until it attached itself to the mainland thousands of years ago. The park has not only areas of outstanding natural beauty but also but has also been subject to interesting archeological, artistic and cultural discoveries.
     crowd_level: null
     best_months: []
-    source_ref: See > Parks
+    source_ref: Tuscany > See > Parks
   - id: tuscany-the-archaeological-park-of-poggibonsi
     name: The Archaeological Park of Poggibonsi
     kinds:
@@ -186,7 +268,7 @@ pois:
     description: the visit starts with a short documentary film that illustrates the results of twelve years of excavation and the most important archaeological, architectonical and naturalistic aspects of the Poggio Imperiale site.
     crowd_level: null
     best_months: []
-    source_ref: See > Parks
+    source_ref: Tuscany > See > Parks
   - id: tuscany-the-parks-of-the-val-di-cornia
     name: The Parks of the Val di Cornia
     kinds:
@@ -196,7 +278,7 @@ pois:
     description: the Parks of the Val di Cornia, in Tuscany, tell a thousand-year-old story which begins with the Etruscan people and bears witness to centuries of extraction and working on metals, proposing also splendid natural, coastal and hilly environments. The system includes 2 Archaeological Parks, Natural Parks, 3 Museums, 1 Documentation Centre, included in the area of the five municipalities at the extreme south of the province of Livorno, opposite the Island of Elba.
     crowd_level: null
     best_months: []
-    source_ref: See > Parks
+    source_ref: Tuscany > See > Parks
   - id: tuscany-the-zoological-park-of-european-fauna-in-poppi
     name: The Zoological Park of European Fauna in Poppi
     kinds:
@@ -204,7 +286,7 @@ pois:
     description: this is the first and only park dedicated to European Fauna open in the municipality of Poppi (Arezzo).
     crowd_level: null
     best_months: []
-    source_ref: See > Parks
+    source_ref: Tuscany > See > Parks
   - id: tuscany-the-pinocchios-park
     name: The Pinocchio's Park
     kinds:
@@ -214,7 +296,7 @@ pois:
     description: '* Pinocchio’s Park is in Collodi, lovely ancient village that has remained virtually unchanged since the last century. Its charming collection of houses, nestled among the hills, leads the way to Villa Garzoni and its lovely 19th century garden, often considered among the most beautiful in Europe.'
     crowd_level: null
     best_months: []
-    source_ref: See > Parks
+    source_ref: Tuscany > See > Parks
   - id: tuscany-medici-villas-and-gardens-in-tuscany
     name: Medici Villas and Gardens in Tuscany
     kinds:
@@ -223,16 +305,939 @@ pois:
     description: A UNESCO World Heritage site consisting of 16 major and 11 minor villas owned by the powerful Medici family in the 15th-17th centuries.
     crowd_level: null
     best_months: []
-    source_ref: See > Parks
+    source_ref: Tuscany > See > Parks
+  - id: tuscany-florence-santa-maria-del-fiore
+    name: Santa Maria del Fiore
+    kinds:
+      - historic_site
+      - religious_site
+      - adventure
+    description: The cathedral interior is to a basilica pattern; it's vast and at first feels dark and empty. Give your eyes time to adjust, and admire the stained glass windows, funeral monument of Bishop d'Orso, and altar of St Zanobius. Below is the Crypt (M-Sa 10:00-17:00) with remains of the preceding cathedral of Santa Reparata, and the tomb of Brunelleschi. Giotto is believed to lie here somewhere, but his tomb has yet to be identified. Above is the soaring cupola or Dome. The cathedral is free, but you need a pre-booked ticket and time-slot to climb the 464 steps up to the Dome (entrance north side of the church). Slots are available M-F 08:30-19:00, Sa 08:30-17:00 and Su 13:00-16:00.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Piazza del Duomo
+  - id: tuscany-florence-giottos-tower
+    name: Giotto's Tower
+    kinds:
+      - historic_site
+      - religious_site
+      - viewpoint
+      - adventure
+    description: Almost 85 m tall, with 414 steps to climb, this richly decorated tower is topped by an open terrace with a panorama of the Duomo, city and surrounds.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Piazza del Duomo
+  - id: tuscany-florence-baptistery
+    name: Baptistery
+    kinds:
+      - beach
+      - historic_site
+      - religious_site
+    description: Octagonal plan, with a pyramidal roof covering its dome. It's famous for its bronze doors by Andrea Pisano (14th century) and Lorenzo Ghiberti (15th century) and a beautiful interior vault decorated with 13th-century mosaics. The interior is being restored and is unviewable as of April 2024, though the exterior can be seen.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Piazza del Duomo
+  - id: tuscany-florence-museo-dellopera-del-duomo
+    name: Museo dell'Opera del Duomo
+    kinds:
+      - museum
+      - religious_site
+    description: This houses original artworks from the Duomo and surrounding religious buildings, including sculptures by Donatello, a Michelangelo Pietà (different from his version in Saint Peter's, Rome) and the losing entries in the 1401 contest to design the doors of the Baptistery. Plus models and drawings of the Cathedral.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Piazza del Duomo
+  - id: tuscany-florence-galleria-degli-uffizi
+    name: Galleria degli Uffizi
+    kinds:
+      - museum
+      - food
+      - family
+    description: 'Outstanding fine art museum with Renaissance paintings and sculptures from classical antiquity. It''s in a late 16th-century palazzo designed by Vasari, in two wings enclosing a long narrow courtyard, effectively a street, an innovation in its day. Originally the palazzo was magistrates'' offices (hence "Uffizi") and state archives; then it came to house the Medici''s vast art collection. However, one collections seems to have crossed purposes: the massive number of standardized portraits, placed in the hallway, seem to have been an ID system for identifying important foreigners when they came to town. The artworks are on the first and second floors, they keep the lifts well hidden. Highlights include Birth of Venus by Boticelli, Dukes of Urbino by della Francesca, Medusa by Caravaggio, Venus of Urbino by Titian, Annunciation by da Vinci, Pope Leo X and family by Raphael, Velasquez'' self-portrait, Rembrandt''s final self-portrait, and many other big names. Allow three hours for a visit. Uffizi specialises in the Renaissance, so although later styles are represented, examples are few: you don''t really come here for the 18th- to 20th-century material. The restaurant/cafè has a large balcony overlooking the main piazza with good views of the Palazzo Vecchio, and naturally their prices reflect the views.'
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Museums
+  - id: tuscany-florence-bargello
+    name: Bargello
+    kinds:
+      - museum
+    description: Used as a barracks and prison until the 19th century, this museum houses some of the best Renaissance and Mannerist sculpture. Big names here include Michelangelo, Donatello, Ammannati, Bandinelli, Andrea and Jacopo Sansovino, Desiderio da Settignano, Giambologna, and Antonio Rossellino. It also displays ceramics, textiles & tapestries, ivory, silver, armour and coins. Allow two hours. Not nearly as crowded as the Uffizi or Galleria dell'Accademia and paying a fee to book in advance is likely not necessary.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Museums
+  - id: tuscany-florence-galleria-dellaccademia
+    name: Galleria dell'Accademia
+    kinds:
+      - museum
+    description: Highlights are Michelangelo's original David (the one in Piazza della Signoria is a copy) and his unfinished Slaves. It also includes Florentine painting, a museum of musical instruments, and Russian icons. No photography is allowed inside. N.B. the "Accademia di Belle Arti" next door is a university department, not connected with the Gallery.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Museums
+  - id: tuscany-florence-palazzo-pitti
+    name: Palazzo Pitti
+    kinds:
+      - nature
+      - historic_site
+      - museum
+      - family
+    description: "The original Pitti was a banker; the palace has housed royalty but became best known for its Medici family treasures. It's now divided into four museums (same ticket): ground floor is the Treasury of the Grand Dukes; first floor houses the Palatine Gallery and the Royal and Imperial Apartments, second floor is the Modern Art Gallery and the Museum of Costume and Fashion. The Boboli gardens are just behind the palazzo."
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Museums
+  - id: tuscany-florence-palazzo-davanzati
+    name: Palazzo Davanzati
+    kinds:
+      - museum
+    description: a house museum with antique fittings and furniture
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Museums
+  - id: tuscany-florence-museo-galileo
+    name: Museo Galileo
+    kinds:
+      - museum
+    description: This museum shows the evolution of the instruments used in various scientific fields such as mathematics, physics, biology, chemistry, astronomy. The room of Galileo Galilei shows some of his original instruments as well as models from his drawings. The room of Spheres and Globes houses an excellent cartographic collection. In a rather macabre twist the museum also has the middle finger of Galileo's right hand on display. The museum offer some descriptions in Italian and English but you can access other languages by scanning QR codes (Chinese, French, Japanese, Portuguese, Russian, Spanish, German). The museum offers an open WiFi. It is recommended to have an idea of the principles behind the instruments (as the descriptions on the labels are rather generic). For that, you can download their free audio-guide app available in Italian and English (Google Play, Apple Store) and get an idea of the instruments displayed.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Museums
+  - id: tuscany-florence-museo-horne
+    name: Museo Horne
+    kinds:
+      - museum
+    description: Displays art and furnishings of the 14th & 15th century. The building and art collection were owned by art historian Herbert Percy Horne.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Museums
+  - id: tuscany-florence-archaeological-museum
+    name: Archaeological Museum
+    kinds:
+      - historic_site
+      - museum
+    description: The Etruscan art collection is particularly good.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Museums
+  - id: tuscany-florence-museo-novecento
+    name: Museo Novecento
+    kinds:
+      - museum
+    description: Gallery of 20th- & 21st-century art, on three floors of a palazzo.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Museums
+  - id: tuscany-florence-museo-marini
+    name: Museo Marini
+    kinds:
+      - museum
+    description: Houses the work of that contemporary sculptor.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Museums
+  - id: tuscany-florence-stibbert-museum
+    name: Stibbert Museum
+    kinds:
+      - museum
+    description: Has a great collection of armour and arms.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Museums
+  - id: tuscany-florence-palazzo-vecchio
+    name: Palazzo Vecchio
+    kinds:
+      - historic_site
+    description: Old city palace/city hall, adorned with fine art. The replica of Michelangelo's "David" is placed outside the main door in the original location of the statue, which is a symbol of the Comune of Florence. The site displays an important collection of Renaissance sculptures and paintings, including the Putto by Verrochio and the series of murals by Giorgio Vasari at the Salone dei Cinquecento (Hall of the Five Hundreds) - the hall which used to display the now lost Renaissance masterpiece, that is, the so-called Battaglia di Anghiari, by Leonardo da Vinci.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Old town centre
+  - id: tuscany-florence-ponte-vecchio
+    name: Ponte Vecchio
+    kinds:
+      - historic_site
+      - museum
+      - food
+    description: 'The oldest and most celebrated bridge over the Arno, and the only Florentine bridge to survive World War II. The design is distinctive: it''s a three-arched bridge supporting a parade of shops supporting another bridge. It dates to 1345 (hence Ponte Vecchio, "old bridge"), with earlier bridges being swept away by floods, rebuilt and swept away again. At street level it''s a pedestrianised cobbled arch. It''s lined by shops, which were butchers until Renaissance times then - in an insight as dramatic as the discovery of perspective in painting - they realised that goldsmiths'' shops paid higher rents and didn''t stink; so from then to this day it''s just been overpriced jewellery shops and market stalls. Above these is the higher bridge, the Vasari Corridor, a private walkway added in 1565 so that the Medici Dukes could move between Palazzo Vecchio (Town Hall) and Palazzo Pitti (their blingy residence) without mixing with common folk. On the south bank, the Corridor nowadays continues as a gallery of the Uffizi, and there is sometimes talk of extending this over the bridge, or otherwise making the space accessible. Nothing''s come of this so far, so the common folk will have to continue admiring the scene from street level.'
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Old town centre
+  - id: tuscany-florence-santa-croce
+    name: Santa Croce
+    kinds:
+      - historic_site
+      - museum
+      - religious_site
+    description: Contains the monumental tombs of Galileo, Michelangelo, Machiavelli, Dante, Rossini, and many other notables in addition to artistic decorations. There is also great artwork in the church. The Museo dell'Opera di Santa Croce (included in ticket) displays a flood-damaged but still beautiful Crucifix by Cimabue (Giotto's teacher), which has become a symbol of the disastrous floods of 1966. The ticket also includes Pazzi Chapel, a perfectly symmetrical example of sublime neo-Classic Renaissance architecture.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Old town centre
+  - id: tuscany-florence-santa-maria-novella
+    name: Santa Maria Novella
+    kinds:
+      - beach
+      - historic_site
+      - museum
+      - religious_site
+    description: A beautiful church with great artwork, including a Trinity by Masaccio that is being restored as of April 2024 but can still be seen from the scaffold for an additional charge of €1.50 and a great series of frescoes by Ghirlandaio behind the altar. Also, the museum near the Chiostro Verde, outside the church to its left (follow the signs in the church), contains gently restored frescoes of Old Testament scenes by Paolo Uccello which are quite unusual in style and well worth seeing. Off of another cloister is the wonderful Spanish Chapel which is covered in huge, impressive 14th-century frescoes. Also don't miss the Cappella Strozzi di Mantova, up a flight of stairs at the end of the left transept, with dramatic frescoes of Heaven, Hell and Purgatory by Nardo di Cione. The gift shop is in the Sacristy, which also contains paintings and other artwork. Allotting 1 1/2-2 hours to see everything would be reasonable.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Old town centre
+  - id: tuscany-florence-orsanmichele
+    name: Orsanmichele
+    kinds:
+      - historic_site
+      - religious_site
+      - food
+    description: A beautiful old church from the 14th century, which once functioned as a grain market.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Old town centre
+  - id: tuscany-florence-san-lorenzo
+    name: San Lorenzo
+    kinds:
+      - historic_site
+      - religious_site
+    description: The façade of this church was never completed, giving it a striking, rustic appearance. Inside the church is pure Renaissance neo-classical splendor. If you go around the back of the church, there is a separate entrance to the Medici chapels. Be sure to check out the stunning burial chapel of the princes and the sacristy down the corridor. The small sacristy is blessed with the presence of nine Michelangelo sculptures.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Old town centre
+  - id: tuscany-florence-san-marco-convent
+    name: San Marco Convent
+    kinds:
+      - historic_site
+      - religious_site
+    description: Houses frescoes by Fra Angelico and his workshop. Fra Angelico painted a series of frescoes for the cells in which the Dominican monks lived.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Old town centre
+  - id: tuscany-florence-great-synagogue-and-jewish-museum-of-florence
+    name: Great Synagogue and Jewish Museum of Florence
+    kinds:
+      - historic_site
+      - museum
+      - religious_site
+    description: Lovely Moorish-style synagogue built in 1882 and a museum with many artefacts and documentation of Florentine Jewish life going back many centuries; audio tours in multiple languages are available.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Old town centre
+  - id: tuscany-florence-the-english-cemetery
+    name: The English Cemetery
+    kinds:
+      - historic_site
+      - religious_site
+    description: In the 19th century, the "English Cemetery" received anyone that the city's churchyards wouldn't receive, e.g. Orthodox Christians, but Britons and Americans were the majority. Famous names here include Elizabeth Barrett Browning, Fanny Trollope and Beatrice Shakespeare, a relative of William. There are lots of ornate gravestones with flowery inscriptions in multiple languages.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Old town centre
+  - id: tuscany-florence-piazza-della-signoria
+    name: Piazza della Signoria
+    kinds:
+      - historic_site
+      - museum
+    description: 'Piazza della Signoria is the grand open space in front: not quite a square, as Palazzo Vecchio blocks out one corner. Sights here are the equestrian statue of Cosimo de Medici, the Fountain of Neptune, the statue of David, and Loggia dei Lanzi, an open arched gallery of Renaissance sculpture'
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > Old town centre
+  - id: tuscany-florence-santa-felicita
+    name: Santa Felicita
+    kinds:
+      - religious_site
+    description: Contains frescoes of the Annunciation and a painting of the Deposition of Christ by the brilliant and weird mannerist painter, Pontormo. They are to be found in the Barbadori Chapel, which is to your immediate right when entering the church.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > South bank of the Arno
+  - id: tuscany-florence-boboli-gardens
+    name: Boboli Gardens
+    kinds:
+      - nature
+      - historic_site
+      - religious_site
+    description: Elaborately landscaped and with many interesting sculptures, behind the Pitti Palace. Wonderful city views. Don't miss the Bardini gardens. Entrance to that is included in the combination ticket price for the Boboli, and it's a short walk from the Boboli Gardens. There are great views of the Duomo from the Bardini gardens.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > South bank of the Arno
+  - id: tuscany-florence-santa-maria-del-carmine
+    name: Santa Maria del Carmine
+    kinds:
+      - nature
+      - religious_site
+    description: Famous frescoes (Masaccio’s Adam and Eve Banished From the Garden and others by Lippi and Masolino) in the Brancacci Chapel.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > South bank of the Arno
+  - id: tuscany-florence-piazzale-michelangelo
+    name: Piazzale Michelangelo
+    kinds:
+      - adventure
+    description: Plaza on a hillside with a great view of the city. Go there by bus or climb the stairs and paths from the Lungarno della Zecca.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > South bank of the Arno
+  - id: tuscany-florence-san-miniato-al-monte
+    name: San Miniato al Monte
+    kinds:
+      - religious_site
+    description: The Sacristy contains frescoes by Spinello Aretino. In the cemetery near this church there are graves of famous people of Florence, including Carlo Lorenzi (Collodi) - author of the famous Pinocchio. Also, turn around when you reach the top of the stairs before entering the church, to see perhaps an even greater view of the city than from nearby Piazzale Michelangelo.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > South bank of the Arno
+  - id: tuscany-florence-pitti-palace
+    name: Pitti Palace
+    kinds:
+      - historic_site
+      - museum
+    description: 'Pitti Palace: see Museum listing above.'
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > South bank of the Arno
+  - id: tuscany-florence-natural-history-museum
+    name: Natural History Museum
+    kinds:
+      - historic_site
+      - museum
+    description: Natural History Museum ("La Specola") is on Via Romana next to Pitti Palace. Open Tu-Su 09:00-16:00.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > South bank of the Arno
+  - id: tuscany-florence-museo-stefano-bardini
+    name: Museo Stefano Bardini
+    kinds:
+      - museum
+    description: "Museo Stefano Bardini: collection of early Florentine art, housed in the Palazzo Mozzi just south of Ponte alla Grazia. It's open F-M 11:00-17:00."
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > South bank of the Arno
+  - id: tuscany-florence-villa-di-castello
+    name: Villa di Castello
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > See > North of the city center
+  - id: tuscany-florence-enjoy-the-view-from-the-piazzale-michelangelo
+    name: Enjoy the view from the Piazzale Michelangelo
+    kinds:
+      - other
+    description: It's a big square on a hill, but somewhat distant from the traditional tourist sites. It's easy to reach it even on foot using the stairs called "Rampe di San Niccolò". They are on the side of the Arno RIver just in front of the national library. Do this during the summer and during the night to admire Florence's lights.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > Do
+  - id: tuscany-florence-firenze-rafting
+    name: Firenze Rafting
+    kinds:
+      - historic_site
+      - adventure
+    description: Guided rafting trips on the Arno through the historic centre, passing beneath Ponte Vecchio. Tours last about one hour, require no previous experience and are run in inflatable rafts with an instructor in each boat. Equipment is provided; participants should expect to get wet. Booking in advance is required.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > Do
+  - id: tuscany-florence-climb-the-duomo-or-campanile
+    name: Climb the Duomo or Campanile
+    kinds:
+      - historic_site
+      - religious_site
+      - adventure
+    description: 'Climb the Duomo or Campanile: Traverse the winding staircases inside the Duomo or the nearby bell tower to see some of the best views of Florence. Not only can you see the Tuscan countryside in the distance and the impressive palaces and churches of Florence in the fore, but it also shows you just how large the Duomo is.'
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > Do
+  - id: tuscany-florence-stroll-the-boboli-gardens
+    name: Stroll the Boboli Gardens
+    kinds:
+      - nature
+      - historic_site
+    description: 'Stroll the Boboli Gardens: These extensive gardens behind the Pitti palace provide excellent views of the city of Florence and numerous sculptures in a relaxed environment. Stop in the hilltop café, grab a drink and a seat outside and enjoy the view.'
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > Do
+  - id: tuscany-florence-street-performers
+    name: Street performers
+    kinds:
+      - other
+    description: Street performers strut their stuff in front of Palazzo Vecchio of an evening. Performances can range from violin duets to people dressed as sculptures. A nice place to stop while you eat your after-dinner gelato.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > Do
+  - id: tuscany-florence-join-a-monastery
+    name: Join a monastery
+    kinds:
+      - religious_site
+    description: "Join a monastery: those aged 18-35 are invited to take a two-day spiritual retreat at Badia Fiorentina on Via del Proconsolo. Or just come to hear sung vespers at 18:00 and mass at 18:30 nightly in this peaceful church, filled with artwork. It's central yet virtually free of tourists."
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > Do
+  - id: tuscany-florence-impruneta-spa
+    name: Impruneta spa
+    kinds:
+      - other
+    description: The thermal waters of Impruneta spring from two sources and are used to treat respiratory diseases, liver, gastrointestinal, and skin allergies.
+    crowd_level: null
+    best_months: []
+    source_ref: Florence > Do > Further out
+  - id: tuscany-pisa-torre-pendente
+    name: Torre Pendente
+    kinds:
+      - nature
+      - historic_site
+      - religious_site
+      - family
+      - adventure
+    description: "The structure was conceived as the cathedral's bell tower. Construction began in 1173 and the tower started leaning soon afterwards due to subsidence of the ground underneath its base. A project to keep the tower from leaning more and tipping over finally reached a successful conclusion in 2001, and the tower is again open to those wishing to climb it. Climbing the tower requires a reservation-based ticket for €18. Tickets can be bought for the tower on the day, for a specific entry time. This could be 45 min-2 hr after the purchase time, but there is a lot to see while you wait. It is better if you buy tickets online for €18 well in advance (up to 20 days). The tickets are non-exchangeable, effectively non-refundable, and only good for the tower, so they're a bit of a risk to purchase in advance. Make the effort to climb, though, and you'll be rewarded by the view. The famous Pisa leaning tower is not the only one in Pisa; due to the marshy land that they are built on, there are two other leaning towers in Pisa: the Bell Tower of San Nicola Church, near the banks of Arno and the Bell Tower of San Michele of Scalzi Church. For safety reasons, children who will not have turned 8 by the end of the year are not permitted to enter. Under-18s must be accompanied by an adult. ID may be requested to certify the age."
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Piazza dei Miracoli
+  - id: tuscany-pisa-duomo-di-pisa
+    name: Duomo di Pisa
+    kinds:
+      - historic_site
+      - religious_site
+    description: A splendid cathedral, containing artwork by Giambologna, Della Robbia, and other major artists. Fine Romanesque style with double aisles and a cupola, a huge apse mosaic partly by Cimabue, and a fine pulpit by Giovanni Pisano in late Gothic/early Renaissance style.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Piazza dei Miracoli
+  - id: tuscany-pisa-battistero-di-san-giovanni
+    name: Battistero di San Giovanni
+    kinds:
+      - historic_site
+      - adventure
+    description: Large round Romanesque dome with many sculptured decorations and a fine view up top; climb this if you want a great view with the Leaning Tower visible in your photos. Arabic-style pavement, pulpit by Nicola Pisano (father of Giovanni), and fine octagonal font. At regular intervals, the ticket-checker-guard at the entrance comes into the baptistery and gives an audio-treat of echo-effect. The guard shouts out few sounds which when echoed sound like pure beautiful music. You can also cast your inhibitions to the wind, stand by the wall, and sing long notes that turn into chords by yourself, as the echoes go round and round the dome of the building.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Piazza dei Miracoli
+  - id: tuscany-pisa-camposanto-monumentale
+    name: Camposanto Monumentale
+    kinds:
+      - historic_site
+    description: A huge cemetery building with lots of interesting art, including a collection of ancient Roman sarcophagi and splendid medieval frescoes by the "Master of the Triumph of Death". There is also a 19th-century statue of the famous mathematician Leonardo Fibonacci, a native of the city.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Piazza dei Miracoli
+  - id: tuscany-pisa-museo-dellopera-del-duomo
+    name: Museo dell'Opera del Duomo
+    kinds:
+      - historic_site
+      - museum
+      - religious_site
+    description: Has sculptures and paintings that used to be preserved in the Cathedral and the cemetery. Some of the more unusual are bronze griffins from Syria captured by the Crusaders. You can also capture nice photos from the Tower and the Duomo from its balcony.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Piazza dei Miracoli
+  - id: tuscany-pisa-museo-delle-sinopie
+    name: Museo delle Sinopie
+    kinds:
+      - museum
+    description: Skipped over by many visitors, this museum is a treat for art lovers. After World War II many of the surviving murals and pieces of murals from Pisa's Campo Santo were detached from the walls to try to preserve them. It was unexpectedly discovered that the artist sketches underneath survived. These were moved to this museum.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Piazza dei Miracoli
+  - id: tuscany-pisa-piazza-dei-cavalieri
+    name: Piazza dei Cavalieri
+    kinds:
+      - historic_site
+      - village
+    description: A small town square with many historical buildings that hosted the political powers of the city in the Middle Ages and Renaissance, but most of them are not accessible to tourists, as they are now property of the University of Pisa or Scuola Normale Superiore (a prestigious elite school).
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Piazza dei Cavalieri
+  - id: tuscany-pisa-palazzo-della-carovana
+    name: Palazzo della Carovana
+    kinds:
+      - other
+    description: The main Scuola Normale Superiore building, with an elaborate façade, by the important Italian Renaissance artist and architect Giorgio Vasari - who is also said to be the first historian of art.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Piazza dei Cavalieri
+  - id: tuscany-pisa-palazzo-dellorologio
+    name: Palazzo dell'Orologio
+    kinds:
+      - historic_site
+    description: A 14th-century building that has replaced the Torre della Fame (tower of hunger), where the Conte Ugolino della Gherardesca was imprisoned and left to die of hunger with his sons, as cited in the Dante's Divina Commedia.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Piazza dei Cavalieri
+  - id: tuscany-pisa-chiesa-di-santo-stefano
+    name: Chiesa di Santo Stefano
+    kinds:
+      - religious_site
+    description: Designed by Giorgio Vasari in the 16th century for the Ordine dei Cavalieri di Santo Stefano (Order of Chivalry of Saint Stephan), a chivalric order founded to fight piracy in 1561.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Piazza dei Cavalieri
+  - id: tuscany-pisa-museo-nazionale-di-san-matteo
+    name: Museo Nazionale di San Matteo
+    kinds:
+      - museum
+      - religious_site
+    description: This is a fantastic history and art museum, which houses almost all of the original artwork from all the churches in and around Pisa. Although fairly small, it is one of the biggest for Tuscan Renaissance art, hosted in the rooms of the San Matteo monastery. A gem overlooked by most tourists.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Along the riverbank
+  - id: tuscany-pisa-piazza-garibaldi-and-piazza-xx-settembre
+    name: Piazza Garibaldi and Piazza XX Settembre
+    kinds:
+      - village
+      - food
+    description: Two opposing town square, one at each end of Ponte di Mezzo (middle bridge), and are considered the centre of the city. From Piazza Garibaldi starts Borgo Stretto, an old street with lots of shops that, together with Corso Italia starting in the opposite direction from Piazza XX Settembre, create a pedestrian area (interrupted only by the bridge) that is considered the centre of the city. In Piazza XX Settembre you can find the Logge dei Banchi, a building created to host textile market in 1600, and the town hall, in the Palazzo del Comune.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Along the riverbank
+  - id: tuscany-pisa-santo-sepolcro
+    name: Santo Sepolcro
+    kinds:
+      - religious_site
+    description: A Romanesque octagonal church with conical spire by Diotisalvi, who also built the baptistry - a Templar church, striking and forceful. Usually is not open to the public.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Along the riverbank
+  - id: tuscany-pisa-ussero-cafe-founded-on-1775
+    name: Ussero Café founded on 1775
+    kinds:
+      - historic_site
+    description: A monument to Italian culture in the 1400s Palazzo Agostini, on Lungarno. In 1839, it was the seat of the meetings of the first Italian Congress of Scientists.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Along the riverbank
+  - id: tuscany-pisa-santa-maria-della-spina
+    name: Santa Maria della Spina
+    kinds:
+      - religious_site
+    description: A very small Gothic church built in 1230 to house a thorn from Jesus's crown, it's considered one of the best expressions of Italian Gothic. It is so small that in 1800, it was moved from the Arno riverbank to a place some metres higher, one stone at time, to protect it from flooding. It's usually not open to the public.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Along the riverbank
+  - id: tuscany-pisa-giardino-scotto
+    name: Giardino Scotto
+    kinds:
+      - nature
+      - historic_site
+    description: A fortress converted to a public park which opens in summer for open air cinema, music shows and other events.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Along the riverbank
+  - id: tuscany-pisa-la-cittadella
+    name: La Cittadella
+    kinds:
+      - historic_site
+    description: A fortress built to guard the access by the river Arno and the shipyard in the middle age, when the sea was closer to the city.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Along the riverbank
+  - id: tuscany-pisa-university-botanical-garden
+    name: University Botanical Garden
+    kinds:
+      - nature
+    description: The first university botanical garden in Europe, created by the will of Cosimo de' Medici in 1544.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Other parts of the city
+  - id: tuscany-pisa-museum-of-computing-instruments
+    name: Museum of Computing Instruments
+    kinds:
+      - museum
+    description: This museum hosts artifacts from the history of computers, including Italy's oldest computer built in the end of the 1950s, and a collection of mechanical calculators from the early 1900s.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Other parts of the city
+  - id: tuscany-pisa-tuttomondo
+    name: Tuttomondo
+    kinds:
+      - other
+    description: Keith Haring mural. Keith Haring visited Pisa and fell in love with the town, so he decided to paint this amazing mural as a gift to Pisa. Though extremely large, it is easy to miss so look out for it; it is located between via Giuseppe Mazzini and via Massimo D'Azeglio just off Piazza Vittorio Emanuele II.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Other parts of the city
+  - id: tuscany-pisa-marina-di-pisa
+    name: Marina di Pisa
+    kinds:
+      - hiking
+      - beach
+    description: 'When you have done the main attractions of Pisa, there is still one little gem left: Marina di Pisa, the harbor of Pisa at the Mediterranean sea. It hosts a beach, not with sand, but with little marble pebbles. The pebbles are smooth, and will not harm your feet, but since they are slightly unstable near the water, sea water compatible footwear is recommended for walking along the beach and getting in or out of the water.'
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > See > Further away
+  - id: tuscany-pisa-casciana-terme
+    name: Casciana Terme
+    kinds:
+      - historic_site
+    description: The thermal water has been used at Casciana Terme since ancient times. Its applications have been extended to modern rehabilitation therapies, cardiovascular and respiratory treatment, in the improvement of the digestive functions and their treatment, because its natural, relaxing action enables patients to regain their functional equilibrium and the enjoyment of pleasures they had lost.
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > Do > Spas
+  - id: tuscany-pisa-san-giuliano-terme
+    name: San Giuliano Terme
+    kinds:
+      - other
+    description: Water with beneficial effects and calciferous magnesic sulfate water, naturally rich in vital curative elements, gush forth at the foot of Mount San Giuliano at the Spa out of different springs and are gathered in two groups called the "East Baths" (40°C) and the "West Baths" (38°C).
+    crowd_level: null
+    best_months: []
+    source_ref: Pisa > Do > Spas
+  - id: tuscany-lucca-city-walls
+    name: City Walls
+    kinds:
+      - historic_site
+    description: You can walk or cycle on top of the ancient city walls. The entire perimeter is approximately 4 km. This gives a good introduction to the city layout. Expect crowds in the summer months.
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > See
+  - id: tuscany-lucca-piazza-dellanfiteatro
+    name: Piazza dell'Anfiteatro
+    kinds:
+      - historic_site
+    description: A former Roman amphitheatre, but the remains of the amphitheatre are gone. The houses there are of medieval origin, built where the spectator stands were.
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > See
+  - id: tuscany-lucca-duomo-di-san-martino
+    name: Duomo di San Martino
+    kinds:
+      - religious_site
+    description: Romanesque cathedral dating to 14th century. Contains the must-see Volto Santo and Ilaria del Carretto's Sarcophagus by Jacopo della Quercia (as of May 2014 you have to pay an additional €4 to see this). Includes a sculpture of the crucifixion attributed to an eyewitness, Nicodemus. Some interesting carvings in the marble exterior, including a labyrinth.
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > See
+  - id: tuscany-lucca-torre-guinigi
+    name: Torre Guinigi
+    kinds:
+      - historic_site
+    description: This is a tower with trees atop it, a very dramatic sight, with good views of the city. No lift, many stairs.
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > See
+  - id: tuscany-lucca-torre-delle-ore
+    name: Torre delle Ore
+    kinds:
+      - historic_site
+    description: Ancient clock tower with original clock still working. It is possible to go upstairs in this tower for a beautiful view of the city and a good perspective of Fillungo street. Great views of Torre Guinigi's trees. No lift.
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > See
+  - id: tuscany-lucca-puccini-museum
+    name: Puccini Museum
+    kinds:
+      - museum
+    description: This was Puccini's birthplace and is now a museum about the composer.
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > See
+  - id: tuscany-lucca-palazzo-mansi
+    name: Palazzo Mansi
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > See
+  - id: tuscany-lucca-saint-michaels-church
+    name: Saint Michael's Church
+    kinds:
+      - religious_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > See
+  - id: tuscany-lucca-saint-fredianos-church
+    name: Saint Frediano's Church
+    kinds:
+      - religious_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > See
+  - id: tuscany-lucca-via-fillungo
+    name: Via Fillungo
+    kinds:
+      - nightlife
+    description: Main street full of shops and bars.
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > See
+  - id: tuscany-lucca-palazzo-pfanner
+    name: Palazzo Pfanner
+    kinds:
+      - nature
+      - family
+    description: Preserved rooms formerly inhabited by the Pfanner family, as well as a pleasant garden. Also on display, some 19th-century medical equipment.
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > See
+  - id: tuscany-lucca-piazza-napoleone
+    name: Piazza Napoleone
+    kinds:
+      - other
+    description: Lucca's largest square. Contains the large Palazzo Ducale, now a government building.
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > See
+  - id: tuscany-lucca-domus-romana
+    name: Domus Romana
+    kinds:
+      - historic_site
+    description: Remains of an old Roman home, have been partially excavated, and may be seen at via Cesare Battisi 15 (at via San Giorgio).
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > See
+  - id: tuscany-lucca-statue-of-luigi-boccherini
+    name: Statue of Luigi Boccherini
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > See
+  - id: tuscany-lucca-bagni-di-luccas-spa
+    name: Bagni di Lucca's spa
+    kinds:
+      - nature
+    description: Bagni di Lucca lies between the Appenine Mountains giving a semblance of a climatic mountain resort despite its 152 meters above sea level, perfectly integrated by the River Lima and Serchio, from which the Valley takes its name, can be considered an oasis of peace and serenity.
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > Do
+  - id: tuscany-lucca-puccini-opera-recitals
+    name: Puccini opera & recitals
+    kinds:
+      - museum
+      - religious_site
+    description: "Puccini opera & recitals: The composer Puccini (1858-1924) was born and grew up in Lucca. His works are regularly performed here throughout the year. From 1891 he lived at Torre del Lago on the coast 20 km west, and built a villa there; the annual Puccini festival is held nearby. In 1921 a peat works polluted the neighbourhood so he moved to neighbouring Viareggio. Puccini villa at Torre del Lago is nowadays a museum and he's buried in the chapel there."
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > Do
+  - id: tuscany-lucca-puccini-festival
+    name: Puccini festival
+    kinds:
+      - other
+    description: An opera festival dedicated to Puccini, staging all his best-loved works. It is held July to August in Torre del Lago on the coast near Lucca.
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > Do > Festivals
+  - id: tuscany-lucca-lucca-summer-festival
+    name: Lucca summer festival
+    kinds:
+      - historic_site
+    description: A series of concerts by major international rock stars, held annually end of June into July. It's not like a "greenfield" rock festival with concentrated venue, time-span and mud. Most events are in Piazza Napoleone in the old town centre. Standing-room tickets are available, these are released separately as each act confirms their dates.
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > Do > Festivals
+  - id: tuscany-lucca-lucca-comics-and-games
+    name: Lucca Comics and Games
+    kinds:
+      - food
+    description: The largest comic book and gaming festival in Europe, held in the long week-end around November 1, a national holiday in Italy. It includes many events, guests and open-air market stands around the city centre, and the city is full with cosplayers in colourful costumes.
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > Do > Festivals
+  - id: tuscany-lucca-bagni-di-lucca
+    name: Bagni di Lucca
+    kinds:
+      - hiking
+      - nature
+      - adventure
+    description: A spa town in the Lima valley with natural hot springs and steam grottoes, in use since the Middle Ages and fashionable with English and Russian visitors in the 19th century. The valley is also used for rafting, packrafting and canyoning between spring and autumn, and marked trails lead up into the wooded hills towards the Apuan Alps. It makes a straightforward day trip from Lucca.
+    crowd_level: null
+    best_months: []
+    source_ref: Lucca > Do > Festivals
+  - id: tuscany-siena-palazzo-pubblico
+    name: Palazzo Pubblico
+    kinds:
+      - museum
+      - religious_site
+      - viewpoint
+    description: This striking structure has functioned as Siena's City Hall for almost 800 years and is probably the building that most recognizably represents Siena. It contains (among many other things) the famous frescoes on good and bad government by Ambrogio Lorenzetti, frescoes by Simone Martini and Duccio, and access to the Torre del Mangia, from the top of which you can view a beautiful panorama of the Sienese countryside. The frescoes on good and bad government and their effects on the city and surrounding countryside (painted 1338-1339), probably Ambrogio Lorenzetti's greatest masterpieces, are in the Sala dei Nove, where the Council of Nine who ruled the city state in the early 14th century could see them and, it was hoped, would keep them close to mind while making important decisions. These frescoes and Duccio's Maestà in the Museo dell'Opera del Duomo are the most important paintings in Siena and for many people represent highlights of a visit to this city, but there are many other beautiful things to see in the Palazzo Pubblico, so allow some time (preferably a couple of hours) to view them all. This building's exterior is equally beautiful and includes a lovely marble chapel, the Cappella di Piazza, which is at the foot of the Torre di Mangia. Built in 1352, it is dedicated to the Virgin Mary, as was the entire city after it avoided annihilation in the devastating black plague of 1348.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Piazza del Campo
+  - id: tuscany-siena-palazzo-piccolomini
+    name: Palazzo Piccolomini
+    kinds:
+      - other
+    description: One of the most popular sites on the Piazza del Campo, it was built in 1459 by the well-known architect Bernardo Rossellino, disciple of Leon Battista Alberti. This Florentine-style palazzo is home to the official archives of Siena.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Piazza del Campo
+  - id: tuscany-siena-palazzo-sansedoni
+    name: Palazzo Sansedoni
+    kinds:
+      - other
+    description: Opposite the Palazzo Pubblico, it is another beautiful Gothic building on the Campo.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Piazza del Campo
+  - id: tuscany-siena-fonte-gaia
+    name: Fonte Gaia
+    kinds:
+      - other
+    description: The fountain sculpted in 1419 by the great Sienese sculptor, Jacopo della Quercia, is a focal point of the piazza. The remains of the original sculptures can be viewed in the loggia of the Palazzo Pubblico (see above), but the appearance of the fountain, composed of copies made in 1858, is not bad and remains a major sight in this city.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Piazza del Campo
+  - id: tuscany-siena-duomo-di-siena
+    name: Duomo di Siena
+    kinds:
+      - beach
+      - museum
+      - religious_site
+    description: Siena's magnificent black and white Italian Romanesque cathedral includes the Libreria Piccolomini, with splendid frescoes by Pinturicchio, the lovely Baptistery (separate entrance and charge), and an attached museum (separate entrance and charge, see below). Also marvel at the inlaid floors; even as they are sometimes covered for protection, a section is always left visible. At the height of Siena's power it was decided to enlarge the cathedral so that the existing Duomo would become merely its transept; the money ran out very soon after one of the new outer walls, which is still standing as a reminder of the grandiose undertaking, was completed. It is possible to see all of this in one day, but expect it to take at least the better part of an afternoon.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Other major sights
+  - id: tuscany-siena-museo-dellopera-del-duomo
+    name: Museo dell'Opera del Duomo
+    kinds:
+      - historic_site
+      - museum
+      - religious_site
+      - viewpoint
+      - adventure
+    description: This museum includes the famous Maestà by Duccio and many other great works by Sienese masters. After you've seen all the art, you can also treat yourself to a beautiful panorama from Il Facciatone, the tower in this building. The view is about as good as the one from the Torre del Mangia in the Palazzo Pubblico but somewhat different, although if you are rushed for time, pick one tower to climb (either one).
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Other major sights
+  - id: tuscany-siena-pinacoteca-nazionale-di-siena
+    name: Pinacoteca Nazionale di Siena
+    kinds:
+      - historic_site
+    description: The Pinacoteca is full of Sienese paintings from the city's Medieval heyday.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Other major sights
+  - id: tuscany-siena-piazza-salimbeni
+    name: Piazza Salimbeni
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Secondary sights > Piazze and palazzi
+  - id: tuscany-siena-palazzo-salimbeni
+    name: Palazzo Salimbeni
+    kinds:
+      - other
+    description: The Palazzo Salimbeni, built in 1472, is the world headquarters of Monte dei Paschi di Siena, the major banking corporation which has a hand in much of the economic and cultural life of the city. The building is well worth looking at from the outside. Inside, there are interesting documents showing the history of banking, plus a collection of paintings and other artwork, but you would have to request permission in advance if you'd like to have a chance to view them.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Secondary sights > Piazze and palazzi
+  - id: tuscany-siena-palazzo-santucci
+    name: Palazzo Santucci
+    kinds:
+      - other
+    description: The Palazzo Santucci, to your left when facing the Palazzo Salimbeni, was built in the 16th century.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Secondary sights > Piazze and palazzi
+  - id: tuscany-siena-palazzo-chigi-saracini
+    name: Palazzo Chigi-Saracini
+    kinds:
+      - other
+    description: This is another Gothic palazzo, or at least its façade remains Gothic, though the interior was modernized in the late 18th and early 19th centuries. The building since 1932 has housed housed the Accademia Chigiana, the city's conservatory of music. Quite a number of beautiful paintings are part of its collection, but the rooms that house the artwork are often used for classes and rehearsals or simply locked up when not in use, so if you would like to view its holdings, you will probably need to get permission in advance and make an appointment.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Secondary sights > Piazze and palazzi > Via di Città
+  - id: tuscany-siena-palazzo-tolomei
+    name: Palazzo Tolomei
+    kinds:
+      - historic_site
+      - family
+    description: This lovely palazzo was built between 1205 and 1212 by the Tolomei family when the area was outside of the city walls. Now, it is well within the walls and on the way from the Campo to Piazza Salimbeni.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Secondary sights > Piazze and palazzi > Piazza Tolomei
+  - id: tuscany-siena-basilica-cateriniana-san-domenico
+    name: Basilica Cateriniana San Domenico
+    kinds:
+      - religious_site
+    description: This large, austere Gothic basilica (usually simply called San Domenico) is not only dedicated to St. Catherine of Siena, along with St. Dominic, but was frequented by her and contains a period portrait of her by Andrea Vanni and relics including her head. It also features several other works by Sienese Gothic painters and impressively high vaulted ceilings. It is quite close to the long-distance bus stop, so if you are going to or from Siena by bus and have the time even to briefly enter this house of prayer, do.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Secondary sights > Religious buildings
+  - id: tuscany-siena-basilica-of-san-francesco
+    name: Basilica of San Francesco
+    kinds:
+      - religious_site
+    description: This Romanesque church was turned into a Gothic one and contains some notable Gothic art, including a moving fresco of the Crucifixion by Pietro Lorenzetti and one of the Martyrdom of Five Franciscan Brothers by his brother, Ambrogio.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Secondary sights > Religious buildings
+  - id: tuscany-siena-birth-house-of-st-catherine-of-siena
+    name: Birth House of St. Catherine of Siena
+    kinds:
+      - other
+    description: In this house lived the 14th-century mystic who is one of the principal patron saints of Italy. If you are a devotee, it is natural to combine a visit here with a visit to San Domenico, but even if you are not a devotee, if you have the time, you are likely to find your visit interesting.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Secondary sights > Religious buildings
+  - id: tuscany-siena-santagostino
+    name: Sant'Agostino
+    kinds:
+      - religious_site
+      - family
+    description: Built as a Gothic church, it was damaged by fire in 1747 and was renovated with some Baroque additions and further added to in the 19th century. However, the main draws for the lover of paintings are from well before the fire and include an Enthroned Madonna with Child and Saints by the 14th-century Ambrogio Lorenzetti and a Crucifixion by the 15th-16th-century Perugino.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Secondary sights > Religious buildings
+  - id: tuscany-siena-santa-maria-dei-servi
+    name: Santa Maria dei Servi
+    kinds:
+      - religious_site
+    description: This Romanesque church is much smaller than the huge edifices of the Duomo and San Domenico, but it contains some notable art including a Coronation of the Virgin and Saints by Bernardino Fungai, a Massacre of the Innocents attributed to Pietro Lorenzetti and collaborators and an Adoration of the Shepherds by Taddeo Di Bartolo.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Secondary sights > Religious buildings
+  - id: tuscany-siena-fontebranda
+    name: Fontebranda
+    kinds:
+      - historic_site
+    description: This medieval fountain is the oldest in Siena, built in its current form in 1246. It is the original, not a replica. Not surprisingly, it is somewhat worn and overgrown in places, but still impressive and beautiful, and would be a top sight in most other cities.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Secondary sights > Fountains
+  - id: tuscany-siena-santa-maria-della-scala
+    name: Santa Maria della Scala
+    kinds:
+      - historic_site
+      - museum
+    description: This medieval hospital, now a museum, is chock-full of medieval art including altarpieces by Bartolommeo Bulgarini and frescoes by the Lorenzetti brothers and Simone Martini. Also part of the complex (no additional admission charge) is the Museo Archeologico Nazionale, which exhibits some important archeological finds from the area, plus items from public and private collections of antiquities that are mostly from Siena and Chiusi.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > See > Secondary sights > Museums
+  - id: tuscany-siena-palio-horse-race
+    name: Palio Horse Race
+    kinds:
+      - family
+    description: A horse race like nowhere else, between the 17 contrade of Siena, is run in the Piazza del Campo on July 2 and August 16. All Sienese are affiliated with one of the contrade, to which a typical Sienese feels loyal with a strength perhaps surpassed only by their loyalty to their family. Since the 11th century, the Sienese have conducted festivals every year in which the contrade compete for renown (and in times gone by, actual political power) through contests such as flag throwing, horse racing and even fist fights. The fist fights no longer happen (a heavy police presence in the weeks prior to the contest sees to that), but the spirit of competition between contrade is still fierce. The race is held in late evening but the whole day of the race is taken up with processions through the streets of the various contrade competing in the particular race (only ten can compete at any time for safety reasons).
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > Do > Events
+  - id: tuscany-siena-siena-jazz-festival
+    name: Siena Jazz Festival
+    kinds:
+      - other
+    description: During summer.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > Do > Events
+  - id: tuscany-siena-classical-concerts
+    name: Classical concerts
+    kinds:
+      - other
+    description: Classical concerts during the summer at the Accademia Musicale Chigiana, and at various locations in the city during the Chigiana International Festival.
+    crowd_level: null
+    best_months: []
+    source_ref: Siena > Do > Events
 extraction:
-  listings: 12
+  listings: 313
   listings_by_type:
-    see: 12
+    buy: 8
+    do: 20
+    drink: 14
+    eat: 52
+    go: 2
+    listing: 7
+    nearby: 3
+    see: 94
+    sleep: 113
   priced_listings:
-    sleep: 0
-    eat: 0
+    sleep: 91
+    eat: 13
   poi_sources:
-    listing: 12
+    listing: 107
     marker: 0
-    named: 0
+    named: 11
   duplicate_pois_dropped: 0
+  generic_items_pruned: 2

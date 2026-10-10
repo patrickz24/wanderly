@@ -16,6 +16,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Sardinia
   revision_id: 5366097
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: sardinia
+    title: Sardinia
+    url: https://en.wikivoyage.org/wiki/Sardinia
+    revision_id: 5366097
+    license: CC BY-SA 4.0
+  - file: places/cagliari.md
+    role: place
+    id: cagliari
+    title: Cagliari
+    url: https://en.wikivoyage.org/wiki/Cagliari
+    revision_id: 5382600
+    license: CC BY-SA 4.0
+  - file: places/alghero.md
+    role: place
+    id: alghero
+    title: Alghero
+    url: https://en.wikivoyage.org/wiki/Alghero
+    revision_id: 5380237
+    license: CC BY-SA 4.0
+  - file: places/olbia.md
+    role: place
+    id: olbia
+    title: Olbia
+    url: https://en.wikivoyage.org/wiki/Olbia
+    revision_id: 5383974
+    license: CC BY-SA 4.0
+  - file: places/sassari.md
+    role: place
+    id: sassari
+    title: Sassari
+    url: https://en.wikivoyage.org/wiki/Sassari
+    revision_id: 5356151
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -94,29 +130,61 @@ climate:
       rain_days: 6.9
       precipitation_mm: 44.1
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
-    meal: null
+    lodging_night:
+      median: 120
+      min: 58
+      max: 450
+      currency: €
+      sample_size: 10
+      excluded_other_currency: 1
+    meal:
+      median: 35
+      min: 15
+      max: 80
+      currency: €
+      sample_size: 3
+      excluded_other_currency: 0
     notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+      - 1 Eat listing price(s) in the documents had no amount with a currency.
   levels:
     budget:
       lodging_night: null
-      meal: null
+      meal:
+        median: 17.5
+        min: 15
+        max: 20
+        currency: €
+        sample_size: 1
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Sleep listing under Budget has a parseable price: value unknown.'
+        - Eat figure under Budget rests on only 1 listing(s).
     mid:
       lodging_night: null
-      meal: null
+      meal:
+        median: 35
+        min: 30
+        max: 40
+        currency: €
+        sample_size: 1
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Sleep listing under Mid-range has a parseable price: value unknown.'
+        - Eat figure under Mid-range rests on only 1 listing(s).
     comfort:
       lodging_night: null
-      meal: null
+      meal:
+        median: 60
+        min: 40
+        max: 80
+        currency: €
+        sample_size: 1
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Sleep listing under Splurge has a parseable price: value unknown.'
+        - Eat figure under Splurge rests on only 1 listing(s).
 pois:
   - id: sardinia-arcipelago-di-la-maddalena-national-park
     name: Arcipelago di La Maddalena National Park
@@ -126,17 +194,637 @@ pois:
     description: home to many beautiful beaches
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Sardinia > Other destinations
+  - id: sardinia-cagliari-cattedrale-di-santa-maria-di-castello
+    name: Cattedrale di Santa Maria di Castello
+    kinds:
+      - historic_site
+      - religious_site
+    description: Cagliari Cathedral is a beautiful 13th-century church with Neo-Gothic façade. Do not miss the Shrine of the Martyrs, excavated out of the rock.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Old town
+  - id: sardinia-cagliari-palazzo-di-citta
+    name: Palazzo di Città
+    kinds:
+      - historic_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Old town
+  - id: sardinia-cagliari-palazzo-regio
+    name: Palazzo Regio
+    kinds:
+      - historic_site
+    description: The building was the residence of the royal representatives during the 14th century. In the 18th and 19th centuries it passed through some reconstruction and restoration stages.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Old town
+  - id: sardinia-cagliari-bastione-di-saint-remy
+    name: Bastione di Saint Remy
+    kinds:
+      - nature
+      - historic_site
+      - adventure
+    description: This impressive fortification was built in the late 19th century. Climb the huge stairways to be rewarded by a stunning view of the city, the sea and the mountains. Or use the elevator.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Old town
+  - id: sardinia-cagliari-bastione-di-santa-croce
+    name: Bastione di Santa Croce
+    kinds:
+      - historic_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Old town
+  - id: sardinia-cagliari-porta-cristina
+    name: Porta Cristina
+    kinds:
+      - historic_site
+    description: The gate built in 1825 in neoclassical style.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Old town
+  - id: sardinia-cagliari-chiostro-di-san-domenico
+    name: Chiostro di San Domenico
+    kinds:
+      - historic_site
+    description: The cloister dates back to the 15th century. It was restored after World War II.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Old town
+  - id: sardinia-cagliari-chiesa-di-san-michele
+    name: Chiesa di San Michele
+    kinds:
+      - historic_site
+      - religious_site
+    description: This church was consecrated 1538, but its Spanish Rococo decoration dates back to the 18th century decoration and considered the best example of this style on the island.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Old town
+  - id: sardinia-cagliari-torre-di-san-pancrazio
+    name: Torre di San Pancrazio
+    kinds:
+      - historic_site
+    description: Built in 1305 by the Sardinian architect Giovanni Capula, who designed also the Torre dell'Elefante. Good view over Cagliari from the top.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Old town
+  - id: sardinia-cagliari-torre-dellelefante
+    name: Torre dell'Elefante
+    kinds:
+      - historic_site
+    description: The tower was built in 1307.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Old town
+  - id: sardinia-cagliari-torre-dello-sperone
+    name: Torre dello Sperone
+    kinds:
+      - historic_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Old town
+  - id: sardinia-cagliari-anfiteatro-romano
+    name: Anfiteatro Romano
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Other sites
+  - id: sardinia-cagliari-basilica-di-san-saturnino
+    name: Basilica di San Saturnino
+    kinds:
+      - religious_site
+    description: This paleo-Christian complex dates back as early as to the 5th century. The church was built in Provençal-Romanesque style and consecrated in the 11th century, which makes it the oldest in the city.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Other sites
+  - id: sardinia-cagliari-santuario-di-nostra-signora-di-bonaria
+    name: Santuario di Nostra Signora di Bonaria
+    kinds:
+      - historic_site
+      - religious_site
+    description: An important religious complex. Some parts of it dating back to 1335, while the basilica was completed only in the beginning of the 20th century. Like many historical monuments in Cagliari it was restored after the World War II.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Other sites
+  - id: sardinia-cagliari-palazzata-della-via-roma
+    name: Palazzata della via Roma
+    kinds:
+      - other
+    description: A collection of eclectic façades along the Via Roma including the Palazzo Civico.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Liberty architecture
+  - id: sardinia-cagliari-palazzo-civico
+    name: Palazzo Civico
+    kinds:
+      - historic_site
+    description: The edifice was built in 1907, then it was reconstructed from the World War II ruins between 1946-1953.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Liberty architecture
+  - id: sardinia-cagliari-palazzo-valdes
+    name: Palazzo Valdes
+    kinds:
+      - other
+    description: Its older section, facing the Bastion of Saint Remy with a granite plinth and terracotta decorations, was designed by Nicolò Mura. The more recent section along the Via Sulis was designed by Riccardo Simonetti, and has an interesting round wall facing the piazza Marghinotti.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > See > Liberty architecture
+  - id: sardinia-cagliari-museo-archeologico-nazionale-di-cagliari
+    name: Museo Archeologico Nazionale di Cagliari
+    kinds:
+      - historic_site
+      - museum
+    description: National Archaeological Museum of Cagliari.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > Do > Museums
+  - id: sardinia-cagliari-galleria-comunale-darte
+    name: Galleria Comunale d'Arte
+    kinds:
+      - museum
+    description: The art gallery of Cagliari hosts paintings and sculptures from the period between the 19th and 20th centuries. It also includes a so-called Stanze del Collezionista (Collector's Rooms), the Collezione d'Arte Francesco Paolo Ingrao (Collection of Art Francesco Paolo Ingrao) which contains works of art in the period between mid-20th century towards the 1980s.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > Do > Museums
+  - id: sardinia-cagliari-museo-darte-siamese-stefano-cardu
+    name: Museo d'Arte Siamese "Stefano Cardu"
+    kinds:
+      - museum
+    description: See the collection of 15th- to 19th-century Oriental art.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > Do > Museums
+  - id: sardinia-cagliari-pinacoteca-nazionale
+    name: Pinacoteca Nazionale
+    kinds:
+      - historic_site
+      - museum
+    description: Houses a collection of 16th- to 20th-century paintings by Sardinian artists, 15th- to 18th-century paintings of the Genoese, Neapolitan and Roman schools, a collection of Sardinian and Catalan altarpieces.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > Do > Museums
+  - id: sardinia-cagliari-museo-delle-cere-anatomiche-clemente-susini
+    name: Museo delle cere anatomiche Clemente Susini
+    kinds:
+      - museum
+    description: A collection of the wax models of the parts of the (not only) human body.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > Do > Museums
+  - id: sardinia-cagliari-centro-comunale-darte-e-cultura-il-ghetto
+    name: Centro Comunale d’Arte e Cultura Il Ghetto
+    kinds:
+      - museum
+    description: Displays about archichecture and city planning. Nothing about the ghetto.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > Do > Museums
+  - id: sardinia-cagliari-giardini-pubblici
+    name: Giardini pubblici
+    kinds:
+      - nature
+    description: The 1st public park of the city dates back to the first half of the 19th century. There are about 60 centenarian trees there.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > Do > Parks
+  - id: sardinia-cagliari-orto-botanico-di-cagliari
+    name: Orto Botanico di Cagliari
+    kinds:
+      - nature
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > Do > Parks
+  - id: sardinia-cagliari-orto-dei-cappuccini
+    name: Orto dei Cappuccini
+    kinds:
+      - nature
+      - historic_site
+    description: The garden was founded In 1595 by the Capuchin friars on the hill to the west of the ruins of the Roman amphitheatre.
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > Do > Parks
+  - id: sardinia-cagliari-flamingoes
+    name: Flamingoes
+    kinds:
+      - nature
+    description: 'Flamingoes: Cagliari is the only city in the world visited by migratory flamingoes. The wild birds can be seen in the salty and shallow Saline di Quartu Sant’Elena every summer. A nature reserve has been created alongside these artificial salt pans with paths that allow viewing of the flamingoes.'
+    crowd_level: null
+    best_months: []
+    source_ref: Cagliari > Do > Other
+  - id: sardinia-alghero-cattedrale-di-santa-maria
+    name: Cattedrale di Santa Maria
+    kinds:
+      - other
+    description: Dating back to the 16th century, it is one of the landmarks of the town. Its neo-classical façade was added in the 19th century.
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-chiesa-di-san-francesco
+    name: Chiesa di San Francesco
+    kinds:
+      - religious_site
+    description: 15th-century church in Gothic-Catalan style.
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-chiesa-san-michele
+    name: Chiesa San Michele
+    kinds:
+      - religious_site
+    description: The church dates to the 16th century. Its polychrome tiled dome is one of the symbols of the town. It's quite remarkable though that the dome has received this colourful decoration only in 1950s (designed by Antonio Simon Mossa and Filippo Figari)
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-parrocchia-di-nostra-signora-della-mercede
+    name: Parrocchia di Nostra Signora della Mercede
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-forte-della-maddalena
+    name: Forte della Maddalena
+    kinds:
+      - historic_site
+    description: 16th-century fort.
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-teatro-civico
+    name: Teatro civico
+    kinds:
+      - other
+    description: The town theatre opened in 1862. This building is unique as its supporting structure is made of wood.
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-palazzo-dalbis
+    name: Palazzo d’Albis
+    kinds:
+      - other
+    description: A notable 16th-century Gothic building. In 1541 the Emperor Carlos V stayed there.
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-palazzo-machin
+    name: Palazzo Machin
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-palazzo-serra
+    name: Palazzo Serra
+    kinds:
+      - other
+    description: 18th-century Baroque building.
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-palazzo-lavagna
+    name: Palazzo Lavagna
+    kinds:
+      - other
+    description: 19th-century Neoclassical building.
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-palazzo-civico
+    name: Palazzo Civico
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-palazzo-peretti
+    name: Palazzo Peretti
+    kinds:
+      - other
+    description: 15th-century Gothic-Catalan palazzo.
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-palazzo-carcassona
+    name: Palazzo Carcassona
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-palazzo-simon
+    name: Palazzo Simon
+    kinds:
+      - other
+    description: Built in 1865.
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-torre-di-san-giovanni
+    name: Torre di San Giovanni
+    kinds:
+      - historic_site
+    description: A 16th-century massive defensive tower.
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-villa-mosca
+    name: Villa Mosca
+    kinds:
+      - other
+    description: Now a hotel.
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-villa-las-tronas
+    name: Villa las Tronas
+    kinds:
+      - other
+    description: Yet another villa, now a hotel.
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > See
+  - id: sardinia-alghero-museo-archeologico-della-citta
+    name: Museo Archeologico della Città
+    kinds:
+      - historic_site
+      - museum
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > Do > Museums
+  - id: sardinia-alghero-museo-del-corallo
+    name: Museo del Corallo
+    kinds:
+      - museum
+    description: The Museum of Coral in the Liberty villa.
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > Do > Museums
+  - id: sardinia-alghero-museo-diocesano
+    name: Museo Diocesano
+    kinds:
+      - museum
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Alghero > Do > Museums
+  - id: sardinia-olbia-basilica-di-san-simplicio
+    name: Basilica di San Simplicio
+    kinds:
+      - historic_site
+      - religious_site
+    description: This austere Romanesque basilica minore was built in the 11-12th centuries. It is considered one of the most important monuments in the Gallura region.
+    crowd_level: null
+    best_months: []
+    source_ref: Olbia > See
+  - id: sardinia-olbia-chiesa-di-san-paolo
+    name: Chiesa di San Paolo
+    kinds:
+      - religious_site
+    description: Built in the middle of the 18th century. It has a characteristic tiled polychrome dome added in 1939.
+    crowd_level: null
+    best_months: []
+    source_ref: Olbia > See
+  - id: sardinia-olbia-palazzo-colonna
+    name: Palazzo Colonna
+    kinds:
+      - family
+    description: A villa in a Liberty style was designed by architect Bruno Cipelli for Colonna family. It now hosts the Town Hall.
+    crowd_level: null
+    best_months: []
+    source_ref: Olbia > See
+  - id: sardinia-olbia-villa-clorinda
+    name: Villa Clorinda
+    kinds:
+      - other
+    description: A Liberty villa in pseudo-Gothic style by the same architect. It's a private property, which belongs to a religious college. Still reportedly visitors are able to pass the gates and see the building from outside..
+    crowd_level: null
+    best_months: []
+    source_ref: Olbia > See
+  - id: sardinia-olbia-teatro-michelucci
+    name: Teatro Michelucci
+    kinds:
+      - other
+    description: An open-air theatre designed by the famous Italian architect Giovanni Michelucci.
+    crowd_level: null
+    best_months: []
+    source_ref: Olbia > See
+  - id: sardinia-olbia-pozzo-sacro-di-sa-testa
+    name: Pozzo sacro di Sa Testa
+    kinds:
+      - historic_site
+    description: The remains of a Nuragic temple built around a sacred well.
+    crowd_level: null
+    best_months: []
+    source_ref: Olbia > See > Archeological sites
+  - id: sardinia-olbia-acquedotto-romano
+    name: Acquedotto romano
+    kinds:
+      - historic_site
+    description: Some very modest traces of the Roman aqueduct and the cisterns.
+    crowd_level: null
+    best_months: []
+    source_ref: Olbia > See > Archeological sites
+  - id: sardinia-olbia-cabu-abbas
+    name: Cabu Abbas
+    kinds:
+      - historic_site
+    description: Some remains of nuraghe.
+    crowd_level: null
+    best_months: []
+    source_ref: Olbia > See > Archeological sites
+  - id: sardinia-olbia-castello-di-pedres
+    name: Castello di Pedres
+    kinds:
+      - historic_site
+    description: Remains of the 13th-century castle.
+    crowd_level: null
+    best_months: []
+    source_ref: Olbia > See > Archeological sites
+  - id: sardinia-olbia-tomba-di-giganti-di-su-monte-e-sabe
+    name: Tomba di giganti di Su Monte 'e S'Abe
+    kinds:
+      - historic_site
+    description: One of the so-called tombs of giants, a Nuragic tomb on the South of Olbia. This one is considered to be one of the largest ones and better preserved in Sardinia.
+    crowd_level: null
+    best_months: []
+    source_ref: Olbia > See > Archeological sites
+  - id: sardinia-olbia-museo-archeologico
+    name: Museo Archeologico
+    kinds:
+      - historic_site
+      - museum
+    description: The recovered remains of ancient shipwrecks are of particular interest.
+    crowd_level: null
+    best_months: []
+    source_ref: Olbia > Do
+  - id: sardinia-olbia-parco-fausto-noce
+    name: Parco "Fausto Noce"
+    kinds:
+      - nature
+    description: It's a nice and the largest urban park in Sardinia. Some say though that at times it looks rather deserted, so you may not feel quite safe yourself there then.
+    crowd_level: null
+    best_months: []
+    source_ref: Olbia > Do
+  - id: sardinia-sassari-cattedrale-di-san-nicola
+    name: Cattedrale di San Nicola
+    kinds:
+      - historic_site
+      - religious_site
+    description: The cathedral was built in the 13th century and enlarged in Catalan Gothic style from 1480; there's a monument to the Duca di Moriana inside. The façade, belonging to the Baroque Spanish colonial restorations of 1650–1723, has a rectangular portico surmounted by three niches housing statues of saints. The bell tower is in Romanesque style.
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Old town
+  - id: sardinia-sassari-fontana-di-rosello
+    name: Fontana di Rosello
+    kinds:
+      - historic_site
+    description: The 17th-century fountain built at the ancient source. The fountain is considered the symbol of the city. At the top of two crossing arches there is a statue of St. Gavino.
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Old town
+  - id: sardinia-sassari-palazzo-ducale
+    name: Palazzo Ducale
+    kinds:
+      - historic_site
+    description: Now the City Hall.
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Old town
+  - id: sardinia-sassari-le-stanze-e-le-cantine-del-duca
+    name: Le Stanze e le Cantine del Duca
+    kinds:
+      - historic_site
+      - museum
+    description: A part of the Civic Museum.
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Old town
+  - id: sardinia-sassari-palazzo-di-citta
+    name: Palazzo di Città
+    kinds:
+      - historic_site
+    description: Entering from Corso Vittorio Emanuele II visitors could see the interiors of the Palazzo di Città including the ball room, the historic Civic Theatre. Another entrance is from Via Sebastiano Satta through the tourist information office. This part presents some Sardinian costumes and two works of Eugenio Tavolara depicting the Carnival and the Holy Week in Sassari.
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Old town
+  - id: sardinia-sassari-teatro-civico
+    name: Teatro Civico
+    kinds:
+      - historic_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Old town
+  - id: sardinia-sassari-palazzo-tola
+    name: Palazzo Tola
+    kinds:
+      - historic_site
+    description: There are still some traces there of its initial Renaissance façade.
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Old town
+  - id: sardinia-sassari-chiesa-di-santa-maria-di-bethlem
+    name: Chiesa di Santa Maria di Bethlem
+    kinds:
+      - historic_site
+      - religious_site
+    description: Despite its modest exterior it's richly decorated inside.
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Old town
+  - id: sardinia-sassari-vecchie-mura
+    name: Vecchie mura
+    kinds:
+      - historic_site
+    description: A fragment of the Pisan city walls.
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Old town
+  - id: sardinia-sassari-museo-nazionale-g-a-sanna
+    name: Museo Nazionale G.A. Sanna
+    kinds:
+      - museum
+    description: Largest museum institution in the north-central Sardinia in size and importance of its scientific collections, and an important cultural reference for the North of the island. Closed for restoration work as of late February, 2020 with no reopening date.
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Other sites
+  - id: sardinia-sassari-pinacoteca-musa-al-canopoleno
+    name: Pinacoteca Mus'a al Canopoleno
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Other sites
+  - id: sardinia-sassari-palazzo-delluniversita
+    name: Palazzo dell'Università
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Other sites
+  - id: sardinia-sassari-palazzo-della-provincia
+    name: Palazzo della Provincia
+    kinds:
+      - other
+    description: Built in 1872.
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Other sites
+  - id: sardinia-sassari-casa-cugurra
+    name: Casa Cugurra
+    kinds:
+      - other
+    description: Built in 1890 in Neo-Baroque style with 1906 extension in Liberty style.
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Other sites
+  - id: sardinia-sassari-villa-santelia
+    name: Villa Sant’Elia
+    kinds:
+      - other
+    description: A villa in Liberty style.
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Other sites
+  - id: sardinia-sassari-padiglione-per-lartigianato-eugenio-tavolara
+    name: Padiglione per l'artigianato "Eugenio Tavolara"
+    kinds:
+      - museum
+    description: Tavolara pavilion for handicrafts and design is the headquarters and the exhibition space of I.S.O.L.A. (Sardinian craftsmanship institution). Built in 1956 by the project of Italian architect Ubaldo Badas.
+    crowd_level: null
+    best_months: []
+    source_ref: Sassari > See > Other sites
 extraction:
-  listings: 22
+  listings: 193
   listings_by_type:
+    do: 14
     drink: 8
-    eat: 14
+    eat: 65
+    go: 19
+    listing: 13
+    see: 60
+    sleep: 14
   priced_listings:
-    sleep: 0
-    eat: 0
+    sleep: 11
+    eat: 4
   poi_sources:
-    listing: 0
+    listing: 74
     marker: 1
-    named: 0
+    named: 1
   duplicate_pois_dropped: 0
+  generic_items_pruned: 2

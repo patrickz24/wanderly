@@ -15,6 +15,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Andalusia
   revision_id: 5363259
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: andalusia
+    title: Andalusia
+    url: https://en.wikivoyage.org/wiki/Andalusia
+    revision_id: 5363259
+    license: CC BY-SA 4.0
+  - file: places/seville.md
+    role: place
+    id: seville
+    title: Seville
+    url: https://en.wikivoyage.org/wiki/Seville
+    revision_id: 5378749
+    license: CC BY-SA 4.0
+  - file: places/ronda.md
+    role: place
+    id: ronda
+    title: Ronda
+    url: https://en.wikivoyage.org/wiki/Ronda
+    revision_id: 5355704
+    license: CC BY-SA 4.0
+  - file: places/granada.md
+    role: place
+    id: granada
+    title: Granada
+    url: https://en.wikivoyage.org/wiki/Granada
+    revision_id: 5351300
+    license: CC BY-SA 4.0
+  - file: places/marbella.md
+    role: place
+    id: marbella
+    title: Marbella
+    url: https://en.wikivoyage.org/wiki/Marbella
+    revision_id: 5353451
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -93,29 +129,73 @@ climate:
       rain_days: 5.5
       precipitation_mm: 46.3
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
-    meal: null
-    notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+    lodging_night:
+      median: 55
+      min: 4
+      max: 430
+      currency: €
+      sample_size: 59
+      excluded_other_currency: 0
+    meal:
+      median: 17.5
+      min: 1.5
+      max: 100
+      currency: €
+      sample_size: 12
+      excluded_other_currency: 0
+    notes: []
   levels:
     budget:
-      lodging_night: null
-      meal: null
-      notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+      lodging_night:
+        median: 17
+        min: 4
+        max: 50
+        currency: €
+        sample_size: 19
+        excluded_other_currency: 0
+      meal:
+        median: 7.5
+        min: 1.5
+        max: 13.6
+        currency: €
+        sample_size: 3
+        excluded_other_currency: 0
+      notes: []
     mid:
-      lodging_night: null
-      meal: null
-      notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+      lodging_night:
+        median: 65.5
+        min: 7
+        max: 200
+        currency: €
+        sample_size: 30
+        excluded_other_currency: 0
+      meal:
+        median: 17.5
+        min: 10
+        max: 30
+        currency: €
+        sample_size: 7
+        excluded_other_currency: 0
+      notes: []
     comfort:
-      lodging_night: null
-      meal: null
+      lodging_night:
+        median: 150
+        min: 80
+        max: 430
+        currency: €
+        sample_size: 10
+        excluded_other_currency: 0
+      meal:
+        median: 62.5
+        min: 25
+        max: 100
+        currency: €
+        sample_size: 2
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - Eat figure under Splurge rests on only 2 listing(s).
 pois:
   - id: andalusia-ronda
     name: Ronda
@@ -124,7 +204,7 @@ pois:
     description: a beautiful town with an impressive bridge along the deep gorge
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Andalusia > Other destinations
   - id: andalusia-ubeda
     name: Úbeda
     kinds:
@@ -132,7 +212,7 @@ pois:
     description: a Renaissance monumental town of many hills included in UNESCO's World Heritage List
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Andalusia > Other destinations
   - id: andalusia-donana-national-park
     name: Doñana National Park
     kinds:
@@ -140,7 +220,7 @@ pois:
     description: UNESCO World Heritage site
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Andalusia > Other destinations
   - id: andalusia-cabo-de-gata-nijar-natural-park
     name: Cabo de Gata-Níjar Natural Park
     kinds:
@@ -148,7 +228,7 @@ pois:
     description: Andalusia's largest coastal protected area, a wild and isolated landscape with some of Europe's oldest geological features
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Andalusia > Other destinations
   - id: andalusia-alhama-de-granada
     name: Alhama de Granada
     kinds:
@@ -157,7 +237,7 @@ pois:
     description: an old spa village above a gorge
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Andalusia > Other destinations
   - id: andalusia-baza-natural-park
     name: Baza Natural Park
     kinds:
@@ -165,7 +245,7 @@ pois:
     description: 53,649 hectares of Natural Park
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Andalusia > Other destinations
   - id: andalusia-costa-del-sol
     name: Costa del Sol
     kinds:
@@ -174,7 +254,7 @@ pois:
     description: sunny beaches and beautiful villages along Spain's southern coast
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Andalusia > Other destinations
   - id: andalusia-juzcar
     name: Júzcar
     kinds:
@@ -182,7 +262,7 @@ pois:
     description: a small village painted Smurf blue for 2011 movie Smurfs II.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Andalusia > Other destinations
   - id: andalusia-la-alpujarra
     name: La Alpujarra
     kinds:
@@ -190,7 +270,7 @@ pois:
     description: a mountainous district south of the Sierra Nevada
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Andalusia > Other destinations
   - id: andalusia-sierra-nevada
     name: Sierra Nevada
     kinds:
@@ -200,7 +280,7 @@ pois:
     description: the highest mountains in the Iberian Peninsula, excelling for skiing and hiking
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Andalusia > Other destinations
   - id: andalusia-moorish-architecture
     name: Moorish architecture
     kinds:
@@ -208,7 +288,7 @@ pois:
     description: Moorish architecture in Granada, including the Alhambra.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Andalusia > See
   - id: andalusia-lake-negratin
     name: Lake Negratin
     kinds:
@@ -218,7 +298,7 @@ pois:
     description: Lake Negratin is situated at the foothills of Mount Jabalcón. As one of Europe's largest lakes, it really is worth seeing not least for the most magnificent lunar-landscape that surrounds it. The rock formations and the colours it produces during different times of the day can be likened to those of the Grand Canyon. There is a man-made beach where you can laze the day away, a number of restaurants dotted round the lake and on a nice day you can swim or take out a pedalo boat, which might lead you to pink flamingos and various other wildlife.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Andalusia > See
   - id: andalusia-seron
     name: Seron
     kinds:
@@ -226,7 +306,7 @@ pois:
     description: Seron is nestled on the lower slopes of the Sierra de los Filabres and is a picturesque town that cascades down the hillside. Dominated by its Castle, which sits at the very top, Seron is famous for its ham and provides a more traditional experience of Andalusian life. It is a beautiful location to start your exploration of the Filabres, or visit at the right time of year and you might find yourself submerged in a vibrant fiesta.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Andalusia > See
   - id: andalusia-las-menas
     name: Las Menas
     kinds:
@@ -235,7 +315,7 @@ pois:
     description: Las Menas, an old mining village abandoned thirty years ago, makes an interesting stop in the Sierra de los Filabres. You can investigate old ruins crumbling amidst the most breathtaking countryside, stop for coffee and cake at the hotel and even camp for the night.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Andalusia > See
   - id: andalusia-andaventur-granada-adventure-company
     name: Andaventur Granada Adventure Company
     kinds:
@@ -245,7 +325,7 @@ pois:
     description: Outdoor sports in the Sierra Nevada National park and Granada province, Tandem paraglider flights, Canyoning, Hiking, Ski, Rock Climbing, Horse riding.
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Andalusia > Do
   - id: andalusia-rock-climbing-company
     name: Rock Climbing Company
     kinds:
@@ -254,23 +334,7 @@ pois:
     description: High quality rock climbing and scrambling courses in Andalusia. Courses based in Malaga province both on the coast and also inland near to the El Chorro gorge.
     crowd_level: null
     best_months: []
-    source_ref: Do
-  - id: andalusia-walking
-    name: Walking
-    kinds:
-      - hiking
-    description: Walking and hiking in the Sierra Nevada
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: andalusia-windsurfing-and-kiting
-    name: Windsurfing and kiting
-    kinds:
-      - adventure
-    description: Windsurfing and kiting in Tarifa, Spain's southern tip
-    crowd_level: null
-    best_months: []
-    source_ref: Do
+    source_ref: Andalusia > Do
   - id: andalusia-horse-riding-and-spain
     name: Horse riding and Spain
     kinds:
@@ -280,15 +344,7 @@ pois:
     description: Horse riding and Spain go hand-in-hand and with such spectacular mountain ranges at your disposal as the Sierra Nevada and Alpujarra Hills; you have a feast of beautiful Andalusian trekking land to indulge in astride your faithful friend. There are several stables situated in these areas, and all offer the option to ride for an hour, a day, or even as long as 7 nights. Accommodation and food are included in prices and the whole experience offers a unique way to see this amazing part of Spain. Prices vary from €25 to €1200 and there are so many options to choose from that you will undoubtedly find something to suit your level and requirements.
     crowd_level: null
     best_months: []
-    source_ref: Do
-  - id: andalusia-flamenco
-    name: Flamenco
-    kinds:
-      - museum
-    description: Flamenco is the all-Andlusian art with a history stretching back over 3,000 years. The Museo del Baile Flamenco (Flamenco Dance Museum) is the ideal place to learn more about this phenomenon. Shows are offered on Friday and Saturday nights at 19:30, too.
-    crowd_level: null
-    best_months: []
-    source_ref: Do
+    source_ref: Andalusia > Do
   - id: andalusia-andalusia-day
     name: Andalusia day
     kinds:
@@ -296,17 +352,979 @@ pois:
     description: Commemorates the February 28, 1980 referendum on the Statute of Autonomy of Andalusia, in which Andalusians achieved recognition for an autonomous region within the state of Spain.
     crowd_level: null
     best_months: []
-    source_ref: Do > Events
+    source_ref: Andalusia > Do > Events
+  - id: andalusia-seville-cathedral
+    name: Cathedral
+    kinds:
+      - historic_site
+      - religious_site
+    description: "Huge 15th-century church on the site of the former great mosque; richly decorated with the central nave rising to 37 m. An ornate canopy and statue marks the final resting place of Christopher Columbus. If there's a queue for tickets then go to the nearby Church of Salvador (Iglesia del Salvador) and buy a combi ticket. Cathedral admission includes La Giralda, the minaret that is now the magnificent bell tower. Within, you ascend 34 ramps - no need to keep count as they're tallied on the wall - then a last short flight of steps brings you onto the viewing terrace. Church of Salvador: all of its Rocco altarpieces were cleaned and excavations revealed remains from an Islamic mosque and earlier Christian churches, now accessible in the crypt. Unless you like massive cathedrals, the effect is much more impressive."
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-real-alcazar
+    name: Real Alcázar
+    kinds:
+      - nature
+      - historic_site
+      - religious_site
+      - family
+    description: 'A beautiful palace in Mudéjar (Moorish) style, built in the 12th century by the Almohad Caliphs. Greatly remodelled and extended in the 14th century by Pedro I the Cruel, its myriad rooms, extravagant architecture, lavish gardens including a maze, with many courtyards, ponds and secrets to be explored, make it a fascinating place to visit. The room where Christopher Columbus''s journey across the Atlantic was planned has his coat of arms embroidered on the wall along with those of royalty. The Royal Apartments are open to tours whenever the royal family aren''t using them. In the heat of summer the palace is a cool retreat from the sun''s glare, and there are night tours Mar-Oct. There are toilets and a cafe within the walls of the site. It gets busy in high season: buy tickets online in advance, and only from the official website. The tourist entrance, "The Lion''s Gate", is on the side facing the cathedral and has a large image of a lion above it.'
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-hospital-de-los-venerables
+    name: Hospital de los Venerables
+    kinds:
+      - religious_site
+    description: A 17th-century retirement home and hospital for aged and sickly retired priests, restored by the Fundación to preserve an example of Andalusian architecture at its very best. Includes a resplendent Baroque chapel which is highly recommended, as well as the Santa Rufina painted by Diego Velázquez.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-torre-del-oro
+    name: Torre del Oro
+    kinds:
+      - beach
+      - historic_site
+      - museum
+    description: A 13th-century tower, the top of which is rumored to have once been covered in gold. It now houses the local maritime museum.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-alameda-de-hercules
+    name: Alameda de Hercules
+    kinds:
+      - food
+    description: Authentic and less touristy plaza with local food opportunities.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-parque-maria-luisa
+    name: Parque María Luisa
+    kinds:
+      - historic_site
+      - museum
+    description: Built for the 1929 Iber-Americano World's Fair and now landscaped with attractive monuments and museums.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-palacio-de-las-duenas
+    name: Palacio de Las Dueñas
+    kinds:
+      - historic_site
+      - religious_site
+    description: Las Dueñas is a palace belonging to the House of Alba. It was built in the 15th century, with Renaissance architecture style and Gothic-Mudejar influences. The palace is one of the major historic homes in the city. The poet Antonio Machado was born here in 1875. It is also said that Amerigo Vespucci married in this chapel at the beginning of the 16th century. The Palace has a great collection of paintings (Ribera, Luca Giordano, Neri de Bicci), ceramics, antique furniture and other decorative arts, sculptures of Ancient Rome and contemporary (Mariano Benlluire), Flemish tapestries (Willem de Pannemaker), mosaics, and many other pieces of art. An important site for understanding Andalusian customs and history.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-plaza-de-espana
+    name: Plaza de España
+    kinds:
+      - museum
+    description: 'The site of the Spanish pavilion from the 1929 exhibition: the semi-circle has little ceramic maps of every region of Spain plus images of them and/or their history. It was also used in the filming of the Star Wars prequels. Visit it early in the morning on a weekday to see a long line of immigrants outside one of the government offices it now houses, or visit it right before it closes (officially at 22:00 but likely half an hour later) to see it completely empty and rather eerie.'
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-real-fabrica-de-tabacos
+    name: Real Fábrica de Tabacos
+    kinds:
+      - nature
+      - historic_site
+      - religious_site
+    description: "The main building of the University of Seville was once the Tobacco Factory of Seville, and was constructed between 1728 and 1771 by Sebastián Van der Bocht. Over the main entrance, the triangular façade ends in a statue of La Fama (fame). The tobacco factory was then the largest industrial building in Spain. A monopoly assured high income, which is reflected in the factory's architecture and surrounding gardens. Its chapel and prison complement the main building. In the interior you find impressive stairways, fountains and Patios. It was the setting for the first act of Bizet's opera Carmen. In 1953 the factory was converted into the main building of Seville University. Just behind the tobacco factory, the María Luisa Park borders the historic centre of Seville to the south. Although it's open to the public (as all university buildings are), the building is used for academic purposes. Be respectful: don't venture into closed rooms and disrupt lectures."
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-palacio-de-la-condesa-de-lebrija
+    name: Palacio de la Condesa de Lebrija
+    kinds:
+      - historic_site
+    description: The palace is considered the 'best paved house-palace in Europe' owing to its collection of Roman mosaics and marble floors in the 'opus sectile' geometric style, which paved practically the whole of the ground floor. There is also a collection of well parapets, vases, amphora, columns and sculptures of incalculable worth. On the upper floor you can visit the residences previously inhabited by the Countess and her descendants, up to only a few years ago; extremely well-preserved, they are today filled with ornaments and furniture from all over the world, priceless artwork by Van Dyke, Bruegel, Alonso Cano, among others, as well as collections of porcelain and glass.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-casa-de-pilatos
+    name: Casa de Pilatos
+    kinds:
+      - historic_site
+    description: A 16th-century palace and generally thought to be one of the best in the city.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-palacio-arzobispal
+    name: Palacio Arzobispal
+    kinds:
+      - historic_site
+    description: It is in the historical section of the city and is home to various clergy and the Archbishop. On the outside you only can catch a glimpse of the patio but on the inside there are important works of art.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-archivo-general-de-indias
+    name: Archivo General de Indias
+    kinds:
+      - other
+    description: This Renaissance building houses extensive archives relating to the Spanish conquest of the Americas, and is designated a UNESCO World Heritage Site. Included in the collection are the diaries of Columbus. The archive hosts rotating special exhibits.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-metropol-parasol
+    name: Metropol Parasol
+    kinds:
+      - beach
+      - religious_site
+      - food
+    description: An enormous wooden structure, designed by German architect Jürgen Mayer-Hermann, inspired by the Cathedral of Seville and in the form of giant mushrooms. Known to locals as 'las setas' (the mushrooms), the structure covers the Central Market and the Antiquarium; the top level contains a restaurant and provides some of the best views of Seville.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-barrio-santa-cruz
+    name: Barrio Santa Cruz
+    kinds:
+      - religious_site
+      - nightlife
+    description: Barrio Santa Cruz is the old Jewish Quarter, the winding narrow lanes just east of the cathedral and north of Alcázar. It's the most charming part of the city, with lots of bars and eating places, but it's also the most touristy.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Landmarks
+  - id: andalusia-seville-museo-de-bellas-artes
+    name: Museo de Bellas Artes
+    kinds:
+      - museum
+      - religious_site
+      - food
+    description: Considered by some as the second most important fine arts museum in Spain after the Prado in Madrid. The museum building is a former mercy convent renewed in the 17th century and the 15 exhibition rooms show a comprehensive picture of Sevillian art from the Gothic period to the early trends of the 20th century. The square just outside hosts an open-air art market on Sundays until around 13:30. Plenty of original paintings on local topics, although some not so interesting bits as well!
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Museums and galleries
+  - id: andalusia-seville-museo-arqueologico-de-sevilla
+    name: Museo Arqueológico de Sevilla
+    kinds:
+      - museum
+    description: It has one of the best collection of Roman-era artifacts in Spain, brought from nearby Italica.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Museums and galleries
+  - id: andalusia-seville-museo-antiquarium
+    name: Museo Antiquarium
+    kinds:
+      - historic_site
+      - museum
+    description: A museum with excavated Roman and Moorish remains, discovered during construction of the Metropol Parasol. You can enter for free if you show your ticket for the alcazar, even if the ticket is a few days old.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Museums and galleries
+  - id: andalusia-seville-centro-andaluz-de-arte-contempraneo
+    name: Centro Andaluz de Arte Contempraneo
+    kinds:
+      - museum
+      - religious_site
+    description: Contemporary art museum in the former Carthusian monastery of Santa Maria of Las Cuevas, which has a fascinating history as a clay mine, monastery, and ceramics factory. The site and expansive grounds are worth a visit in their own right, including a striking rose window, industrial chimneys, and orange orchards. This was one of the places where the remains of Christopher Columbus were buried, before ending up in the Cathedral.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > See > Museums and galleries
+  - id: andalusia-seville-horse-drawn-carriage
+    name: Horse-drawn carriage
+    kinds:
+      - nature
+      - religious_site
+    description: Horse-drawn carriage rides found near the cathedral take you to the nearby park and other sites of interest. For the sake of the animals, try to avoid carriage rides in the heat of the day in summer.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > Do
+  - id: andalusia-seville-museo-del-baile-flamenco
+    name: Museo del Baile Flamenco
+    kinds:
+      - historic_site
+      - museum
+    description: Offers an experience for all the senses with ambiental music, videos, touch-screens and artifacts to be found in this 18th century building at the heart of the historical Barrio Santa Cruz. On Friday and Saturday evenings a spectacular show is hosted at a discounted price for visitors to the museum. Flamenco art and photography exhibitions are also on display and dance, singing, percussion and guitar lessons are offered.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > Do > Flamenco
+  - id: andalusia-seville-la-casa-del-flamenco
+    name: La Casa del Flamenco
+    kinds:
+      - other
+    description: A good spot to see real flamenco.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > Do > Flamenco
+  - id: andalusia-seville-la-carboneria
+    name: La Carbonería
+    kinds:
+      - other
+    description: Offers free flamenco shows nightly. Arrive early for good seats.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > Do > Flamenco
+  - id: andalusia-seville-semana-santa
+    name: Semana Santa
+    kinds:
+      - other
+    description: The sombre Easter week processions feature thousands of people and go on all week, a spectacular display of conspicuous Catholicism.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > Do > Festivals
+  - id: andalusia-seville-feria-de-abril
+    name: Feria de Abril
+    kinds:
+      - beach
+    description: Also known as "Feria de Sevilla" - a release after the somberness of Semana Santa. To say this is a huge party would be an understatement. Most if not all of Seville takes a week's holiday (the Wednesday of Feria week is a public holiday) and they plan for the fair months in advance. The fair is close to the river. It covers a huge area and contains hundreds of private and public casetas which are laid out to form streets. Casetas are small marquees and you can only get into the private ones if invited. The public ones are large but just as much fun. The day is naturally split in two and between 12:00 and 20:00 the streets of the fair throng with horses as riders and carriages strut their stuff dressed in traditional Spanish robes. After 20:00 the streets are cleared and "Calle del Inferno" comes to life. This must be one of the best funfairs in Europe – it takes weeks to assemble and pack up. Experience traditional dress, flamenco dancing (and the "sevillanas", the traditional dance of the region of Seville), guitars, fino, great tapas and participants who dance with gusto and eat and drink the day and night away.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > Do > Festivals
+  - id: andalusia-seville-real-betis
+    name: Real Betis
+    kinds:
+      - other
+    description: Capacity 60,700. Their women's team play in Liga F (their top tier) at the nearby Luis del Sol training ground.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > Do > Sport and outdoor activities
+  - id: andalusia-seville-sevilla-fc
+    name: Sevilla FC
+    kinds:
+      - other
+    description: Capacity 42,500. Their women's team play in Liga F at Ramón Cisneros training ground 5 km southeast of the centre.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > Do > Sport and outdoor activities
+  - id: andalusia-seville-plaza-de-toros-de-la-real-maestranza
+    name: Plaza de Toros de la Real Maestranza
+    kinds:
+      - museum
+    description: Bullfighting is not a sport for all; those who are either squeamish or have convictions on animal welfare should stay clear, as the event concludes with the killing of the bulls. Failing that, a visit to the arena and the attached museum of bull-fighting is well worth the time. While it is not the largest, it is considered the most attractive bull arena in Spain due to its history.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > Do > Sport and outdoor activities
+  - id: andalusia-seville-rugby-union
+    name: Rugby Union
+    kinds:
+      - other
+    description: "Rugby Union: Real Ciencias play 15-a-side in División de Honor, Spain's top tier. They play at Instalaciones Deportivas La Cartuja (capacity 3000), west bank of the river 5 km north of city centre."
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > Do > Sport and outdoor activities
+  - id: andalusia-seville-cerro-de-carambolo
+    name: Cerro de Carambolo
+    kinds:
+      - other
+    description: Cerro de Carambolo gives you a view of the whole city. The hill is outside of the town but can be reached on the M-170, M-171, and M-173 from the Plaza de Armas bus station.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > Do > Sport and outdoor activities
+  - id: andalusia-seville-skydive-spain
+    name: Skydive Spain
+    kinds:
+      - other
+    description: Skydive Spain are based at La Juliana Airfield 15 km southwest of the city.
+    crowd_level: null
+    best_months: []
+    source_ref: Seville > Do > Sport and outdoor activities
+  - id: andalusia-ronda-puente-nuevo
+    name: Puente Nuevo
+    kinds:
+      - nature
+      - museum
+    description: This large and incredible bridge over the Tajo gorge, finished in 1793, is Ronda's principal attraction. The bridge is 70 m long and 98 m high, equivalent to a 30-floor building, and connects the quarter of La Ciudad with the Mercadillo. It was built following the collapse of an earlier bridge from 1735; this bridge had a single arch of 35m but collapsed six years after construction, killing 50 people. There are beautiful views from here of the Sierra de Grazalema to the west. A small museum is inside.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See
+  - id: andalusia-ronda-plaza-de-toros
+    name: Plaza de Toros
+    kinds:
+      - other
+    description: The oldest and one of the most highly regarded of Spain's bull rings, built in 1785 in the neoclassical style. This is considered to be the cradle of modern Spanish bullfighting, where Pedro Romero (1754-1839) developed a new style of fighting bulls on foot (and not from horseback as had been done previously); he also was the first to begin using a red cloth. Romero retired after he had killed 5000 bulls and remained uninjured. His son and grandson carried on the tradition.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See > Mercadillo
+  - id: andalusia-ronda-parque-alameda
+    name: Parque Alameda
+    kinds:
+      - hiking
+      - nature
+      - viewpoint
+    description: A nice park with shady trees and ample walking space. You can see wonderful panoramas from the viewing platforms.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See > Mercadillo
+  - id: andalusia-ronda-iglesia-de-santa-maria-la-mayor
+    name: Iglesia de Santa Maria la Mayor
+    kinds:
+      - beach
+      - historic_site
+      - religious_site
+    description: This is most important church in Ronda, built after the reconquista on the site of town's former principal Moorish mosque, with construction lasting from 1485 until the end of the 17th century. The only features remaining from the mosque are the arch of the mirhab and a section of its wall covered with stucco, both hidden behind the retable of the main altar; additionally the former minaret was converted to the bell tower. This is a Gothic-style church that, inside, has elements of the Baroque and Rococo, as the church was partly rebuilt following the earthquake of 1580. The walnut and cedar choir seating dates from the Renaissance period. An unusual feature is a balcony on the front side of the church which faces the Ayuntamiento (city hall).
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See > La Ciudad
+  - id: andalusia-ronda-iglesia-de-espiritu-santo
+    name: Iglesia de Espíritu Santo
+    kinds:
+      - historic_site
+      - religious_site
+    description: Construction of this church began in 1485 and was completed 20 years later. The church has a nave with three vaults, and from the outside has the appearance of a fortification.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See > La Ciudad
+  - id: andalusia-ronda-palacio-de-mondragon
+    name: Palacio de Mondragón
+    kinds:
+      - historic_site
+      - museum
+    description: A former Moorish palace with beautiful courtyards, a terrace, and a fantastic view. Today it houses a small museum dedicated to the history of the town.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See > La Ciudad
+  - id: andalusia-ronda-puente-viejo
+    name: Puente Viejo
+    kinds:
+      - other
+    description: This small bridge was the means of crossing the Tajo before the completion of the newer, larger one.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See > La Ciudad
+  - id: andalusia-ronda-arco-de-felipe-v
+    name: Arco de Felipe V
+    kinds:
+      - other
+    description: A beautiful arch, named for Phillip the Fifth.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See > La Ciudad
+  - id: andalusia-ronda-banos-arabes
+    name: Baños Árabes
+    kinds:
+      - other
+    description: A 13th-century Moorish public bathhouse, considered to be one of the best-preserved in Spain. The vaulting is particularly noteworthy.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See > La Ciudad
+  - id: andalusia-ronda-museo-de-peinado
+    name: Museo de Peinado
+    kinds:
+      - historic_site
+      - museum
+    description: Joaquin Peinade was born in 1898 in Ronda and died in 1975 in Paris. Artistically he was a descendant of Cézanne and spiritual son of Picasso, and he is often described as the most elegant of the painters from the so-called 'Spanish School' of Paris. Paintings from the painter's career, which spanned from 1923-1974 are on display. The collection includes more than 190 pieces, including some lesser-known works from the painter's private collection. Particularly noteworthy paintings include Still Life with Pears, Figure with Dove, Fruit Basket, and Female Nude. The museum is housed in a palace named after the last Aztec king, in the center of La Ciudad. The building from the 19th century has mixed architectural influences, and both courtyards are worth looking at.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See > La Ciudad
+  - id: andalusia-ronda-museo-lara
+    name: Museo Lara
+    kinds:
+      - museum
+    description: Opened following the initiative of Juan Lara Jurado, this museum houses a collection of more than 2000 works of art and antiquities. It is the largest private museum in Andalusia.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See > La Ciudad
+  - id: andalusia-ronda-puerta-de-almocabar
+    name: Puerta de Almocábar
+    kinds:
+      - other
+    description: Ronda's primary Moorish gate separates La Ciudad from the Barrio de San Francisco. There are a couple sets of stairs leading to the top of the wall and to the watchtowers, which offer great views of the surrounding area.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See > La Ciudad
+  - id: andalusia-ronda-casa-del-gigante
+    name: Casa del Gigante
+    kinds:
+      - other
+    description: So-named for the stone figure placed at the corner. The house dates from the 14 and 15th centuries, and has a number of Moorish architectural elements, including horseshoe arches, ornate stucco work, and decorative wooden ceilings. The building has been carefully restored and is open to the public.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See > La Ciudad
+  - id: andalusia-ronda-palacio-del-marques-de-salvatierra
+    name: Palacio del Marqués de Salvatierra
+    kinds:
+      - other
+    description: A Renaissance mansion with an unusual façade of four Peruvian Indians. The building is still a private residence and is not open to the public, but can be viewed from the outside.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See > La Ciudad
+  - id: andalusia-ronda-casa-de-san-juan-bosco
+    name: Casa de San Juan Bosco
+    kinds:
+      - nature
+    description: Built in the early 20th century and accessed via a tiled entryway, the house contains a large collection of regional ceramics as well as 19th-century tapestries. A landscaped terrace provides wonderful views of the gorge and the Puente Nuevo.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > See > La Ciudad
+  - id: andalusia-ronda-interpretation-center-of-ronda-wine
+    name: Interpretation Center of Ronda Wine
+    kinds:
+      - museum
+      - wine
+    description: Old winery and now a museum of wine, offering wine tastings and vineyard tours.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > Do
+  - id: andalusia-ronda-la-casa-del-rey-moro
+    name: La Casa Del Rey Moro
+    kinds:
+      - nature
+      - historic_site
+    description: Pretty gardens and a castle undergoing renovation. The main attraction, however, is the water mine – underground steps leading all the way down to the bottom of the gorge.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > Do
+  - id: andalusia-ronda-feria-de-pedro-romero
+    name: Feria de Pedro Romero
+    kinds:
+      - other
+    description: Celebrated with parades and bullfights.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > Do
+  - id: andalusia-ronda-hiking
+    name: Hiking
+    kinds:
+      - hiking
+      - nature
+      - viewpoint
+    description: There are a number of hiking trails around Ronda, including eight with trailheads beginning in Ronda. The tourist information office carries maps and trail descriptions for €1/trail; alternatively their website has a comprehensive list of routes with GPS coordinates and trail descriptions available for free download. One of the most popular routes is Route 3 (SL-A 38), which descends to the bottom of the Tajo Gorge passing by several excellent viewpoints of the Puente Nuevo. (A word of caution is advised, though, as if there is an extended dry spell, the gorge can stink because sewage is still released into the river.)
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > Do
+  - id: andalusia-ronda-sportmountain
+    name: Sportmountain
+    kinds:
+      - historic_site
+    description: Considered possibly one of the most picturesque and historically charged descents in Spain, a river that divides a city in two, with a 100-meter deep abyss.The descent of the river runs through the centre of Ronda.
+    crowd_level: null
+    best_months: []
+    source_ref: Ronda > Do
+  - id: andalusia-granada-plaza-isabel-la-catolica
+    name: Plaza Isabel la Catolica
+    kinds:
+      - other
+    description: At the junction of Granada's two grand boulevards is this small square with a prominent statue of Columbus unfurling a contract with Queen Isabel, outlining the terms of their agreement in preparation for his first voyage to the Americas, an event which likely occurred in Granada. A pleasant fountain surrounds the statue and there are benches nearby, allowing you to relax and take in the passing crowds of vehicles and people.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Central Granada
+  - id: andalusia-granada-cathedral-of-granada
+    name: Cathedral of Granada
+    kinds:
+      - hiking
+      - historic_site
+      - religious_site
+    description: Towering over the surrounding blocks is this spectacular 16th century structure, the second-largest cathedral in Spain and noted for its bright Renaissance interior. Constructed after the Reconquista of Granada to replace the mosque on the site, the cathedral was laid out with Gothic foundations but built in the Renaissance style and decorated with Baroque elements. Upon entering you'll be behind the main altar, located beneath the towering circular Capilla Mayor (sanctuary) with its magnificent domed ceiling. Surrounding the sanctuary and the pews are a series of chapels with magnificent artwork, and the sacristy (tucked away on your right immediately after entering) holds a collection of fine paintings, mirrors, and furnishings. Additionally, the spectacular façade of the cathedral (on the west side of the structure, opposite the Gran Via) is worth walking around outside to view - based on the design of a triumphal arch, it overshadows the small square below.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Central Granada
+  - id: andalusia-granada-royal-chapel
+    name: Royal Chapel
+    kinds:
+      - historic_site
+      - museum
+      - religious_site
+    description: Commissioned after the Reconquista of the city, the Royal Chapel holds the tombs of King Ferdinand II and Queen Isabella I, the famed Catholic Monarchs who conquered the city and decided to be buried at the site of their victory. The chapel was constructed in Gothic style but the intricate marble tombs are done in Renaissance style. Additionally, Ferdinand and Isabella's heirs Juana I (Juana la Loca) and Philip I (Felipe el Hermoso) are buried here. Aside from the beautiful and intricate artwork in the chapel and high altar there is also a museum on-site with a number of objects symbolizing Ferdinand and Isabel's rule, including Isabella's art collection, crown and sceptre and Ferdinand's sword.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Central Granada
+  - id: andalusia-granada-plaza-de-bib-rambla
+    name: Plaza de Bib-Rambla
+    kinds:
+      - historic_site
+      - religious_site
+      - food
+    description: A pleasant square with a view of the cathedral's tower, this plaza was originally the center of Moorish Granada, a bustling focus point of markets and festivals. Under Christian rule the square was expanded and used as a focal point of Catholic processions. Today the square is a quiet place to relax, enjoy a coffee or a meal, or take in the colorful flowers and bubbling fountain.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Central Granada
+  - id: andalusia-granada-alcaiceria
+    name: Alcaiceria
+    kinds:
+      - religious_site
+      - food
+    description: South of the Cathedral is this set of winding alleyways which were originally home to a Moorish silk market under Granada's Muslim rule. Although the market initially survived the Reconquista, Philip II had it shut down and a fire destroyed what was left in 1850. Today's market was rebuilt in the late 19th century for tourists and holds mostly souvenir stores underneath the Moorish-style archways decorating the walls. While the wares are mostly tacky novelties, the architecture is worth a look.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Central Granada
+  - id: andalusia-granada-corral-del-carbon
+    name: Corral del Carbón
+    kinds:
+      - historic_site
+    description: One of the rare bits of Moorish architecture left in the central district, this courtyard building is perhaps the oldest monument in Granada. Originally the building was used as a caravanserai - a place for merchants to rest and store goods - and was one of many surrounding the Alcaiceria. Later it was adapted for theater plays and today you can buy tickets for musical events here. Walk through the grand Moorish door and enjoy the brick-walled courtyard.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Central Granada
+  - id: andalusia-granada-plaza-nueva
+    name: Plaza Nueva
+    kinds:
+      - historic_site
+      - religious_site
+      - food
+      - nightlife
+    description: Long an important center of life in Granada, Plaza Nueva is the city's oldest square, situated beneath the Alhambra and at the foot of the Albayzin, and today links these attractions with the newer parts of the city to the west. Surrounding the square is a multitude of bars and tapas restaurants (making the square the city's center for nightlife) as well as several important buildings such as the Royal Chancellery (Real Chancilleria), the House of Pisa (Casa de Los Pisa), and the Church of Santa Ana on the east side of the square, a 16th century church constructed in Mudejar style with a lovely tower.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Central Granada
+  - id: andalusia-granada-museo-san-juan-de-dios
+    name: Museo San Juan de Dios
+    kinds:
+      - museum
+    description: A very rich religious art collection.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Central Granada
+  - id: andalusia-granada-centro-jose-guerrero
+    name: Centro José Guerrero
+    kinds:
+      - museum
+    description: A small museum dedicated to the Granada-born painter José Guerrero. The uppermost floor has a permanent collection of his abstract expressionist paintings, while the lower two floors show temporary exhibits of contemporary art and photography by Spanish and international artists.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Central Granada
+  - id: andalusia-granada-alcazaba
+    name: Alcazaba
+    kinds:
+      - nature
+      - historic_site
+      - viewpoint
+    description: Alcazaba. The ruins of a massive fortress perched atop the crest of the hill overlooking the city, this is the oldest part of the Alhambra and offers some of the finest views of anywhere in the complex, with an expansive panorama from the top of the prominent tower that gives you a spectacular view of nearly the entire city and the Sierra Nevada mountains. Within the fort's walls are the ruins of a town which once held soldier's homes and baths, though today only the outline of these rooms remain.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > The Alhambra
+  - id: andalusia-granada-palace-of-charles-v
+    name: Palace of Charles V
+    kinds:
+      - historic_site
+      - museum
+    description: Palace of Charles V (Palacio de Carlos V). A more recent addition to the Alhambra, this 16th century building was commissioned following the Reconquista by Charles V as a royal residence close to the Alhambra palace. The square two-level structure is done in Renaissance style with an impressive circular courtyard ringed by a colonnade within. The building is also home to two museums, the Museo de la Alhambra on the lower floor with a collection of artifacts and art from the Alhambra, and the Museo de Bellas Artes, a small fine art museum on the upper floor, as well as a couple of changing museum exhibits which regularly feature art with some connection to the Alhambra.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > The Alhambra
+  - id: andalusia-granada-palacios-nazaries
+    name: Palacios Nazaries
+    kinds:
+      - nature
+      - historic_site
+    description: Palacios Nazaries. The Nasrid royal palace and the primary (and thus most crowded) attraction of the Alhambra complex, the palace is an impressive, at times breathtakingly beautiful work of architecture. Visitors get to see spectacular archways and windows, carved wooden ceilings, intricate molded-plaster work and colourful ceramic tiles at nearly every turn as they meander between lovely rooms and lush courtyards. Everyone starts their tour in the Mexuar, a set of administrative rooms with a beautiful prayer room and a small square courtyard with the golden Façade of Comares, before emerging in the Court of the Myrtles, a rectangular courtyard with a long pool of water flanked on each side by a myrtle hedge (hence the name). At the end of the courtyard you can enter a room to view the twelve Lion Statues from the fountain in the Court of the Lions, which is undergoing renovation. Cross to the other end of the Court of the Myrtles to enter the Ship Room, with its spectacular carved wooden ceiling in the shape of an upside-down hull, and the Chamber of the Ambassadors, the palace's largest and perhaps most spectacular room, which once functioned as the throne room and features a star-studded wooden ceiling, intricately carved stucco walls and beautiful arched windows. From here you'll pass through a series of small rooms, including the Washington Irving Room, where Washington Irving wrote Tales of the Alhambra, as well as down an open-air hallway with an excellent view of an adjacent courtyard (the Court of Linda-Raja) and the Albayzín. Passing by the old bath house you'll enter the Hall of the Two Sisters, a spectacular domed room with an intricate stucco ceiling and lovely views of the Court of Linda-Raja. From here you can navigate around the edge of the Court of the Lions (under renovation) to the Hall of the Abencerrages, structurally similar to the Hall of the Two Sisters. At this point you can exit the palace, which will place you near the entrance to the Partal Gardens.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > The Alhambra
+  - id: andalusia-granada-generalife
+    name: Generalife
+    kinds:
+      - nature
+      - historic_site
+    description: Generalife. The lush and gorgeous gardens of the Nasrid kings, the expansive Generalife is the finest set of Moorish style gardens in Andalusia, positioned on a hill situated at the rear of the complex overlooking the Alhambra palace. Within you'll find beds of colorful flowers, more exquisite architecture, leaping fountains and cool shade. There are two entrances to the Generalife, one at the ticket booth on the east side of the complex and another next to the Palacios Nazaries which will take you through the Partal Gardens, a collection of palace gardens with flowing water streams and a large pool of water which reflects a nearby portico. From the Partal you can follow the Promenade of The Towers, the remains of the main wall and its adjoining towers that separate the Alhambra palace grounds from the Generalife. As you cross a bridge over a small canyon you'll enter the Generalife proper, where you can follow a promenade past the amphitheater to the Lower Gardens, a collection of hedge rows with rectangular ponds at the center and colorful flower beds throughout. Past this is the Generalife Palace, the white structure sitting atop the hill and the highlight of a visit to the gardens, for it is within that you will find spectacular views, lovely architecture, and the much-photographed Court of the Main Canal, with its crossing jets of water that arc over the rectangular pool. Nearby is the Soultana's Court, another picturesque courtyard with leaping fountains. Above the palace are the High Gardens, where you can find a gorgeous long pergola and the Water Stairway, which true to its name is a beautiful stairway with water flowing down its parapets. The gardens are huge, but the layout is simple as everything in the Generalife can be seen along a long, circular path.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > The Alhambra
+  - id: andalusia-granada-san-jose-church
+    name: San José Church
+    kinds:
+      - historic_site
+      - religious_site
+    description: Located in a spot previously occupied by the Almorabitín, or mosque of morabites, and is one of the oldest churches in Granada, dating back to the sixteenth century. The architecture of the old mosque is still visible in parts, particularly in the minaret-turned-bell tower.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Albayzín
+  - id: andalusia-granada-san-nicolas-viewpoint
+    name: San Nicolas Viewpoint
+    kinds:
+      - nature
+      - viewpoint
+    description: The most popular attraction in the Albayzin for tourists, this spot offers a spectacular view of the Alhambra and the mountains behind, as well as excellent vistas of the city and up the Rio Darro canyon.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Albayzín
+  - id: andalusia-granada-mosque-of-granada
+    name: Mosque of Granada
+    kinds:
+      - nature
+      - historic_site
+      - religious_site
+    description: Following the Reconquista, Islam was banished from Spain and its practitioners were persecuted, effectively stomping out any practice of the religion in Spain for centuries thereafter. But Islam has been making a comeback in Spain and this mosque, built in 2003, stands as a link with the Muslim Granada of old. The mosque maintains an open-door policy and while you need to arrange an appointment to see the main prayer spaces, you are free to enter the fragrant garden and take in the architecture of the rather humble yet beautiful building. Even if you have little interest in Islam the place is still worth visiting for the garden's marvelous view of the Alhambra and for the sight of Moorish-style architecture that's newly constructed rather than ancient and crumbling.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Albayzín
+  - id: andalusia-granada-plaza-larga
+    name: Plaza Larga
+    kinds:
+      - viewpoint
+      - food
+    description: A small and shady plaza, this is the center of Albayzín for its residents, removed from the tourist crowds of the San Nicolas Viewpoint, surrounded by local shops and restaurants and home to a local market on Saturday mornings. On the west edge of the plaza, tucked around a corner, is Puerta Nueva, a passageway to Placeta de las Minas situated at the end of a remaining section of defensive wall which once protected the Albayzín. The wall itself is mostly inaccessible, but excellent views of the wall, which really speak to how imposing it must have looked from the outside, are available from the Mirador de San Cristobal uphill from Plaza Larga (alternatively you can just walk along Cuesta de Alhacaba west from Plaza Larga from excellent views from beneath the wall).
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Albayzín
+  - id: andalusia-granada-hamman-el-banuelo
+    name: Hamman El Bañuelo
+    kinds:
+      - historic_site
+      - viewpoint
+    description: An unassuming-looking building from the outside, the Bañuelo is the ruins of perhaps the most well-preserved Arabic bath house in Spain. Once a popular socializing spot during Muslim Granada, most of the bath houses in the city were destroyed followed the Reconquista - this one survived due to the construction of a private home above. Inside you can view the beautiful architecture and learn how the bath house functioned, with its hot and cooling rooms and scenic courtyard.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Albayzín
+  - id: andalusia-granada-paseo-de-los-tristes
+    name: Paseo de los Tristes
+    kinds:
+      - historic_site
+      - food
+    description: Perched above the Rio Darro at the end of Carrera del Darro, this plaza was once on the busiest gathering spots in Granada, positioned along a curve of the river between the Alhambra and the Albayzin. Today it is a popular place to eat owing to the restaurants lining the north side of the square and the magnificent views of the Alhambra palace it offers.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Albayzín
+  - id: andalusia-granada-museo-cuevas-sacromonte
+    name: Museo Cuevas Sacromonte
+    kinds:
+      - nature
+      - historic_site
+      - museum
+    description: This museum offers the chance to get to know this neighborhood, with geological and historical exhibits on the caves, the biology, the people and the form of living as well as the traditional handicrafts of the locals.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Sacromonte
+  - id: andalusia-granada-sacromonte-abbey
+    name: Sacromonte Abbey
+    kinds:
+      - religious_site
+    description: Founded in the seventeenth century. Local legend says that the catacombs under the church are where the city's first bishop (and today Granada's saint) San Cecilio underwent his martyrdom.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > Sacromonte
+  - id: andalusia-granada-elviras-gate
+    name: Elvira's Gate
+    kinds:
+      - other
+    description: Once the principal gate to the old city, Elvira's Gate now stands on the edge of a plaza, a grand Moorish-style archway over a local street.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > North Granada
+  - id: andalusia-granada-hospital-real
+    name: Hospital Real
+    kinds:
+      - nature
+    description: Commissioned in 1504 by Isabel and Ferdinand, this massive square red-brick building was originally used as a hospital for the poor and soldiers who had been injured in the Reconquista of Granada. Situated on a hill over a nearby park, the structure now belongs to the University and is worth looking inside for its splendid architecture.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > North Granada
+  - id: andalusia-granada-triunfo-gardens
+    name: Triunfo Gardens
+    kinds:
+      - nature
+      - historic_site
+    description: A beautiful urban park situated beneath the Hospital Real, the gardens hold a large fountain and an isolated column with a monument to the Virgin at the center overlooking the Avenida de La Constitucion. Evening is the best time to come, when the fountains are lit and the backdrop with the illuminated Hospital Real is most dramatic.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > North Granada
+  - id: andalusia-granada-cartuja-monastery
+    name: Cartuja Monastery
+    kinds:
+      - nature
+      - religious_site
+    description: A spectacular example of Baroque-style architecture, this monastery was commissioned in the 16th century but construction was interrupted and not completed until over three centuries later. Upon entering you'll pass through a cloister garden that serves as the building's tranquil courtyard, with small rooms splitting off from here, many with grisly paintings of martyrs meeting their fates. The single-nave church is spectacular and lavishly decorated, with the sanctuary and sacristy containing many beautifully crafted and intricate artworks.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > North Granada
+  - id: andalusia-granada-san-jeronimo-monastery
+    name: San Jeronimo Monastery
+    kinds:
+      - religious_site
+    description: The first monastery to be built in the city after the reconquest by the Christians, this monastery is noted for its picturesque courtyards, the Spanish Baroque-style sacristy and the splendid artwork on display.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > North Granada
+  - id: andalusia-granada-basilica-san-juan-de-dios
+    name: Basilica San Juan de Dios
+    kinds:
+      - nature
+      - religious_site
+      - adventure
+    description: "A gorgeous example of the Baroque granadino style with an over-the-top interior—not an inch isn't lavishly decorated. The basilica is also the final resting place of many of Granada's saints: ask permission to climb the stairs to the room behind the main altar where 190 bones and other relics are displayed."
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > North Granada
+  - id: andalusia-granada-santo-domingo-church
+    name: Santo Domingo Church
+    kinds:
+      - historic_site
+      - religious_site
+    description: Founded in 1512 by the Catholic Kings, this beautiful church sports a handsome stone portico entrance with a lovely painting and sculptures beneath an impressive bell tower. Inside, the high ceilings and domed sanctuary are spectacular and the chapels feature intricate artwork.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > South Granada
+  - id: andalusia-granada-carmen-de-los-martires
+    name: Carmen de los Mártires
+    kinds:
+      - nature
+    description: An absolutely beautiful set of gardens near the Alhambra, this place is well worth a side trip if you have an hour or two to spare. The gardens date to the nineteenth century and have a blend of Moorish-style elements such as amble shade, decorative arches and bubbling fountains with English and French romantic style elements - one garden has an ornamental duck pond complete with statues, grottoes and follies (keep an eye out for the peacocks that wander the gardens). In addition, the views of Granada and the Alhambra from the terraces are absolutely marvelous.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > South Granada
+  - id: andalusia-granada-federico-garcia-lorca-museum
+    name: Federico García Lorca Museum
+    kinds:
+      - nature
+      - museum
+      - family
+    description: On the outskirts of town is this charming house that was once the summer home of poet Federico Garcia Lorca. The house-turned-museum holds the original furnishings from when he lived here in the 1920s and 30s and is pleasant enough, but the real attraction here is the splendid public park that surrounds the house that was once the family's private estate. Within the park you'll find tree-lined pathways, streams of water, a duck pond, a large rose garden, and a children's playground.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > South Granada
+  - id: andalusia-granada-basilica-nuestra-senora-de-las-angustias
+    name: Basilica Nuestra Señora de Las Angustias
+    kinds:
+      - historic_site
+      - religious_site
+    description: The temple to Granada's patron saint, this seventeenth century church has a richly decorated interior and is a center for local Catholic processions. The evening mass held here is one of the most heavily attended in the city and is one of the best opportunities to experience the city's religious heritage firsthand.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > South Granada
+  - id: andalusia-granada-rio-genil
+    name: Rio Genil
+    kinds:
+      - hiking
+      - nature
+    description: While the river itself, which is essentially a large canal, isn't much to look at, there is a nice tree-lined promenade running alongside the river from Acera Del Darro along Paseo del Salon with some very pleasant gardens. From here a pleasant trail follows the river south out of the city into the Sierra Nevada mountains.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > South Granada
+  - id: andalusia-granada-parque-de-las-ciencias
+    name: Parque de las Ciencias
+    kinds:
+      - nature
+      - museum
+    description: Four different exhibition areas with lots to see, so make good use of the 2-day ticket. Bird show every day, but take note of timing. The Al-Andalus and Science Pavilion is a major highlight, featuring unique technology brought here by the Arabs, particularly in the fields of astronomy and architecture.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > See > South Granada
+  - id: andalusia-granada-aquaola
+    name: Aquaola
+    kinds:
+      - nature
+      - family
+    description: A local water park with man-made wave pool, slides and large floats.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > Do
+  - id: andalusia-granada-hammam-arab-baths
+    name: Hammam Arab Baths
+    kinds:
+      - historic_site
+    description: A modern spa reconstructing the ambiance and decorations of the ancient Muslim baths in Granada.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > Do
+  - id: andalusia-granada-plaza-de-toros-de-granada
+    name: Plaza de Toros de Granada
+    kinds:
+      - other
+    description: Granada's bullfighting ring.
+    crowd_level: null
+    best_months: []
+    source_ref: Granada > Do
+  - id: andalusia-marbella-plaza-de-los-naranjos
+    name: Plaza de los Naranjos
+    kinds:
+      - historic_site
+      - food
+      - nightlife
+    description: The square lined by the city hall, orange trees, restaurants and bars is the lively heart of the old town. Built after the Christian reconquest of the city, it is an example of renaissance architecture.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > See
+  - id: andalusia-marbella-parque-de-alameda
+    name: Parque de Alameda
+    kinds:
+      - nature
+    description: A nice little park in the middle of the city with a beautiful benches and a fountain decorated with painted tiles. Buy an ice cream, sit down and watch locals and tourists.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > See
+  - id: andalusia-marbella-avenida-del-mar
+    name: Avenida del Mar
+    kinds:
+      - nature
+    description: From the park, the pedestrian street Avenida del Mar leads down to the Mediterranean. Along it you can see ten statues by the famous Spanish surrealist Salvador Dalí.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > See
+  - id: andalusia-marbella-nuestra-senora-de-la-encarnacion
+    name: Nuestra Señora de la Encarnacion
+    kinds:
+      - religious_site
+    description: Marbella's baroque cathedral, from 1618 and colorful on the inside.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > See
+  - id: andalusia-marbella-ermita-de-santiago
+    name: Ermita de Santiago
+    kinds:
+      - religious_site
+    description: A former mosque, this building next to the main square is nowadays a small church — the oldest one in Marbella.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > See
+  - id: andalusia-marbella-capilla-del-santo-sepulcro
+    name: Capilla del Santo Sepulcro
+    kinds:
+      - other
+    description: It was built in 1994 on the site of a former hospital. The throne inside it depicting Christ is much older and is carried around Marbella on Good Friday.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > See
+  - id: andalusia-marbella-capilla-de-san-juan-de-dios
+    name: Capilla de San Juan de Dios
+    kinds:
+      - religious_site
+    description: A 16th-century chapel that also has functioned as hospital and a home for foundlings.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > See
+  - id: andalusia-marbella-virgen-de-los-dolores
+    name: Virgen de los Dolores
+    kinds:
+      - other
+    description: A statue of Holy Mary looking out from a window over the eponymous alley.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > See
+  - id: andalusia-marbella-moorish-walls
+    name: Moorish walls
+    kinds:
+      - historic_site
+    description: Part of a former fortress dating back as far as the 10th century, the old town still boasts the fortifying walls and some other remnants of the Alcazaba of the Medieval Medina of Marbella. What's left is far less impressive than what you will find in Granada, Málaga or Córdoba, but together with the other monuments in the old town they still make for a very impressive walk.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > See
+  - id: andalusia-marbella-parque-de-la-represa
+    name: Parque de la Represa
+    kinds:
+      - nature
+      - historic_site
+      - museum
+    description: A quite long and narrow park, just east of the old town. The park was constructed in the 1980s on a former riverbed, and a road bridge goes across it. The park also housed a Bonsai Museum but this permanently closed in December 2018.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > See
+  - id: andalusia-marbella-paseo-maritimo
+    name: Paseo Maritimo
+    kinds:
+      - beach
+      - food
+      - nightlife
+    description: The beach promenade, 6 km in length with palm trees, restaurants, bars and of course the Mediterranean.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > See
+  - id: andalusia-marbella-museo-del-grabado
+    name: Museo del Grabado
+    kinds:
+      - museum
+    description: Interested in contemporary Spanish art? Then this museum is something for you.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > See
+  - id: andalusia-marbella-parasailing-activity
+    name: Parasailing activity
+    kinds:
+      - other
+    description: The activity takes place at Puerto Deportivo of Marbella and consists of 12 minutes of flying over the sea, at a height of over 70 m. The company offers you a lifejacket, harness and other equipment needed. Then a boat will pull you across the water until you take off and during your flight. Then you're brought back to land.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > Do > Sea
+  - id: andalusia-marbella-sunbathing-and-swimming
+    name: Sunbathing and swimming
+    kinds:
+      - beach
+    description: Sunbathing and swimming on the sand beaches along the seafront or at a pool, is undoubtedly Marbella's biggest draw for much of the year. Beware of getting sunburnt, though!
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > Do > Sea
+  - id: andalusia-marbella-guadalmina-club-de-golf
+    name: Guadalmina Club de Golf
+    kinds:
+      - other
+    description: One of the largest and best golf courses in Europe with a 45-hole course.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > Do > Land
+  - id: andalusia-marbella-hipodromo-mijas-costa
+    name: Hipodromo Mijas Costa
+    kinds:
+      - food
+      - nightlife
+    description: This all-weather racetrack has meetings throughout the year, including floodlit night racing on summer weekends. The course also boasts plenty of entertainment including bars, music and restaurants.
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > Do > Land
+  - id: andalusia-marbella-easter-week
+    name: Easter week
+    kinds:
+      - other
+    description: 'Easter week: During the Santa Semana, processions are a common sight in the city.'
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > Do > Events
+  - id: andalusia-marbella-may
+    name: May
+    kinds:
+      - religious_site
+    description: 'May: Pilgrimage to Cruz de Juanar'
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > Do > Events
+  - id: andalusia-marbella-june
+    name: June
+    kinds:
+      - historic_site
+    description: "June: La Fiera, a week-long party in the old town to honor San Bernabé who is the city's patron saint."
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > Do > Events
+  - id: andalusia-marbella-july
+    name: July
+    kinds:
+      - other
+    description: 'July: The festival of Virgen del Carmen'
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > Do > Events
+  - id: andalusia-marbella-august
+    name: August
+    kinds:
+      - religious_site
+    description: 'August: Pilgrimage to the Virgin Mother'
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > Do > Events
+  - id: andalusia-marbella-october
+    name: October
+    kinds:
+      - other
+    description: 'October: The fair and festival to honour the parton of nearby San Pedro Alcantara'
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > Do > Events
+  - id: andalusia-marbella-november
+    name: November
+    kinds:
+      - other
+    description: 'November: Día del Tostón, a day celebrated by roasting chestnuts'
+    crowd_level: null
+    best_months: []
+    source_ref: Marbella > Do > Events
 extraction:
-  listings: 3
+  listings: 271
   listings_by_type:
-    do: 2
+    buy: 6
+    do: 22
+    drink: 10
+    eat: 46
     event: 1
+    go: 10
+    listing: 19
+    see: 74
+    sleep: 81
+    vicinity: 2
   priced_listings:
-    sleep: 0
-    eat: 0
+    sleep: 59
+    eat: 12
   poi_sources:
-    listing: 3
-    marker: 10
-    named: 8
+    listing: 96
+    marker: 14
+    named: 18
   duplicate_pois_dropped: 0
+  generic_items_pruned: 6

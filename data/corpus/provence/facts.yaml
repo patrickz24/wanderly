@@ -16,6 +16,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Provence-Alpes-C%C3%B4te_d%27Azur
   revision_id: 5364800
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: provence
+    title: Provence-Alpes-Côte d'Azur
+    url: https://en.wikivoyage.org/wiki/Provence-Alpes-C%C3%B4te_d%27Azur
+    revision_id: 5364800
+    license: CC BY-SA 4.0
+  - file: places/nice.md
+    role: place
+    id: nice
+    title: Nice
+    url: https://en.wikivoyage.org/wiki/Nice
+    revision_id: 5366077
+    license: CC BY-SA 4.0
+  - file: places/avignon.md
+    role: place
+    id: avignon
+    title: Avignon
+    url: https://en.wikivoyage.org/wiki/Avignon
+    revision_id: 5383430
+    license: CC BY-SA 4.0
+  - file: places/marseille.md
+    role: place
+    id: marseille
+    title: Marseille
+    url: https://en.wikivoyage.org/wiki/Marseille
+    revision_id: 5364808
+    license: CC BY-SA 4.0
+  - file: places/aix-en-provence.md
+    role: place
+    id: aix-en-provence
+    title: Aix-en-Provence
+    url: https://en.wikivoyage.org/wiki/Aix-en-Provence
+    revision_id: 5364795
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -94,29 +130,75 @@ climate:
       rain_days: 6.5
       precipitation_mm: 56.7
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
-    meal: null
+    lodging_night:
+      median: 100
+      min: 7
+      max: 2000
+      currency: €
+      sample_size: 19
+      excluded_other_currency: 0
+    meal:
+      median: 27.75
+      min: 2.5
+      max: 230
+      currency: €
+      sample_size: 12
+      excluded_other_currency: 0
     notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+      - 1 Sleep listing price(s) in the documents had no amount with a currency.
   levels:
     budget:
-      lodging_night: null
-      meal: null
+      lodging_night:
+        median: 40
+        min: 7
+        max: 75
+        currency: €
+        sample_size: 5
+        excluded_other_currency: 0
+      meal:
+        median: 12
+        min: 12
+        max: 12
+        currency: €
+        sample_size: 1
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 1 Sleep listing price(s) under Budget had no amount with a currency.
+        - Eat figure under Budget rests on only 1 listing(s).
     mid:
-      lodging_night: null
-      meal: null
-      notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+      lodging_night:
+        median: 99
+        min: 7.5
+        max: 400
+        currency: €
+        sample_size: 7
+        excluded_other_currency: 0
+      meal:
+        median: 23.25
+        min: 7
+        max: 44
+        currency: €
+        sample_size: 5
+        excluded_other_currency: 0
+      notes: []
     comfort:
-      lodging_night: null
-      meal: null
-      notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+      lodging_night:
+        median: 350
+        min: 100
+        max: 2000
+        currency: €
+        sample_size: 7
+        excluded_other_currency: 0
+      meal:
+        median: 137.5
+        min: 23
+        max: 230
+        currency: €
+        sample_size: 5
+        excluded_other_currency: 0
+      notes: []
 pois:
   - id: provence-camargue
     name: Camargue
@@ -125,7 +207,7 @@ pois:
     description: one of Europe's largest river deltas and wetlands, a great place to spot flamingos and French cowboys
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Provence-Alpes-Côte d'Azur > Other destinations
   - id: provence-french-alps
     name: French Alps
     kinds:
@@ -134,7 +216,7 @@ pois:
     description: snow-capped mountains ideal for thrilling snowsports and après-ski elegance
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Provence-Alpes-Côte d'Azur > Other destinations
   - id: provence-french-riviera
     name: French Riviera
     kinds:
@@ -142,7 +224,7 @@ pois:
     description: super beaches, superyachts and the super-wealthy
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Provence-Alpes-Côte d'Azur > Other destinations
   - id: provence-iles-dhyeres
     name: Îles d'Hyères
     kinds:
@@ -150,7 +232,7 @@ pois:
     description: a semblance of the Caribbean in the azure waters of the Var
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Provence-Alpes-Côte d'Azur > Other destinations
   - id: provence-luberon
     name: Luberon
     kinds:
@@ -159,7 +241,7 @@ pois:
     description: the stereotypical rural Provence of sleepy villages, joie de vivre and wine (these last two not necessarily being linked)
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Provence-Alpes-Côte d'Azur > Other destinations
   - id: provence-mercantour-national-park
     name: Mercantour National Park
     kinds:
@@ -168,7 +250,7 @@ pois:
     description: seven mountain valleys with hiking trails, this is where the Provence shows its wild side. Lucky travellers may catch glimpses of chamois, ibex, golden eagles and even wolves.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Provence-Alpes-Côte d'Azur > Other destinations
   - id: provence-mont-ventoux
     name: Mont Ventoux
     kinds:
@@ -176,7 +258,7 @@ pois:
     description: the largest mountain in the region has been nicknamed the "Giant of Provence" or "The Bald Mountain"
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Provence-Alpes-Côte d'Azur > Other destinations
   - id: provence-verdon-gorge
     name: Verdon Gorge
     kinds:
@@ -186,16 +268,755 @@ pois:
     description: beautiful turquoise river canyon, great for kayaking, hiking, rock-climbing or just driving around the limestone cliffs
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Provence-Alpes-Côte d'Azur > Other destinations
+  - id: provence-nice-colline-du-chateau
+    name: Colline du Château
+    kinds:
+      - nature
+      - historic_site
+      - viewpoint
+      - adventure
+    description: The castle hill overlooking the Baie des Anges and harbour offers a spectacular vantage point overlooking the city. Not much is left of its ruined castle besides crumbling walls. Still, climbing up the stairs to reach the platforms 90 m above Nice is well worth the view. There is also a lift (ascenseur) which will take you three quarters of the way up. The castle hill park closes at around sunset. Expect to be escorted outside if you stay longer.
+    crowd_level: null
+    best_months: []
+    source_ref: Nice > See
+  - id: provence-nice-parc-phoenix
+    name: Parc Phoenix
+    kinds:
+      - nature
+    description: 2500 different plants in botanical garden and tropical glass house. Also various animals.
+    crowd_level: null
+    best_months: []
+    source_ref: Nice > See
+  - id: provence-nice-musee-des-arts-asiatiques
+    name: Musée des Arts Asiatiques
+    kinds:
+      - nature
+      - museum
+    description: Indian, Chinese, Southeast Asian, and world art in great architecture on a lake.
+    crowd_level: null
+    best_months: []
+    source_ref: Nice > See > Museums and art galleries
+  - id: provence-nice-musee-marc-chagall
+    name: Musée Marc Chagall
+    kinds:
+      - museum
+    description: Even if you are not in art, this is a museum which should not be missed. It includes stained glass windows by the artist.
+    crowd_level: null
+    best_months: []
+    source_ref: Nice > See > Museums and art galleries
+  - id: provence-nice-musee-matisse
+    name: Musée Matisse
+    kinds:
+      - museum
+    description: Charming collection of paintings, drawings and sculptures in 17th-century Genoese villa.
+    crowd_level: null
+    best_months: []
+    source_ref: Nice > See > Museums and art galleries
+  - id: provence-nice-musee-darcheologie-de-nice
+    name: Musée d’Archéologie de Nice
+    kinds:
+      - historic_site
+      - museum
+      - family
+    description: The ruins of the Gallo-Roman settlement in Cimiez, plus a museum with nice documentation on Gallo-Roman life (but mostly not in English). Activities for children. Guided tours available.
+    crowd_level: null
+    best_months: []
+    source_ref: Nice > See > Museums and art galleries
+  - id: provence-nice-museum-of-modern-and-contemporary-art
+    name: Museum of Modern and Contemporary Art
+    kinds:
+      - historic_site
+      - museum
+      - viewpoint
+    description: It has four connected towers featuring modern and contemporary artists and their sculptures, paintings, and conceptual installations. Its open-air roof terraces offer one of the best panoramas of the city.
+    crowd_level: null
+    best_months: []
+    source_ref: Nice > See > Museums and art galleries
+  - id: provence-nice-musee-des-beaux-arts-jules-cheret
+    name: Musée des Beaux-Arts Jules Chéret
+    kinds:
+      - museum
+    description: To the west, there is the Musée des Beaux-Arts, housing an excellent collection of pastels and other works by Jules Cheret, among other artists.
+    crowd_level: null
+    best_months: []
+    source_ref: Nice > See > Museums and art galleries
+  - id: provence-nice-chateau-de-bellet
+    name: Chateâu de Bellet
+    kinds:
+      - museum
+      - religious_site
+      - wine
+    description: Château de Bellet has a winery, vineyards and wine tastings in a deconsecrated chapel. The wine cellar, built in 2015, is partially underground and semi-circular in shape, conceived for the reception of the grape by gravity and the ageing of wines in optimal conditions. The visit includes a secret crypt in the chapel.
+    crowd_level: null
+    best_months: []
+    source_ref: Nice > See > Museums and art galleries
+  - id: provence-nice-cliff-walk
+    name: Cliff Walk
+    kinds:
+      - nature
+    description: You can follow the path around Cap de Nice half way to Villefranche, but be prepared for several hundred steps up to rejoin the road. It’s a very beautiful walk and you will find mostly local people using it.
+    crowd_level: null
+    best_months: []
+    source_ref: Nice > Do > Beautiful landscapes
+  - id: provence-nice-train-des-pignes
+    name: Train des Pignes
+    kinds:
+      - nature
+      - viewpoint
+    description: A regular SNCF train departs from Nice to Puget-Théniers, where it connects to a narrow-gauge railway through the mountains and valleys of the hinterland. A very scenic but less comfortable ride than the SNCF main lines. Terminates at Nice-CP station a few blocks behind Nice-Ville main station. Leaves in the morning, and returns in the evening. Reservations for the steam trains are mandatory.
+    crowd_level: null
+    best_months: []
+    source_ref: Nice > Do > Beautiful landscapes
+  - id: provence-nice-opera-nice-cote-dazur
+    name: Opéra Nice Côte d'Azur
+    kinds:
+      - other
+    description: This opera house hosts not only opera performances but also many concerts of the Orchestre Philharmonique de Nice and chamber music recitals, and some ballet performances. The house's website is in French only, but even if you don't read French well, you should be able to make out the information on their calendar (calendrier).
+    crowd_level: null
+    best_months: []
+    source_ref: Nice > Do > Live performances
+  - id: provence-avignon-papal-palace
+    name: Papal Palace
+    kinds:
+      - historic_site
+    description: This is the palace where the Popes of Avignon ruled. For part of the period the Papacy was divided, with a Pope in Rome and another in Avignon. Most of the artwork inside (statues, frescoes) was destroyed during the French Revolution, but the impressive building still stands, and little bits of artwork, such as those that were too high to be convenient to ruin, remain.
+    crowd_level: null
+    best_months: []
+    source_ref: Avignon > See
+  - id: provence-avignon-pont-saint-benezet
+    name: Pont Saint-Bénezet
+    kinds:
+      - historic_site
+      - religious_site
+    description: It is a ruined bridge not far from the Palais des Papes. The bridge was built in the Middle Ages — before the arrival of the Papacy — perhaps partly to allow the local bishop to cross the river to Villeneuve-lès-Avignon, where the church authorities had installed themselves because of Avignon's then-infamous dirt and lawlessness. The legend of the bridge's building is that a local shepherd, Benezet (a dialect form of Benedict) was inspired by angels to build a bridge. When his appeals to the town authorities proved fruitless, he picked up a vast block of stone and hurled it into the river, to be the bridge's foundation stone. Convinced by this demonstration of divine will, the bridge was swiftly built. The poor shepherd boy was canonised, and his chapel remains on the surviving portion of the bridge. The bridge was built with 22 arches, reaching across to the tower of Philippe le Bel via small mid-stream islands. Over the centuries, as the islands shifted and merged into today's île de la Barthelasse, the bridge was repeatedly lost to floods and repeatedly rebuilt; after a series of 17th-century floods, it was abandoned and only 4 of the 22 arches remain. A multilingual audio tour of the bridge explains some of the local history. A well-known song "Sur Le Pont D'Avignon" (on the bridge at Avignon) refers to the bridge. The bridge is far too narrow for dancing or festivals - the original text of the song was "Sous (under) le pont d'Avignon", referring to the festivals and entertainments staged on the île de la Barthelasse. The current version was popularised by a 19th-century operetta, whose librettist clearly assumed that 'sous le pont d'Avignon' would have meant in the river.
+    crowd_level: null
+    best_months: []
+    source_ref: Avignon > See
+  - id: provence-avignon-collection-lambert
+    name: Collection Lambert
+    kinds:
+      - museum
+    description: Contemporary art museum developed from the collection of Yvon Lambert.
+    crowd_level: null
+    best_months: []
+    source_ref: Avignon > See > Art museums
+  - id: provence-avignon-calvet-museum
+    name: Calvet Museum
+    kinds:
+      - museum
+    description: Fine arts museum with works from 15th to 20th centuries housed in an 18th-century mansion.
+    crowd_level: null
+    best_months: []
+    source_ref: Avignon > See > Art museums
+  - id: provence-avignon-musee-du-petit-palais-avignon
+    name: Musée du Petit Palais Avignon
+    kinds:
+      - historic_site
+      - museum
+    description: Housed in the Archbishops' Palace adjacent to the Palace of the Popes, it has a rich collection on loan from the Paris Louvre Museum of major works by Italian and French Medieval and early-Renaissance artists. Run by the Fondation Calvet. No elevator, only stairs. Small café inside.
+    crowd_level: null
+    best_months: []
+    source_ref: Avignon > See > Art museums
+  - id: provence-avignon-palais-du-roure
+    name: Palais du Roure
+    kinds:
+      - museum
+      - religious_site
+    description: A former mansion converted into a museum. Hosts temporary exhibitions in addition to the permanent exhibition. This small museum has a collection of old church bells in the courtyard. No elevator, only stairs.
+    crowd_level: null
+    best_months: []
+    source_ref: Avignon > See > History Museums and Exhibits
+  - id: provence-avignon-lapidary-museum
+    name: Lapidary Museum
+    kinds:
+      - historic_site
+      - museum
+      - religious_site
+    description: The museum is located in the chapel of the city's Jesuit College (on the ground floor) and belongs to Fondation Calvet. It hosts Egyptian, Greek, Etruscan, Roman and Gallo-Roman sculptures and objects.
+    crowd_level: null
+    best_months: []
+    source_ref: Avignon > See > History Museums and Exhibits
+  - id: provence-avignon-rugby-league
+    name: Rugby league
+    kinds:
+      - other
+    description: 'Rugby league: SO Avignon play in Elite 1, the top French tier for 13-a-side rugby. Their home ground is Parc des Sports (capacity 10,000) 3 km southeast of town centre. The playing season is Sept-April.'
+    crowd_level: null
+    best_months: []
+    source_ref: Avignon > Do
+  - id: provence-avignon-theatre-festival
+    name: Theatre Festival
+    kinds:
+      - historic_site
+    description: Avignon is famous the world over for its annual theatre festival. For three or four weeks in July the city is virtually swollen with street performers, actors, musicians, and of course the ubiquitous tourists. The festival is an excuse to turn any room with enough seating into a 'salle de spectacle' and the city is host to a wide variety of entertainment. The gem of this festival are the performances which take place inside the Pope's Palace itself. Tickets are expensive, but this is considered by many French and European thespians to be a crowning achievement of their career. The vast majority of performances are, of course, in French but a number of foreign companies perform in other languages including English. Even without attending any events, the atmosphere and street theatre give the city a marvellous feeling.
+    crowd_level: null
+    best_months: []
+    source_ref: Avignon > Do > Events
+  - id: provence-avignon-the-international-congress-center
+    name: The International Congress Center
+    kinds:
+      - historic_site
+    description: Was created in 1976 within the outstanding premises of the Palace of the Popes and hosts many events throughout the entire year.
+    crowd_level: null
+    best_months: []
+    source_ref: Avignon > Do > Events
+  - id: provence-avignon-avignon-fair
+    name: Avignon Fair
+    kinds:
+      - nature
+      - wine
+    description: A modern-style fair. The wine competition of the Rhone Valley, organised upstream since 1980, gives its official results at this fair.
+    crowd_level: null
+    best_months: []
+    source_ref: Avignon > Do > Events
+  - id: provence-marseille-vieux-port
+    name: Vieux Port
+    kinds:
+      - historic_site
+    description: Watching fishermen selling their stock by auction is a must. Arriving into Marseille in the Vieux-Port on a summer evening is something you will never forget. You can watch this show by going to Frioul islands or Chateau d'If and going back late in the afternoon. There is also a nice view of the harbour from the Palais du Pharo (Pharo Palace). The famous Canebière avenue goes straight down the harbour. However the Canebière is not that interesting despite its reputation.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-basilique-notre-dame-de-la-garde
+    name: Basilique Notre Dame de la Garde
+    kinds:
+      - religious_site
+    description: The big church which overlooks the city. Old fishermen used to have their boats blessed in this church. You can still see many boat models hanging around in the church. From there it is one of the nicest view of the city. You can use the tourist train from the Vieux Port to reach the church - you can get off the train, look around and board a later train back to the port.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-abbey-of-saint-victor
+    name: Abbey of Saint Victor
+    kinds:
+      - religious_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-lhotel-de-ville
+    name: L'Hotel de Ville
+    kinds:
+      - other
+    description: Marseille City Hall
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-le-panier
+    name: Le Panier
+    kinds:
+      - hiking
+      - historic_site
+    description: Le Panier (which means basket in French) is the historical centre of the city. This district is characterized by many narrow and steep streets. The tourist office organises a guided tour in English of the Old town every Saturday at 14:00. You can begin your tour from the Vieux-Port and finish at the Mucem or vice versa. A recommended trail of this district is also proposed by the tourist office.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-marseille-cathedral
+    name: Marseille Cathedral
+    kinds:
+      - historic_site
+      - religious_site
+    description: A Byzantine-Roman cathedral at the western side of Le Panier quarter.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-la-vieille-charite
+    name: La Vieille Charité
+    kinds:
+      - historic_site
+      - museum
+    description: is a wonderful old monument, a former charitable housing for poor, now hosting museums and exhibitions.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-cours-belsunce
+    name: Cours Belsunce
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-place-castellane
+    name: Place Castellane
+    kinds:
+      - other
+    description: 'With a grand fountain/column/sculpture in the center, with excellent cinemas and cafés surrounding. There is another place called La Castellane: it is a poor suburb of Marseille where famous footballer Zinedine Zidane was born.'
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-cours-julien
+    name: Cours Julien
+    kinds:
+      - other
+    description: A hangout area with bookstores, cafés, fountains, and a playground for the small ones. It is a trendy area of Marseille.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-place-jean-jaures
+    name: Place Jean Jaurès
+    kinds:
+      - historic_site
+      - food
+    description: La Plaine is the local name for Place Jean Jaurès close to Cours Julien. Every Thursday and Saturday morning the Plaine market is the place to shop. If you are there early enough you can make very good deals, even if what you'll find there is sometimes "tombé du camion" (fallen off the truck) as one says in Marseille.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-noailles-quarter
+    name: Noailles quarter
+    kinds:
+      - other
+    description: Lined with Arabic and Indo-Chinese shops some of the streets could be part of a bazzaar in Algeria. A fascinating area.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-palais-longchamp
+    name: Palais Longchamp
+    kinds:
+      - nature
+      - museum
+    description: It houses the city's Musée des Beaux-Arts and Natural History Museum. The surrounding park (the Parc Longchamp) is listed by the French Ministry of Culture as one of the Notable Gardens of France. The Boulevard Longchamp connects it with the city centre.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-fort-saint-jean
+    name: Fort Saint-Jean
+    kinds:
+      - nature
+      - historic_site
+      - museum
+      - religious_site
+    description: Fort Saint-Jean is a fortification at the North-Western end of the Old Port, built in 1660 by Louis XIV. The fort also hosts the Museum "Musée des Civilisations de l'Europe et de la Méditerranée", but the fortification itself is accessible to the public free of cost, and worth a visit. You can walk through the old fortifications, stroll through a small park, enjoy the view on the Old Port or on the sea, or walk over the free-hanging bridges to the museum or the Church Saint-Laurent. The Fort also offers a 10-min video show about the history of Marseille and the Fort.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-vallon-des-auffes
+    name: Vallon des Auffes
+    kinds:
+      - other
+    description: Small and out of time traditional fishing port, just near the city centre.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-parc-borely
+    name: Parc Borély
+    kinds:
+      - beach
+      - nature
+      - viewpoint
+      - food
+      - nightlife
+    description: A large and great park containing Château Borély, 300 meters from the sea. After a siesta in the park go have a drink at Escale Borely (a place with numerous restaurants and bars on the beach) to see the sunset.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See
+  - id: provence-marseille-musee-des-civilisations-de-leurope-et-de-la-mediterranee
+    name: Musée des Civilisations de l'Europe et de la Méditerranée
+    kinds:
+      - historic_site
+      - museum
+    description: The first French national museum outside of Paris. It has large permanent and temporary exhibitions. Its architecture mixes a very contemporary structure (a dark box) with an old castle, with footbridges linking the two parts of the museum.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Museums and places of interest
+  - id: provence-marseille-musee-des-beaux-arts-de-marseille
+    name: Musée des beaux-arts de Marseille
+    kinds:
+      - museum
+    description: The painting collection includes works of the French, Italian, Spanish and Northern (Flanders and Holland) schools.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Museums and places of interest
+  - id: provence-marseille-natural-history-museum
+    name: Natural History Museum
+    kinds:
+      - museum
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Museums and places of interest
+  - id: provence-marseille-musee-cantini
+    name: Musée Cantini
+    kinds:
+      - museum
+    description: Museum focusing on modern art from the late 19th century until the mid-late 20th century.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Museums and places of interest
+  - id: provence-marseille-museum-of-contemporary-art-mac
+    name: Museum of Contemporary Art [MAC]
+    kinds:
+      - museum
+    description: Later works from the Cantini collection. Situated in southern suburbs but easily reached by Metro then bus. Now reopened after a major refurbishment.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Museums and places of interest
+  - id: provence-marseille-frac-provence-alpes-cote-dazur
+    name: FRAC Provence-Alpes-Côte d’Azur
+    kinds:
+      - museum
+    description: Contemporary art in a building designed by architect Kengo Kuma. Part of a national network.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Museums and places of interest
+  - id: provence-marseille-musee-des-docks-romains
+    name: Musée des Docks Romains
+    kinds:
+      - historic_site
+      - museum
+    description: Built to preserve the archeological finds at the former warehouses of the old harbour from Phoenician and Roman times. (closed summer 23 check before going)
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Museums and places of interest
+  - id: provence-marseille-archaeological-museum
+    name: Archaeological Museum
+    kinds:
+      - historic_site
+      - museum
+    description: Displays of Egyptian antiquities and classical antiquities.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Museums and places of interest
+  - id: provence-marseille-marseille-history-museum-mhm
+    name: Marseille History Museum (MHM)
+    kinds:
+      - historic_site
+      - museum
+    description: Discover 26 centuries of history in archaeology, fine arts, everyday objects & architecture. There is a mobile app.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Museums and places of interest
+  - id: provence-marseille-deportation-memorial
+    name: Deportation Memorial
+    kinds:
+      - museum
+    description: Memorial & museum relating to repression & persecution during World War II. Run by the Marseille History Museum (MHM).
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Museums and places of interest
+  - id: provence-marseille-museum-of-the-decorative-arts-fashion-and-ceramics
+    name: Museum of the Decorative Arts, Fashion and Ceramics
+    kinds:
+      - museum
+    description: Château Borély and its grounds are pretty impressive before you start with the museum. Often the exhibits are scattered amongst the furniture in the house.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Museums and places of interest
+  - id: provence-marseille-motorcycle-museum
+    name: Motorcycle Museum
+    kinds:
+      - museum
+    description: Museum in a former flour mill featuring motorcycles from 1885 to the present day. Four levels of bikes. It may look closed but you need to press the button by the gate to gain admission.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Museums and places of interest
+  - id: provence-marseille-mazargues-war-cemetery
+    name: Mazargues War Cemetery
+    kinds:
+      - museum
+    description: A war cemetery dedicated to World War I and World War II martyrs from the Allies, especially the Indian and Chinese gunners and runners. A very serene place, it is the perfect place to spend sometime thinking about the people who laid down their lives to give us the freedom we enjoy today.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Museums and places of interest
+  - id: provence-marseille-unite-dhabitation
+    name: Unité d'Habitation
+    kinds:
+      - museum
+      - religious_site
+      - food
+      - family
+    description: Designed by Le Corbusier, and one of 17 of his buildings to be listed as a World Heritage Site. The building is called "la maison du fada" (the house of the foolish) by locals. The building contains a shopping street, a church, a children's school and housing. You can access the roof and enjoy the breathtaking view of Marseille between hills and sea (10:00-18:00). There is a bar/restaurant/hotel on the 3rd floor too. The Marseille tourist office offers guided tours.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Museums and places of interest
+  - id: provence-marseille-calanques
+    name: Calanques
+    kinds:
+      - hiking
+      - nature
+      - historic_site
+    description: "The Calanques. The Calanques are a series of miniature fjords to the south of Marseille near Cassis. From Marseille these are best accessed from the University campus at Luminy which can be reached by bus #21 departing from Rond Point du Prado opposite the Stade Velodrome or from Vieux Port. The 'fjords' are amazing with wonderful blue sea and spectacular lime stone cliffs. The walk along the coast from Cassis to Marseille is spectacular, it can be done in one day at a fast pace. The trail (GR) is clearly marked (red and white strips). From Luminy, you can turn left to Cassis or right to Callelongue (bus #20 connects you to bus #19, which takes you to Rond-Point du Prado for connections to the centre, or you can use also bus #21, 23). From June to September some of the Calanques can be closed due to high risk of fire. Since 2022, in order to preserve the National Park from erosion due to the large number of visitors, it is now mandatory to make a free reservation to visit Pierres Tombées and Sugiton's calanques during the summer."
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Outside of town
+  - id: provence-marseille-chateau-dif
+    name: Château d'If
+    kinds:
+      - other
+    description: Château d'If The Château d'If is built small island off the city, initially as a defensive structure and was later used a prison. It is most famous for its place in the novel The Count of Monte-Cristo by Alexandre Dumas. Tourist boats leave from the Vieux Port.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Outside of town
+  - id: provence-marseille-allauch
+    name: Allauch
+    kinds:
+      - other
+    description: 'Allauch and Plan de Cuques are communes on the outskirts of Marseille, both blessed with beautiful countryside. You can take the metro to La Rose and then a bus #142, #144. Take a picnic and go for a walk in the hills, the views of Marseille and the Mediterranean are stunning.'
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Outside of town
+  - id: provence-marseille-lestaque-and-cote-bleue
+    name: L'Estaque and côte bleue
+    kinds:
+      - other
+    description: "L'Estaque and côte bleue L'Estaque is fishing port that is just starting to exploit its tourist potential through its connections to Cézanne. You can get there on the #35 bus from Joliette."
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > See > Outside of town
+  - id: provence-marseille-artplexe
+    name: Artplexe
+    kinds:
+      - museum
+      - food
+    description: New multi-screen cinema showing some films in VO combined with exhibition spaces and restaurant.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > Do
+  - id: provence-marseille-cinema-lalhambra
+    name: Cinéma l'Alhambra
+    kinds:
+      - other
+    description: Art House Cinema with original 1930s facade out of the city centre. Shows some films in VO (the original language)
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > Do
+  - id: provence-marseille-stade-velodrome
+    name: Stade Vélodrome
+    kinds:
+      - other
+    description: Stade Vélodrome, 3 boulevard Michelet. Watch football in the home of Olympique de Marseille. They play in Ligue 1, the top tier of French football, and often qualify for European tournaments. The stadium, capacity 67,394, is in St Giniez district 2 km south of the city centre, use Metro station Rond-Point du Prado. Buy match tickets online or from the official shop next to the stadium.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > Do
+  - id: provence-marseille-city-of-music
+    name: City of Music
+    kinds:
+      - other
+    description: Music school & concert halls Diverse musical types
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > Do > Events
+  - id: provence-marseille-cepac-silo
+    name: CEPAC Silo
+    kinds:
+      - other
+    description: Concert venue/theatre in a former grain silo. The performance space is reconfigurable according to the type of show performed. Total capacity 2,050 seats.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > Do > Events
+  - id: provence-marseille-la-fete-bleue
+    name: La Fête Bleue
+    kinds:
+      - other
+    description: La Fête Bleue, "the Blue Festival" at the end of June. A lot of shows (concerts, movie projections, exhibits) occur in many places in the city, and the theme is the colour blue.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > Do > Events
+  - id: provence-marseille-la-fete-du-panier
+    name: La Fête du Panier
+    kinds:
+      - food
+    description: La Fête du Panier, at the end of June. During two days, you will be able to see shows, concerts and markets in the oldest area of the town.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > Do > Events
+  - id: provence-marseille-le-fdamm
+    name: Le FDAmM
+    kinds:
+      - other
+    description: Le FDAmM or Festival de Danse et des Arts Multiples de Marseille, is the main dance festival in Marseille and lasts all summer.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > Do > Events
+  - id: provence-marseille-le-festival-du-plateau
+    name: Le festival du Plateau
+    kinds:
+      - nature
+    description: Le festival du Plateau, at the Cours Julien, in September.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > Do > Events
+  - id: provence-marseille-la-fiesta-des-suds
+    name: La Fiesta Des Suds
+    kinds:
+      - viewpoint
+    description: La Fiesta Des Suds, at the Dock des Suds, in October is a famous festival dedicated to World music. You can attend concerts of artists such as Asian Dub Foundation, Buena Vista Social Club, Cesaria Evora.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > Do > Events
+  - id: provence-marseille-la-foire-aux-santons
+    name: La Foire aux Santons
+    kinds:
+      - religious_site
+      - food
+    description: La Foire aux Santons is a very picturesque Christmas market held from late November near the Canebière and Vieux Port. Provence is the home of santons, terracotta figurines used in nativity scènes known as crèches. Some merchants and many churches display impressive crèches of their own.
+    crowd_level: null
+    best_months: []
+    source_ref: Marseille > Do > Events
+  - id: provence-aix-en-provence-cours-mirabeau
+    name: Cours Mirabeau
+    kinds:
+      - food
+    description: The main promenade of the town. Market on Tu Th Sa mornings.
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-fontaine-de-la-rotonde
+    name: Fontaine de la Rotonde
+    kinds:
+      - other
+    description: The biggest fountain in Aix.
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-passage-agard
+    name: Passage Agard
+    kinds:
+      - religious_site
+    description: Built as a Carmelite monastery.
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-hotel-de-ville
+    name: Hôtel de Ville
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-halle-de-grains
+    name: Halle de Grains
+    kinds:
+      - other
+    description: The former Corn Exchange.
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-palais-de-justice
+    name: Palais de Justice
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-palais-de-larcheveche
+    name: Palais de l'Archevêché
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-cathedrale-saint-sauveur
+    name: Cathédrale Saint-Sauveur
+    kinds:
+      - historic_site
+      - religious_site
+    description: Built and re-built from the 12th until the 19th century, it includes Romanesque, Gothic and Neo-Gothic elements, as well as Roman columns and parts of the baptistery from a 6th-century Christian church. It is a national monument of France. Tours daily every 30 minutes from 10:00-12:00 and from 14:30-17:30, except Sunday morning.
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-place-dalbertas
+    name: Place d’Albertas
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-monument-joseph-sec
+    name: Monument Joseph Sec
+    kinds:
+      - historic_site
+    description: A rare example of an architecture of French Revolution.
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-thermes-sextius
+    name: Thermes Sextius
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-vasarely-foundation
+    name: Vasarely Foundation
+    kinds:
+      - museum
+    description: Gallery dedicated to the works of the Hungarian-born French Op Art painter Victor Vasarely.
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-musee-granet
+    name: Musée Granet
+    kinds:
+      - historic_site
+      - museum
+    description: Museum devoted to painting, sculpture and the archeology of Aix. Part of the collection is on a second site 300 metres away.
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-atelier-cezanne
+    name: Atelier Cézanne
+    kinds:
+      - other
+    description: Obtain tickets via link on website. Guided tours & Audio Guide are available in English.
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-museum-of-old-aix
+    name: Museum of Old Aix
+    kinds:
+      - museum
+    description: Small museum dedicated to the history & heritage of Aix. Free on first Sunday of month.
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-bastide-du-jas-de-bouffan
+    name: Bastide du Jas de Bouffan
+    kinds:
+      - other
+    description: Former home of Paul Cezanne. Closed for renovation as of Oct 2023.
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-hotel-de-caumont
+    name: Hotel de Caumont
+    kinds:
+      - nature
+    description: Art centre in old house built in 1715 for the marquis de Cabannes. Has substantial gardens. Tickets can be purchased on-line.
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > See
+  - id: provence-aix-en-provence-festival-daix-en-provence
+    name: Festival d'Aix-en-Provence
+    kinds:
+      - other
+    description: Since 1948 the festival has taken place every year. It is one of the oldest and most famous festivals of classical music in France.
+    crowd_level: null
+    best_months: []
+    source_ref: Aix-en-Provence > Do
 extraction:
-  listings: 4
+  listings: 309
   listings_by_type:
-    go: 4
+    buy: 8
+    do: 10
+    drink: 23
+    eat: 103
+    event: 1
+    go: 13
+    listing: 40
+    see: 63
+    sleep: 48
   priced_listings:
-    sleep: 0
-    eat: 0
+    sleep: 20
+    eat: 12
   poi_sources:
-    listing: 0
+    listing: 74
     marker: 8
-    named: 0
+    named: 12
   duplicate_pois_dropped: 0
+  generic_items_pruned: 1

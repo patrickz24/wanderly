@@ -16,6 +16,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Montenegro
   revision_id: 5340298
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: montenegro
+    title: Montenegro
+    url: https://en.wikivoyage.org/wiki/Montenegro
+    revision_id: 5340298
+    license: CC BY-SA 4.0
+  - file: places/ulcinj.md
+    role: place
+    id: ulcinj
+    title: Ulcinj
+    url: https://en.wikivoyage.org/wiki/Ulcinj
+    revision_id: 5329733
+    license: CC BY-SA 4.0
+  - file: places/podgorica.md
+    role: place
+    id: podgorica
+    title: Podgorica
+    url: https://en.wikivoyage.org/wiki/Podgorica
+    revision_id: 5355127
+    license: CC BY-SA 4.0
+  - file: places/budva.md
+    role: place
+    id: budva
+    title: Budva
+    url: https://en.wikivoyage.org/wiki/Budva
+    revision_id: 5349292
+    license: CC BY-SA 4.0
+  - file: places/kotor.md
+    role: place
+    id: kotor
+    title: Kotor
+    url: https://en.wikivoyage.org/wiki/Kotor
+    revision_id: 5371455
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -94,29 +130,73 @@ climate:
       rain_days: 12.3
       precipitation_mm: 251.1
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
-    meal: null
-    notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+    lodging_night:
+      median: 53.5
+      min: 8
+      max: 252
+      currency: €
+      sample_size: 25
+      excluded_other_currency: 2
+    meal:
+      median: 9.5
+      min: 1
+      max: 30
+      currency: €
+      sample_size: 11
+      excluded_other_currency: 0
+    notes: []
   levels:
     budget:
-      lodging_night: null
-      meal: null
-      notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+      lodging_night:
+        median: 22
+        min: 10
+        max: 50
+        currency: €
+        sample_size: 8
+        excluded_other_currency: 0
+      meal:
+        median: 5
+        min: 1
+        max: 10
+        currency: €
+        sample_size: 3
+        excluded_other_currency: 0
+      notes: []
     mid:
-      lodging_night: null
-      meal: null
-      notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+      lodging_night:
+        median: 58.5
+        min: 15
+        max: 200
+        currency: €
+        sample_size: 6
+        excluded_other_currency: 1
+      meal:
+        median: 9.5
+        min: 3
+        max: 30
+        currency: €
+        sample_size: 7
+        excluded_other_currency: 0
+      notes: []
     comfort:
-      lodging_night: null
-      meal: null
+      lodging_night:
+        median: 90
+        min: 66
+        max: 252
+        currency: €
+        sample_size: 5
+        excluded_other_currency: 0
+      meal:
+        median: 18.5
+        min: 7
+        max: 30
+        currency: €
+        sample_size: 1
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - Eat figure under Splurge rests on only 1 listing(s).
 pois:
   - id: montenegro-becici
     name: Bečići
@@ -125,7 +205,7 @@ pois:
     description: with a 2 km long fine sandy beach, it is home to many resorts and hotels
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Montenegro > Other destinations
   - id: montenegro-biogradska-gora-national-park
     name: Biogradska Gora National Park
     kinds:
@@ -133,7 +213,7 @@ pois:
     description: some of the last remaining untouched forests in Europe, and beautiful small lake where you can fish
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Montenegro > Other destinations
   - id: montenegro-durmitor-national-park
     name: Durmitor National Park
     kinds:
@@ -142,7 +222,7 @@ pois:
     description: rafting through the Tara Canyon, the deepest canyon in Europe, is one of the most popular activities in Montenegro
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Montenegro > Other destinations
   - id: montenegro-lovcen-national-park
     name: Lovćen National Park
     kinds:
@@ -151,7 +231,7 @@ pois:
     description: beautiful mountain with natural, cultural and historical scenery
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Montenegro > Other destinations
   - id: montenegro-mount-ostrog
     name: Mount Ostrog
     kinds:
@@ -160,7 +240,7 @@ pois:
     description: the amazing monastery situated on the almost vertical cliff of Mount Ostrog, in the municipality Danilovgrad
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Montenegro > Other destinations
   - id: montenegro-perast
     name: Perast
     kinds:
@@ -169,7 +249,7 @@ pois:
     description: beautiful small village, a UNESCO World Natural and Historical Heritage Site
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Montenegro > Other destinations
   - id: montenegro-prokletije-national-park
     name: Prokletije National Park
     kinds:
@@ -179,7 +259,7 @@ pois:
     description: hiking and mountain climbing are this park's main attraction
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Montenegro > Other destinations
   - id: montenegro-skadar-lake-national-park
     name: Skadar Lake National Park
     kinds:
@@ -187,7 +267,7 @@ pois:
     description: the largest lake on the Balkans and the natural habitat of the very diverse flora and fauna
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Montenegro > Other destinations
   - id: montenegro-sveti-stefan
     name: Sveti Stefan
     kinds:
@@ -195,7 +275,7 @@ pois:
     description: picturesque town-hotel, a former fishing town on the small peninsula near Budva
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Montenegro > Other destinations
   - id: montenegro-rafting
     name: Rafting
     kinds:
@@ -204,7 +284,7 @@ pois:
     description: Rafting on archaic wooden or rubber boats down the 100-km path of largest canyon in Europe is one-of-a-kind experience.
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Montenegro > Do
   - id: montenegro-hiking-trekking-biking
     name: Hiking/Trekking/Biking
     kinds:
@@ -215,7 +295,7 @@ pois:
     description: Considering the size and very late development of infrastructure Montenegro has relied on various pathways interconnecting villages, roads, churches and mountains which is nowadays maintained and ideal for all outdoor activities. Maps of routes may be obtained by tourist offices located in towns.
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Montenegro > Do
   - id: montenegro-cruise-and-dive-in-the-bay-of-kotor
     name: Cruise and dive in the Bay of Kotor
     kinds:
@@ -225,7 +305,7 @@ pois:
     description: Iconic scenery of Boka Kotorska may be only appreciated fully from the sea-level and various small islands with tremendous history can only be reached that way. Diving may be interesting on several spots along Lustica.
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Montenegro > Do
   - id: montenegro-paragliding-over-budva-riviera
     name: Paragliding over Budva Riviera
     kinds:
@@ -234,7 +314,7 @@ pois:
     description: Scenery of Boka Bay may be only appreciated fully from the sea-level and various small islands with tremendous history can only be reached that way. Diving may be interesting on several spots along Lustica.
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Montenegro > Do
   - id: montenegro-kite-surfing-on-the-ada-bojana
     name: Kite-surfing on the Ada Bojana
     kinds:
@@ -243,7 +323,7 @@ pois:
     description: Experience winds on southern-most tip of Montenegros 12-km long sandy beach near Ulcinj
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Montenegro > Do
   - id: montenegro-summer-skiing-snowboarding
     name: (summer) Skiing/Snowboarding
     kinds:
@@ -252,15 +332,7 @@ pois:
     description: While during winter downhill skiing and snowboarding is usual activities within resorts in Žabljak and Kolašin throughout summer on many mountains specific regions remain under snow and are ideal for wild summer skiing or snowboarding experience
     crowd_level: null
     best_months: []
-    source_ref: Do
-  - id: montenegro-football
-    name: Football
-    kinds:
-      - other
-    description: "Football: the men's national team plays at City Stadium in Podgorica. 10 clubs play in First League and 10 in Second League."
-    crowd_level: null
-    best_months: []
-    source_ref: Do
+    source_ref: Montenegro > Do
   - id: montenegro-bokeska-noc
     name: Bokeška Noć
     kinds:
@@ -268,7 +340,7 @@ pois:
     description: Celebrations under masks by the iconic fortifications of Kotor where each year a hateful figure is burned, and celebrations out in the open continues till early morning.
     crowd_level: null
     best_months: []
-    source_ref: Do > Festivals
+    source_ref: Montenegro > Do > Festivals
   - id: montenegro-sea-dance-festival
     name: Sea Dance Festival
     kinds:
@@ -276,7 +348,7 @@ pois:
     description: infamous Exit festival has found a new home for summer season and the biggest music happening in SE Europe is hosted on Jaz beach in Budva.
     crowd_level: null
     best_months: []
-    source_ref: Do > Festivals
+    source_ref: Montenegro > Do > Festivals
   - id: montenegro-days-of-wine-and-fish-in-virpazar
     name: Days of Wine and Fish in Virpazar
     kinds:
@@ -287,7 +359,7 @@ pois:
     description: worth experiencing. Gathering of wine and fish lovers in a scenic local village on the Skadar Lake. Very crowded, and smoky from fish frying.
     crowd_level: null
     best_months: []
-    source_ref: Do > Festivals
+    source_ref: Montenegro > Do > Festivals
   - id: montenegro-petrovacka-noc
     name: Petrovačka noć
     kinds:
@@ -295,7 +367,7 @@ pois:
     description: celebrating the local traditions it is great time to visit the city and enjoy the crowd, food and music.
     crowd_level: null
     best_months: []
-    source_ref: Do > Festivals
+    source_ref: Montenegro > Do > Festivals
   - id: montenegro-spring-break
     name: Spring Break
     kinds:
@@ -303,7 +375,7 @@ pois:
     description: typical music festival with plenty of DJs on Kamenovo beach
     crowd_level: null
     best_months: []
-    source_ref: Do > Festivals
+    source_ref: Montenegro > Do > Festivals
   - id: montenegro-blueberry-days
     name: Blueberry Days
     kinds:
@@ -311,7 +383,7 @@ pois:
     description: in Plav in northern Montenegro, this festival is attributed to blueberries which are famous is important gathering of Montenegrin diaspora and its relatives as well as many tourists.
     crowd_level: null
     best_months: []
-    source_ref: Do > Festivals
+    source_ref: Montenegro > Do > Festivals
   - id: montenegro-pasticada-fest
     name: Pasticada Fest
     kinds:
@@ -319,7 +391,7 @@ pois:
     description: null
     crowd_level: null
     best_months: []
-    source_ref: Do > Festivals
+    source_ref: Montenegro > Do > Festivals
   - id: montenegro-suncane-skale
     name: Sunčane Skale
     kinds:
@@ -327,7 +399,7 @@ pois:
     description: null
     crowd_level: null
     best_months: []
-    source_ref: Do > Festivals
+    source_ref: Montenegro > Do > Festivals
   - id: montenegro-dani-mimoze
     name: Dani Mimoze
     kinds:
@@ -335,7 +407,7 @@ pois:
     description: null
     crowd_level: null
     best_months: []
-    source_ref: Do > Festivals
+    source_ref: Montenegro > Do > Festivals
   - id: montenegro-southern-soul-festival
     name: Southern Soul Festival
     kinds:
@@ -343,16 +415,458 @@ pois:
     description: null
     crowd_level: null
     best_months: []
-    source_ref: Do > Festivals
+    source_ref: Montenegro > Do > Festivals
+  - id: montenegro-ulcinj-ulcinj-old-town
+    name: Ulcinj Old Town
+    kinds:
+      - historic_site
+    description: The oldest and most attractive cultural part of Ulcinj. It is an ancient Illyrian castle built by Ancient Greeks, conquered by various other nations, like Romans, Byzantines, Serbs, Venetians and Ottomans, and all of them having an impact on its architecture..
+    crowd_level: null
+    best_months: []
+    source_ref: Ulcinj > See
+  - id: montenegro-ulcinj-svac
+    name: Svač
+    kinds:
+      - nature
+      - historic_site
+      - religious_site
+    description: Svač is medieval town in ruins located near Šasko lake. There are ruins of some 13 century churches, the legend says there were 365 churches in total. Built by Slavs, it was conquered by Mongols and Ottomans.
+    crowd_level: null
+    best_months: []
+    source_ref: Ulcinj > See
+  - id: montenegro-ulcinj-pashas-mosque
+    name: Pasha's Mosque
+    kinds:
+      - religious_site
+    description: A Ottoman-built mosque in 1719 by admiral Kılıç Ali Paşa is one of the oldest mosques in Montenegro. It is the only complex that has a hamam (Turkish bath) in the country.
+    crowd_level: null
+    best_months: []
+    source_ref: Ulcinj > See
+  - id: montenegro-ulcinj-clock-tower
+    name: Clock Tower
+    kinds:
+      - historic_site
+    description: An Ottoman clock tower built in 1754.
+    crowd_level: null
+    best_months: []
+    source_ref: Ulcinj > See
+  - id: montenegro-ulcinj-monument-freedom
+    name: Monument Freedom
+    kinds:
+      - historic_site
+    description: Communist monument built by Serbian sculptor Miodrag Živković in 1985.
+    crowd_level: null
+    best_months: []
+    source_ref: Ulcinj > See
+  - id: montenegro-ulcinj-velika-plaza-beach
+    name: Velika Plaža Beach
+    kinds:
+      - beach
+    description: There are good beach spots in the area, including some rocky ones in the southern part of town. The longest sandy beach in Montenegro, Velika Plaža, is near by. At the Southern end of this 12-km-long beach there is Ada Bojana.
+    crowd_level: null
+    best_months: []
+    source_ref: Ulcinj > Do
+  - id: montenegro-ulcinj-ada-bojana
+    name: Ada Bojana
+    kinds:
+      - beach
+      - adventure
+    description: Ada Bojana, a triangular island with sandy beaches, formed by a river delta of the Bojana River and the Adriatic Sea. The island is a favourite spot for kitesurfers and windsurfers and it has a large nudist beach for those so inclined. You will have to pay 6 Eur/day for access.
+    crowd_level: null
+    best_months: []
+    source_ref: Ulcinj > Do
+  - id: montenegro-ulcinj-usce
+    name: Ušće
+    kinds:
+      - beach
+    description: Ušće (begins just on opposite side of Ada Bojana island and stretch in one direction to Velika plaža and in other direction to the Bojana River coast). Area is very similar to Ada Bojana, with two main differences. There is no nudist beach and place is filled with campers and young people looking for rest during the day and party in the night.
+    crowd_level: null
+    best_months: []
+    source_ref: Ulcinj > Do
+  - id: montenegro-ulcinj-go-for-a-walk
+    name: Go for a walk
+    kinds:
+      - viewpoint
+    description: Go for a walk after sunset when the main street fills with people promenading and taking some fresh air.
+    crowd_level: null
+    best_months: []
+    source_ref: Ulcinj > Do
+  - id: montenegro-podgorica-old-turkish-town
+    name: Old Turkish town
+    kinds:
+      - historic_site
+      - religious_site
+    description: with its mosques and old clock tower. A typical old Turkish "kasaba" (town), with narrow and curvy streets.
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See
+  - id: montenegro-podgorica-skaline
+    name: Skaline
+    kinds:
+      - historic_site
+    description: on the outfall of the Ribnica river to Morača, with its old Turkish bridge over the Ribnica, and the ruins of old Nemanja's town.
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See
+  - id: montenegro-podgorica-monument-to-king-nikola
+    name: Monument to King Nikola
+    kinds:
+      - historic_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See
+  - id: montenegro-podgorica-hercegovacka-pedestrian-street
+    name: Hercegovačka pedestrian street
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See
+  - id: montenegro-podgorica-trg-republike
+    name: Trg Republike
+    kinds:
+      - food
+    description: The central square of the city, a lot of life at the end of the day, when people finish to work. Lot of cheap restaurants and friendly people, a pleasant place to spend the first part of the evening.
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See
+  - id: montenegro-podgorica-st-georges-church
+    name: St. George's church
+    kinds:
+      - religious_site
+    description: Built in 10th century, on the slopes of the Gorica hill, after which the city was named. There are some 17th-century frescoes.
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See
+  - id: montenegro-podgorica-catholic-church
+    name: Catholic Church
+    kinds:
+      - religious_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See
+  - id: montenegro-podgorica-millennium-bridge
+    name: Millennium Bridge
+    kinds:
+      - other
+    description: The impressive modern bridge over the Morača River.
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See
+  - id: montenegro-podgorica-dvorac-petrovica-king-nikolas-castle
+    name: Dvorac Petrovića (King Nikola's castle)
+    kinds:
+      - nature
+      - historic_site
+      - museum
+    description: Turned into a museum, also fine the surrounding park.
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See
+  - id: montenegro-podgorica-cathedral-of-the-resurrection
+    name: Cathedral of the Resurrection
+    kinds:
+      - historic_site
+      - religious_site
+    description: This is an Orthodox temple completed in 2013.
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See
+  - id: montenegro-podgorica-church-of-the-great-martyr-holy-dimitrije
+    name: Church of the Great Martyr Holy Dimitrije
+    kinds:
+      - religious_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See
+  - id: montenegro-podgorica-rimski-trg
+    name: Rimski Trg
+    kinds:
+      - food
+    description: The square in the new part of town. The square and the surrounding area is the home for the trendiest of Podgorica cafes and restaurants, and favourite meeting point for Podgorica citizens.
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See
+  - id: montenegro-podgorica-moraca-river-canyon
+    name: Morača river canyon
+    kinds:
+      - nature
+      - religious_site
+    description: Visit the 13th century Morača monastery and enjoy scenery
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See > Further afield
+  - id: montenegro-podgorica-doclea
+    name: Doclea
+    kinds:
+      - historic_site
+    description: The ruins of the old Roman city that preceded Ribnica and Podgorica.
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See > Further afield
+  - id: montenegro-podgorica-meteon
+    name: Meteon
+    kinds:
+      - historic_site
+    description: Ruins of a fortress erected at 3rd century B.O.T.
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > See > Further afield
+  - id: montenegro-podgorica-rogami-beach
+    name: Rogami Beach
+    kinds:
+      - beach
+      - adventure
+    description: On the picturesque Moraca River, it is good for swimming and diving. The beach has a springboard, sun loungers and shaded seating areas available.
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > Do
+  - id: montenegro-podgorica-podgorica-city-stadium
+    name: Podgorica City Stadium
+    kinds:
+      - other
+    description: Watch football here. Capacity 15,000, north side of city centre is the home ground of Montenegro's national soccer team. Also here are FK Budućnost Podgorica who play in the First League, the country's top tier; they often win it and qualify for European competitions.
+    crowd_level: null
+    best_months: []
+    source_ref: Podgorica > Do
+  - id: montenegro-budva-stari-grad-old-town
+    name: Stari Grad (Old Town)
+    kinds:
+      - historic_site
+    description: The old town of Budva lies on a little island that was linked to the land by a sandbar and in time turned into a peninsula. It is surrounded by ramparts originating from the 15th century including a medieval fortification system with city gates, defense walls and towers. The Old Town consists of narrow streets and alleys and small squares with precious monuments of different Mediterranean cultures that have marked the development of this town. You can enter in Old Town from one of five entrance doors.
+    crowd_level: null
+    best_months: []
+    source_ref: Budva > See
+  - id: montenegro-budva-budva-citadel
+    name: Budva Citadel
+    kinds:
+      - historic_site
+    description: Reconstructed after an earthquake.
+    crowd_level: null
+    best_months: []
+    source_ref: Budva > See
+  - id: montenegro-budva-museum-of-the-town-of-budva-archaeology-museum
+    name: Museum of the Town of Budva / Archaeology Museum
+    kinds:
+      - historic_site
+      - museum
+    description: Houses Budva historical items.
+    crowd_level: null
+    best_months: []
+    source_ref: Budva > See > Museums
+  - id: montenegro-budva-mogren-beach
+    name: Mogren Beach
+    kinds:
+      - beach
+      - nature
+    description: Crowded beach but nice water. Don't stop at the first stretch of beach, now designated Mogren 1, continue around the sunbathers to the far end and through the coves to Mogren 2. The music from Mogren 1 is much less obtrusive there. If you're really adventurous continue around the perimeter of the small bay to what is referred to as shark's rock, which daredevils jump off of. Because of the trees and nearby cliff the afternoon shade covers the far half of Mogren 2 earlier than the rest.
+    crowd_level: null
+    best_months: []
+    source_ref: Budva > See > Beaches
+  - id: montenegro-budva-dancing-girl-statue
+    name: Dancing Girl Statue
+    kinds:
+      - beach
+      - historic_site
+      - viewpoint
+    description: A statue of a topless girl doing the dancer's pose (yoga). Some people say that this is the statue of a young girl who drowned at this location but others say that this is just an ordinary statue. Anyway this is spot where people come to take pictures with the panorama of the Old Town in background.
+    crowd_level: null
+    best_months: []
+    source_ref: Budva > See > Beaches
+  - id: montenegro-budva-church-of-saint-john
+    name: Church of Saint John
+    kinds:
+      - historic_site
+      - religious_site
+    description: Seat of the Budva bishopric till 1828. In 1867 the belfry was added to the north side of the church and it still exists. Among preserved monuments the most important ones are the icon “Madonna in Punta” and the rich archives and library. Among its holdings is the Chronicle of Budva most comprehensive source of data and events in Budva between 1796 and 1842. Operating church.
+    crowd_level: null
+    best_months: []
+    source_ref: Budva > See > Churches
+  - id: montenegro-budva-church-of-holy-trinity
+    name: Church of Holy Trinity
+    kinds:
+      - historic_site
+      - religious_site
+    description: Single nave construction with a dome. It was built in 1804 and modelled on one of two churches of the Podostrog monastery. In front of Church you can see tomb of famous writer and politician Stjepan Mitrov Ljubisa. Church is parish church and it is operating.
+    crowd_level: null
+    best_months: []
+    source_ref: Budva > See > Churches
+  - id: montenegro-budva-church-of-saint-sava
+    name: Church of Saint Sava
+    kinds:
+      - historic_site
+      - religious_site
+    description: This is small single nave church whose dimensions are 5 x 3 m. It is supposed to have been built during the 14 century. During the Venetian and Austrian occupations the most valuable possessions of this church disappeared. Today there is almost no trace of decorations with icons, frescoes or sculptures. It is not operating.
+    crowd_level: null
+    best_months: []
+    source_ref: Budva > See > Churches
+  - id: montenegro-budva-boat-trip-around-budva-riviera
+    name: Boat Trip around Budva Riviera
+    kinds:
+      - beach
+      - historic_site
+      - viewpoint
+      - boat_trip
+    description: Rent or board a boat in the harbour by the Old Town for wonderful scenic experience, and you might enjoy St. Nicholas island for suntanning or any of the beaches along the way, or experience a semi-submarine tour that offer guests an underwater ride through the Budva Bay to see the seabed.
+    crowd_level: null
+    best_months: []
+    source_ref: Budva > Do
+  - id: montenegro-budva-bungee-jumping
+    name: Bungee jumping
+    kinds:
+      - beach
+    description: Experience jumping right on the beach.
+    crowd_level: null
+    best_months: []
+    source_ref: Budva > Do
+  - id: montenegro-budva-paragliding
+    name: Paragliding
+    kinds:
+      - adventure
+    description: Paragliding spot from Brajici just above Budva.
+    crowd_level: null
+    best_months: []
+    source_ref: Budva > Do
+  - id: montenegro-budva-hike-old-cliffy-road-above-the-sea
+    name: Hike old cliffy-road above the sea
+    kinds:
+      - hiking
+      - nature
+      - historic_site
+      - religious_site
+      - village
+      - viewpoint
+    description: It's an easy downhill 3-hr hike starting from the old Austrian castle on top of Brajici that displays scenic scenery of the Riviera, and various settlements along the way such as castles, monasteries and villages. Ends on the amazing island of Sv. Stefan.
+    crowd_level: null
+    best_months: []
+    source_ref: Budva > Do
+  - id: montenegro-kotor-st-tryphons-cathedral
+    name: St Tryphon's Cathedral
+    kinds:
+      - religious_site
+    description: It was built in the 11th century, and reconstructed after earthquakes. Romanesque-Gothic architecture. Chapel holds the remains of St. Tryphon, the patron saint of Kotor.
+    crowd_level: null
+    best_months: []
+    source_ref: Kotor > See
+  - id: montenegro-kotor-st-nicolas-church
+    name: St Nicolas Church
+    kinds:
+      - historic_site
+      - religious_site
+    description: The biggest Orthodox church in the Old Town.
+    crowd_level: null
+    best_months: []
+    source_ref: Kotor > See
+  - id: montenegro-kotor-maritime-museum
+    name: Maritime Museum
+    kinds:
+      - museum
+    description: 3 floors of photographs, uniforms, weapons, paintings, and model ships.
+    crowd_level: null
+    best_months: []
+    source_ref: Kotor > See
+  - id: montenegro-kotor-castle-of-san-giovanni
+    name: Castle of San Giovanni
+    kinds:
+      - hiking
+      - historic_site
+      - viewpoint
+    description: Ruins of a castle at the top of the trail running along the fortifications of the town. Offers panoramic views of the walled town with the Bay of Kotor in the background.
+    crowd_level: null
+    best_months: []
+    source_ref: Kotor > See
+  - id: montenegro-kotor-church-of-our-lady-of-remedy
+    name: Church of Our Lady of Remedy
+    kinds:
+      - hiking
+      - nature
+      - historic_site
+      - religious_site
+      - adventure
+    description: Church on the slopes of the mountain overlooking Kotor. Built in the 16th century by plague survivors to honor the Holy Mother. Accessed by climbing the trail up the fortifications from the old town.
+    crowd_level: null
+    best_months: []
+    source_ref: Kotor > See
+  - id: montenegro-kotor-aquarium-boka
+    name: Aquarium Boka
+    kinds:
+      - family
+    description: Small aquarium featuring entirely local marine species. Panel descriptions are in both Montenegrin and English.
+    crowd_level: null
+    best_months: []
+    source_ref: Kotor > See
+  - id: montenegro-kotor-stroll-on-the-wall-around-kotor
+    name: Stroll on the wall around Kotor
+    kinds:
+      - food
+    description: This is a nice evening or day walk. Take a rest, enjoy the view or bring some food and drinks.
+    crowd_level: null
+    best_months: []
+    source_ref: Kotor > Do
+  - id: montenegro-kotor-boat-trips
+    name: Boat Trips
+    kinds:
+      - historic_site
+      - boat_trip
+    description: In the middle of the bay there are two islands, Sveti Djordje (St. George Island) and Gospa od Skrpijela (Our Lady of the Rocks), which are worth seeing and accessible by tourist boats (€15), which leave from outside the old town main gate. It is however much cheaper to first go by bus to Perast (€1) and then use a water taxi (€5) to get to the islands.
+    crowd_level: null
+    best_months: []
+    source_ref: Kotor > Do
+  - id: montenegro-kotor-climb-up-inside-the-fortress
+    name: Climb up inside the Fortress
+    kinds:
+      - hiking
+      - nature
+      - historic_site
+      - adventure
+    description: The fortifications are some 4.5 km away, directly above the walled city, on almost vertical cliffs. Upon reaching the fortress, you will be rewarded with a view of Kotor and the bay. Entry is advisable only for relatively physically fit people. Pay to use one of several entrances in the old city (near either the north or south gates) to climb up the 1,350 steps along switchbacks. The path is in relatively good shape, although some of the steps are broken. This 365-m ascent may take 30 minutes to 1 hour, depending on your physical capabilities. Ticket gate hours are until 20:00 (earlier in shoulder or off season). They are very strict about the ticket policy. Everyone will be checked, and you must return your ticket stub at a small table upon leaving. If you cannot show a ticket stub or receipt as proof, you will be charged the full price a second time.
+    crowd_level: null
+    best_months: []
+    source_ref: Kotor > Do > Hiking
+  - id: montenegro-kotor-climb-up-outside-the-fortress
+    name: Climb up outside the Fortress
+    kinds:
+      - hiking
+      - nature
+      - historic_site
+      - religious_site
+      - adventure
+    description: Alternatively, if you wish to skip the €15 and still be rewarded with a similar view, there is a trail behind the old power station, outside the city near the north gate, which runs parallel northeast of the fortifications. To find this trail (see GPS for starting point), exit the old walled city through the north gate, cross the bridge, and continue until the intersection with the main road. Then, make a right turn at the main road and continue walking until you see a small path to the left of the house at the top of the road. Then, take this small path that becomes a trail behind the abandoned power station. The easiest way to navigate this trail is using OsmAnd or Google Maps. After you have reached the cafe that is partially up the mountain using this trail, you can turn right onto a path behind that cafe that will take you to the small abandoned Church of St. George. When you reach the church, look west towards the old city of Kotor to see a small opening (large window) in the fortifications, often with a small ladder. The opening would give you free entrance to the fortifications, but it was closed in July 2023. Nevertheless, it doesn't hurt checking while you are up there. This path is more strenuous than the paid option, and takes longer, so be prepared and bring plenty of water, but you will be rewarded with two cafés up there. The window to the fortress is not closed as of June 2025.
+    crowd_level: null
+    best_months: []
+    source_ref: Kotor > Do > Hiking
+  - id: montenegro-kotor-hike-to-mausoleum-of-njegos
+    name: Hike to Mausoleum of Njegoš
+    kinds:
+      - hiking
+      - nature
+      - historic_site
+      - food
+    description: This is a full-day hike continuing further outside of the fortification, passing a zip-line, a nice little restaurant half-way, and into Lovćen National Park. Just 13 km, but from 0 m to 1,700 m of elevation.
+    crowd_level: null
+    best_months: []
+    source_ref: Kotor > Do > Hiking
 extraction:
-  listings: 6
+  listings: 159
   listings_by_type:
-    do: 6
+    buy: 3
+    do: 19
+    drink: 17
+    eat: 39
+    go: 4
+    listing: 4
+    see: 34
+    sleep: 39
   priced_listings:
-    sleep: 0
-    eat: 0
+    sleep: 27
+    eat: 11
   poi_sources:
-    listing: 6
+    listing: 53
     marker: 9
-    named: 11
+    named: 12
   duplicate_pois_dropped: 0
+  generic_items_pruned: 2

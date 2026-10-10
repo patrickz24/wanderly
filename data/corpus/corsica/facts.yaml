@@ -15,6 +15,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Corsica
   revision_id: 5347878
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: corsica
+    title: Corsica
+    url: https://en.wikivoyage.org/wiki/Corsica
+    revision_id: 5347878
+    license: CC BY-SA 4.0
+  - file: places/bonifacio.md
+    role: place
+    id: bonifacio
+    title: Bonifacio
+    url: https://en.wikivoyage.org/wiki/Bonifacio
+    revision_id: 5297899
+    license: CC BY-SA 4.0
+  - file: places/saint-florent.md
+    role: place
+    id: saint-florent
+    title: Saint-Florent
+    url: https://en.wikivoyage.org/wiki/Saint-Florent
+    revision_id: 5285885
+    license: CC BY-SA 4.0
+  - file: places/ajaccio.md
+    role: place
+    id: ajaccio
+    title: Ajaccio
+    url: https://en.wikivoyage.org/wiki/Ajaccio
+    revision_id: 5377184
+    license: CC BY-SA 4.0
+  - file: places/sartene.md
+    role: place
+    id: sartene
+    title: Sartène
+    url: https://en.wikivoyage.org/wiki/Sart%C3%A8ne
+    revision_id: 5356148
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -93,29 +129,55 @@ climate:
       rain_days: 13.3
       precipitation_mm: 130.7
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
-    meal: null
+    lodging_night:
+      median: 105
+      min: 65
+      max: 180
+      currency: €
+      sample_size: 6
+      excluded_other_currency: 0
+    meal:
+      median: 28
+      min: 23
+      max: 33
+      currency: €
+      sample_size: 2
+      excluded_other_currency: 0
     notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+      - Eat figure in the documents rests on only 2 listing(s).
   levels:
     budget:
       lodging_night: null
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Sleep listing under Budget has a parseable price: value unknown.'
+        - 'No Eat listing under Budget has a parseable price: value unknown.'
     mid:
-      lodging_night: null
+      lodging_night:
+        median: 70
+        min: 70
+        max: 70
+        currency: €
+        sample_size: 1
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - Sleep figure under Mid-range rests on only 1 listing(s).
+        - 'No Eat listing under Mid-range has a parseable price: value unknown.'
     comfort:
-      lodging_night: null
+      lodging_night:
+        median: 155
+        min: 130
+        max: 180
+        currency: €
+        sample_size: 2
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - Sleep figure under Splurge rests on only 2 listing(s).
+        - 'No Eat listing under Splurge has a parseable price: value unknown.'
 pois:
   - id: corsica-gulf-of-porto
     name: Gulf of Porto
@@ -125,7 +187,7 @@ pois:
     description: a small village with the only remaining square Genoese tower still standing on the island
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Corsica > Other destinations
   - id: corsica-gr-20
     name: GR 20
     kinds:
@@ -133,7 +195,7 @@ pois:
     description: perhaps the best known and most difficult of all the Grande Randonnée trails. This trail takes approximately 17 days if using the traditional waypoints, though it may take more or less time depending on your experience and needs. The trail is particularly crowded in August; many people suggest the best time is in late spring or early autumn. The greatest danger on the GR 20 arises from the intense summer storms, with lightning claiming the most fatalities.
     crowd_level: null
     best_months: []
-    source_ref: Do > Long-distance walking
+    source_ref: Corsica > Do > Long-distance walking
   - id: corsica-mare-e-mare-nord
     name: Mare e Mare Nord
     kinds:
@@ -142,7 +204,7 @@ pois:
     description: 'Cargèse to Moriani-Plage. Suggested time: 11 days. This trail intersects with one of the Mare e Monti Trails. The trail is only lightly travelled from Corte to Moriani, as this is the less interesting half, with uniform scenery, and gîtes that may not be open unless you call first.'
     crowd_level: null
     best_months: []
-    source_ref: Do > Long-distance walking
+    source_ref: Corsica > Do > Long-distance walking
   - id: corsica-mare-e-mare-sud
     name: Mare e Mare Sud
     kinds:
@@ -150,7 +212,7 @@ pois:
     description: 'Porto-Vecchio to Propriano. Suggested time: 5 days. This is considered an easier trail than the others on the island.'
     crowd_level: null
     best_months: []
-    source_ref: Do > Long-distance walking
+    source_ref: Corsica > Do > Long-distance walking
   - id: corsica-mare-e-monti
     name: Mare e Monti
     kinds:
@@ -160,18 +222,388 @@ pois:
     description: 'Calenzana to Cargèse. Suggested time: 10 days. This trail includes the beautiful fishing village of Girolata, which has no road and is only accessible by boat from Calvi or on foot.'
     crowd_level: null
     best_months: []
-    source_ref: Do > Long-distance walking
+    source_ref: Corsica > Do > Long-distance walking
+  - id: corsica-bonifacio-eglise-saint-erasme
+    name: Église Saint-Erasme
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Bonifacio > See
+  - id: corsica-bonifacio-grain-de-sable
+    name: Grain de Sable
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Bonifacio > See
+  - id: corsica-bonifacio-chapelle-de-saint-roch
+    name: Chapelle de Saint-Roch
+    kinds:
+      - religious_site
+    description: This tiny chapel marks the spot where the last victim of the plague died in the outbreak of 1528. St Roch/Roque, a 14th-century Montpelier martyr, is particularly venerated for his intercessions against plague, and on behalf of bachelors, falsely accused people, and dogs. His Saint's Day is celebrated annually here on Aug 16.
+    crowd_level: null
+    best_months: []
+    source_ref: Bonifacio > See
+  - id: corsica-bonifacio-porte-de-genes-or-genoa-gate
+    name: Porte de Gênes or Genoa Gate
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Bonifacio > See
+  - id: corsica-bonifacio-bastion-de-letendard
+    name: Bastion de l’Etendard
+    kinds:
+      - historic_site
+      - museum
+    description: The Citadel's main museum, chronicling the turbulent life and times of the city.
+    crowd_level: null
+    best_months: []
+    source_ref: Bonifacio > See
+  - id: corsica-bonifacio-maison-du-podestat
+    name: Maison du Podestat
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Bonifacio > See
+  - id: corsica-bonifacio-eglise-sainte-marie-majeure
+    name: Église Sainte-Marie-Majeure
+    kinds:
+      - beach
+      - historic_site
+      - religious_site
+    description: This is the city's principal and oldest church, mostly Romanesque and probably built in the 12th century but much modified over time. It has a prominent bell-tower and three naves, with the central nave containing the relics of St Boniface. At the front, note the loggia, the covered walkway for medieval bigwigs to discuss city business. Beneath this is a large water cistern, fed from adjacent buildings by aqueduct-buttresses spanning the streets. In 1980 they tried to turn the cistern into a conference centre but, strange to say, it filled with water every time it rained.
+    crowd_level: null
+    best_months: []
+    source_ref: Bonifacio > See
+  - id: corsica-bonifacio-escalier-du-roi-daragon
+    name: Escalier du Roi d'Aragon
+    kinds:
+      - nature
+      - historic_site
+      - religious_site
+    description: From the SW edge of the citadel, 187 steps lead down the cliffs (their diagonal notch is very visible from the sea) to the Cave of St Barthelemy's Well. This cave, which nowadays can't be entered, has a pool of fresh(-ish) water percolated down from the limestone above, so it was an important water supply for the city. A well was also drilled down directly from near the church of St Barthelemy on the headland. The steps are named for Alfonso V, King of Aragon, who was awarded control of Bonifacio in 1421 by the Genoans but the city held out against him. Fanciful legend has his men fighting up the stairs and being beaten back, but more likely he simply tried to block the water supply to force the city's surrender. He was unsuccessful and left. Reserve on line to get your ticket.
+    crowd_level: null
+    best_months: []
+    source_ref: Bonifacio > See
+  - id: corsica-bonifacio-eglise-saint-dominique
+    name: Église Saint-Dominique
+    kinds:
+      - historic_site
+      - religious_site
+    description: 'A rare example of Gothic style in Corsica, this church dates from the 13th century. The bell-tower is of no known style: it starts square, turns octagonal, then tops out in battlements. Occasional concerts are held in the church.'
+    crowd_level: null
+    best_months: []
+    source_ref: Bonifacio > See
+  - id: corsica-bonifacio-il-torrione
+    name: Il Torrione
+    kinds:
+      - historic_site
+    description: "The watchtower is the only citadel structure that remains from the original 9th-century Tuscan fortifications. It's been smashed down and rebuilt several times: the most recent destruction was in 1901 (as it gave enemy artillery too good a marker onto the town) and what you see now is a 1980 reconstruction."
+    crowd_level: null
+    best_months: []
+    source_ref: Bonifacio > See
+  - id: corsica-bonifacio-loggia-de-larsenal
+    name: Loggia de l'Arsenal
+    kinds:
+      - religious_site
+      - food
+    description: St Dominique was built as a Dominican convent; all that remains is the church (listed above) and this Loggia, the former refectory. Its colonnaded square hosts a Farmers Market on Friday mornings.
+    crowd_level: null
+    best_months: []
+    source_ref: Bonifacio > See
+  - id: corsica-bonifacio-cimetiere-marin
+    name: Cimetière Marin
+    kinds:
+      - religious_site
+      - family
+    description: Packed with 18th- & 19th-century family burial chapels and funerary art.
+    crowd_level: null
+    best_months: []
+    source_ref: Bonifacio > See
+  - id: corsica-bonifacio-spmb-sea-trips
+    name: SPMB sea trips
+    kinds:
+      - other
+    description: 1-hour and ½-day trips by a consortium of local companies, heading out to the Lavezzi isles. You'll see their boats and hear them barking for customers by the marina TIC.
+    crowd_level: null
+    best_months: []
+    source_ref: Bonifacio > Do
+  - id: corsica-bonifacio-le-gouvernail
+    name: Le Gouvernail
+    kinds:
+      - other
+    description: The Gouvernail is a rock formation that on the map looks like the rudder of the boat-shaped Corsica. Follow the 168 steps down; there's a late 19th-century bunker dug into the rock for a cannon firing position.
+    crowd_level: null
+    best_months: []
+    source_ref: Bonifacio > Do
+  - id: corsica-saint-florent-citadelle
+    name: Citadelle
+    kinds:
+      - historic_site
+    description: 15th-century tower.
+    crowd_level: null
+    best_months: []
+    source_ref: Saint-Florent > See
+  - id: corsica-saint-florent-visit-wineries-in-patrimonio
+    name: Visit Wineries in Patrimonio
+    kinds:
+      - wine
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Saint-Florent > Do
+  - id: corsica-ajaccio-napoleons-house
+    name: Napoleon's House
+    kinds:
+      - museum
+    description: House where Napoleon Bonaparte was born. Now a museum.
+    crowd_level: null
+    best_months: []
+    source_ref: Ajaccio > See
+  - id: corsica-ajaccio-cathedral
+    name: Cathedral
+    kinds:
+      - religious_site
+    description: Church of Ste. Marie.
+    crowd_level: null
+    best_months: []
+    source_ref: Ajaccio > See
+  - id: corsica-ajaccio-church-of-st-erasme
+    name: Church of St Erasme
+    kinds:
+      - religious_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Ajaccio > See
+  - id: corsica-ajaccio-citadel
+    name: Citadel
+    kinds:
+      - historic_site
+    description: The Citadel was founded in 1492. Its current Genoese appearance dates to some time after 1559. You can only admire the exterior, as it remains a military base out-of-bounds to the public.
+    crowd_level: null
+    best_months: []
+    source_ref: Ajaccio > See
+  - id: corsica-ajaccio-harbour-station
+    name: Harbour station
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Ajaccio > See
+  - id: corsica-ajaccio-musee-fesch
+    name: Musee Fesch
+    kinds:
+      - museum
+    description: 14th- to 19th-century Italian art collection amassed by Napoleon's uncle, Cardinal Fesch. Includes works by Titian, Raphael & Botticelli.
+    crowd_level: null
+    best_months: []
+    source_ref: Ajaccio > See
+  - id: corsica-ajaccio-filitosa
+    name: Filitosa
+    kinds:
+      - museum
+      - food
+    description: Prehistoric (mostly Bronze Age) settlement with standing stones and small museum. Easiest visited from Ajaccio, but also an easy day-trip from Bonifacio or Porto Vecchio. Other notable standing stones in the area are at Palaggiu and Stanfari. Restaurant on site.
+    crowd_level: null
+    best_months: []
+    source_ref: Ajaccio > See
+  - id: corsica-ajaccio-take-the-train-to-bocognano
+    name: Take the train to Bocognano
+    kinds:
+      - hiking
+      - nature
+      - village
+      - food
+      - nightlife
+    description: The train from the Gare d'Ajaccio leaves daily at 07:41 and takes under an hour through forests and past mountains to get to Bocognano, a village with an alpine feel, a few restaurants and bars, a couple of boulangeries, and a spectacular view of the mountains. There are hiking trails in the area (check the board beside the mairie. Or you can just have a coffee, enjoy the view, and return on the 10:49 train to Ajaccio. Hikers can take an 18:30 train back.
+    crowd_level: null
+    best_months: []
+    source_ref: Ajaccio > Do
+  - id: corsica-sartene-place-de-la-liberation
+    name: Place de la Libération
+    kinds:
+      - historic_site
+      - religious_site
+      - food
+    description: Formerly Place Porta (a very welcoming place where the inhabitants meet to discuss, mainly politics). There was the guillotine there. There the men of "good birth", the Sgios, argued. At the foot of the church, at dawn, the peasants were waiting for job offers. This shaded square, very lively with its market and cafes, faces southwest/northeast. It is dominated to the north by the town hall, the former governor's palace under Genoese occupation, and by Église Sainte-Marie, a characteristic Corsican church (with its three-level bell tower with bays and surmounted by a dome). At its southern end there is an esplanade, Pasquale Paoli square where the bust of the Babbu di a patria has been enthroned since 8 December 2006.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-regional-museum-of-prehistoric-corsica-and-archeologie
+    name: Regional museum of prehistoric Corsica and archeologie
+    kinds:
+      - historic_site
+      - museum
+    description: 'Inside the museum you can see in particular: A room dedicated to statue-steles. A chronological presentation of the Neolithic settlements of Corsica through objects from the lithic industry, metallurgy or ceramics. Part of the Roman gold coins from the Lava hoard. A documentation center and a conference room.'
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-eglise-sainte-marie
+    name: Église Sainte-Marie
+    kinds:
+      - historic_site
+      - religious_site
+    description: The church was built in 1766 to replace the previous one, which collapsed the previous year. The construction of the bell tower began two years later. The religious building is classified as a Historic Monument.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-eglise-san-damiano
+    name: Église San Damiano
+    kinds:
+      - religious_site
+    description: Neoclassical style church, built in 1766.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-sartene-watchtower
+    name: Sartène Watchtower
+    kinds:
+      - historic_site
+    description: The watchtower of Sartène is the symbol of this very picturesque town. Located in the Place de Guardiola, it dates from the end of the 16th century. It was the only element of the defensive bastion formed by the Pietraggio district. It is listed as a historical monument.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-town-hall
+    name: Town Hall
+    kinds:
+      - historic_site
+    description: Historical monument. The building is registered as a historic monument with the decree of 8 March 1991.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-spin-a-cavallu-bridge
+    name: Spin' a Cavallu bridge
+    kinds:
+      - historic_site
+    description: This Pisan then Genoese bridge of the XIII and XV century over the Rizzanese is called A spin'a cavallu (literally "in the shape of a horse's back"). It would be the work of the architect Maestro Maternato. 64 m long and 2.60 m wide, it rises 8 m above the water and is one of the most famous bridges in Corsica, connecting the pièves of La Rocca and Sartène. It offers to admire a beautifully balanced architecture. Listed as a Historic Monument in 1992. Restored in 1995 after the floods of the Rizzanese and Fiumicicoli rivers, it is a typical Pisan bridge
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-tizzano-fort
+    name: Tizzano Fort
+    kinds:
+      - historic_site
+    description: This ruined fort defended the entrance to Cala di Tizzano, a small sheltered port for local fishermen. This small stronghold was deployed in the second half of the 18th century from a 16th century Genoese tower. It is listed as a historical monument.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-cauria
+    name: Cauria
+    kinds:
+      - historic_site
+    description: Here are located the dolmen of Fontanaccia, the alignment of Stantari and that of Renaju. These alignments of statue-menhirs are classified as Historic Monuments.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-fontanaccia-dolmen
+    name: Fontanaccia dolmen
+    kinds:
+      - historic_site
+    description: The dolmen is made up of six lateral orthostats, three of which come from the same fissured slab. All slabs have been regularised. The room measures 4 m². The slab fragments visible in front of the entrance could correspond to the closing slab. It has been classified as a historic monument since 1889.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-stantari
+    name: Stantari
+    kinds:
+      - historic_site
+      - village
+    description: Dated to the Bronze Age between 1500 and 1000 BC. The two orders of stones, dated BC, consist of more than 20 standing menhirs or statue menhirs. Its front faces east. Long hidden under an ancient wall, the stones were excavated by Roger Grosjean in 1964. The two statues in the northern part of the stone row, named by Grosjean as "Cauria II" (2.78 m high) and "Cauria IV" (2.91 m high) from the nearby village of Cauria, are among the largest in Corsica. They are the only menhir statues with indicated arms and hands. A "dagger sword" is recognized as an attribute, which is carried in a hook on the chest with a shoulder strap. A kind of loincloth is attached to the sword, forming a curved line pattern on the back of the menhir. The vertical incisions on the back are interpreted as the back or straps of the sword hook. Of interest are the two indentations (7 cm in diameter and 3 cm deep) on the sides of the head above the forehead. According to Grosjean, they were used to attach horns, so it's a bucranion. Traces of red paint on Cauria II and IV indicate, among other things, that these and other menhir statues were painted with red ochre. The two statues have been compared with representations of the Sea Peoples of Egypt in terms of clothing and armament and taken as an indication that the Shardana came from Sardinia, as the "Torre people" culture depicted on Cauria II and IV shows parallels with that of Sardinia at the same time.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-rinaghju
+    name: Rinaghju
+    kinds:
+      - other
+    description: The 46 menhirs of the double north-south row and of the adjacent semicircle have been raised and stand in a small holm oak wood at the foot of the Cauria rocks. The row of stones dates from Megalithic II or the Early Bronze Age (3000-1000 BC). Most of the menhirs are less than 1 m high.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-baricci-castle
+    name: Baricci Castle
+    kinds:
+      - historic_site
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-paddaghju
+    name: Paddaghju
+    kinds:
+      - historic_site
+      - museum
+    description: The alignments are organized into seven groups, six oriented north-south and one east-west. All the menhirs are carved in the shape of a human silhouette (although none have clear minds), most being roughly rough-hewn. The three statue-stelae have swords engraved and two have daggers, other presumed engravings could be anatomical attributes. Funeral coffers have also been discovered. Only one is still preserved, partially inviolate, it contained furniture from the early Bronze Age which is now in the museum of Sartène. Aligned domes are visible on one of its uprights. Some authors see in them stellar representations or a motif linked to the cult of water, these domes perhaps allow rainwater to be collected with magical virtues. The menhirs were erected between 1900 and 1000 BC. The site was first listed in 1889 by Étienne Michon, who counted sixty to seventy menhirs there, divided into two groups. Giraux discovered another dozen in 1914. Roger Grosjean carried out various excavation campaigns from 1964 to 1968 and brought the number of discovered monoliths and three stele-statues to 255, which led him to qualify the site as a "laboratory of Corsican megalithism". The site is classified as a historic monument by order of 23 October 1974.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-u-frate-e-a-sora
+    name: U Frate è a Sora
+    kinds:
+      - other
+    description: 'These menhirs were first described by Prosper Mérimée in his Notes d''un voyage en Corse, published in 1840. The place was then called I Stantari. In the section entitled "Menhirs of Rizzanesu", Mérimée describes her visit to the Friars is in Sora: "Two other menhirs, but aligned, are about a league from Sartène, on the left bank of the Rizzanesu and near the road to Propriano. The place it is called I Stantari. The two stones are inclined towards each other. The largest, three meters high, is a little wider at the bottom than at the top, it seems broken by chance. It is approximately square, the side measures about 0.85 m. The other stone, of the same size, does not exceed 1.60 m. The two menhirs are 0.50 m apart. Between the two standing menhirs there is a third, almost larger than the previous two, but resting on the ground.It could also be a fragment of one of the two menhirs.'
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-roccapina-tower
+    name: Roccapina tower
+    kinds:
+      - beach
+      - historic_site
+    description: This Genoese tower is characterized by its rocks (the Lion of Roccapina), its small bay (Cala di Roccapina), its beach of very fine sand and its Genoese tower. The 17th century tower is classified as a Historic Monument.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-senetosa-tower
+    name: Senetosa tower
+    kinds:
+      - historic_site
+    description: The tower is located at an altitude of 129 m on the Capu di Senetosa promontory. The tower was built in 1610. It was one of a series of coastal defenses built by the Republic of Genoa between 1530 and 1620 to stem attacks by Barbary pirates. In 1992, the tower was listed as an official historical monument of France. Since 1979, the tower has been owned and maintained by the French government agency, the Conservatoire du littoral. The agency plans to purchase 2,378 ha of the promontory and in 2011 had acquired 2,333 ha.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-senetosa-lighthouse
+    name: Senetosa lighthouse
+    kinds:
+      - other
+    description: The Senetosa lighthouse was built behind the Corsican lighting schedule. It was designed by engineer Zevaco. Work began in 1889 and the lighthouse was lit on May 15, 1892 with a white light flashing every 5 seconds. Originally fueled by mineral oil, this fire switched fuel in 1906 to petroleum vapor. The lighthouse was later electrified and automated in 1988. It no longer has a keeper as of spring 2008. At the end of 2011, the Senetosa lighthouse was the first lighthouse to pass under the responsibility of the Conservatoire du littoral, as part of the transfer of the management of some sixty state lighthouses to the conservatory decided in 2011.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > See
+  - id: corsica-sartene-procession-of-catenacciu
+    name: Procession of Catenacciu
+    kinds:
+      - other
+    description: It's the procession with the representation of the Passion of Christ that takes place during Good Friday (Venneri Santu or Vennaressantu in Corsican). A man impersonates Jesus who has to carry a cross weighing about 30 kg and has a chain tied to his bare feet; the helper travels 1.8 km and must fall three times along the way, like Christ.
+    crowd_level: null
+    best_months: []
+    source_ref: Sartène > Do > Events
 extraction:
-  listings: 9
+  listings: 101
   listings_by_type:
-    drink: 2
-    eat: 3
-    go: 4
+    buy: 3
+    do: 6
+    drink: 3
+    eat: 16
+    go: 9
+    listing: 13
+    see: 38
+    sleep: 13
   priced_listings:
-    sleep: 0
-    eat: 0
+    sleep: 6
+    eat: 2
   poi_sources:
-    listing: 0
+    listing: 43
     marker: 1
     named: 4
   duplicate_pois_dropped: 0
+  generic_items_pruned: 1

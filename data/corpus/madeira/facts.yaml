@@ -16,6 +16,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Madeira
   revision_id: 5367905
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: madeira
+    title: Madeira
+    url: https://en.wikivoyage.org/wiki/Madeira
+    revision_id: 5367905
+    license: CC BY-SA 4.0
+  - file: places/funchal.md
+    role: place
+    id: funchal
+    title: Funchal
+    url: https://en.wikivoyage.org/wiki/Funchal
+    revision_id: 5383686
+    license: CC BY-SA 4.0
+  - file: places/santa-cruz-madeira.md
+    role: place
+    id: santa-cruz-madeira
+    title: Santa Cruz (Madeira)
+    url: https://en.wikivoyage.org/wiki/Santa_Cruz_(Madeira)
+    revision_id: 5367916
+    license: CC BY-SA 4.0
+  - file: places/porto-da-cruz.md
+    role: place
+    id: porto-da-cruz
+    title: Porto da Cruz
+    url: https://en.wikivoyage.org/wiki/Porto_da_Cruz
+    revision_id: 5355257
+    license: CC BY-SA 4.0
+  - file: places/calheta.md
+    role: place
+    id: calheta
+    title: Calheta
+    url: https://en.wikivoyage.org/wiki/Calheta
+    revision_id: 5349430
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -94,36 +130,61 @@ climate:
       rain_days: 10.1
       precipitation_mm: 52.6
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
     lodging_night:
-      median: 50
-      min: 50
-      max: 50
+      median: 71.25
+      min: 12
+      max: 375
       currency: €
-      sample_size: 1
+      sample_size: 8
       excluded_other_currency: 0
-    meal: null
+    meal:
+      median: 22.5
+      min: 2
+      max: 245
+      currency: €
+      sample_size: 9
+      excluded_other_currency: 0
     notes:
-      - 1 Sleep listing price(s) in the article quoted per week or month were left out.
-      - Sleep figure in the article rests on only 1 listing(s).
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+      - 1 Sleep listing price(s) in the documents quoted per week or month were left out.
   levels:
     budget:
       lodging_night: null
-      meal: null
+      meal:
+        median: 3.75
+        min: 2
+        max: 5.5
+        currency: €
+        sample_size: 1
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Sleep listing under Budget has a parseable price: value unknown.'
+        - Eat figure under Budget rests on only 1 listing(s).
     mid:
       lodging_night: null
-      meal: null
+      meal:
+        median: 12.75
+        min: 9
+        max: 16.5
+        currency: €
+        sample_size: 1
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Sleep listing under Mid-range has a parseable price: value unknown.'
+        - Eat figure under Mid-range rests on only 1 listing(s).
     comfort:
       lodging_night: null
-      meal: null
+      meal:
+        median: 155
+        min: 95
+        max: 245
+        currency: €
+        sample_size: 2
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Sleep listing under Splurge has a parseable price: value unknown.'
+        - Eat figure under Splurge rests on only 2 listing(s).
 pois:
   - id: madeira-ilhas-selvagens
     name: Ilhas Selvagens
@@ -132,7 +193,7 @@ pois:
     description: The "Wild Islands", part of the Madeira autonomous region, make up an archipelago near Spain's Canary Islands. The islands are a natural reserve populated only by scientists, and normally off limits for visitors.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Madeira > Other destinations
   - id: madeira-cabo-girao
     name: Cabo Girão
     kinds:
@@ -140,7 +201,7 @@ pois:
     description: One of the world's highest ocean cliffs, in Câmara de Lobos.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Madeira > See
   - id: madeira-sao-vicente-caves
     name: São Vicente Caves
     kinds:
@@ -148,7 +209,7 @@ pois:
     description: Volcanic caves (grutas) where you can visit lava tubes.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Madeira > See
   - id: madeira-laurisilva-of-madeira
     name: Laurisilva of Madeira
     kinds:
@@ -156,7 +217,7 @@ pois:
     description: A special kind of subtropical forest found only on Madeira, inscribed as a UNESCO World Heritage Site.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Madeira > See
   - id: madeira-levadas
     name: Levadas
     kinds:
@@ -164,7 +225,7 @@ pois:
     description: Levadas An impressive system of aqueducts built between 1461 and 1966 to bring water from the mountains to farmland.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Madeira > See
   - id: madeira-pico-ruivo
     name: Pico Ruivo
     kinds:
@@ -172,7 +233,7 @@ pois:
     description: Pico Ruivo and Pico do Arieiro The second and third highest peaks in Portugal.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Madeira > See
   - id: madeira-monte-palace-tropical-garden
     name: Monte Palace Tropical Garden
     kinds:
@@ -181,7 +242,7 @@ pois:
     description: Magnificent gardens of the former Monte Palace hotel outside of Funchal.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Madeira > See
   - id: madeira-jardim-orquidea
     name: Jardim Orquídea
     kinds:
@@ -189,7 +250,7 @@ pois:
     description: Jardim Orquídea Orchid garden.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Madeira > See
   - id: madeira-fireworks-on-new-years-eve
     name: Fireworks on New Year's Eve
     kinds:
@@ -197,15 +258,7 @@ pois:
     description: Fireworks on New Year's Eve The biggest fireworks in the world (Guinness world record 2007). Best places to see the fireworks include the tip of the marina of Funchal, on a cruise ship and Pico dos Barcelos (on the side where you can see the Funchal's marina).
     crowd_level: null
     best_months: []
-    source_ref: See
-  - id: madeira-miradouro
-    name: Miradouro
-    kinds:
-      - viewpoint
-    description: Miradouro means viewpoint. Splendid views of the island can be seen from various viewpoints, including Pico dos Barcelos, Pico do Arieiro, Pico de Facho
-    crowd_level: null
-    best_months: []
-    source_ref: See
+    source_ref: Madeira > See
   - id: madeira-curral-das-freiras
     name: Curral das Freiras
     kinds:
@@ -213,7 +266,7 @@ pois:
     description: An isolated town of 2,000 people surrounded by cliffs and peaks near Câmara de Lobos.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Madeira > See
   - id: madeira-madeira-skywalk
     name: Madeira Skywalk
     kinds:
@@ -221,44 +274,353 @@ pois:
     description: The Skywalk is a 2-minute walk from Village Cabo Girão.
     crowd_level: null
     best_months: []
-    source_ref: See
-  - id: madeira-surfing
-    name: Surfing
-    kinds:
-      - adventure
-    description: Surfing The Atlantic offers waves for moderate to experienced surfers. Jardim do Mar and Paul do Mar are the most popular surfing places.
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: madeira-canyoning
-    name: Canyoning
+    source_ref: Madeira > See
+  - id: madeira-funchal-quinta-do-palheiro-ferreiro-park
+    name: Quinta do Palheiro Ferreiro Park
     kinds:
       - nature
-      - adventure
-    description: Canyoning in Madeira is great for beginners and pro's alike. Abseiling down high waterfalls and jumping into crystal clear pools of fresh water is something you shouldn't miss.
+      - food
+    description: "The Quinta do Palheiro Ferreiro Park is a typical example of a manor in British colonial style. While the manor is private and can't be visited, you can enjoy the public park. On first sight it looks like an English park, with old Platanes forming a long alley from the main gate to the gardens. But when you look closer you see all the tropical plants that build the basis, completed by hundreds of plants from all over the world, so all year round there are plants blooming. The main part of the park is formed by several gardens: a French Garden, a Sunken Garden, the Ladies Garden, a Rose Garden and some more. Opposite the main gate is a Tea House, which is connected to the golf course. They serve some good tea, cakes, pastries, snacks and small lunches. The way back to the main gate is formed by the Camellia Avenue, a flourish firework between end October and March. The park is at 500 m altitude. 09:00-11:30 the park is often crowded by bus tourists, so choose the afternoon for a more laid-back visit. Entrance fee €10.50. Public buses frequently connect Funchal with the park: line 36 or, if you have strong nerves, line 37 for a more spectacular ride."
     crowd_level: null
     best_months: []
-    source_ref: Do
-  - id: madeira-whale-and-dolphin-watching
-    name: Whale and dolphin watching
+    source_ref: Funchal > See
+  - id: madeira-funchal-madeira-botanical-garden
+    name: Madeira Botanical Garden
+    kinds:
+      - nature
+    description: The more than 2000 plants of these hillside gardens, plus the view of Funchal make this one of the major attractions of the whole island. The gardens also feature a collection of parakeets and parrots.
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > See
+  - id: madeira-funchal-mercado-dos-lavradores
+    name: Mercado Dos Lavradores
+    kinds:
+      - historic_site
+      - boat_trip
+      - nightlife
+    description: This historic building, with an open patio, offers, on two levels, fresh fruits and vegetables from all over the island. On the lower level is a separate hall where fish vendors sell fresh-caught fish. Eat and buy local fruits like the small Madeiran mangos, bananas, philodendres and plenty of kinds of maracujas. Taste the offers from vendors. But be careful, as some may try to rip you off and sell you over-ripe fruit, or some heavy mangos for the (expensive) price of light maracujas. There are also some nice pastelarias and coffee bars in and around the building. These are often crowded when it's raining, and when large cruise ships are on the pier.
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > See
+  - id: madeira-funchal-monte-palace-hotel-gardens
+    name: Monte Palace Hotel Gardens
+    kinds:
+      - nature
+      - historic_site
+    description: The gardens of this defunct hotel include a Chinese garden, artwork, a small lake, and a variety of flora and fauna.
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > See
+  - id: madeira-funchal-santa-clara-convent
+    name: Santa Clara Convent
+    kinds:
+      - historic_site
+      - religious_site
+    description: Dating from the end of the 15th century, this convent, now a national monument, was founded by João Gonçalves da Câmara. The azulejo tiles are especially notable.
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > See
+  - id: madeira-funchal-sao-lourenco-palace
+    name: São Lourenço Palace
+    kinds:
+      - nature
+      - historic_site
+    description: Half fortress and half palace, this construction is a good example of mannerist architecture. Highlights include the Noble Salon (Salão Nobre), the Green Room (Sala Verde), the Audience Hall (Sala de Audiências), and the gardens.
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > See
+  - id: madeira-funchal-se-cathedral
+    name: Sé Cathedral
+    kinds:
+      - historic_site
+      - religious_site
+    description: The central point in Funchal, and its most-visited monument. Commissioned by the king Dom Manuel I through Portuguese explorer Gil Eanes, the cathedral was built between 1493 and 1517. The ceiling is made from local wood.
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > See
+  - id: madeira-funchal-colegio-church
+    name: Colegio Church
+    kinds:
+      - historic_site
+      - religious_site
+    description: This Jesuit temple, completed in 1647, is a striking building with a stunning interior. Today it is part of Madeira University.
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > See
+  - id: madeira-funchal-ibtam-museum
+    name: IBTAM Museum
+    kinds:
+      - museum
+    description: Museum of the Institute of Embroidery, Tapestry and Craftsmanship of Madeira. The exhibits give some idea of the tradition of embroidery in the island in the past centuries
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > See
+  - id: madeira-funchal-sao-tiago-fort
+    name: São Tiago Fort
+    kinds:
+      - historic_site
+      - museum
+    description: Built in 1614 to defend the city from pirate attack, the fort today houses a small contemporary art museum.
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > See
+  - id: madeira-funchal-museu-cr7
+    name: Museu CR7
+    kinds:
+      - museum
+    description: Museum dedicated to Portuguese footballer Cristiano Ronaldo's trophies, with a bronze statue of him in the front.
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > See
+  - id: madeira-funchal-madeira-casino
+    name: Madeira Casino
+    kinds:
+      - religious_site
+      - food
+      - nightlife
+    description: The only casino on the island. The building's unusual shape was designed by Brazilian architect Oscar Niemeyer, and indeed looks a bit like Brasilia Cathedral with a haircut. Casino da Madeira offers table games such as Texas Hold 'em, blackjack, baccarat and American roulette (with 0 and 00) and slots. Outside of gambling there is the Palm bar, the Rio casual restaurant, the formal Bahlia restaurant and the Copacabana nightclub that hosts live musical performances (just like the Barry Manilow song). Note that the premises have dress code that forbids sandals, flip-flops and sports wear. Free parking and Wi-Fi for patrons.
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > Do
+  - id: madeira-funchal-palheiro-golf-course
+    name: Palheiro Golf Course
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > Do
+  - id: madeira-funchal-funchal-cable-car
+    name: Funchal Cable Car
+    kinds:
+      - nature
+      - historic_site
+      - religious_site
+    description: View the city from above in a gondola. The upper station is at Monte, where you can visit the Monte Palace gardens and the church at Monte. Another cable car goes down from this point to the Botanical Gardens. Combination tickets for the ride and attractions are available.
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > Do
+  - id: madeira-funchal-cs-maritimo
+    name: CS Marítimo
+    kinds:
+      - other
+    description: They were promoted in 2026 and play in Primeira Liga, the game's top tier. Their home ground Estádio do Marítimo has capacity 11,000. The women's team also play in their top tier.
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > Do
+  - id: madeira-funchal-cd-nacional
+    name: CD Nacional
+    kinds:
+      - other
+    description: They too play in Primeira Liga. Their home ground Estádio da Madeira has a capacity of 5500..
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > Do
+  - id: madeira-funchal-madeira-paragliding
+    name: Madeira Paragliding
+    kinds:
+      - adventure
+    description: Tandem Paragliding flights.
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > Do
+  - id: madeira-funchal-monte-toboggan
+    name: Monte Toboggan
+    kinds:
+      - nature
+    description: Ride wooden toboggan down the mountain on a 2km roadway while being steered by men.
+    crowd_level: null
+    best_months: []
+    source_ref: Funchal > Do
+  - id: madeira-santa-cruz-madeira-igreja-de-sao-salvador
+    name: Igreja de São Salvador
+    kinds:
+      - religious_site
+    description: 16th-century Gothic and Manueline-style church. It is similar to Funchal Cathedral, at a smaller scale, and is Madeira's 2nd-largest church.
+    crowd_level: null
+    best_months: []
+    source_ref: Santa Cruz (Madeira) > See
+  - id: madeira-santa-cruz-madeira-aquaparque-madeira
+    name: Aquaparque Madeira
+    kinds:
+      - nature
+      - family
+    description: Water park.
+    crowd_level: null
+    best_months: []
+    source_ref: Santa Cruz (Madeira) > Do
+  - id: madeira-porto-da-cruz-fort-ruins
+    name: Fort Ruins
+    kinds:
+      - historic_site
+    description: Walk up a small hill on the waterfront (behind the rum factory) to see the stone ruins of an 18th-century fort.
+    crowd_level: null
+    best_months: []
+    source_ref: Porto da Cruz > See
+  - id: madeira-porto-da-cruz-companhia-dos-engenhos-do-norte-casa-do-rum
+    name: Companhia dos Engenhos do Norte & Casa do Rum
+    kinds:
+      - museum
+    description: Museum showing the workings of a now-defunct sugarcane and rum processing plant. Operating during the Industrial Revolution, all the machinery is steam-powered. The steam was produced by burning the chaff of the sugarcane. Quick, self-guided tour of the equipment in Portuguese, English, French, and German. Next door is a tasting room.
+    crowd_level: null
+    best_months: []
+    source_ref: Porto da Cruz > See
+  - id: madeira-porto-da-cruz-engenho-velho-museum
+    name: Engenho Velho Museum
+    kinds:
+      - beach
+      - museum
+      - viewpoint
+    description: A short self-guided walk through dark rooms of a motley collection of antique tools and machinery. There is a viewpoint, but it's not much different from the publicly-accessible view of the beach that you see just north of the museum.
+    crowd_level: null
+    best_months: []
+    source_ref: Porto da Cruz > See
+  - id: madeira-porto-da-cruz-watch-surfers-or-surf
+    name: Watch surfers or surf
+    kinds:
+      - beach
+      - adventure
+    description: Go to the beach around low tide to watch surfers catch some waves, or join them.
+    crowd_level: null
+    best_months: []
+    source_ref: Porto da Cruz > See
+  - id: madeira-porto-da-cruz-igreja-de-nossa-senhora-de-guadalupe
+    name: Igreja de Nossa Senhora de Guadalupe
+    kinds:
+      - religious_site
+      - village
+    description: The church of Porto da Cruz, a simple building with white walls and sections of black tiles is a major landmark of the village.
+    crowd_level: null
+    best_months: []
+    source_ref: Porto da Cruz > See
+  - id: madeira-porto-da-cruz-madeira-surf-camp
+    name: Madeira Surf Camp
+    kinds:
+      - beach
+      - adventure
+    description: Group surf or stand-up-paddleboard (SUP) lessons. Customized to any skill level, including beginner. Often held at the Porto da Cruz pocket beach, but if wave conditions require a different part of the island, they'll drive you to the best beach.
+    crowd_level: null
+    best_months: []
+    source_ref: Porto da Cruz > Do
+  - id: madeira-porto-da-cruz-public-swimming-pools
+    name: Public swimming pools
+    kinds:
+      - beach
+      - historic_site
+    description: There are public swimming pools below the fort ruins where you can swim with an ocean view.
+    crowd_level: null
+    best_months: []
+    source_ref: Porto da Cruz > Do
+  - id: madeira-porto-da-cruz-vereda-do-larano
+    name: Vereda do Larano
+    kinds:
+      - hiking
+      - viewpoint
+    description: 'This hike connects Machico and Porto da Cruz along the north coast. From Machico, it begins with the Levada do Caniçal and goes via the Boca do Risco viewpoint. Bus routes or your car can take you back, or some tour companies offer this. Be safe: have a map and a buddy. 12 km one-way.'
+    crowd_level: null
+    best_months: []
+    source_ref: Porto da Cruz > Do > Hikes
+  - id: madeira-porto-da-cruz-levada-do-castelejo
+    name: Levada do Castelejo
+    kinds:
+      - hiking
+      - nature
+    description: This levada hike takes you into the mountains and lush pine and native laurel forest, past waterfalls, to the Ribiero Frio (Cold River)—one of the most important sources of water for the north of Madeira, including this levada's source. To find the trailhead, take any of the main roads from the center of Porto da Cruz, uphill (about 40 minutes hiking, or 10 minutes driving). At the blue bar, there's a sign pointing the way. When this road forks, take the right (dry levada) fork a few hundred metres until you see the well-marked trailhead and map. From here it's an easy and tranquil 8.6-km round-trip hike with virtually no elevation change. At the opposite terminus the trail ends at a huge boulder and the Ribeiro Frio.
+    crowd_level: null
+    best_months: []
+    source_ref: Porto da Cruz > Do > Hikes
+  - id: madeira-porto-da-cruz-vereda-da-penha-daguia
+    name: Vereda da Penha d'Aguia
+    kinds:
+      - hiking
+      - village
+    description: 'This strenuous hike takes you to the 590-metre-high massif overlooking the sea and village. To find the trailhead, take any of the main roads from the centre of Porto da Cruz, uphill (about 40 minutes hiking, or 10 minutes driving). Just before the blue bar, a blue and white "Verada da Penha d''Aguia" sign will point to a levada threading between houses; follow this for 100 m until another sign (whose back is facing you) points to a left-turn away from the levada and up a steep, windy trail. After 40–60 minutes the trail forks: turn right to overlook Porto da Cruz, or turn left to overlook São Roque do Faial.'
+    crowd_level: null
+    best_months: []
+    source_ref: Porto da Cruz > Do > Hikes
+  - id: madeira-calheta-engenho-da-calheta
+    name: Engenho da Calheta
+    kinds:
+      - beach
+      - nature
+      - museum
+    description: A museum and a sugar cane processing factory in the Calheta district of Madeira. There are two mills for crushing the sugar cane. The waste or bagasse falls down a chute and is removed by a conveyor belt below the mills. Some of the machinery is 200 years old and steam powered. The museum and factory with a cafe are situated about half-way down the hill between the Calheta Marina roundabout outside the two tunnels and the ocean front road next to the white sand beaches of Calheta district.
+    crowd_level: null
+    best_months: []
+    source_ref: Calheta > See
+  - id: madeira-calheta-parish-church-of-igreja-matriz-do-espirito-santo
+    name: Parish Church of Igreja Matriz do Espírito Santo
+    kinds:
+      - religious_site
+    description: 15th/16th century, tabernacle made of ebony.
+    crowd_level: null
+    best_months: []
+    source_ref: Calheta > See
+  - id: madeira-calheta-casa-das-mudas
+    name: Casa das Mudas
+    kinds:
+      - other
+    description: It was selected as one of 28 major architectural projects for the Mies van der Rohe competition, which is important in the EU.
+    crowd_level: null
+    best_months: []
+    source_ref: Calheta > See
+  - id: madeira-calheta-casa-da-misericordia
+    name: Casa da Misericórdia
+    kinds:
+      - historic_site
+    description: Historic building from 1535.
+    crowd_level: null
+    best_months: []
+    source_ref: Calheta > See
+  - id: madeira-calheta-forte-de-santo-antonio-do-paul-do-mar
+    name: Forte de Santo António do Paul do Mar
+    kinds:
+      - wine
+    description: "Constructed in 1754, a provision of the 1761 Counsel of War (Portuguese: Conselho de Guerra), that also raised the annual income of the King's representative by including a barrel of wine."
+    crowd_level: null
+    best_months: []
+    source_ref: Calheta > See
+  - id: madeira-calheta-whale-watching-trips
+    name: Whale watching trips
     kinds:
       - boat_trip
-    description: Whale and dolphin watching. Various companies offer daily boat tours starting at €30-40, bookable online or from touts at the harbour, often with guaranteed sighting, meaning a free second trip in the rare event that the first one was unsuccessful.
+    description: Lobosonda whale watching 2-3 times a day depending on the season. Reservation advisable. Charter booking possible.
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Calheta > Do
+  - id: madeira-calheta-paragliding-madeira-airbase-airadventours
+    name: Paragliding Madeira Airbase Airadventours
+    kinds:
+      - adventure
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Calheta > Do
+  - id: madeira-calheta-bathing-and-water-sports-at-the-recreation-harbor
+    name: Bathing and water sports at the recreation harbor
+    kinds:
+      - beach
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Calheta > Do
 extraction:
-  listings: 9
+  listings: 108
   listings_by_type:
-    eat: 2
-    go: 2
-    see: 3
-    sleep: 2
-  priced_listings:
-    sleep: 2
-    eat: 0
-  poi_sources:
+    buy: 1
+    do: 16
+    drink: 8
+    eat: 17
+    go: 6
     listing: 3
+    see: 24
+    sleep: 33
+  priced_listings:
+    sleep: 9
+    eat: 9
+  poi_sources:
+    listing: 40
     marker: 2
-    named: 10
+    named: 7
   duplicate_pois_dropped: 0
+  generic_items_pruned: 5
