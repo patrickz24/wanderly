@@ -5,5 +5,5 @@
     "types": ["node"],
     "noEmit": true
   },
-  "include": ["scorers", "runner", "report", "vitest.config.ts"]
+  "include": ["scorers", "runner", "report", "judge", "vitest.config.ts"]
 }
