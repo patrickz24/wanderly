@@ -1,0 +1,297 @@
+{
+  "generatedAt": "2026-10-10T16:22:35.166Z",
+  "model": "Xenova/bge-small-en-v1.5",
+  "embedder": {
+    "pooling": "cls",
+    "queryInstruction": "Represent this sentence for searching relevant passages: ",
+    "dtype": "fp32"
+  },
+  "environment": {
+    "node": "v22.23.3",
+    "platform": "linux-x64",
+    "cpus": 12,
+    "modelLoadSeconds": 2,
+    "rssAfterLoadMb": 531,
+    "peakRssMb": 737
+  },
+  "dataset": {
+    "queries": 53,
+    "withDestinationFilter": 27,
+    "provenance": ["proposed-by-agent, pending human review"]
+  },
+  "limit": 10,
+  "variants": {
+    "structure": {
+      "fingerprint": "md-v1;target=300;max=450;overlap=30;min=60;header=on",
+      "chunks": 2136,
+      "ingestSeconds": 6,
+      "newlyEmbedded": 0,
+      "meanModelTokens": 210,
+      "overModelLimit": 2
+    },
+    "fixed-300": {
+      "fingerprint": "fixed-v1;size=300;overlap=40;header=off",
+      "chunks": 1678,
+      "ingestSeconds": 5.4,
+      "newlyEmbedded": 0,
+      "meanModelTokens": 297,
+      "overModelLimit": 0
+    }
+  },
+  "comparisons": [
+    "structure/hybrid (any word) − structure/vector, mrrAt10: -5.3 points (95 % CI -13.0 to 1.9)",
+    "structure/hybrid (any word) − structure/vector, recallAt5: 1.9 points (95 % CI -3.8 to 7.5)",
+    "structure/hybrid (any word) − structure/fulltext (any word), mrrAt10: 18.0 points (95 % CI 9.2 to 27.2)",
+    "structure/hybrid (any word) − structure/fulltext (any word), recallAt5: 21.4 points (95 % CI 10.4 to 33.0)",
+    "structure/hybrid (any word) − structure/hybrid (all words), mrrAt10: -5.3 points (95 % CI -12.9 to 2.2)",
+    "structure/hybrid (any word) − structure/hybrid (all words), recallAt5: 0.9 points (95 % CI -4.7 to 6.6)",
+    "structure/fulltext (any word) − structure/fulltext (all words), mrrAt10: 25.2 points (95 % CI 14.2 to 37.3)",
+    "structure/fulltext (any word) − structure/fulltext (all words), recallAt5: 36.2 points (95 % CI 22.6 to 50.0)",
+    "structure/hybrid (any word) − fixed-300/hybrid (any word), mrrAt10: 4.4 points (95 % CI -2.4 to 11.9)",
+    "structure/hybrid (any word) − fixed-300/hybrid (any word), recallAt5: 7.5 points (95 % CI 0.9 to 16.0)",
+    "structure/vector − fixed-300/vector, mrrAt10: 11.7 points (95 % CI 1.1 to 21.7)",
+    "structure/vector − fixed-300/vector, recallAt5: 10.4 points (95 % CI 2.8 to 18.9)"
+  ],
+  "configurations": [
+    {
+      "chunking": "structure",
+      "chunkingFingerprint": "md-v1;target=300;max=450;overlap=30;min=60;header=on",
+      "strategy": "vector",
+      "chunks": 2136,
+      "metrics": {
+        "recallAt5": 0.7924528301886793,
+        "recallAt10": 0.8207547169811321,
+        "mrrAt10": 0.7498652291105122,
+        "hitAt1": 0.6792452830188679,
+        "hitAt5": 0.8113207547169812
+      },
+      "intervals": {
+        "mrrAt10": {
+          "low": 0.6412398921832885,
+          "high": 0.8490566037735849
+        },
+        "recallAt5": {
+          "low": 0.6886792452830188,
+          "high": 0.8962264150943396
+        }
+      },
+      "medianLatencyMs": 13
+    },
+    {
+      "chunking": "structure",
+      "chunkingFingerprint": "md-v1;target=300;max=450;overlap=30;min=60;header=on",
+      "strategy": "fulltext (all words)",
+      "chunks": 2136,
+      "metrics": {
+        "recallAt5": 0.2358490566037736,
+        "recallAt10": 0.2358490566037736,
+        "mrrAt10": 0.2641509433962264,
+        "hitAt1": 0.2641509433962264,
+        "hitAt5": 0.2641509433962264
+      },
+      "intervals": {
+        "mrrAt10": {
+          "low": 0.1509433962264151,
+          "high": 0.37735849056603776
+        },
+        "recallAt5": {
+          "low": 0.12264150943396226,
+          "high": 0.3584905660377358
+        }
+      },
+      "medianLatencyMs": 9.8
+    },
+    {
+      "chunking": "structure",
+      "chunkingFingerprint": "md-v1;target=300;max=450;overlap=30;min=60;header=on",
+      "strategy": "fulltext (any word)",
+      "chunks": 2136,
+      "metrics": {
+        "recallAt5": 0.5974842767295597,
+        "recallAt10": 0.7861635220125787,
+        "mrrAt10": 0.5162623539982032,
+        "hitAt1": 0.39622641509433965,
+        "hitAt5": 0.6415094339622641
+      },
+      "intervals": {
+        "mrrAt10": {
+          "low": 0.4090296495956872,
+          "high": 0.6323899371069183
+        },
+        "recallAt5": {
+          "low": 0.4748427672955975,
+          "high": 0.7201257861635221
+        }
+      },
+      "medianLatencyMs": 12.1
+    },
+    {
+      "chunking": "structure",
+      "chunkingFingerprint": "md-v1;target=300;max=450;overlap=30;min=60;header=on",
+      "strategy": "hybrid (all words)",
+      "chunks": 2136,
+      "metrics": {
+        "recallAt5": 0.8018867924528302,
+        "recallAt10": 0.8301886792452831,
+        "mrrAt10": 0.7498652291105122,
+        "hitAt1": 0.660377358490566,
+        "hitAt5": 0.8301886792452831
+      },
+      "intervals": {
+        "mrrAt10": {
+          "low": 0.6442048517520215,
+          "high": 0.8450134770889488
+        },
+        "recallAt5": {
+          "low": 0.6981132075471698,
+          "high": 0.8962264150943396
+        }
+      },
+      "medianLatencyMs": 16.4
+    },
+    {
+      "chunking": "structure",
+      "chunkingFingerprint": "md-v1;target=300;max=450;overlap=30;min=60;header=on",
+      "strategy": "hybrid (any word)",
+      "chunks": 2136,
+      "metrics": {
+        "recallAt5": 0.8113207547169812,
+        "recallAt10": 0.8522012578616354,
+        "mrrAt10": 0.6967205750224617,
+        "hitAt1": 0.5849056603773585,
+        "hitAt5": 0.8490566037735849
+      },
+      "intervals": {
+        "mrrAt10": {
+          "low": 0.5945642407906558,
+          "high": 0.7967205750224617
+        },
+        "recallAt5": {
+          "low": 0.7075471698113207,
+          "high": 0.9056603773584906
+        }
+      },
+      "medianLatencyMs": 17.9
+    },
+    {
+      "chunking": "fixed-300",
+      "chunkingFingerprint": "fixed-v1;size=300;overlap=40;header=off",
+      "strategy": "vector",
+      "chunks": 1678,
+      "metrics": {
+        "recallAt5": 0.6886792452830188,
+        "recallAt10": 0.7735849056603774,
+        "mrrAt10": 0.6328017370470199,
+        "hitAt1": 0.5471698113207547,
+        "hitAt5": 0.7169811320754716
+      },
+      "intervals": {
+        "mrrAt10": {
+          "low": 0.5226939203354297,
+          "high": 0.7445492662473797
+        },
+        "recallAt5": {
+          "low": 0.5754716981132075,
+          "high": 0.8018867924528302
+        }
+      },
+      "medianLatencyMs": 14.6
+    },
+    {
+      "chunking": "fixed-300",
+      "chunkingFingerprint": "fixed-v1;size=300;overlap=40;header=off",
+      "strategy": "fulltext (all words)",
+      "chunks": 1678,
+      "metrics": {
+        "recallAt5": 0.32075471698113206,
+        "recallAt10": 0.32075471698113206,
+        "mrrAt10": 0.3490566037735849,
+        "hitAt1": 0.33962264150943394,
+        "hitAt5": 0.3584905660377358
+      },
+      "intervals": {
+        "mrrAt10": {
+          "low": 0.22641509433962265,
+          "high": 0.4811320754716981
+        },
+        "recallAt5": {
+          "low": 0.20754716981132076,
+          "high": 0.4528301886792453
+        }
+      },
+      "medianLatencyMs": 9.7
+    },
+    {
+      "chunking": "fixed-300",
+      "chunkingFingerprint": "fixed-v1;size=300;overlap=40;header=off",
+      "strategy": "fulltext (any word)",
+      "chunks": 1678,
+      "metrics": {
+        "recallAt5": 0.6352201257861636,
+        "recallAt10": 0.7452830188679245,
+        "mrrAt10": 0.5379454926624737,
+        "hitAt1": 0.41509433962264153,
+        "hitAt5": 0.6792452830188679
+      },
+      "intervals": {
+        "mrrAt10": {
+          "low": 0.429454926624738,
+          "high": 0.6492662473794549
+        },
+        "recallAt5": {
+          "low": 0.5125786163522013,
+          "high": 0.7547169811320755
+        }
+      },
+      "medianLatencyMs": 14.8
+    },
+    {
+      "chunking": "fixed-300",
+      "chunkingFingerprint": "fixed-v1;size=300;overlap=40;header=off",
+      "strategy": "hybrid (all words)",
+      "chunks": 1678,
+      "metrics": {
+        "recallAt5": 0.7169811320754716,
+        "recallAt10": 0.7830188679245284,
+        "mrrAt10": 0.6643830488170109,
+        "hitAt1": 0.5660377358490566,
+        "hitAt5": 0.7735849056603774
+      },
+      "intervals": {
+        "mrrAt10": {
+          "low": 0.5600853548966755,
+          "high": 0.7794249775381852
+        },
+        "recallAt5": {
+          "low": 0.6037735849056604,
+          "high": 0.8301886792452831
+        }
+      },
+      "medianLatencyMs": 22
+    },
+    {
+      "chunking": "fixed-300",
+      "chunkingFingerprint": "fixed-v1;size=300;overlap=40;header=off",
+      "strategy": "hybrid (any word)",
+      "chunks": 1678,
+      "metrics": {
+        "recallAt5": 0.7358490566037735,
+        "recallAt10": 0.7955974842767296,
+        "mrrAt10": 0.652403414195867,
+        "hitAt1": 0.5660377358490566,
+        "hitAt5": 0.7547169811320755
+      },
+      "intervals": {
+        "mrrAt10": {
+          "low": 0.5404312668463612,
+          "high": 0.7648247978436657
+        },
+        "recallAt5": {
+          "low": 0.6226415094339622,
+          "high": 0.8490566037735849
+        }
+      },
+      "medianLatencyMs": 18.9
+    }
+  ]
+}

@@ -221,6 +221,7 @@ async function main(): Promise<void> {
 
   if (values.write) {
     const summary = results.map(({ queries: _queries, ...rest }) => rest);
+    await mkdir(path.dirname(BASELINE_FILE), { recursive: true });
     await writeFile(
       BASELINE_FILE,
       `${JSON.stringify({ ...run, configurations: summary }, null, 2)}\n`,
