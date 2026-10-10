@@ -127,6 +127,24 @@ export function chunkingFingerprint(options: ChunkingOptions): string {
   ].join(';');
 }
 
+/** A chunking strategy, identified by a fingerprint stored with each indexed document. */
+export interface DocumentChunker {
+  readonly fingerprint: string;
+  chunk(document: MarkdownDocument): Chunk[];
+}
+
+/** The structure-aware chunker below, with fixed parameters. */
+export function markdownChunker(
+  options: ChunkingOptions,
+  estimate: TokenEstimator = estimateTokens,
+): DocumentChunker {
+  validateChunkingOptions(options);
+  return {
+    fingerprint: chunkingFingerprint(options),
+    chunk: (document) => chunkMarkdown(document, options, estimate),
+  };
+}
+
 export function chunkMarkdown(
   document: MarkdownDocument,
   options: ChunkingOptions,

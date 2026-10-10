@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import {
   chunkMarkdown,
   chunkingFingerprint,
+  markdownChunker,
   splitSentences,
   validateChunkingOptions,
   type ChunkingOptions,
@@ -348,6 +349,30 @@ describe('validateChunkingOptions', () => {
 
   it('accepts consistent options', () => {
     expect(validateChunkingOptions(OPTIONS)).toBe(OPTIONS);
+  });
+});
+
+describe('markdownChunker', () => {
+  it('binds the options and exposes their fingerprint', () => {
+    const chunker = markdownChunker(OPTIONS, words);
+
+    expect(chunker.fingerprint).toBe(chunkingFingerprint(OPTIONS));
+    expect(
+      chunker.chunk({
+        title: 'Sicily',
+        markdown: `## See
+
+${lorem(15)}`,
+      }),
+    ).toEqual(
+      chunk(`## See
+
+${lorem(15)}`),
+    );
+  });
+
+  it('validates the options once, when created', () => {
+    expect(() => markdownChunker({ ...OPTIONS, maxTokens: 1 })).toThrow(RangeError);
   });
 });
 

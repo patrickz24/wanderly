@@ -1,9 +1,8 @@
 import {
-  chunkMarkdown,
-  chunkingFingerprint,
-  validateChunkingOptions,
+  markdownChunker,
   type Chunk,
   type ChunkingOptions,
+  type DocumentChunker,
 } from '../domain/rag/chunker.js';
 import type { Embedder } from '../domain/ports/knowledge.js';
 import {
@@ -18,8 +17,12 @@ export interface IngestCorpusDeps {
   readonly source: CorpusSource;
   readonly store: KnowledgeStore;
   readonly embedder: Embedder;
-  readonly chunking: ChunkingOptions;
-  /** Chunks embedded per call to the embedder. */
+  /** Parameters of the structure-aware Markdown chunker, or another chunking strategy. */
+  readonly chunking: ChunkingOptions | DocumentChunker;
+  /**
+   * Chunks passed to the embedder per call. The embedder batches them itself; large calls let it
+   * group texts of similar length, which saves the padding work.
+   */
   readonly batchSize?: number;
   /** Re-index every document, even unchanged ones. */
   readonly force?: boolean;
@@ -46,7 +49,7 @@ export interface IngestReport {
   readonly durationMs: number;
 }
 
-export const DEFAULT_EMBEDDING_BATCH_SIZE = 32;
+export const DEFAULT_EMBEDDING_BATCH_SIZE = 512;
 
 /**
  * Use case: makes the knowledge base equal to the corpus.
@@ -64,7 +67,8 @@ export async function ingestCorpus(deps: IngestCorpusDeps): Promise<IngestReport
   if (!Number.isInteger(batchSize) || batchSize < 1) {
     throw new RangeError('batchSize must be a positive integer');
   }
-  const chunking = chunkingFingerprint(validateChunkingOptions(deps.chunking));
+  const chunker = isChunker(deps.chunking) ? deps.chunking : markdownChunker(deps.chunking);
+  const chunking = chunker.fingerprint;
   const embeddingModel = deps.embedder.model;
 
   const corpus = await deps.source.load();
@@ -88,10 +92,7 @@ export async function ingestCorpus(deps: IngestCorpusDeps): Promise<IngestReport
       deps.onProgress?.({ type: 'document.skipped', path: document.path });
       continue;
     }
-    const chunks = chunkMarkdown(
-      { title: document.breadcrumbRoot, markdown: document.body },
-      deps.chunking,
-    );
+    const chunks = chunker.chunk({ title: document.breadcrumbRoot, markdown: document.body });
     const embeddings = await embedInBatches(deps.embedder, chunks, batchSize);
     await deps.store.replaceDocument({
       document,
@@ -123,6 +124,10 @@ export async function ingestCorpus(deps: IngestCorpusDeps): Promise<IngestReport
     chunking,
     durationMs: Math.round(now() - startedAt),
   };
+}
+
+function isChunker(chunking: ChunkingOptions | DocumentChunker): chunking is DocumentChunker {
+  return 'chunk' in chunking;
 }
 
 function isUpToDate(

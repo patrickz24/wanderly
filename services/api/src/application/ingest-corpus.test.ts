@@ -299,6 +299,33 @@ describe('ingestCorpus', () => {
     expect(store.synced).toEqual([]);
   });
 
+  it('accepts another chunking strategy and stores its fingerprint', async () => {
+    const corpus = { destinations: [destination('sicily', [document('sicily/guide.md')])] };
+    const { store, embedder } = setup(corpus);
+
+    await ingestCorpus({
+      source: { load: async () => corpus },
+      store,
+      embedder,
+      chunking: {
+        fingerprint: 'whole-document',
+        chunk: ({ title, markdown }) => [
+          {
+            ordinal: 0,
+            headingPath: title,
+            sections: [''],
+            content: markdown,
+            text: markdown,
+            tokenCount: 1,
+          },
+        ],
+      },
+    });
+
+    expect(store.replaced[0]?.chunking).toBe('whole-document');
+    expect(store.replaced[0]?.chunks.map((chunk) => chunk.headingPath)).toEqual(['Sicily']);
+  });
+
   it('validates its options before reading the corpus', async () => {
     const load = vi.fn(async (): Promise<Corpus> => ({ destinations: [] }));
     const deps = { source: { load }, store: new MemoryStore(), embedder: fakeEmbedder() };
