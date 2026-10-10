@@ -6,7 +6,8 @@
   "description": "Offline evaluation pipeline (retrieval, agent behaviour, LLM-as-judge).",
   "scripts": {
     "test": "vitest run",
-    "typecheck": "tsc -p tsconfig.json --noEmit"
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "eval:retrieval": "tsx --conditions=development --env-file-if-exists=../.env runner/retrieval.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.132.1",
