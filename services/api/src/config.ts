@@ -1,3 +1,4 @@
+import { createHmac } from 'node:crypto';
 import { inspect } from 'node:util';
 import { z } from 'zod';
 
@@ -42,6 +43,7 @@ export type TrustProxy = boolean | readonly string[];
 
 export const DEFAULT_CORS_ORIGINS = 'http://localhost:5173,http://localhost:8080';
 export const MIN_SESSION_SECRET_LENGTH = 32;
+export const MIN_CANARY_TOKEN_LENGTH = 16;
 
 export interface Config {
   readonly env: NodeEnv;
@@ -61,9 +63,19 @@ export interface Config {
     readonly judgeModel: string;
     readonly timeoutMs: number;
   };
-  readonly agent: { readonly runDeadlineMs: number; readonly maxSteps: number };
+  readonly agent: {
+    readonly runDeadlineMs: number;
+    readonly maxSteps: number;
+    /** Per-run cost ceiling; undefined = the runtime's default. */
+    readonly maxRunCostUsd: number | undefined;
+    /** System prompt canary (leak detection), stable across restarts. */
+    readonly canaryToken: Secret;
+  };
   readonly budget: { readonly dailyUsd: number };
+  /** Per-IP limit of the message route (each message starts a paid agent run). */
   readonly rateLimit: { readonly max: number; readonly windowMs: number };
+  /** Looser per-IP limit of the other API routes. */
+  readonly apiRateLimit: { readonly max: number; readonly windowMs: number };
   readonly langfuse: {
     readonly publicKey: string | undefined;
     readonly secretKey: Secret | undefined;
@@ -169,9 +181,16 @@ const EnvSchema = z
     LLM_TIMEOUT_MS: positiveInt.default(45_000),
     AGENT_RUN_DEADLINE_MS: positiveInt.default(90_000),
     AGENT_MAX_STEPS: positiveInt.max(50).default(8),
+    AGENT_MAX_RUN_COST_USD: z.coerce.number().positive().max(10).optional(),
+    AGENT_CANARY_TOKEN: z
+      .string()
+      .min(MIN_CANARY_TOKEN_LENGTH, `must be at least ${MIN_CANARY_TOKEN_LENGTH} characters`)
+      .optional(),
     DAILY_BUDGET_USD: z.coerce.number().nonnegative().max(1_000).default(2),
     RATE_LIMIT_MAX: positiveInt.default(10),
     RATE_LIMIT_WINDOW_MS: positiveInt.default(600_000),
+    API_RATE_LIMIT_MAX: positiveInt.default(120),
+    API_RATE_LIMIT_WINDOW_MS: positiveInt.default(60_000),
     LANGFUSE_PUBLIC_KEY: z.string().optional(),
     LANGFUSE_SECRET_KEY: z.string().optional(),
     LANGFUSE_BASE_URL: z.url({ protocol: /^https?$/ }).default('https://cloud.langfuse.com'),
@@ -229,9 +248,15 @@ function toConfig(env: Env): Config {
       judgeModel: env.JUDGE_MODEL,
       timeoutMs: env.LLM_TIMEOUT_MS,
     },
-    agent: { runDeadlineMs: env.AGENT_RUN_DEADLINE_MS, maxSteps: env.AGENT_MAX_STEPS },
+    agent: {
+      runDeadlineMs: env.AGENT_RUN_DEADLINE_MS,
+      maxSteps: env.AGENT_MAX_STEPS,
+      maxRunCostUsd: env.AGENT_MAX_RUN_COST_USD,
+      canaryToken: new Secret(env.AGENT_CANARY_TOKEN ?? deriveCanaryToken(env.SESSION_SECRET)),
+    },
     budget: { dailyUsd: env.DAILY_BUDGET_USD },
     rateLimit: { max: env.RATE_LIMIT_MAX, windowMs: env.RATE_LIMIT_WINDOW_MS },
+    apiRateLimit: { max: env.API_RATE_LIMIT_MAX, windowMs: env.API_RATE_LIMIT_WINDOW_MS },
     langfuse: {
       publicKey: env.LANGFUSE_PUBLIC_KEY,
       secretKey: optionalSecret(env.LANGFUSE_SECRET_KEY),
@@ -239,6 +264,17 @@ function toConfig(env: Env): Config {
     },
     embeddings: { model: env.EMBEDDING_MODEL, cacheDir: env.EMBEDDING_CACHE_DIR },
   };
+}
+
+/**
+ * Default canary: derived from SESSION_SECRET with a domain-separated HMAC, so it is secret,
+ * stable across restarts (the system prompt prefix stays cacheable) and needs no extra variable.
+ */
+export function deriveCanaryToken(sessionSecret: string): string {
+  const digest = createHmac('sha256', sessionSecret)
+    .update('wanderly/system-prompt-canary/v1')
+    .digest('base64url');
+  return `cnry-${digest.slice(0, 24)}`;
 }
 
 function deepFreeze<T>(value: T): T {
