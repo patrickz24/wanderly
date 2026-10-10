@@ -127,8 +127,11 @@ services:
       dockerfile: apps/web/Dockerfile
     ports:
       - '127.0.0.1:${WEB_PORT:-8080}:8080'
+    # The server block is rendered from a template at startup (WANDERLY_* defaults from the
+    # image fit this stack), so conf.d needs a writable tmpfs under the read-only root.
     tmpfs:
       - /tmp
+      - /etc/nginx/conf.d:uid=101,gid=101,mode=0755
     networks: [frontend]
     depends_on:
       api:

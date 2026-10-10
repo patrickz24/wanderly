@@ -57,13 +57,23 @@ USER 0
 #    of them, and they pull in libgd, libtiff, libxslt and GeoIP (attack surface + CVEs).
 # 2. Alpine security updates released after the base image was built (the image scan fails on
 #    fixable HIGH/CRITICAL; the layer is rebuilt whenever Dependabot refreshes the base digest).
+# 3. Drop the stock server block: ours is rendered from the template below at startup.
 RUN apk del --no-cache nginx-module-image-filter nginx-module-xslt nginx-module-geoip \
         nginx-module-njs \
-    && apk upgrade --no-cache
+    && apk upgrade --no-cache \
+    && rm -f /etc/nginx/conf.d/default.conf
 
-# Files are owned by root and only readable by the nginx user (uid 101): the server cannot
-# rewrite its own config or content.
-COPY apps/web/nginx.conf /etc/nginx/conf.d/default.conf
+# The server block is an envsubst template rendered by the image entrypoint into
+# /etc/nginx/conf.d (writable by uid 101 in this image; a tmpfs under compose's read-only root
+# filesystem). Only WANDERLY_* variables are substituted, so nginx's own $variables are kept.
+# Defaults fit docker-compose; infra/fly/web.fly.toml overrides them for Fly.io.
+ENV NGINX_ENVSUBST_FILTER="^WANDERLY_" \
+    WANDERLY_API_UPSTREAM="api:3000" \
+    WANDERLY_REAL_IP_HEADER="X-Real-IP" \
+    WANDERLY_REAL_IP_FROM="127.0.0.1/32"
+
+# Content and template are owned by root, read-only for the nginx user.
+COPY apps/web/nginx.conf /etc/nginx/templates/default.conf.template
 COPY --from=build /app/apps/web/dist /usr/share/nginx/html
 
 USER 101
