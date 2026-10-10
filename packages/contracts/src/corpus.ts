@@ -138,6 +138,13 @@ export const PoiSchema = z.strictObject({
    * followed by the heading path of its section, e.g. "Palermo > See > Museums".
    */
   source_ref: nonEmpty,
+  /**
+   * Sentences of the source document, copied verbatim, that support `crowd_level` (empty when it
+   * is null). Optional: absent in files written before the curation pass.
+   */
+  crowd_evidence: z.array(nonEmpty).optional(),
+  /** Sentences of the source document, copied verbatim, that support `best_months`. */
+  months_evidence: z.array(nonEmpty).optional(),
 });
 export type Poi = z.infer<typeof PoiSchema>;
 
@@ -203,6 +210,28 @@ export const FactsSchema = z
     }),
   })
   .superRefine((facts, ctx) => {
+    facts.pois.forEach((poi, index) => {
+      if (
+        poi.crowd_evidence !== undefined &&
+        (poi.crowd_level === null) !== (poi.crowd_evidence.length === 0)
+      ) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'crowd_level and crowd_evidence must be both set or both empty',
+          path: ['pois', index, 'crowd_evidence'],
+        });
+      }
+      if (
+        poi.months_evidence !== undefined &&
+        (poi.best_months.length === 0) !== (poi.months_evidence.length === 0)
+      ) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'best_months and months_evidence must be both set or both empty',
+          path: ['pois', index, 'months_evidence'],
+        });
+      }
+    });
     if (facts.documents !== undefined) {
       const [first, ...rest] = facts.documents;
       if (

@@ -184,3 +184,34 @@ describe('corpus documents', () => {
     );
   });
 });
+
+describe('POI curation evidence', () => {
+  const poi = valid.pois[0]!;
+  const withPoi = (changes: object): unknown => ({ ...valid, pois: [{ ...poi, ...changes }] });
+
+  it('accepts curated values with their evidence, and files without evidence fields', () => {
+    expect(
+      FactsSchema.safeParse(
+        withPoi({
+          crowd_level: 4,
+          crowd_evidence: ['Very crowded in August.'],
+          best_months: [4, 5],
+          months_evidence: ['Best in April and May.'],
+        }),
+      ).success,
+    ).toBe(true);
+    expect(
+      FactsSchema.safeParse(withPoi({ crowd_evidence: [], months_evidence: [] })).success,
+    ).toBe(true);
+    expect(FactsSchema.safeParse(valid).success).toBe(true);
+  });
+
+  it('rejects a value without evidence and evidence without a value', () => {
+    expect(FactsSchema.safeParse(withPoi({ crowd_level: 4, crowd_evidence: [] })).success).toBe(
+      false,
+    );
+    expect(FactsSchema.safeParse(withPoi({ months_evidence: ['Best in May.'] })).success).toBe(
+      false,
+    );
+  });
+});
