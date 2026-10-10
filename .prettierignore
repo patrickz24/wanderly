@@ -5,3 +5,4 @@ package-lock.json
 evals/results
 data/corpus/**/*.md
 .env.example
+data/raw
