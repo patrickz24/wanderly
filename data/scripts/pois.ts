@@ -11,7 +11,8 @@
  */
 import type { Poi } from '@wanderly/contracts';
 import { mapKinds } from './poi-kinds.js';
-import type { GuideDocument } from './wikitext.js';
+import { curate, evidencePool } from './curation.js';
+import { type GuideDocument, renderListing, sectionText } from './wikitext.js';
 
 export const POI_SECTIONS = ['see', 'do', 'other destinations'] as const;
 const POI_LISTING_TYPES = new Set(['see', 'do', 'event', 'listing']);
@@ -28,6 +29,8 @@ export interface PoiCandidate {
   readonly sectionPath: readonly string[];
   readonly source: 'listing' | 'marker' | 'named';
   readonly document: SourceDocument;
+  /** Verbatim sentences about the POI, read by the curation lexicons (see curation.ts). */
+  readonly evidence?: readonly string[];
 }
 
 const TRANSLITERATION: Readonly<Record<string, string>> = {
@@ -251,6 +254,12 @@ export function collectPoiCandidates(
   let genericPruned = 0;
   for (const section of doc.sections) {
     if (!isPoiSection(section.path)) continue;
+    const sectionMarkdown = sectionText(section);
+    const paragraphs = section.blocks.flatMap((block) =>
+      block.type === 'paragraph' ? [block.text] : [],
+    );
+    const pool = (name: string, ownText: string): string[] =>
+      evidencePool({ name, ownText, paragraphs, sectionMarkdown });
     for (const listing of section.listings) {
       if (!POI_LISTING_TYPES.has(listing.type) || listing.name === '') continue;
       candidates.push({
@@ -259,6 +268,7 @@ export function collectPoiCandidates(
         sectionPath: section.path,
         source: 'listing',
         document,
+        evidence: pool(listing.name, renderListing(listing)),
       });
     }
     for (const block of section.blocks) {
@@ -275,6 +285,7 @@ export function collectPoiCandidates(
         sectionPath: section.path,
         source: block.entry.source,
         document,
+        evidence: pool(block.entry.name, block.text),
       });
     }
   }
@@ -290,7 +301,8 @@ export interface PoiExtraction {
 /**
  * Turns candidates into schema POIs. Ids are stable: `<destination>-<slug>` for the region guide
  * and `<destination>-<place-id>-<slug>` for a place article; the first candidate with a given id
- * wins. `source_ref` is the document title followed by the heading path.
+ * wins. `source_ref` is the document title followed by the heading path. `crowd_level` and
+ * `best_months` come from the lexical curation of the POI's own sentences, with their evidence.
  */
 export function buildPois(
   destinationId: string,
@@ -315,14 +327,17 @@ export function buildPois(
     sources[candidate.source]++;
     // Markdown emphasis (marker names inside a sentence) is not part of a plain-text description.
     const description = candidate.description?.replace(/\*\*/g, '').trim() ?? '';
+    const curation = curate(candidate.evidence ?? []);
     pois.push({
       id,
       name: candidate.name,
       kinds: mapKinds(candidate),
       description: description === '' ? null : description,
-      crowd_level: null,
-      best_months: [],
+      crowd_level: curation.crowd_level,
+      best_months: curation.best_months,
       source_ref: [candidate.document.title, ...candidate.sectionPath].join(' > '),
+      crowd_evidence: curation.crowd_evidence,
+      months_evidence: curation.months_evidence,
     });
   });
   return { pois, sources, duplicatesDropped };

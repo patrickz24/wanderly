@@ -43,6 +43,9 @@ interface Stats {
   /** Non-null cost figures (lodging_night, meal) per level: 0, 1 or 2. */
   readonly costs: { overall: number; budget: number; mid: number; comfort: number };
   readonly climateMonths: number;
+  /** POIs with a curated crowd level / with best months. */
+  readonly crowdLevels: number;
+  readonly bestMonths: number;
 }
 
 /** Splits a guide body into top-level (`##`) sections: title → text including subsections. */
@@ -137,6 +140,42 @@ function checkFactsAgainstDocuments(
   if (!same) errors.push('facts.yaml documents differ from the Markdown files (rebuild facts)');
 }
 
+/**
+ * Curated values must carry evidence, and every evidence sentence must appear verbatim in the
+ * Markdown document named by the POI's source_ref.
+ */
+function checkEvidence(
+  facts: Facts,
+  documents: readonly CheckedDocument[],
+  errors: string[],
+): void {
+  const bodies = new Map(
+    documents.flatMap(({ frontMatter, body }) =>
+      frontMatter === null ? [] : [[frontMatter.title, body] as const],
+    ),
+  );
+  for (const poi of facts.pois) {
+    const crowd = poi.crowd_evidence ?? [];
+    const months = poi.months_evidence ?? [];
+    if (
+      (poi.crowd_level !== null && crowd.length === 0) ||
+      (poi.best_months.length > 0 && months.length === 0)
+    ) {
+      errors.push(`${poi.id}: curated value without evidence`);
+    }
+    const body = [...bodies.entries()].find(([title]) =>
+      poi.source_ref.startsWith(`${title} > `),
+    )?.[1];
+    for (const sentence of [...crowd, ...months]) {
+      if (body === undefined || !body.includes(sentence)) {
+        errors.push(
+          `${poi.id}: evidence not found verbatim in its document: "${sentence.slice(0, 60)}"`,
+        );
+      }
+    }
+  }
+}
+
 async function orphanPlaceFiles(destination: Destination): Promise<string[]> {
   const files = await readdir(placesDir(destination.id)).catch(() => [] as string[]);
   const expected = new Set(destination.places.map((place) => `${place.id}.md`));
@@ -168,7 +207,10 @@ async function validateDestination(
     }
   }
   const facts = await readFacts(destination.id, errors);
-  if (facts !== null) checkFactsAgainstDocuments(destination, facts, documents, errors);
+  if (facts !== null) {
+    checkFactsAgainstDocuments(destination, facts, documents, errors);
+    checkEvidence(facts, documents, errors);
+  }
 
   const seeDo = documents.flatMap(({ body }) => {
     const sections = topLevelSections(body);
@@ -198,6 +240,8 @@ async function validateDestination(
         comfort: levels === undefined ? 0 : nonNullFigures(levels.comfort),
       },
       climateMonths: facts?.climate.months.length ?? 0,
+      crowdLevels: facts?.pois.filter((poi) => poi.crowd_level !== null).length ?? 0,
+      bestMonths: facts?.pois.filter((poi) => poi.best_months.length > 0).length ?? 0,
     },
   };
 }
@@ -217,6 +261,8 @@ function printTable(rows: readonly Stats[]): void {
     'mid',
     'comfort',
     'climate months',
+    'crowd',
+    'months',
   ];
   const body = rows.map((row) => [
     row.id,
@@ -233,6 +279,8 @@ function printTable(rows: readonly Stats[]): void {
       row.costs.mid,
       row.costs.comfort,
       row.climateMonths,
+      row.crowdLevels,
+      row.bestMonths,
     ].map(String),
   ]);
   const total = [
@@ -241,6 +289,9 @@ function printTable(rows: readonly Stats[]): void {
       String(body.reduce((sum, row) => sum + Number(row[column] ?? 0), 0)),
     ),
     ...['', '', '', '', ''],
+    ...[13, 14].map((column) =>
+      String(body.reduce((sum, row) => sum + Number(row[column] ?? 0), 0)),
+    ),
   ];
   const table = [header, ...body, total];
   const widths = header.map((_, column) =>

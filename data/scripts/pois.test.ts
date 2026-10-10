@@ -91,6 +91,8 @@ describe('POI extraction', () => {
         crowd_level: null,
         best_months: [],
         source_ref: 'Sicily > Other destinations',
+        crowd_evidence: [],
+        months_evidence: [],
       },
       {
         id: 'sicily-museo-salinas',
@@ -100,6 +102,8 @@ describe('POI extraction', () => {
         crowd_level: null,
         best_months: [],
         source_ref: 'Sicily > See > Museums',
+        crowd_evidence: [],
+        months_evidence: [],
       },
       {
         id: 'sicily-madonie-trails',
@@ -109,6 +113,8 @@ describe('POI extraction', () => {
         crowd_level: null,
         best_months: [],
         source_ref: 'Sicily > Do',
+        crowd_evidence: [],
+        months_evidence: [],
       },
     ]);
   });
@@ -152,5 +158,31 @@ describe('POI extraction', () => {
       },
     ]);
     expect(pois[0]?.id).toBe('crete-poi-1');
+  });
+});
+
+describe('POI curation', () => {
+  it('fills crowd level and best months from the POI text and its named mentions, with evidence', () => {
+    const doc = convertArticle(
+      'Town',
+      [
+        '==See==',
+        'The Old Harbour gets very crowded when cruise ships call. Other text.',
+        '* {{see|name=Old Harbour|content=Fishing boats. Best visited in spring.}}',
+        '* {{see|name=Hill Chapel|content=A peaceful spot. Closed in winter.}}',
+        '* {{see|name=Museum|content=Paintings.}}',
+      ].join('\n'),
+    );
+    const { pois } = buildPois('x', collectPoiCandidates(doc).candidates);
+    expect(pois.map((poi) => [poi.name, poi.crowd_level, poi.best_months])).toEqual([
+      ['Old Harbour', 4, [3, 4, 5]],
+      ['Hill Chapel', 2, [3, 4, 5, 6, 7, 8, 9, 10, 11]],
+      ['Museum', null, []],
+    ]);
+    expect(pois[0]?.crowd_evidence).toEqual([
+      'The Old Harbour gets very crowded when cruise ships call.',
+    ]);
+    expect(pois[0]?.months_evidence).toEqual(['Best visited in spring.']);
+    expect(pois[2]?.crowd_evidence).toEqual([]);
   });
 });
