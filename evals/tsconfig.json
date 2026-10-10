@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "..",
+    "types": ["node"],
+    "noEmit": true
+  },
+  "include": ["scorers", "runner", "report", "vitest.config.ts"]
+}

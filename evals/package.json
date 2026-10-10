@@ -4,7 +4,10 @@
   "private": true,
   "type": "module",
   "description": "Offline evaluation pipeline (retrieval, agent behaviour, LLM-as-judge).",
-  "scripts": {},
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
   "dependencies": {
     "@wanderly/contracts": "*"
   }
