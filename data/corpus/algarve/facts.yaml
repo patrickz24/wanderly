@@ -13,6 +13,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Algarve
   revision_id: 5252981
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: algarve
+    title: Algarve
+    url: https://en.wikivoyage.org/wiki/Algarve
+    revision_id: 5252981
+    license: CC BY-SA 4.0
+  - file: places/faro.md
+    role: place
+    id: faro
+    title: Faro
+    url: https://en.wikivoyage.org/wiki/Faro
+    revision_id: 5350870
+    license: CC BY-SA 4.0
+  - file: places/albufeira.md
+    role: place
+    id: albufeira
+    title: Albufeira
+    url: https://en.wikivoyage.org/wiki/Albufeira
+    revision_id: 5287810
+    license: CC BY-SA 4.0
+  - file: places/portimao.md
+    role: place
+    id: portimao
+    title: Portimão
+    url: https://en.wikivoyage.org/wiki/Portim%C3%A3o
+    revision_id: 5371304
+    license: CC BY-SA 4.0
+  - file: places/sao-bras-de-alportel.md
+    role: place
+    id: sao-bras-de-alportel
+    title: São Brás de Alportel
+    url: https://en.wikivoyage.org/wiki/S%C3%A3o_Br%C3%A1s_de_Alportel
+    revision_id: 5356961
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -91,29 +127,70 @@ climate:
       rain_days: 5.8
       precipitation_mm: 53.5
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
-    meal: null
+    lodging_night:
+      median: 122.25
+      min: 26
+      max: 830
+      currency: €
+      sample_size: 8
+      excluded_other_currency: 0
+    meal:
+      median: 20
+      min: 5
+      max: 150
+      currency: €
+      sample_size: 14
+      excluded_other_currency: 0
     notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+      - 1 Eat listing price(s) in the documents had no amount with a currency.
   levels:
     budget:
       lodging_night: null
-      meal: null
+      meal:
+        median: 11
+        min: 5
+        max: 20
+        currency: €
+        sample_size: 5
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Sleep listing under Budget has a parseable price: value unknown.'
     mid:
-      lodging_night: null
-      meal: null
+      lodging_night:
+        median: 26
+        min: 26
+        max: 26
+        currency: €
+        sample_size: 1
+        excluded_other_currency: 0
+      meal:
+        median: 20
+        min: 15
+        max: 25
+        currency: €
+        sample_size: 3
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - Sleep figure under Mid-range rests on only 1 listing(s).
     comfort:
-      lodging_night: null
-      meal: null
+      lodging_night:
+        median: 145.98
+        min: 145.98
+        max: 145.98
+        currency: €
+        sample_size: 2
+        excluded_other_currency: 0
+      meal:
+        median: 50
+        min: 50
+        max: 150
+        currency: €
+        sample_size: 4
+        excluded_other_currency: 0
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - Sleep figure under Splurge rests on only 2 listing(s).
 pois:
   - id: algarve-benagil-cave
     name: Benagil Cave
@@ -122,7 +199,7 @@ pois:
     description: Benagil Cave, in Lagoa, is one of the most visited tourist attractions in the Algarve region.
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Algarve > See
   - id: algarve-sagres-cape
     name: Sagres Cape
     kinds:
@@ -130,7 +207,7 @@ pois:
     description: Sagres Cape and St. Vincent Cape in Sagres
     crowd_level: null
     best_months: []
-    source_ref: See
+    source_ref: Algarve > See
   - id: algarve-via-algarviana
     name: Via Algarviana
     kinds:
@@ -138,31 +215,7 @@ pois:
     description: A 300-km-long hiking path through the region.
     crowd_level: null
     best_months: []
-    source_ref: Do
-  - id: algarve-beaches
-    name: Beaches
-    kinds:
-      - beach
-    description: over 100 different beaches, each unique in its own way. Marinha Beach (in Lagoa) is one of the most emblematic and was considered by the Michelin Guide as one of the 10 most beautiful beaches in Europe and as one of the 100 most beautiful beaches in the world
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: algarve-golf
-    name: Golf
-    kinds:
-      - other
-    description: If you are a golf lover then you have come to the right place, with over 30 courses dotted throughout the region.
-    crowd_level: null
-    best_months: []
-    source_ref: Do
-  - id: algarve-hike
-    name: Hike
-    kinds:
-      - hiking
-    description: there are over 30 hiking trails crisscrossing the region
-    crowd_level: null
-    best_months: []
-    source_ref: Do
+    source_ref: Algarve > Do
   - id: algarve-ria-formosa-natural-park
     name: Ria Formosa Natural Park
     kinds:
@@ -170,7 +223,7 @@ pois:
     description: Ria Formosa Natural Park in Faro
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Algarve > Do
   - id: algarve-southwest-alentejo-and-vicentine-coast-natural-park
     name: Southwest Alentejo and Vicentine Coast Natural Park
     kinds:
@@ -178,7 +231,7 @@ pois:
     description: Southwest Alentejo and Vicentine Coast Natural Park in Aljezur
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Algarve > Do
   - id: algarve-monchique-mountains
     name: Monchique Mountains
     kinds:
@@ -186,7 +239,7 @@ pois:
     description: Monchique Mountains near the town of Monchique
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Algarve > Do
   - id: algarve-zoomarine
     name: Zoomarine
     kinds:
@@ -195,17 +248,244 @@ pois:
     description: Zoomarine near Albufeira is an 8-hectare amusement park, zoo, and aquarium. Presentations with dolphins, seals and sea lions, with tropical birds and birds of prey.
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Algarve > Do
+  - id: algarve-faro-bone-chapel
+    name: Bone Chapel
+    kinds:
+      - religious_site
+    description: This chapel is almost completely made of bones taken from a former monk graveyard.
+    crowd_level: null
+    best_months: []
+    source_ref: Faro > See
+  - id: algarve-faro-old-town
+    name: Old town
+    kinds:
+      - historic_site
+    description: A well-preserved section of town off the harbour with cobblestone streets and 18th century Portuguese and Moorish-influenced architecture. It is a great place for a peaceful and almost private walk back in time in an area that has been virtually untouched by modernity.
+    crowd_level: null
+    best_months: []
+    source_ref: Faro > See
+  - id: algarve-faro-cathedral
+    name: Cathedral
+    kinds:
+      - historic_site
+      - religious_site
+    description: The view from the tower over the old town and the Rio Formosa is a highlight.
+    crowd_level: null
+    best_months: []
+    source_ref: Faro > See
+  - id: algarve-faro-roman-ruins-of-milreu
+    name: Roman Ruins of Milreu
+    kinds:
+      - historic_site
+      - religious_site
+    description: A luxurious Roman villa that evolved into a Christian basilica by the 4th century. Notable features include well-preserved mosaic floors with marine motifs, remnants of thermal baths, a temple, and agricultural installations, offering insights into Roman life in the region
+    crowd_level: null
+    best_months: []
+    source_ref: Faro > See
+  - id: algarve-faro-estoi-palace
+    name: Estoi Palace
+    kinds:
+      - historic_site
+    description: Renowned for its blend of architectural styles, including Baroque, Rococo, Neoclassical, and Romantic elements. The palace was constructed in the 19th century, and was completed in 1909 under the ownership of José Francisco da Silva, who was later titled Viscount of Estoi by King Carlos I. Today, the palace operates as a luxury hotel.
+    crowd_level: null
+    best_months: []
+    source_ref: Faro > See
+  - id: algarve-faro-ria-formosa-national-park
+    name: Ria Formosa National Park
+    kinds:
+      - nature
+      - boat_trip
+      - adventure
+    description: In Faro and Olhão you can take a boat trip, birdwatching tours, kayaking or other eco tours and other activities to discover the nature and wildlife of this natural park. Several companies offer packages and tours. Ask at the tourist information or at your accommodation.
+    crowd_level: null
+    best_months: []
+    source_ref: Faro > Do
+  - id: algarve-faro-faro-beach
+    name: Faro beach
+    kinds:
+      - beach
+    description: This beach is several kilometres long and so normally never gets crowded, even in the height of summer. Most of the beach is gently sloping though it can take a sudden dip in places. There are the usual beach-side stalls and a public lavatory, but no showers. Praia de Faro is just past the airport, the airport bus stops there. A lot of people with early check-outs and late flights seem to go there on their last day.
+    crowd_level: null
+    best_months: []
+    source_ref: Faro > Do
+  - id: algarve-faro-faro-jewish-heritage-centre
+    name: Faro Jewish Heritage Centre
+    kinds:
+      - museum
+      - religious_site
+      - family
+    description: Established in 1851, the Faro Jewish Cemetery is the only remaining vestige of the first post-Inquisition Jewish presence in Portugal. It served as a burial place for a thriving 60 family community (also known as "Little Jerusalem"). The Jews of Portugal were expelled by the Inquisition at the end of the 15th century and settled in Gibraltar and North Africa. After the devastating 1755 Lisbon Earthquake, their descendants were invited by the Marquis of Pombal to help rebuild the economy. Although the community is long gone, the cemetery remains to remind citizens and travellers of its former glory. The Faro Jewish Heritage Centre features over one hundred graves in Sephardi style, with beautifully engraved slabs instead of headstones. Although the land was purchased by the Jewish community in 1851, the first burial, that of Rabbi Toledano, dates back to 1838. Apart from the Cemetery, there is also a museum, housing many objects linked to the history of the Jews of Faro, like the furniture from one of the two former synagogues of Faro or the facsimile copy of Gacon's 1478 Pentateuch in Hebrew, the first book ever printed in Portugal!
+    crowd_level: null
+    best_months: []
+    source_ref: Faro > Do
+  - id: algarve-faro-sc-farense
+    name: SC Farense
+    kinds:
+      - other
+    description: The "Lions of Faro" were relegated in 2025 and now play soccer in Liga 2, the second tier. Their home ground Estádio de São Luís (capacity 7000) is 1 km northeast of city centre.
+    crowd_level: null
+    best_months: []
+    source_ref: Faro > Do
+  - id: algarve-albufeira-castelo-de-paderne
+    name: Castelo de Paderne
+    kinds:
+      - historic_site
+    description: Moorish 12th-century castle.
+    crowd_level: null
+    best_months: []
+    source_ref: Albufeira > See
+  - id: algarve-albufeira-museu-municipal-de-arqueologia-de-albufeira
+    name: Museu Municipal de Arqueologia de Albufeira
+    kinds:
+      - historic_site
+      - museum
+    description: A small local museum with archeological exhibits from prehistory to Roman and Muslim era.
+    crowd_level: null
+    best_months: []
+    source_ref: Albufeira > See
+  - id: algarve-albufeira-zoomarine
+    name: Zoomarine
+    kinds:
+      - beach
+      - nature
+      - family
+    description: Based on the theme "The Life of the Oceans", Zoomarine occupies over 8 hectares. With a single ticket, the visitor has access to an area of leisure, entertainment and education. Just a few kilometers from Albufeira you can watch presentations with dolphins, seals and sea lions, with tropical birds and birds of prey. Here you find also an amazing aquarium with sharks, various habitats, Cinema4D, attractions, amusements and swimming pools, making your visit to Zoomarine even more unforgettable. Zoomarine is very popular with families with kids, therefore there are longer queues during the high season.
+    crowd_level: null
+    best_months: []
+    source_ref: Albufeira > Do
+  - id: algarve-portimao-igreja-de-nossa-senhora-da-conceicao
+    name: Igreja de Nossa Senhora da Conceição
+    kinds:
+      - religious_site
+    description: Built in the 15th century and almost completely destroyed in the 1775 earthquake. Later, its portico, Gothic with capitals decorated with vegetative motifs, was rebuilt. It comes from the original church.
+    crowd_level: null
+    best_months: []
+    source_ref: Portimão > See
+  - id: algarve-portimao-convento-do-colegio-dos-jesuitas
+    name: Convento do Colégio dos Jesuítas
+    kinds:
+      - religious_site
+    description: Built in the 17th century by Diogo Gonçalves. On the façade, three bodies are distinguished, the highest corresponding to the church. The church has a single nave, one of the largest in the Algarve. The altars are in gilded wood carved from the 17th century.
+    crowd_level: null
+    best_months: []
+    source_ref: Portimão > See
+  - id: algarve-portimao-fortaleza-de-santa-catarina-de-ribamar
+    name: Fortaleza de Santa Catarina de Ribamar
+    kinds:
+      - historic_site
+      - religious_site
+    description: It was built in the 16th century, with the objective of defending the coast against piracy attacks. The fortress also belonged to the small chapel dedicated to Santa Catarina, still visible today. With a magnificent view over Praia da Rocha and the Marina, it is one of the most visited spots in the region.
+    crowd_level: null
+    best_months: []
+    source_ref: Portimão > See
+  - id: algarve-portimao-portimao-museum
+    name: Portimão Museum
+    kinds:
+      - museum
+    description: In the museum there is a reconstruction of the daily functioning of fish unloading, with life-sized mannequins of the workers. Also canning industry, shipbuilding, fishing, stowage and others are shown.
+    crowd_level: null
+    best_months: []
+    source_ref: Portimão > See
+  - id: algarve-portimao-alcalar
+    name: Alcalar
+    kinds:
+      - historic_site
+      - museum
+    description: A group of around 18 burial tombs from 3000 BC, that comprise a Calcolithic necropolis, on a hilltop. The smallish museum area contains a showcase of the history of the area, two burial tombs and one (broken-down) lime kiln.
+    crowd_level: null
+    best_months: []
+    source_ref: Portimão > See
+  - id: algarve-portimao-3d-fun-art-museum-portimao
+    name: 3D Fun Art Museum Portimão
+    kinds:
+      - museum
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Portimão > See
+  - id: algarve-portimao-algarve-international-circuit
+    name: Algarve International Circuit
+    kinds:
+      - other
+    description: A motor-racing course that hosts Formula One, motorbikes and other races. The next F1 / Grand Prix is 18-20 June 2027.
+    crowd_level: null
+    best_months: []
+    source_ref: Portimão > Do
+  - id: algarve-portimao-praia-da-rocha
+    name: Praia da Rocha
+    kinds:
+      - beach
+    description: The beautiful beach.
+    crowd_level: null
+    best_months: []
+    source_ref: Portimão > Do > Beaches
+  - id: algarve-portimao-praia-do-vau
+    name: Praia do Vau
+    kinds:
+      - beach
+    description: The less known beach, but what a gem.
+    crowd_level: null
+    best_months: []
+    source_ref: Portimão > Do > Beaches
+  - id: algarve-portimao-praia-de-alvor
+    name: Praia de Alvor
+    kinds:
+      - beach
+    description: a nice walk along the river, with a nice long beach. The beach is full of shells, especially during low tide.
+    crowd_level: null
+    best_months: []
+    source_ref: Portimão > Do > Beaches
+  - id: algarve-sao-bras-de-alportel-eco-cork-factory-tour
+    name: Eco Cork Factory Tour
+    kinds:
+      - other
+    description: Learn about the lifecycle of the cork oak tree and the process of preparing and packing the product at a cork factory. Visit a shop selling cork fashion and other items.
+    crowd_level: null
+    best_months: []
+    source_ref: São Brás de Alportel > See
+  - id: algarve-sao-bras-de-alportel-igreja-matriz-de-sao-bras-de-alportel
+    name: Igreja Matriz de São Brás de Alportel
+    kinds:
+      - religious_site
+    description: 16th-century parish church with Tuscan columns and Neoclassical altarpieces, with some Rococo touches and 18th-century images.
+    crowd_level: null
+    best_months: []
+    source_ref: São Brás de Alportel > See
+  - id: algarve-sao-bras-de-alportel-moinho-do-bengado
+    name: Moinho do Bengado
+    kinds:
+      - historic_site
+    description: Historical Mediterranean-style windmill built in 1850 on a site offering spectacular views.
+    crowd_level: null
+    best_months: []
+    source_ref: São Brás de Alportel > See
+  - id: algarve-sao-bras-de-alportel-museu-do-traje
+    name: Museu do Traje
+    kinds:
+      - historic_site
+      - museum
+    description: This museum displays historical Algarvian regional clothing and way of life.
+    crowd_level: null
+    best_months: []
+    source_ref: São Brás de Alportel > See
 extraction:
-  listings: 2
+  listings: 108
   listings_by_type:
-    do: 1
-    listing: 1
+    buy: 4
+    do: 10
+    drink: 2
+    eat: 43
+    go: 6
+    listing: 2
+    see: 17
+    sleep: 24
   priced_listings:
-    sleep: 0
-    eat: 0
+    sleep: 8
+    eat: 15
   poi_sources:
-    listing: 1
+    listing: 27
     marker: 0
-    named: 9
+    named: 6
   duplicate_pois_dropped: 0
+  generic_items_pruned: 5

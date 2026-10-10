@@ -15,6 +15,42 @@ source:
   url: https://en.wikivoyage.org/wiki/Slovenia
   revision_id: 5332719
   license: CC BY-SA 4.0
+documents:
+  - file: guide.md
+    role: region
+    id: slovenia
+    title: Slovenia
+    url: https://en.wikivoyage.org/wiki/Slovenia
+    revision_id: 5332719
+    license: CC BY-SA 4.0
+  - file: places/bled.md
+    role: place
+    id: bled
+    title: Bled
+    url: https://en.wikivoyage.org/wiki/Bled
+    revision_id: 5370253
+    license: CC BY-SA 4.0
+  - file: places/ljubljana.md
+    role: place
+    id: ljubljana
+    title: Ljubljana
+    url: https://en.wikivoyage.org/wiki/Ljubljana
+    revision_id: 5370562
+    license: CC BY-SA 4.0
+  - file: places/piran.md
+    role: place
+    id: piran
+    title: Piran
+    url: https://en.wikivoyage.org/wiki/Piran
+    revision_id: 5355069
+    license: CC BY-SA 4.0
+  - file: places/koper.md
+    role: place
+    id: koper
+    title: Koper
+    url: https://en.wikivoyage.org/wiki/Koper
+    revision_id: 5368187
+    license: CC BY-SA 4.0
 climate:
   provider: Open-Meteo Historical Weather API
   model: era5_seamless
@@ -93,29 +129,63 @@ climate:
       rain_days: 8.2
       precipitation_mm: 72.9
 costs:
-  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revision in source.revision_id. An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
+  derivation: Derived only from the price fields of the Sleep and Eat listing templates of the Wikivoyage revisions listed in documents (region guide and place articles). An amount counts only when a currency is written next to it (or at the other end of its range). Each listing counts once, at the midpoint of its lowest and highest amount; the figure is the median over the listings that use the most frequent currency. Lodging prices are as written (per room, per bed or per person); meal prices are whatever the listing quotes. No currency conversion, inflation adjustment or estimation.
   overall:
-    lodging_night: null
-    meal: null
+    lodging_night:
+      median: 80
+      min: 8.5
+      max: 258
+      currency: €
+      sample_size: 54
+      excluded_other_currency: 0
+    meal:
+      median: 10
+      min: 1.2
+      max: 20
+      currency: €
+      sample_size: 10
+      excluded_other_currency: 0
     notes:
-      - 'No Sleep listing in the article has a parseable price: value unknown.'
-      - 'No Eat listing in the article has a parseable price: value unknown.'
+      - 1 Eat listing price(s) in the documents had no amount with a currency.
   levels:
     budget:
-      lodging_night: null
-      meal: null
-      notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+      lodging_night:
+        median: 21
+        min: 8.5
+        max: 60
+        currency: €
+        sample_size: 13
+        excluded_other_currency: 0
+      meal:
+        median: 7.5
+        min: 1.2
+        max: 12
+        currency: €
+        sample_size: 5
+        excluded_other_currency: 0
+      notes: []
     mid:
-      lodging_night: null
+      lodging_night:
+        median: 80
+        min: 15
+        max: 150
+        currency: €
+        sample_size: 24
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Eat listing under Mid-range has a parseable price: value unknown.'
     comfort:
-      lodging_night: null
+      lodging_night:
+        median: 138.25
+        min: 74
+        max: 258
+        currency: €
+        sample_size: 14
+        excluded_other_currency: 0
       meal: null
       notes:
-        - 'The article has no priced listings under Budget / Mid-range / Splurge subsections: value unknown.'
+        - 'No Eat listing under Splurge has a parseable price: value unknown.'
 pois:
   - id: slovenia-skocjan-caves
     name: Škocjan Caves
@@ -124,7 +194,7 @@ pois:
     description: Less commercial than Postojna but similarly impressive, a UNESCO World Heritage Site.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Slovenia > Other destinations
   - id: slovenia-triglav-national-park
     name: Triglav National Park
     kinds:
@@ -132,7 +202,7 @@ pois:
     description: Home to national symbol Mt. Triglav and mythical golden chamois Zlatorog.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
+    source_ref: Slovenia > Other destinations
   - id: slovenia-soca-valley
     name: Soča Valley
     kinds:
@@ -140,15 +210,7 @@ pois:
     description: Soča river, with its emerald colour, is one of the most beautiful European Alpine rivers.
     crowd_level: null
     best_months: []
-    source_ref: Other destinations
-  - id: slovenia-football
-    name: Football
-    kinds:
-      - other
-    description: "Football: the men's national team play at Stožice Stadium in Ljubljana, home of Olimpija Ljubljana. 10 clubs play in PrvaLiga and 16 in Second League."
-    crowd_level: null
-    best_months: []
-    source_ref: Do
+    source_ref: Slovenia > Other destinations
   - id: slovenia-adrenaline-adventures
     name: Adrenaline adventures
     kinds:
@@ -157,23 +219,1040 @@ pois:
     description: Adrenaline adventures in the Posočje area, you can stay in Ljubljana and, in a short distance away, discover the amazing North-Western area of Slovenia called Posočje and Triglav National Park—canyoning (soteskanje), rafting and para-gliding are available. Because of the relatively new appearance of Slovenia on the national stage of extreme sports, these are much less expensive to participate in than other European countries, such as the UK or Switzerland. These activities are particularly prevalent in Bohinj, Bovec, Kranjska Gora, and other north-western cities.
     crowd_level: null
     best_months: []
-    source_ref: Do
-  - id: slovenia-skiing
-    name: Skiing
+    source_ref: Slovenia > Do
+  - id: slovenia-bled-lake-bled
+    name: Lake Bled
     kinds:
-      - adventure
-    description: 'Skiing in the Julian Alps is popular in the winter. More popular ski resorts are: Kranjska Gora, Krvavec, Vogel, Rogla, Cerkno, Kanin, and Mariborsko Pohorje.'
+      - nature
+    description: Formed after the recession of the Bohinj glacier at the end of the Ice Age. As much as 2120 m long and 1380 m wide. Maximum depth is 30.6 m. With no natural tributaries, it is fed by a few springs.
     crowd_level: null
     best_months: []
-    source_ref: Do
+    source_ref: Bled > See
+  - id: slovenia-bled-bled-castle
+    name: Bled Castle
+    kinds:
+      - nature
+      - historic_site
+      - museum
+      - religious_site
+      - wine
+    description: A picturesque white and red castle enclosed by a Romanesque wall with parapets, ramparts, and towers. The current incarnation of the castle dates from the 17th century and was restored in the 1950s. The upper courtyard includes a 16th-century chapel decorated with frescoes from 1700 and includes a painting of Henry II conferring Bled to Bishop Albuin. There is a small museum with an exhibition on the castle's history and the usual array of medieval pomp, pageantry and weaponry. However, the items do not include descriptions in any language. The castle terrace offers great views of the lake and island below. There is also a small wine center run by Andre, the monk. There, for the price of a champagne bottle (€15) Andre will teach you how to perform Sabrage, or Sabree, the art of cutting the top of the bottle off with a blade. You can also bottle, label, and wax stamp your own wine right in the cellar with Andre. The wooden steps near the wine cellar lead to small shop that sells various herbs and oils. Go in here for the smell.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > See
+  - id: slovenia-bled-bled-island
+    name: Bled Island
+    kinds:
+      - religious_site
+    description: Excavations on the island have revealed the remains of a pre-Romanesque Chapel and a large Slavic cemetery dating to 9 AD.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > See
+  - id: slovenia-bled-church-of-the-assumption
+    name: Church of the Assumption
+    kinds:
+      - religious_site
+    description: The present baroque church dates from 1698. Well preserved frescoes depict scenes from the life of Virgin Mary. Ring the wishing bell, which was installed in the original Gothic church in 1534. The Provost's house and the smaller building behind the church were used as guesthouses. According to local tradition, a husband who can carry his newly married bride the 99 steps up from the dock into the church will be ensured a happy marriage, and ringing the bell in the church will fulfill one of your wishes.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > See
+  - id: slovenia-bled-iglica-waterfall
+    name: Iglica Waterfall
+    kinds:
+      - nature
+      - adventure
+    description: 18 m high, but very narrow waterfall over a vertical wall of Permian limestone. Popular for rock climbing. If you go up the stairs you have a beautiful view over the whole area.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > See
+  - id: slovenia-bled-babji-zob-hags-tooth-caves
+    name: Babji Zob (Hag's Tooth) Caves
+    kinds:
+      - nature
+    description: 300-m cave system includes rare helictites (calcium deposits) and a tooth-shaped pillar atop a 1128-m peak. Very different than other caves in Slovenia. Three-hour tours take place Wednesdays, Saturdays, and Sundays in the summer. Meet at Bohinjska Bela 34.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > See
+  - id: slovenia-bled-houraway
+    name: HourAway
+    kinds:
+      - hiking
+      - adventure
+    description: Houraway specializes in bespoke outdoor experiences, offering both multi-day and day tours tailored to your preferences. Whether you’re interested in cycling or hiking, their guided and self-guided options cater to all fitness levels and interests. Houraway also provides high-performance e-bikes and gravel bikes for rent, perfect for exploring Slovenia’s stunning landscapes. Their knowledgeable team is always ready to help with route suggestions and insider tips, ensuring a memorable adventure in the wider Bled and Ljubljana areas.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-altitude-activities
+    name: Altitude Activities
+    kinds:
+      - hiking
+      - nature
+      - adventure
+    description: Friendly outdoor agency run by twin brothers, who are outdoor enthusiasts. There you can go on guided tours for activities like paragliding, skydiving, hiking, mountaineering, canyoning, kayaking, rafting, hot air ballooning, bike tours, rock climbing, via Ferrata and day tours around Triglav national park. If you need any information about hiking, they are happy to help and give you information. There you can also rent bikes and equipment for climbing.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-hiking
+    name: Hiking
+    kinds:
+      - hiking
+      - beach
+      - nature
+    description: Bled offers several easy to moderate hikes, many of which offer amazing picturesque views of the island. Velika Osojnica, a 756m high peak at the southwestern corner of the lake offers the best and most famous views of Bled, and is popular among photographers. An easier, but less spectacular option is to hike up 638m Straza, covered with linden oak and spruce trees, southwest of the Grand Hotel Toplice.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-swimming-at-grajsko-kopalisce-castle-bathing-area
+    name: Swimming at Grajsko kopališče (Castle Bathing Area)
+    kinds:
+      - beach
+      - historic_site
+      - family
+      - adventure
+    description: 6,000-m² area, a great place to swim, also has two waterslides, a trampoline, a climbing wall, four outdoor swimming pools, a jump board as well as climbers, swings and a sandbox for children, table tennis, chess, 1,000 changing rooms, 107 lockers, boat rental, snack shop, and a grassy beach.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-strel-swimming-adventures
+    name: Strel Swimming Adventures
+    kinds:
+      - beach
+      - nature
+      - adventure
+    description: Swim across Lake Bled and around the Island with well known operator for Slovenian swimming adventure holidays.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-indoor-ice-skating-at-sportna-dvorana
+    name: Indoor Ice Skating at Sportna Dvorana
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-bled-golf-country-club
+    name: Bled Golf & Country Club
+    kinds:
+      - other
+    description: Slovenia's premier golf course.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-mini-golf
+    name: Mini Golf
+    kinds:
+      - other
+    description: 18 holes. Hosts a variety of classic mini golf competitions, including the National Championship.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-spas-wellness-centers
+    name: Spas & Wellness Centers
+    kinds:
+      - other
+    description: Unwind in thermal pools, whirlpools and saunas, or alternatively let yourself be pampered with a soothing massage, a calming bath or a rejuvenating beauty treatment.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-ziva-wellness-centre
+    name: Ziva Wellness Centre
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-summer-tobogganing
+    name: Summer tobogganing
+    kinds:
+      - other
+    description: Open only during the summer. Ride down a 520-m track on a 131-m hill in a small cart. Speeds top out at 40 km/h.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-fishing
+    name: Fishing
+    kinds:
+      - nature
+    description: Fishing for catfish, pike, carp and lake trout is permitted on Lake Bled with the purchase of a permit from the tourist office for €20 per day.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-hot-air-balloon-flights
+    name: Hot Air Balloon Flights
+    kinds:
+      - other
+    description: Accepts bookings via email or phone, at least a day before the flight. Hot air balloon flights are only early in the morning, starting at Sunrise. Whole programme is about 3-4 hr (flight time approx. 1 hr).
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-a-adventure-factory
+    name: A Adventure Factory
+    kinds:
+      - adventure
+    description: A Adventure Factory Ljubljanska cesta 4, +386 40217330, info@aadventurefactory.com. A friendly ATV tour company, that offers also the possibility to rent a quad. If you seek information about the surrounding area or any other activities, feel free to ask them, they are allways ready to help.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-take-amazing-photos
+    name: Take amazing photos
+    kinds:
+      - historic_site
+      - museum
+      - viewpoint
+      - food
+    description: Take amazing photos Best viewpoints are Mala Osojnica near Camp Zaka and Bled castle. You can enter the castle for free in the evening after the museum closes. Just say that you are going to a restaurant.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do
+  - id: slovenia-bled-bled-days
+    name: Bled Days
+    kinds:
+      - nature
+    description: Three days of fairs and concerts. The event culminates in fireworks and the lighting of thousands of candles on the lake.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do > Festivals
+  - id: slovenia-bled-international-music-festival-bled
+    name: International Music Festival Bled
+    kinds:
+      - other
+    description: Classical music festival.
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do > Festivals
+  - id: slovenia-bled-medieval-days
+    name: Medieval days
+    kinds:
+      - historic_site
+    description: Medieval days A weekend festival that takes place on first weekend in June at Bled Castle
+    crowd_level: null
+    best_months: []
+    source_ref: Bled > Do > Festivals
+  - id: slovenia-ljubljana-triple-bridge
+    name: Triple Bridge
+    kinds:
+      - other
+    description: "The central span is from 1842: it became a bottleneck so in the 1930s footbridges were added on each side, fanning out slightly. On the north bank these lead into Prešeren Square, adorned by the statue of the national poet France Prešeren (1800-1849). It's the obvious rendezvous point in town; the area is pedestrianised. The TIC is south end of the bridge."
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-old-town
+    name: Old Town
+    kinds:
+      - historic_site
+      - food
+    description: The old town has two squares, Mestni trg (City square) with the Robba fountain and the city hall behind it, and, further on, Gornji trg (Upper square). Well preserved medieval buildings now house local designer shops, and several popular cafes and restaurants. Although they may look creepy, the perfectly safe narrow lanes lead to charming little squares and buildings.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-dragon-bridge
+    name: Dragon Bridge
+    kinds:
+      - food
+    description: Completed in 1901, designed by Croatian Jurij Zainovich. It is guarded by four detailed dragon statues from the city's coat-of-arms. Look out for the dragon motif throughout the city. Be careful around the Dragon Bridge area, as it is on a major busy road just outside the pedestrian zone and near misses (and worse) between inattentive tourists and traffic are common. The dragon bridge is located at the end of the Ljubljana Open Market, just a block or two down the river (north-east direction) from the Triple bridge.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-ljubljana-castle
+    name: Ljubljana Castle
+    kinds:
+      - historic_site
+    description: The tower has magnificent views all over the city. You can also see the Sava River and Kamnik Alps in the distance. Included is a 3D Movie of the history of Ljubljana from a pre-historic settlement to Roman Empire to modern times (€6.50 for adults, €3 for students, seniors).
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-republic-square
+    name: Republic Square
+    kinds:
+      - other
+    description: Where crowds gathered as Slovenia announced its independence from the Yugoslav Federation in 1991. The square has significant importance for Slovene history, as it was a place of important public gatherings (and demonstrations) in the past. Across the road is the Slovene Parliament. Its façade is decorated with artistic nude statues of Slovenes at work and leisure. The square also houses the International Business Centre.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-roman-ruins
+    name: Roman Ruins
+    kinds:
+      - historic_site
+    description: A short walk west of the centre of town are the remains of the Roman City Walls, including a number of pillars from an entrance gate.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-krakovo
+    name: Krakovo
+    kinds:
+      - village
+    description: A village-like part of the city connecting the centre to the Trnovo suburb.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-metelkova
+    name: Metelkova
+    kinds:
+      - nightlife
+    description: A self-declared autonomous culture place to gather for alternative artists, many subcultures and youth. What used to be a military barracks is now full of underground artists, bars and nightclubs. Metelkova can get crowded on Fridays and Saturdays. It is within 5 minute of walk from main Train Station, and it is home to a renowned hostel Celica.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-ljubljana-zoo
+    name: Ljubljana Zoo
+    kinds:
+      - family
+    description: One of the most beautiful zoos in Europe.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-university-botanic-gardens-ljubljana
+    name: University Botanic gardens Ljubljana
+    kinds:
+      - nature
+    description: Ljubljana Botanic Garden is the oldest Slovene cultural, scientific and educational institution. It was founded in 1810, the time of the Illyrian Provinces, as a garden of native flora and a section of the Central School (École Centrale). In the garden is also tropical glasshouse.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-tomb-of-national-heroes
+    name: Tomb of National Heroes
+    kinds:
+      - historic_site
+    description: a tomb and a monument for the national heroes of the World War II resistance struggle in Slovenia, created in 1949.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-ursuline-church-of-the-holy-trinity
+    name: Ursuline Church of the Holy Trinity
+    kinds:
+      - religious_site
+    description: A Baroque style church built between 1718 and 1726.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-congress-square
+    name: Congress Square
+    kinds:
+      - other
+    description: One of the central squares, built in 1821. In 1988 the first free mass demonstration was held here, which was the start of the Slovenian spring, leading to the declaration of Slovenia's independence in 1991.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-neboticnik
+    name: Nebotičnik
+    kinds:
+      - other
+    description: A 13 storey high-rise.built in 1931, designed by Vladimir Šubic, with a cafe & bar on the top floor.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-sts-cyril-and-methodius-church
+    name: Sts. Cyril and Methodius Church
+    kinds:
+      - religious_site
+    description: An Orthodox Church has five domes with golden crosses at their top. It was built from 1932 to 1936, with interior frescos painted between 1986 and 1997.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-franciscan-church-of-the-annunciation
+    name: Franciscan Church of the Annunciation
+    kinds:
+      - historic_site
+      - religious_site
+    description: Built between 1646 and 1660, with a later front facade and bell tower.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-ljubljana-cathedral
+    name: Ljubljana Cathedral
+    kinds:
+      - religious_site
+    description: St. Nicholas's Church (cerkev sv. Nikolaja) was built between 1701 and 1706 on a site dating back to 1262. The fine interior includes fresco painted by Giulio Quaglio between 1703 and 1723.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-ljubljana-mosque
+    name: Ljubljana Mosque
+    kinds:
+      - religious_site
+    description: An intricate set of buildings, the first mosque in the country.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-tivoli-park
+    name: Tivoli Park
+    kinds:
+      - nature
+    description: Tivoli Park to the west is the city's main park, with a large pond at its southwest end and the hill of Rožnik behind.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See
+  - id: slovenia-ljubljana-museum-of-architecture-and-design
+    name: Museum of Architecture and Design
+    kinds:
+      - museum
+    description: Hosts a permanent exhibition of Jože Plečnik's works.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See > Museums
+  - id: slovenia-ljubljana-plecnik-house
+    name: Plečnik House
+    kinds:
+      - museum
+    description: Devoted to great Slovenian architect Jože Plečnik, who lived in this building from 1921 to 1957. The house contains rooms with the artist’s valuable original furniture and personal objects, an archive of his sketches and plans and a collection of clay, plaster and wooden models, a library, Plečnik’s correspondence, a photo archive, thesis projects of Plečnik’s students and an archive of the Academy of Architecture Collection. Access only by guided tour of not more than 7 people, booked at least five days in advance.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See > Museums
+  - id: slovenia-ljubljana-museum-of-modern-art
+    name: Museum of Modern Art
+    kinds:
+      - museum
+    description: For those who prefer contemporary art, MG+ houses the national collection of 20th-century Slovene art (paintings, sculptures, prints, drawings, photography, video and electronic media collections), a collection of works from the former Yugoslavia, and the Eastern European collection "Arteast 2000+.".
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See > Museums
+  - id: slovenia-ljubljana-museum-of-contemporary-art
+    name: Museum of Contemporary Art
+    kinds:
+      - museum
+    description: Opened in 2011 in the former military barracks complex this is complementary museum to the MG+. Opening hours and prices same as +MG. Adult combined tickets available.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See > Museums
+  - id: slovenia-ljubljana-national-gallery
+    name: National Gallery
+    kinds:
+      - historic_site
+      - museum
+    description: Definitely worth visiting if you care about art. It exhibits two important permanent collections that include works of some of the best and most renowned Slovenian (impressionist) painters (Jama, Grohar, Jakopic, Azbe). You can also see there a restored original of the Robba Fountain, a monument of national cultural heritage.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See > Museums
+  - id: slovenia-ljubljana-national-museum-of-slovenia-presernova
+    name: National Museum of Slovenia - Prešernova
+    kinds:
+      - museum
+    description: The oldest and the largest Slovene museum. It was founded in 1821. Existent museum building on the Museum street, was built in 1888 and was the first, building, assigned solely to culture in Slovenia. Today its stores a rich collections of valuable objects. The oldest spring back to the Stone Age, but there are also the newer ones, which are still used in our everyday life. Important columns of museum activity are also rich museum library and unit for preservation and restoring.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See > Museums
+  - id: slovenia-ljubljana-national-museum-of-slovenia-metelkova
+    name: National Museum of Slovenia - Metelkova
+    kinds:
+      - museum
+    description: In the new building of the National museum of Slovenia on the Metelkova Street, are exhibited collections of the applied art heritage of Slovenia. The permanent exhibition brings together objects of applied arts from the 14th century to the present day.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See > Museums
+  - id: slovenia-ljubljana-national-museum-of-contemporary-history
+    name: National Museum of Contemporary History
+    kinds:
+      - museum
+    description: Slovenia's 20th-century history museum gives you a real sense of the country's roller-coaster ride through regime after regime. Its immersive exhibits include a walk-through World War I trench. The last exhibit shows the events around the Declaration of Independence from Yugoslavia and the Ten Day War with the Yugoslav Federal Army. All exhibits are translated to English and some to German too.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See > Museums
+  - id: slovenia-ljubljana-slovenian-museum-of-natural-history
+    name: Slovenian Museum of Natural History
+    kinds:
+      - nature
+      - museum
+    description: Features an almost complete skeleton of a 20,000 year old mammoth found near Kamnik in 1938, a 200-million-year old fossil fish skeleton found in Triglav National Park, and a new, 13-m skeleton of a fin whale. Also has a large mineral collection.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See > Museums
+  - id: slovenia-ljubljana-mglc-international-centre-of-graphic-arts
+    name: MGLC International Centre of Graphic Arts
+    kinds:
+      - museum
+    description: Specialised in art shows, often in collaboration with international institutions. Normally on nearby sites but MGLC Tivoli Mansion is closed for renovation.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See > Museums
+  - id: slovenia-ljubljana-city-museum-of-ljubljana
+    name: City Museum of Ljubljana
+    kinds:
+      - museum
+    description: City history and temporary exhibitions.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See > Museums
+  - id: slovenia-ljubljana-railway-museum
+    name: Railway Museum
+    kinds:
+      - beach
+      - museum
+    description: Covers all aspects of the railway, Great selection of steam locos.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See > Museums
+  - id: slovenia-ljubljana-house-of-experiments
+    name: House of experiments
+    kinds:
+      - museum
+      - family
+    description: A hands-on science "playground" for kids.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > See > Museums
+  - id: slovenia-ljubljana-hot-air-balloon-flights
+    name: Hot Air Balloon Flights
+    kinds:
+      - historic_site
+    description: These launch at sunrise for one-hour flights, weather permitting. The launch spot is chosen on the day so the wind carries you over the historic centre. The whole programme is about 4 hours so reckon on a very early start.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do
+  - id: slovenia-ljubljana-olimpija-ljubljana
+    name: Olimpija Ljubljana
+    kinds:
+      - other
+    description: They play soccer in PrvaLiga, the top tier. Their home ground (capacity 16,000) is off the ring road 2 km north of city centre.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do
+  - id: slovenia-ljubljana-water-city-of-atlantis
+    name: Water City of Atlantis
+    kinds:
+      - nature
+      - family
+    description: A water park offering 14 pools, thermal baths, slides and saunas. Special section is dedicated for children.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Water parks
+  - id: slovenia-ljubljana-laguna-fun-spa
+    name: Laguna Fun & Spa
+    kinds:
+      - nature
+      - family
+    description: Offers open-air pools during the day and themed parties at night.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Water parks
+  - id: slovenia-ljubljana-cankarjev-dom
+    name: Cankarjev Dom
+    kinds:
+      - religious_site
+    description: Enormous arts and convention centre with concerts and performances.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Opera & Theatre
+  - id: slovenia-ljubljana-slovenian-philharmonic-orchestra
+    name: Slovenian Philharmonic Orchestra
+    kinds:
+      - other
+    description: Orchestra dating back to 1701.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Opera & Theatre
+  - id: slovenia-ljubljana-slovene-national-theatre-narodno-gledalisce
+    name: Slovene National Theatre (Narodno Gledalisce)
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Opera & Theatre
+  - id: slovenia-ljubljana-puppet-theatre-lutkovno-gledalisce
+    name: Puppet Theatre (Lutkovno Gledalisce)
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Opera & Theatre
+  - id: slovenia-ljubljana-ljubljana-opera-house
+    name: Ljubljana Opera House
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Opera & Theatre
+  - id: slovenia-ljubljana-krizanke-outdoor-theatre
+    name: Križanke Outdoor Theatre
+    kinds:
+      - other
+    description: used for summer festivals.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Opera & Theatre
+  - id: slovenia-ljubljana-ljubljana-city-theatre
+    name: Ljubljana City Theatre
+    kinds:
+      - other
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Opera & Theatre
+  - id: slovenia-ljubljana-ljubljana-summer-festival
+    name: Ljubljana Summer Festival
+    kinds:
+      - other
+    description: Opera, ballet and theatre festival held in July and August.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Opera & Theatre
+  - id: slovenia-ljubljana-kinoteka
+    name: Kinoteka
+    kinds:
+      - museum
+      - family
+    description: Ljubljana's charming film museum where they have at least two movies a day. The movies range from classics to cult movies, from trash and horror to artistic masterpieces. All movies are presented in the original audio language, and equipped with Slovenian subtitles, sometimes also English. On Saturday mornings they have special projections for children. There are also some special events, round tables, premiers etc. all the time. It's a must visit for every film lover. It has also a nice little cafe with small prices
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Cinema
+  - id: slovenia-ljubljana-kinodvor
+    name: Kinodvor
+    kinds:
+      - family
+    description: This is a small and very cool cinema that shows mostly new movies that are not playing in the blockbuster movie complexes. It has also a lot of special events, a great cafe and movies for children (Sundays).
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Cinema
+  - id: slovenia-ljubljana-arena-play-party
+    name: Arena Play & Party
+    kinds:
+      - other
+    description: A great place to spend an evening. Main features include bowling, pool, laser games and a state-of-the-art 3D XpanD cinema theatre.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Cinema
+  - id: slovenia-ljubljana-cineplexx
+    name: Cineplexx
+    kinds:
+      - other
+    description: A Multiplex.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Cinema
+  - id: slovenia-ljubljana-smarna-gora
+    name: Šmarna gora
+    kinds:
+      - hiking
+      - adventure
+    description: Šmarna gora (662 m) is on the northern edge of the city, so it's popular, indeed crowded on fine weekends. For 30–60 minutes of easy climbing you will be rewarded by a nice views. Take Bus 8 to Tacenski most.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Hiking
+  - id: slovenia-ljubljana-krim
+    name: Krim
+    kinds:
+      - hiking
+      - adventure
+    description: Krim (1,107 m) was a military and civilian telecoms centre; the military post has been dismantled and the area is open to the public, with great views. The climb takes 2–3 hours (beware of bears!). Get here by car, which takes 30 min as the last 4 km of road are unpaved and narrow.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Hiking
+  - id: slovenia-ljubljana-houraway
+    name: HourAway
+    kinds:
+      - nature
+      - viewpoint
+    description: Houraway offers high-quality bike rentals, including e-bikes, road bikes, and gravel bikes, along with guided and self-guided cycling tours. Their expertly designed day and multi-day tours cater to all fitness levels, showcasing Slovenia’s scenic landscapes, from peaceful countryside paths to challenging mountain routes.
+    crowd_level: null
+    best_months: []
+    source_ref: Ljubljana > Do > Cycling
+  - id: slovenia-piran-tartini-square
+    name: Tartini Square
+    kinds:
+      - other
+    description: The beautiful oval-shaped main square, with a statue of the famous violinist Giuseppe Tartini. This was once the marina, but after it silted up it was paved over with white stone.
+    crowd_level: null
+    best_months: []
+    source_ref: Piran > See
+  - id: slovenia-piran-venetian-house
+    name: Venetian House
+    kinds:
+      - historic_site
+    description: 'The red building on Tartinijev trg, is a fantastic example of Gothic Venetian architecture and the oldest building on the square. Built by a rich Venetian merchant to house his mistress, spot the inscription between the upper windows: it says Lassa pur dir, or "let them talk".'
+    crowd_level: null
+    best_months: []
+    source_ref: Piran > See
+  - id: slovenia-piran-sergej-masera-maritime-museum
+    name: Sergej Mašera Maritime Museum
+    kinds:
+      - historic_site
+      - museum
+    description: Has several exhibits that tell the story of Piran's maritime history and culture, housed in a historic palace.
+    crowd_level: null
+    best_months: []
+    source_ref: Piran > See
+  - id: slovenia-piran-church-of-st-george
+    name: Church of St. George
+    kinds:
+      - historic_site
+      - religious_site
+    description: A Roman catholic church built on the hill top in Venetian Renaissance style in the early 16th century. The inside is quite beautiful, although it's closed with a gate outside sermon hours which means only peeking in from the door is possible.
+    crowd_level: null
+    best_months: []
+    source_ref: Piran > See
+  - id: slovenia-piran-reliquary
+    name: Reliquary
+    kinds:
+      - historic_site
+    description: It houses various religious artefacts, archaeological finds, and historic artworks. Only takes 15 minutes to look around, but requires a fee to get in.
+    crowd_level: null
+    best_months: []
+    source_ref: Piran > See
+  - id: slovenia-piran-bell-tower
+    name: Bell tower
+    kinds:
+      - historic_site
+      - adventure
+    description: A faithful replica of the San Marco Campanile in Venice. For a fee it's possible to climb the tower, which offers a magnificent view over the city and the bay.
+    crowd_level: null
+    best_months: []
+    source_ref: Piran > See
+  - id: slovenia-piran-magical-world-of-shells-museum
+    name: Magical World of Shells Museum
+    kinds:
+      - museum
+    description: Operated by the Mediterranean Institute and curated by Jan Simič, the museum has a collection of 3,000 shells and aquatic creatures on display, including exotic ones.
+    crowd_level: null
+    best_months: []
+    source_ref: Piran > See
+  - id: slovenia-piran-aquarium
+    name: Aquarium
+    kinds:
+      - family
+    description: Small aquarium with a variety of sea creatures. A tour takes only around 15 minutes, and kids tend to enjoy it. Also nicely cool inside, so a great activity during the hottest times of the day.
+    crowd_level: null
+    best_months: []
+    source_ref: Piran > See
+  - id: slovenia-piran-lighthouse
+    name: Lighthouse
+    kinds:
+      - historic_site
+    description: A beautiful lighthouse tower.
+    crowd_level: null
+    best_months: []
+    source_ref: Piran > See
+  - id: slovenia-piran-watch-the-sunset
+    name: Watch the Sunset
+    kinds:
+      - viewpoint
+    description: Preferably from a bar on the waterfront with an aperitivo in hand.
+    crowd_level: null
+    best_months: []
+    source_ref: Piran > Do
+  - id: slovenia-piran-swim
+    name: Swim
+    kinds:
+      - beach
+    description: There is no beach, but you can swim in the sea from the many piers scattered about.
+    crowd_level: null
+    best_months: []
+    source_ref: Piran > Do
+  - id: slovenia-piran-diving-school
+    name: Diving School
+    kinds:
+      - adventure
+    description: Explore the clear Adriatic Sea.
+    crowd_level: null
+    best_months: []
+    source_ref: Piran > Do
+  - id: slovenia-piran-city-walls
+    name: City walls
+    kinds:
+      - historic_site
+      - family
+    description: A section of the historic city walls, which were part of the fortifications protecting the city to the west. The northern section is open to the public, and its 4 watch towers are the highest points in Piran which means they offer fantastic views! The wall and towers have very narrow and low access with uneven steep steps, and not at all recommended for children or the elderly.
+    crowd_level: null
+    best_months: []
+    source_ref: Piran > Do
+  - id: slovenia-piran-coastal-path-to-fiesa
+    name: Coastal path to Fiesa
+    kinds:
+      - hiking
+      - beach
+      - nature
+    description: Walking and cycling path, about 1 km each way, following the cliff face and pebble beaches.
+    crowd_level: null
+    best_months: []
+    source_ref: Piran > Do
+  - id: slovenia-koper-pretorian-palace
+    name: Pretorian Palace
+    kinds:
+      - historic_site
+    description: Dating back to the 15th century and the only fully restored building in the plaza, this is Koper's symbol and it now houses the tourist office which offers guided tours of the Palace, including the city council meeting chamber and weddings room
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-cathedral-of-the-assumption-of-the-blessed-virgin-mary
+    name: Cathedral of the Assumption of the Blessed Virgin Mary
+    kinds:
+      - historic_site
+      - religious_site
+    description: The largest Cathedral in Slovenia containing famous paintings from Vittore Carpaccio, a renowned Venetian painter. Fully renovated, with much sacral heritage indoors.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-bell-tower-city-tower
+    name: Bell Tower (City Tower)
+    kinds:
+      - historic_site
+      - adventure
+    description: Climb the bell tower for great views of the city and surroundings. Contains the oldest working bell in Slovenia.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-armoury-and-foresteria-palace
+    name: Armoury and Foresteria Palace
+    kinds:
+      - nature
+      - historic_site
+    description: Armeria is the former municipal armoury. The Foresteria, formerly known as Albergo nuovo, was used as reception and accommodation facilities for podesta’s (mayor's) guests. They were originally two separate buildings.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-loggia-palace
+    name: Loggia Palace
+    kinds:
+      - historic_site
+    description: It was used as a debate club for all the townsmen, with their discussions considered by the city council as well.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-taverna-koper-st-marks-storage
+    name: Taverna Koper / St Mark’s storage
+    kinds:
+      - other
+    description: Ex salt storage, nowadays is the location of the most interesting event & music venue in Koper
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-carpaccio-house
+    name: Carpaccio House
+    kinds:
+      - historic_site
+    description: 14th century house thought to be the home of the eminent Venetian painter Vittore Carpaccio.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-da-ponte-fountain
+    name: Da Ponte Fountain
+    kinds:
+      - other
+    description: The biggest city fountain is a reproduction of the Rialto Bridge in Venice. It was commissioned in 1666 by podesta Lorenzo da Ponte.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-muda-gate
+    name: Muda Gate
+    kinds:
+      - other
+    description: The Renaissance style Muda Gate remains the only preserved city gate out of the former twelve.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-fontico
+    name: Fontico
+    kinds:
+      - historic_site
+    description: 14th century Venetian style building was used as a warehouse for the grain given to the townsmen in times of bad harvest or war.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-koper-regional-museum
+    name: Koper Regional Museum
+    kinds:
+      - museum
+    description: null
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-church-of-the-holy-trinity-hrastovlje
+    name: Church of the Holy Trinity, Hrastovlje
+    kinds:
+      - historic_site
+      - religious_site
+    description: Church of the Holy Trinity, Hrastovlje The church boasts beautiful frescoes, an extraordinary achievement of Medieval iconography. The most famous is the depiction of the Dance of Death.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-defence-tower-podpec
+    name: Defence tower, Podpeč
+    kinds:
+      - historic_site
+    description: Defence tower, Podpeč This 11th century, 17 m defence tower is a popular tourist sight and one of the most enchanting beauty spots in Slovenian Istria.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-skocjanski-zatok-nature-reserve
+    name: Škocjanski zatok Nature Reserve
+    kinds:
+      - nature
+    description: Škocjanski zatok Nature Reserve Stretching out over 122 ha, this is the largest brackish wetland in Slovenia. The area is home to countless birds and other animal species, such as Istrian cattle (boškarin) and Camargue horses.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-church-of-st-roch-and-st-sebastian-borst
+    name: Church of St. Roch and St. Sebastian, Boršt
+    kinds:
+      - historic_site
+      - religious_site
+    description: Church of St. Roch and St. Sebastian, Boršt According to some sources, the church dates back to the 13th century. It is decorated with fragments of Medieval frescoes and inscriptions in the Glagolitic alphabet.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-the-benko-house-crni-kal
+    name: The Benko house, Črni Kal
+    kinds:
+      - other
+    description: The Benko house, Črni Kal The Benko house is believed to be the oldest farmer’s house in Slovenia. It was built in 1489 by the masters Andrej and Benko of Sočerga.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-coat-of-arms-of-the-decani-family-dekani
+    name: Coat-of-arms of the De’Cani family, Dekani
+    kinds:
+      - village
+      - family
+    description: Coat-of-arms of the De’Cani family, Dekani The name Dekani is linked to the noble Cani family, also known as De’Cani, which originates from the town of Sulmone in Abruzzi, Italy. According to some sources, the De’Cani family owned the village as long ago as the 15th century, as there is a coat-of-arms of the Cani family with the date 1479 on the building at no. 185.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-church-of-st-nicholas-gracisce
+    name: Church of St. Nicholas, Gračišče
+    kinds:
+      - historic_site
+      - religious_site
+    description: 'Church of St. Nicholas, Gračišče Next to this late 18th century church, there is a 26 m white stone bell tower with a built-in stone plaque bearing an inscription in the Cyrillic and Glagolitic alphabet that reads: “I call the living, I mourn the dead.”'
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-village-architecture-abitanti
+    name: Village architecture, Abitanti
+    kinds:
+      - village
+    description: Village architecture, Abitanti The fascinating architectural features of the protected buildings in Abitanti testify to the fact that this was once a very rich village.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-church-of-st-michael-tinjan
+    name: Church of St. Michael, Tinjan
+    kinds:
+      - historic_site
+      - religious_site
+      - village
+    description: Church of St. Michael, Tinjan Positioned on the edge of the village, the church building has a Baroque front; the entrance is through the large bell tower. The stone plaque built into the portal shows Christ on the Cross and the date 1704.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-the-krkavce-stone-krkavce
+    name: The Krkavče Stone, Krkavče
+    kinds:
+      - village
+    description: The Krkavče Stone, Krkavče Believed by some to be 3000 years old, the stone is the oldest sight in the village. It is 1.5 m tall; on two sides, it features a carved image of what is probably a pagan deity.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-the-dragonja-valley
+    name: The Dragonja valley
+    kinds:
+      - hiking
+      - nature
+    description: The Dragonja valley At 29 km long, the Dragonja is the longest river in Slovenian Istria. The river valley is well known for its diversity of plant and animal life. Today, it is a nature park popular with hikers, cyclists and nature enthusiasts.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-marezganska-kanava-marezige
+    name: Marežganska Kanava, Marezige
+    kinds:
+      - other
+    description: "Marežganska Kanava, Marezige A beautifully preserved stone farmer's house and the main venue of the Refosco Festival and St. Martin's Day celebrations. There are three vines growing outside Kanava: Refosco, Malvasia and Žametovka, a descendant of the world’s oldest vine in Lent, Maribor."
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-the-bardinc-house-lopar
+    name: The Bardinc House, Lopar
+    kinds:
+      - museum
+      - wine
+    description: The Bardinc House, Lopar The building houses a local ethnology and history exhibition with a preserved farmer’s kitchen, fireplace and wine cellar.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-rock-shelters-the-ears-of-istria-and-natural-bridge-socerga
+    name: Rock shelters (“The Ears of Istria”) and natural bridge, Sočerga
+    kinds:
+      - hiking
+      - nature
+      - viewpoint
+    description: Rock shelters (“The Ears of Istria”) and natural bridge, Sočerga Above Sočerga, nature has carved out some beautiful rock shelters, also known as “The Ears of Istria”. The panoramic trail leads past three 17 m rock shelters to a natural bridge with a 6 m stone arch.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-slavnik-podgorje
+    name: Slavnik, Podgorje
+    kinds:
+      - hiking
+      - village
+    description: Slavnik, Podgorje 1028 m high, the hill of Slavnik is situated near the village of Podgorje. The summit of Slavnik offers beautiful views, with the Adriatic Sea, Italian Dolomites, Carnic and Julian Alps, Karavanks and even the Kamnik–Savinja Alps visible in clear weather.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-strmec-castle-socerb
+    name: Strmec Castle, Socerb
+    kinds:
+      - nature
+      - historic_site
+      - village
+    description: Strmec Castle, Socerb The Strmec Castle sits on top of a 440 m Karst cliff above the village. It was built in the 13th century on the foundations of an Illyrian settlement. Today, the castle is one of the most magnificent beauty spots in Slovenian Istria.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-sacred-cave-socerb
+    name: Sacred Cave, Socerb
+    kinds:
+      - nature
+      - religious_site
+    description: Sacred Cave, Socerb According to a legend, the Sveta jama or Sacred Cave was the dwelling of St. Servulus, a Trieste martyr and saint who lived in the 3rd century. The front part of the cave with a natural stone altar still houses a church today – the only underground church in Slovenia.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-church-of-the-immaculate-mother-of-god-village-square-and-stone-window-smarje
+    name: Church of the Immaculate Mother of God, village square and stone window, Šmarje
+    kinds:
+      - historic_site
+      - religious_site
+      - village
+    description: Church of the Immaculate Mother of God, village square and stone window, Šmarje The church was built in the village square in the 11th century. It was expanded and renovated in the 13th century. There is a bell tower next to the church with a built-in 9th-century stone window, the remnant of an older church that once stood in the same spot.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-the-supot-waterfall-and-views
+    name: The Supot waterfall and views
+    kinds:
+      - nature
+    description: The Supot waterfall and views The 10 m waterfall is at its fullest in the rainy season. The macadam road towards the Dragonja also leads past a smaer waterfall with a beautiful pool.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
+  - id: slovenia-koper-mediterranean-herb-garden-manzan
+    name: Mediterranean herb garden, Manžan
+    kinds:
+      - hiking
+      - nature
+    description: Mediterranean herb garden, Manžan The Mediterranean herb garden at the Butul farm in Manžan is a unique experience. Walking through the garden is educational and relaxing at the same time. Cooking and herbal workshops can be organised by agreement.
+    crowd_level: null
+    best_months: []
+    source_ref: Koper > See
 extraction:
-  listings: 0
-  listings_by_type: {}
+  listings: 340
+  listings_by_type:
+    buy: 5
+    do: 35
+    drink: 46
+    eat: 91
+    go: 17
+    listing: 15
+    see: 57
+    sleep: 74
   priced_listings:
-    sleep: 0
-    eat: 0
+    sleep: 54
+    eat: 11
   poi_sources:
-    listing: 0
-    marker: 3
-    named: 3
+    listing: 94
+    marker: 4
+    named: 26
   duplicate_pois_dropped: 0
+  generic_items_pruned: 4
