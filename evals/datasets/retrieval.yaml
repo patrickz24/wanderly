@@ -1,0 +1,464 @@
+# Retrieval evaluation dataset (milestone 2).
+#
+# Each query is labelled with the sections of the corpus that answer it, as
+# (destinationId, document, headingPath) targets: `document` is relative to
+# data/corpus/<destinationId>/ and `headingPath` is the section path inside the
+# document, without the document title ("Do > Hiking"). Labels name sections,
+# never chunk ids, so they survive re-chunking: a retrieved chunk is relevant
+# when one of the sections it covers is the target or one of its subsections.
+#
+# `destinationId` on a query is the retrieval filter the agent would pass
+# (null = search every destination). `style` describes the phrasing:
+# keyword, paraphrase (no shared key terms), question, or cross-section
+# (the answer is spread over several sections or documents).
+#
+# Provenance: every query and label was proposed by the build agent from the
+# corpus text and is pending human review. They are not written by the
+# person who owns the evaluation yet; see docs/EVALUATIONS.md, "Limitations".
+
+version: 1
+
+queries:
+  - id: sicily-etna-skiing
+    query: Can you go skiing on Mount Etna in winter?
+    destinationId: sicily
+    style: question
+    relevant:
+      - { destinationId: sicily, document: guide.md, headingPath: Do > Skiing }
+    provenance: proposed-by-agent, pending human review
+
+  - id: sicily-puppet-theatre
+    query: traditional puppet theatre shows with knights and battles
+    destinationId: null
+    style: paraphrase
+    relevant:
+      - { destinationId: sicily, document: guide.md, headingPath: See > Performance }
+    provenance: proposed-by-agent, pending human review
+
+  - id: sicily-palermo-safety
+    query: Is Palermo safe? Pickpockets and areas to avoid
+    destinationId: sicily
+    style: cross-section
+    relevant:
+      - { destinationId: sicily, document: guide.md, headingPath: Stay safe }
+      - { destinationId: sicily, document: places/palermo.md, headingPath: Stay safe }
+    provenance: proposed-by-agent, pending human review
+
+  - id: sicily-palermo-pizzo-free
+    query: shops that refuse to pay protection money to the Mafia
+    destinationId: sicily
+    style: paraphrase
+    relevant:
+      - { destinationId: sicily, document: places/palermo.md, headingPath: Buy }
+    provenance: proposed-by-agent, pending human review
+
+  - id: sicily-palermo-bus-ticket
+    query: Palermo bus 24-hour ticket price
+    destinationId: null
+    style: keyword
+    relevant:
+      - { destinationId: sicily, document: places/palermo.md, headingPath: Get around > By bus }
+    provenance: proposed-by-agent, pending human review
+
+  - id: iceland-tipping
+    query: Should I leave a tip at restaurants in Iceland?
+    destinationId: null
+    style: question
+    relevant:
+      - { destinationId: iceland, document: guide.md, headingPath: Buy > Tipping }
+    provenance: proposed-by-agent, pending human review
+
+  - id: iceland-emergency-number
+    query: emergency phone number
+    destinationId: iceland
+    style: cross-section
+    relevant:
+      - { destinationId: iceland, document: guide.md, headingPath: Stay safe > Authorities }
+      - { destinationId: iceland, document: guide.md, headingPath: Connect > Telephone }
+    provenance: proposed-by-agent, pending human review
+
+  - id: iceland-golden-circle-coach
+    query: guided coach day trip to Gullfoss waterfall and the geysers from the capital
+    destinationId: iceland
+    style: paraphrase
+    relevant:
+      - { destinationId: iceland, document: guide.md, headingPath: Get around > By bus }
+      - { destinationId: iceland, document: places/reykjavik.md, headingPath: Go next }
+    provenance: proposed-by-agent, pending human review
+
+  - id: iceland-reykjavik-uber
+    query: Can I use Uber or a taxi app in Reykjavik?
+    destinationId: null
+    style: question
+    relevant:
+      - { destinationId: iceland, document: places/reykjavik.md, headingPath: Get around > By taxi }
+    provenance: proposed-by-agent, pending human review
+
+  - id: iceland-reykjavik-pools
+    query: outdoor geothermal swimming pools in the city
+    destinationId: iceland
+    style: keyword
+    relevant:
+      - {
+          destinationId: iceland,
+          document: places/reykjavik.md,
+          headingPath: Do > Geothermal swimming pools,
+        }
+    provenance: proposed-by-agent, pending human review
+
+  - id: lofoten-maelstrom
+    query: Maelstrom tidal current
+    destinationId: null
+    style: keyword
+    relevant:
+      - { destinationId: lofoten, document: guide.md, headingPath: Other destinations }
+    provenance: proposed-by-agent, pending human review
+
+  - id: lofoten-midnight-sun
+    query: When can you see the midnight sun and the northern lights?
+    destinationId: lofoten
+    style: question
+    relevant:
+      - { destinationId: lofoten, document: guide.md, headingPath: See }
+    provenance: proposed-by-agent, pending human review
+
+  - id: lofoten-fisherman-cabin
+    query: stay overnight in a traditional red fisherman's hut on stilts
+    destinationId: null
+    style: cross-section
+    relevant:
+      - { destinationId: lofoten, document: guide.md, headingPath: Sleep }
+      - { destinationId: lofoten, document: guide.md, headingPath: See }
+    provenance: proposed-by-agent, pending human review
+
+  - id: madeira-driving
+    query: Is driving difficult on the island's roads?
+    destinationId: madeira
+    style: question
+    relevant:
+      - { destinationId: madeira, document: guide.md, headingPath: Get around > By car }
+    provenance: proposed-by-agent, pending human review
+
+  - id: madeira-levadas
+    query: walks along old irrigation water channels in the mountains
+    destinationId: null
+    style: paraphrase
+    relevant:
+      - { destinationId: madeira, document: guide.md, headingPath: See }
+      - { destinationId: madeira, document: guide.md, headingPath: Understand }
+    provenance: proposed-by-agent, pending human review
+
+  - id: madeira-porto-santo-ferry
+    query: car ferry to Porto Santo
+    destinationId: madeira
+    style: keyword
+    relevant:
+      - { destinationId: madeira, document: guide.md, headingPath: Get around > By boat }
+    provenance: proposed-by-agent, pending human review
+
+  - id: azores-whale-watching
+    query: whale and dolphin watching boat trips
+    destinationId: azores
+    style: keyword
+    relevant:
+      - { destinationId: azores, document: guide.md, headingPath: Do }
+    provenance: proposed-by-agent, pending human review
+
+  - id: azores-beach-weather
+    query: Are the Azores good for a sunny beach holiday? How warm is the sea?
+    destinationId: null
+    style: question
+    relevant:
+      - { destinationId: azores, document: guide.md, headingPath: Understand > Climate }
+    provenance: proposed-by-agent, pending human review
+
+  - id: azores-tea
+    query: the only tea plantation in Europe
+    destinationId: null
+    style: keyword
+    relevant:
+      - { destinationId: azores, document: guide.md, headingPath: Drink }
+      - { destinationId: azores, document: guide.md, headingPath: Buy > Shopping }
+    provenance: proposed-by-agent, pending human review
+
+  - id: crete-samaria-gorge
+    query: hiking the Samaria Gorge, how long does it take?
+    destinationId: null
+    style: question
+    relevant:
+      - { destinationId: crete, document: guide.md, headingPath: Do }
+      - { destinationId: crete, document: guide.md, headingPath: Other destinations }
+    provenance: proposed-by-agent, pending human review
+
+  - id: crete-car-rental
+    query: renting a car and road rules
+    destinationId: crete
+    style: keyword
+    relevant:
+      - { destinationId: crete, document: guide.md, headingPath: Get around > By car }
+    provenance: proposed-by-agent, pending human review
+
+  - id: slovenia-vignette
+    query: Do I need a motorway toll sticker to drive there?
+    destinationId: slovenia
+    style: cross-section
+    relevant:
+      - { destinationId: slovenia, document: guide.md, headingPath: Get in > By car }
+      - { destinationId: slovenia, document: guide.md, headingPath: Get around > By car }
+    provenance: proposed-by-agent, pending human review
+
+  - id: slovenia-vegetarian
+    query: food options for vegetarians
+    destinationId: slovenia
+    style: keyword
+    relevant:
+      - { destinationId: slovenia, document: guide.md, headingPath: Eat > Dietary restrictions }
+    provenance: proposed-by-agent, pending human review
+
+  - id: slovenia-bled-island-boat
+    query: traditional wooden gondola to the church on the lake island
+    destinationId: null
+    style: paraphrase
+    relevant:
+      - { destinationId: slovenia, document: places/bled.md, headingPath: Get around > By pletna }
+    provenance: proposed-by-agent, pending human review
+
+  - id: slovenia-postojna
+    query: Postojna cave train ride
+    destinationId: null
+    style: keyword
+    relevant:
+      - { destinationId: slovenia, document: guide.md, headingPath: See }
+    provenance: proposed-by-agent, pending human review
+
+  - id: highlands-long-walks
+    query: long-distance walking trails such as the West Highland Way
+    destinationId: null
+    style: keyword
+    relevant:
+      - { destinationId: scottish-highlands, document: guide.md, headingPath: Do }
+    provenance: proposed-by-agent, pending human review
+
+  - id: highlands-whisky
+    query: Where can I visit whisky distilleries?
+    destinationId: scottish-highlands
+    style: question
+    relevant:
+      - { destinationId: scottish-highlands, document: guide.md, headingPath: Drink }
+    provenance: proposed-by-agent, pending human review
+
+  - id: santorini-hospital
+    query: Is there a hospital on the island if I get sick?
+    destinationId: santorini
+    style: question
+    relevant:
+      - { destinationId: santorini, document: guide.md, headingPath: Stay healthy }
+    provenance: proposed-by-agent, pending human review
+
+  - id: santorini-sunset-spots
+    query: best spots to watch the sunset, ideally less crowded
+    destinationId: santorini
+    style: cross-section
+    relevant:
+      - { destinationId: santorini, document: guide.md, headingPath: See > Nature }
+      - { destinationId: santorini, document: guide.md, headingPath: See > Architecture }
+      - { destinationId: santorini, document: guide.md, headingPath: See > Scenic villages }
+    provenance: proposed-by-agent, pending human review
+
+  - id: santorini-red-beach
+    query: beach with red cliffs near the Bronze Age ruins
+    destinationId: null
+    style: paraphrase
+    relevant:
+      - { destinationId: santorini, document: guide.md, headingPath: Do > Beaches }
+    provenance: proposed-by-agent, pending human review
+
+  - id: mallorca-gr221
+    query: multi-day trek across the Tramuntana mountains
+    destinationId: null
+    style: paraphrase
+    relevant:
+      - { destinationId: mallorca, document: guide.md, headingPath: Do }
+    provenance: proposed-by-agent, pending human review
+
+  - id: mallorca-tap-water
+    query: Is the tap water safe to drink?
+    destinationId: mallorca
+    style: question
+    relevant:
+      - { destinationId: mallorca, document: guide.md, headingPath: Drink }
+    provenance: proposed-by-agent, pending human review
+
+  - id: montenegro-tara-rafting
+    query: rafting in the deepest canyon in Europe
+    destinationId: null
+    style: paraphrase
+    relevant:
+      - { destinationId: montenegro, document: guide.md, headingPath: Other destinations }
+      - { destinationId: montenegro, document: guide.md, headingPath: See > Natural attractions }
+    provenance: proposed-by-agent, pending human review
+
+  - id: montenegro-ferry-italy
+    query: ferry from Bar to Bari
+    destinationId: null
+    style: keyword
+    relevant:
+      - { destinationId: montenegro, document: guide.md, headingPath: Get in > By boat }
+    provenance: proposed-by-agent, pending human review
+
+  - id: montenegro-kotor-fortress-climb
+    query: climbing the steps up to the fortress above the old town of Kotor
+    destinationId: montenegro
+    style: keyword
+    relevant:
+      - { destinationId: montenegro, document: places/kotor.md, headingPath: Do > Hiking }
+    provenance: proposed-by-agent, pending human review
+
+  - id: provence-petanque
+    query: game of boules that old men play in village squares
+    destinationId: null
+    style: paraphrase
+    relevant:
+      - { destinationId: provence, document: guide.md, headingPath: Do }
+    provenance: proposed-by-agent, pending human review
+
+  - id: provence-bouillabaisse
+    query: bouillabaisse fish soup in Marseille
+    destinationId: provence
+    style: cross-section
+    relevant:
+      - { destinationId: provence, document: places/marseille.md, headingPath: Eat }
+      - { destinationId: provence, document: guide.md, headingPath: Eat }
+    provenance: proposed-by-agent, pending human review
+
+  - id: lavender-souvenirs
+    query: where to buy lavender oil and dried lavender
+    destinationId: null
+    style: cross-section
+    relevant:
+      - { destinationId: hvar, document: guide.md, headingPath: Buy }
+      - { destinationId: provence, document: guide.md, headingPath: Buy }
+    provenance: proposed-by-agent, pending human review
+
+  - id: tuscany-red-wines
+    query: which red wines is the region known for?
+    destinationId: tuscany
+    style: question
+    relevant:
+      - { destinationId: tuscany, document: guide.md, headingPath: Drink }
+    provenance: proposed-by-agent, pending human review
+
+  - id: hvar-boat-rental
+    query: rent a small motorboat to explore the nearby islands
+    destinationId: hvar
+    style: paraphrase
+    relevant:
+      - { destinationId: hvar, document: guide.md, headingPath: Do }
+    provenance: proposed-by-agent, pending human review
+
+  - id: seiser-alm-road-closure
+    query: Can I drive my own car up to the Alpe di Siusi plateau during the day?
+    destinationId: null
+    style: question
+    relevant:
+      - { destinationId: seiser-alm, document: guide.md, headingPath: Get in > By car }
+    provenance: proposed-by-agent, pending human review
+
+  - id: seiser-alm-ski-area
+    query: ski area linked to Val Gardena and Dolomiti Superski
+    destinationId: seiser-alm
+    style: keyword
+    relevant:
+      - { destinationId: seiser-alm, document: guide.md, headingPath: Do > In winter }
+    provenance: proposed-by-agent, pending human review
+
+  - id: algarve-benagil
+    query: visiting the Benagil sea cave
+    destinationId: null
+    style: keyword
+    relevant:
+      - { destinationId: algarve, document: guide.md, headingPath: See }
+    provenance: proposed-by-agent, pending human review
+
+  - id: algarve-medronho
+    query: strong local fruit brandy made from strawberry tree berries
+    destinationId: algarve
+    style: paraphrase
+    relevant:
+      - { destinationId: algarve, document: guide.md, headingPath: Drink }
+    provenance: proposed-by-agent, pending human review
+
+  - id: andalusia-alhambra
+    query: the Moorish palace and gardens in Granada
+    destinationId: andalusia
+    style: cross-section
+    relevant:
+      - { destinationId: andalusia, document: places/granada.md, headingPath: See > The Alhambra }
+      - { destinationId: andalusia, document: guide.md, headingPath: See }
+    provenance: proposed-by-agent, pending human review
+
+  - id: andalusia-summer-heat
+    query: how hot does it get in summer in southern Spain?
+    destinationId: null
+    style: question
+    relevant:
+      - { destinationId: andalusia, document: guide.md, headingPath: Understand > Climate }
+    provenance: proposed-by-agent, pending human review
+
+  - id: corsica-gr20
+    query: GR 20 trail difficulty and number of days
+    destinationId: null
+    style: keyword
+    relevant:
+      - { destinationId: corsica, document: guide.md, headingPath: Do > Long-distance walking }
+    provenance: proposed-by-agent, pending human review
+
+  - id: corsica-train
+    query: small mountain railway across the island
+    destinationId: corsica
+    style: paraphrase
+    relevant:
+      - { destinationId: corsica, document: guide.md, headingPath: Get around > By train }
+    provenance: proposed-by-agent, pending human review
+
+  - id: apulia-trulli
+    query: village of white conical stone houses
+    destinationId: null
+    style: paraphrase
+    relevant:
+      - { destinationId: apulia, document: guide.md, headingPath: Other destinations }
+      - { destinationId: apulia, document: guide.md, headingPath: Provinces }
+    provenance: proposed-by-agent, pending human review
+
+  - id: apulia-pasta
+    query: typical pasta and local produce
+    destinationId: apulia
+    style: keyword
+    relevant:
+      - { destinationId: apulia, document: guide.md, headingPath: Eat }
+    provenance: proposed-by-agent, pending human review
+
+  - id: sardinia-nuraghi
+    query: ancient stone towers built by the Nuragic civilization
+    destinationId: null
+    style: keyword
+    relevant:
+      - { destinationId: sardinia, document: guide.md, headingPath: Understand > History }
+      - { destinationId: sardinia, document: guide.md, headingPath: See > Monuments and sites }
+    provenance: proposed-by-agent, pending human review
+
+  - id: sardinia-myrtle-liqueur
+    query: liqueur made from myrtle berries
+    destinationId: null
+    style: keyword
+    relevant:
+      - { destinationId: sardinia, document: guide.md, headingPath: Drink > Spirits }
+    provenance: proposed-by-agent, pending human review
+
+  - id: sardinia-hunting-season
+    query: Is it dangerous to hike during the hunting season?
+    destinationId: sardinia
+    style: question
+    relevant:
+      - { destinationId: sardinia, document: guide.md, headingPath: Stay safe }
+    provenance: proposed-by-agent, pending human review
