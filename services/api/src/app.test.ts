@@ -104,6 +104,33 @@ describe('GET /ready', () => {
   });
 });
 
+describe('probe logging', () => {
+  const failing: ReadinessReport = {
+    status: 'fail',
+    checks: { database: { status: 'fail', durationMs: 1, output: 'check failed' } },
+  };
+
+  it('keeps routine probe requests out of info-level logs', async () => {
+    const log = memoryLog();
+    const server = await start({ env: { LOG_LEVEL: 'info' }, log });
+
+    await server.inject({ method: 'GET', url: '/health' });
+    await server.inject({ method: 'GET', url: '/ready' });
+
+    expect(log.lines).toEqual([]);
+  });
+
+  it('never logs below the configured level', async () => {
+    const log = memoryLog();
+    const server = await start({ env: { LOG_LEVEL: 'error' }, log, report: failing });
+
+    const response = await server.inject({ method: 'GET', url: '/ready' });
+
+    expect(response.statusCode).toBe(503);
+    expect(log.lines).toEqual([]);
+  });
+});
+
 describe('request ids', () => {
   it('generates a UUID and echoes it in the x-request-id header', async () => {
     const server = await start();

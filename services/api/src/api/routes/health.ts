@@ -8,29 +8,49 @@ import {
 import type { FastifyBaseLogger } from 'fastify';
 import type { FastifyPluginAsyncZod } from 'fastify-type-provider-zod';
 import type { ReadinessProbe, ReadinessReport } from '../../application/ports/readiness.js';
+import type { LogLevel } from '../../config.js';
 
 export interface HealthRoutesOptions {
   readonly readinessProbe: ReadinessProbe;
+  /** The application log level; probe routes never log below `warn`. */
+  readonly logLevel: LogLevel;
 }
 
+const SEVERITY: Readonly<Record<LogLevel, number>> = {
+  trace: 10,
+  debug: 20,
+  info: 30,
+  warn: 40,
+  error: 50,
+  fatal: 60,
+  silent: Number.POSITIVE_INFINITY,
+};
+
 /**
- * Probes are polled every few seconds by orchestrators: request logs are
- * lowered to `warn` so that only failures are visible.
+ * Probes are polled every few seconds by orchestrators, so their request logs
+ * are raised to `warn` (only failures are visible). A route level replaces the
+ * logger level, so it must never be less severe than the configured one.
  */
+export function probeLogLevel(configured: LogLevel): LogLevel {
+  return SEVERITY[configured] > SEVERITY.warn ? configured : 'warn';
+}
+
 export const healthRoutes: FastifyPluginAsyncZod<HealthRoutesOptions> = async (
   app,
-  { readinessProbe },
+  { readinessProbe, logLevel: configured },
 ) => {
+  const logLevel = probeLogLevel(configured);
+
   app.get(
     '/health',
-    { logLevel: 'warn', schema: { response: { 200: HealthResponseSchema } } },
+    { logLevel, schema: { response: { 200: HealthResponseSchema } } },
     async (): Promise<HealthResponse> => ({ status: 'ok' }),
   );
 
   app.get(
     '/ready',
     {
-      logLevel: 'warn',
+      logLevel,
       schema: { response: { 200: ReadyResponseSchema, 503: ReadyResponseSchema } },
     },
     async (request, reply) => {

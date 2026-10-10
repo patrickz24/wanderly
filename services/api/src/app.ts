@@ -126,7 +126,7 @@ export async function buildApp({ config, readinessProbe, logDestination }: AppDe
     reply.code(404).send(errorBody('NOT_FOUND', ROUTE_NOT_FOUND_MESSAGE, request.id)),
   );
 
-  await app.register(healthRoutes, { readinessProbe });
+  await app.register(healthRoutes, { readinessProbe, logLevel: config.logLevel });
 
   return app;
 }
