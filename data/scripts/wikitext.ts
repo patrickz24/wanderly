@@ -197,6 +197,18 @@ function renderInlineTemplate(call: TemplateCall, ctx: ConversionContext): strin
   if (name === 'iata' || name === 'phone') return expand(first);
   if (name === '!') return '|';
   if (name === 'unesco') return 'UNESCO World Heritage Site';
+  if (name === 'emdash') return ' — ';
+  if (name === 'pbri') return ' ';
+  // {{ili}}: an item of a list written inside a listing description.
+  if (name === 'ili') return ` ${expand(first)}`;
+  if (name === 'sleeppricerange' || name === 'eatpricerange') {
+    const ranges = ['1', '2', '3'].map((key) => expand(param(call, key)));
+    const basis =
+      name === 'sleeppricerange'
+        ? 'for a standard double room'
+        : 'for a typical meal for one, including soft drink';
+    return `Price ranges used in this guide ${basis}: Budget ${ranges[0] ?? ''}; Mid-range ${ranges[1] ?? ''}; Splurge ${ranges[2] ?? ''}.`;
+  }
 
   // Generic inline templates ({{lang}}, {{convert}}, {{nowrap}}, {{currency}}…): let wtf_wikipedia
   // render them, after expanding the templates nested in their arguments.
@@ -208,9 +220,54 @@ function renderInlineTemplate(call: TemplateCall, ctx: ConversionContext): strin
 
 /** Converts an inline wikitext fragment (no list markers, no headings) to plain text. */
 function renderInline(text: string, ctx: ConversionContext): string {
-  const expanded = expandInlineTemplates(text, ctx);
+  const expanded = stripInlineMarkup(expandInlineTemplates(text, ctx));
   if (expanded.trim() === '') return '';
-  return tidySpacing(wtf(expanded).text());
+  return tidySpacing(decodeEntities(wtf(expanded).text()));
+}
+
+const INLINE_TAG =
+  /<\/?(?:abbr|b|bdi|big|center|code|del|div|em|font|i|ins|nowiki|p|s|small|span|strong|sub|sup|tt|u)\b[^>]*>/gi;
+
+/**
+ * Removes bold/italic quote runs and inline HTML tags before wtf_wikipedia: it parses emphasis
+ * per sentence, so a bold name containing "St." or an unbalanced ''' would otherwise survive.
+ */
+function stripInlineMarkup(text: string): string {
+  return text
+    .replace(/'{2,}/g, '')
+    .replace(/<br\s*\/?>/gi, ' ')
+    .replace(INLINE_TAG, '');
+}
+
+const NAMED_ENTITIES: Readonly<Record<string, string>> = {
+  nbsp: ' ',
+  thinsp: ' ',
+  ensp: ' ',
+  emsp: ' ',
+  ndash: '–',
+  mdash: '—',
+  minus: '−',
+  times: '×',
+  hellip: '…',
+  deg: '°',
+  euro: '€',
+  pound: '£',
+  amp: '&',
+  quot: '"',
+  apos: "'",
+  lt: '<',
+  gt: '>',
+};
+
+/** Decodes the HTML entities wtf_wikipedia leaves in place (`&thinsp;`, `&euro;`, `&#8364;`…). */
+export function decodeEntities(text: string): string {
+  return text.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (match, code: string) => {
+    if (!code.startsWith('#')) return NAMED_ENTITIES[code.toLowerCase()] ?? match;
+    const point = /^#x/i.test(code)
+      ? Number.parseInt(code.slice(2), 16)
+      : Number.parseInt(code.slice(1), 10);
+    return point > 0 && point <= 0x10ffff ? String.fromCodePoint(point) : match;
+  });
 }
 
 /** Collapses whitespace and removes the space left before punctuation by dropped templates. */

@@ -179,6 +179,18 @@ describe('named list items', () => {
 });
 
 describe('inline templates', () => {
+  it('strips emphasis split by abbreviations, inline tags with attributes and entities', () => {
+    expect(
+      wikitextToPlainText(
+        "'''St. Martin-St. Augustin''', Place Saint-Augustin; called zatok''', cash at an " +
+          '<abbr title="Automatic Teller Machine">ATM</abbr>, gyros &euro;1.70, 15&thinsp;km, &#8364;3',
+      ),
+    ).toBe(
+      'St. Martin-St. Augustin, Place Saint-Augustin; called zatok, cash at an ATM, gyros €1.70, ' +
+        '15 km, €3',
+    );
+  });
+
   it('renders Wikivoyage unit, currency and airport templates', () => {
     expect(
       wikitextToPlainText(
@@ -192,6 +204,22 @@ describe('inline templates', () => {
       'Sicilia uses the euro.',
     );
     expect(wikitextToPlainText('a {{UNESCO}}.')).toBe('a UNESCO World Heritage Site.');
+  });
+
+  it('renders list items and breaks inside listings, more units, and price-range legends', () => {
+    expect(wikitextToPlainText('In particular:{{ili|A room.}}{{ili|A garden.}}')).toBe(
+      'In particular: A room. A garden.',
+    );
+    expect(wikitextToPlainText('Old.{{pbri}}New{{emdash}}really, {{m2|4}}, {{hectare|2}}')).toBe(
+      'Old. New — really, 4 m², 2 ha',
+    );
+    expect(
+      wikitextToPlainText('{{sleeppricerange|Under 15,000 kr|15,000–30,000 kr|Over 30,000 kr}}'),
+    ).toBe(
+      'Price ranges used in this guide for a standard double room: Budget Under 15,000 kr; ' +
+        'Mid-range 15,000–30,000 kr; Splurge Over 30,000 kr.',
+    );
+    expect(wikitextToPlainText('{{otheruses}}{{anchor|x}}{{IPA|alˈɡɛːro}}Alghero')).toBe('Alghero');
   });
 
   it('reports unknown templates that render to nothing', () => {
