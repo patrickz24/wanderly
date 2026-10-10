@@ -1,0 +1,24 @@
+# Judge calibration set (plan section 8.2, ADR 0013): about 25 agent outputs graded by a human, to
+# measure how often the LLM judge agrees with a person (raw agreement and Cohen's kappa).
+# Loaded by evals/judge/calibration.ts. Empty until a real evaluation run exists.
+#
+# How to fill it:
+# 1. Run a real evaluation with the judge on: npm run eval:agent -w @wanderly/evals
+# 2. Export candidates from that run (appends items with the judge's verdicts and empty human labels;
+#    each item embeds the request, the response and the retrieved context, so it survives the run
+#    folder, which is not versioned):
+#      npm run eval:judge-calibration -w @wanderly/evals -- --export evals/results/<run> --limit 25
+# 3. For each item, read userTurns, response and retrievedContext, then fill `human` BEFORE looking
+#    at `judge` (fold or hide it):
+#      - faithful: true when every factual claim of the item descriptions and justifications is
+#        supported by retrievedContext (world knowledge does not count), false otherwise;
+#      - request_fit: 0, 1 or 2 following the request-fit rubric in docs/EVALUATIONS.md.
+#    Add a note when a label was hard to decide: those items are where the rubric needs work.
+# 4. Compute the agreement (and, with --write, update docs/EVALUATIONS.md):
+#      npm run eval:judge-calibration -w @wanderly/evals -- --write
+#
+# Item fields: id, caseId, rep, source (run folder), judgeModel, judgePromptVersion, userTurns,
+# response, retrievedContext, judge {faithful: 0|1|null, request_fit: 0|1|2|null},
+# human {faithful: true|false|null, request_fit: 0|1|2|null}, notes.
+version: 1
+items: []

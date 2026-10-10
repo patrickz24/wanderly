@@ -61,6 +61,7 @@ import {
   type GateResult,
 } from './agent-gate.js';
 import {
+  retrievedContext,
   runAttempt,
   withRetries,
   type AttemptPorts,
@@ -369,7 +370,7 @@ async function main(): Promise<void> {
       const input = {
         userTurns: testCase.turns,
         response,
-        retrievedContext: retrievedContext(outcome),
+        retrievedContext: retrievedContext(outcome.turns),
       };
       if (isJudgeable(input)) {
         try {
@@ -520,19 +521,6 @@ async function main(): Promise<void> {
 
   const failed = gates.some((gate) => gate.result.verdict === 'fail');
   if (failed && (options.gate || options.mode !== 'real')) process.exitCode = 1;
-}
-
-/** Excerpts, POIs, weather and budget the agent received in the graded turn. */
-function retrievedContext(outcome: CaseOutcome): string[] {
-  const last = outcome.turns.at(-1);
-  if (last === undefined) return [];
-  return last.messages.flatMap((message) =>
-    message.role === 'user'
-      ? message.content.flatMap((block) =>
-          block.type === 'tool_result' && !block.isError ? [block.content] : [],
-        )
-      : [],
-  );
 }
 
 function currentSha(): string | null {

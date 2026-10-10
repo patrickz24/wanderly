@@ -377,3 +377,16 @@ export async function withRetries(
     await policy.sleep(backoffDelay(index, policy));
   }
 }
+
+/** What the data tools returned in the last turn (excerpts, POIs, weather, budget): the judge's context. */
+export function retrievedContext(turns: readonly Pick<TurnLog, 'messages'>[]): string[] {
+  const last = turns.at(-1);
+  if (last === undefined) return [];
+  return last.messages.flatMap((message) =>
+    message.role === 'user'
+      ? message.content.flatMap((block) =>
+          block.type === 'tool_result' && !block.isError ? [block.content] : [],
+        )
+      : [],
+  );
+}
