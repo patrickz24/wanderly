@@ -205,9 +205,16 @@ describe('agent and API limits', () => {
 
     expect(error.issues).toEqual([
       expect.stringMatching(/^AGENT_MAX_RUN_COST_USD: /),
-      'AGENT_CANARY_TOKEN: must be at least 16 characters',
+      'AGENT_CANARY_TOKEN: must contain at least 16 letters or digits',
     ]);
     expect(error.message).not.toContain('short-canary');
+  });
+
+  it('counts only letters and digits in the canary, like the leak detector', () => {
+    const error = configError({ ...minimalEnv, AGENT_CANARY_TOKEN: 'abc-def-ghi-jkl-mn' });
+    expect(error.issues).toEqual([
+      'AGENT_CANARY_TOKEN: must contain at least 16 letters or digits',
+    ]);
   });
 });
 

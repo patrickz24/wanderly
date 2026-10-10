@@ -184,7 +184,11 @@ const EnvSchema = z
     AGENT_MAX_RUN_COST_USD: z.coerce.number().positive().max(10).optional(),
     AGENT_CANARY_TOKEN: z
       .string()
-      .min(MIN_CANARY_TOKEN_LENGTH, `must be at least ${MIN_CANARY_TOKEN_LENGTH} characters`)
+      .refine(
+        // The leak detector compares letters and digits only (separators and case are ignored).
+        (token) => token.replace(/[^A-Za-z0-9]/g, '').length >= MIN_CANARY_TOKEN_LENGTH,
+        `must contain at least ${MIN_CANARY_TOKEN_LENGTH} letters or digits`,
+      )
       .optional(),
     DAILY_BUDGET_USD: z.coerce.number().nonnegative().max(1_000).default(2),
     RATE_LIMIT_MAX: positiveInt.default(10),
