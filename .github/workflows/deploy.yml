@@ -1,0 +1,99 @@
+name: Deploy
+
+# Manual only: a person decides when production changes. Automatic deploys on push are
+# deliberately not enabled. See docs/DEPLOYMENT.md.
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: What to deploy (the API always goes first; it runs the migrations)
+        type: choice
+        options: [all, api, web]
+        default: all
+
+permissions:
+  contents: read
+
+# Never two deploys at once, and never cancel one halfway through.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
+env:
+  # flyctl ships almost daily; pinned for reproducible deploys, bumped by hand.
+  FLYCTL_VERSION: 0.4.115
+
+jobs:
+  ci-gate:
+    name: Require green CI on main
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      actions: read
+    steps:
+      - name: Only main can be deployed
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "::error::Deploys run from main only (got $GITHUB_REF)."
+          exit 1
+      - name: Require a successful CI run for this exact commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          conclusion=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow ci.yml --branch main \
+            --commit "$GITHUB_SHA" --status success --limit 1 --json conclusion \
+            --jq '.[0].conclusion // ""')
+          if [ "$conclusion" != "success" ]; then
+            echo "::error::No successful CI run on main for $GITHUB_SHA: wait for CI, then retry."
+            exit 1
+          fi
+
+  deploy-api:
+    name: Deploy API
+    needs: ci-gate
+    if: inputs.target == 'all' || inputs.target == 'api'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # Protection rules (required reviewer, main only) and secrets live on this environment.
+    environment:
+      name: production
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      # Third-party action in a job that holds a deploy token: pinned to a full commit SHA.
+      - name: Set up flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@ed8efb33836e8b2096c7fd3ba1c8afe303ebbff1 # 1.6
+        with:
+          version: ${{ env.FLYCTL_VERSION }}
+      # Same command as a local `make deploy-api`. The token is scoped to the API app only.
+      - name: Deploy (release command applies migrations first)
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_API }}
+        run: make deploy-api
+
+  deploy-web:
+    name: Deploy web
+    needs: [ci-gate, deploy-api]
+    # Runs after a successful API deploy, or alone when only the web app is selected.
+    if: >-
+      ${{ !cancelled() && needs.ci-gate.result == 'success'
+      && (needs.deploy-api.result == 'success' || needs.deploy-api.result == 'skipped')
+      && (inputs.target == 'all' || inputs.target == 'web') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: production
+      url: https://wanderly-web.fly.dev
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Set up flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@ed8efb33836e8b2096c7fd3ba1c8afe303ebbff1 # 1.6
+        with:
+          version: ${{ env.FLYCTL_VERSION }}
+      - name: Deploy
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN_WEB }}
+        run: make deploy-web
