@@ -9,28 +9,36 @@ note.
 
 ```
 data/
-├── destinations.yaml          # input: the destination list (edit this one)
+├── destinations.yaml          # input: the destination list (edit this one; `places` come from select-places)
+├── places-selection.md        # generated: ranking of the candidate place articles per destination
 ├── corpus/
-│   ├── ATTRIBUTION.md         # generated: per-article provenance and licences
+│   ├── ATTRIBUTION.md         # generated: per-document provenance and licences
 │   └── <id>/
-│       ├── guide.md           # generated: Markdown travel guide + provenance front matter
-│       └── facts.yaml         # generated: identity, climate, costs, POIs
+│       ├── guide.md           # generated: region article (Markdown + provenance front matter)
+│       ├── places/<place>.md  # generated: articles of the cities, towns, islands, parks it lists
+│       └── facts.yaml         # generated: identity, documents, climate, costs, POIs
 ├── climate/<id>.yaml          # generated: monthly climate normals (input of facts.yaml)
-├── raw/                       # gitignored download cache (wikitext, daily weather series)
+├── raw/                       # gitignored download cache (wikitext, candidates, weather series)
 └── scripts/                   # TypeScript scripts, run with `npx tsx`, tested with Vitest
 ```
 
 ## Corpus format
 
-### `guide.md`
+Each destination has one **region guide** (`guide.md`, the Wikivoyage article of the destination
+itself) and up to four **place articles** (`places/<place-id>.md`): Wikivoyage region articles
+describe their attractions in prose and keep the detailed listings (sights, restaurants and hotels
+with prices) on the pages of the places they list, so both are needed.
+
+### Markdown documents (`guide.md`, `places/<place-id>.md`)
 
 YAML front matter, validated by `GuideFrontMatterSchema` (`packages/contracts/src/corpus.ts`):
 
 | Field                                   | Meaning                                                                   |
 | --------------------------------------- | ------------------------------------------------------------------------- |
-| `id`                                    | Destination id (kebab-case, same as the directory).                       |
+| `id`                                    | Destination id (region guide) or place id (place article), kebab-case.    |
+| `parent`                                | Place articles only: the destination id.                                  |
 | `title`, `source_url`                   | Wikivoyage page title and canonical URL.                                  |
-| `revision_id`, `revision_timestamp`     | Exact revision the guide was generated from.                              |
+| `revision_id`, `revision_timestamp`     | Exact revision the document was generated from.                           |
 | `revision_url`                          | Permanent link to that revision (`oldid=`).                               |
 | `retrieved_at`                          | When the revision was downloaded.                                         |
 | `license`, `license_url`, `attribution` | Licence as published by the wiki (siteinfo API) and the attribution text. |
@@ -47,59 +55,91 @@ Body:
   `- **Name** (alternative name) — description (price: …; hours: …)`.
   Fields are separated by `;` because prices often contain commas.
 - `{{marker}}` names are bold; `{{Regionlist}}` becomes `- **Region** — description (main places: …)`;
-  `{{infobox}}` / `{{cautionbox}}` become `> **Title:** text`; tables become one bullet per row.
+  `{{infobox}}` / `{{cautionbox}}` become `> **Title:** text`; tables become one bullet per row;
+  `{{sleeppricerange}}` / `{{eatpricerange}}` become a sentence giving the article's Budget /
+  Mid-range / Splurge thresholds.
 - Removed: images, maps, banners, status and navigation templates, references, boilerplate
   boxes rendered by templates (`{{Euro}}`, `{{Schengen}}`…), categories and empty sections.
-  Unit, currency and airport templates are rendered (`{{km|5}}` → `5 km`, `{{EUR|10}}` → `€10`).
-  A template the converter does not know and that renders to nothing is reported as a warning.
+  Unit, currency and airport templates are rendered (`{{km|5}}` → `5 km`, `{{EUR|10}}` → `€10`),
+  HTML entities are decoded. A template the converter does not know and that renders to nothing
+  is reported as a warning.
 
-The chunker (milestone 2) can split on `##`/`###` and use the heading path as a breadcrumb.
+The chunker (milestone 2) can split on `##`/`###` and use the document title plus the heading
+path as a breadcrumb (`Palermo > See > Museums`), which is also the format of POI `source_ref`.
 
 ### `facts.yaml`
 
 Validated by `FactsSchema` in `packages/contracts/src/corpus.ts` (shared with the API ingestion):
 
 - **Identity**: `id`, `name`, `country`, `aliases` (from `destinations.yaml`), `is_part_of`,
-  `source` (guide revision and licence).
+  `source` (region guide revision and licence).
+- **`documents`**: every Markdown document the facts were derived from, region guide first:
+  `{file, role: region|place, id, title, url, revision_id, license}`, `file` being relative to
+  the destination directory (`guide.md`, `places/palermo.md`).
 - **`climate`**: provider, model, period, the point used, the reanalysis grid cell and its
   elevation, licence and attribution, then 12 `months` with `avg_high_c`, `avg_low_c` (mean daily
   max / min, 1 decimal), `rain_days` (mean days per month with precipitation ≥ 1 mm) and
   `precipitation_mm` (mean monthly total).
-- **`costs`**: `overall` (all priced listings) and `levels.budget|mid|comfort` (listings under
-  Budget / Mid-range / Splurge subsections). Each level has `lodging_night` and `meal`, either
-  `null` or `{median, min, max, currency, sample_size, excluded_other_currency}`, plus `notes`
-  explaining nulls and small samples. `derivation` states the method (below).
-- **`pois`**: `id` (`<destination>-<slug>`), `name`, `kinds`, `description`, `crowd_level: null`,
-  `best_months: []`, `source_ref` (heading path of the guide section, e.g. `See > Museums`).
+- **`costs`**: `overall` (all priced listings of all documents) and `levels.budget|mid|comfort`
+  (listings under Budget / Mid-range / Splurge subsections). Each level has `lodging_night` and
+  `meal`, either `null` or `{median, min, max, currency, sample_size, excluded_other_currency}`,
+  plus `notes` explaining nulls and small samples. `derivation` states the method (below).
+- **`pois`**: `id`, `name`, `kinds`, `description`, `crowd_level: null`, `best_months: []`,
+  `source_ref` (document title and heading path, e.g. `Palermo > See > Museums`).
   `crowd_level` and `best_months` are filled later by a curation pass, **only** where the guide
   text supports it.
 - **`extraction`**: counters for review (listings by type, priced listings, POI sources,
-  duplicates dropped).
+  duplicates dropped, generic items pruned).
+
+### Place selection
+
+Place articles are proposed by `select-places.ts` with the rule written in `scripts/places.ts`,
+recorded in `destinations.yaml` (`places`) and explained, candidate by candidate, in
+`places-selection.md`:
+
+1. candidates are the pages linked from the destination-listing sections of the region article
+   (before "Understand": Regions, Cities, Towns, Islands, Other destinations), i.e. `{{marker}}`
+   names (also inside region lists), `{{Regionlist}}` names and items, and the first link of each
+   list item;
+2. a candidate must be a city, park or rural-area article (Wikivoyage status template), not the
+   destination itself, with at least 3 priced Sleep/Eat listings or 5 See/Do listings;
+3. candidates are ranked by priced Sleep/Eat listings under Budget / Mid-range / Splurge
+   subsections, then all priced Sleep/Eat listings, then See/Do listings, then title; the first
+   four are kept.
+
+Hvar and Seiser Alm are themselves town-level articles that link no place before "Understand",
+so they have no place article; Lofoten has one eligible candidate (Værøy).
 
 ### Extraction rules
 
-**POIs** come, in document order, from the See, Do and Other destinations sections (and their
-subsections):
+**POIs** come, in document order (region guide, then places), from the See, Do and Other
+destinations sections (and their subsections) of every document:
 
 1. listing templates of type see / do / event / listing;
 2. `{{marker}}` list items (region articles name their attractions this way);
-3. list items that start with a bold or linked name (`* '''Valldemossa''' Charterhouse…`).
+3. list items that start with a bold or linked name (`* '''Valldemossa''' Charterhouse…`), unless
+   the name is generic: when every word of the name (numbers ignored) is in `GENERIC_TERMS`
+   (`scripts/pois.ts`: activity and category words such as golf, hiking, churches, beaches,
+   whale, watching, rent, scooter, and connectors), the item is a heading for an activity or a
+   category ("Churches", "Whale and dolphin watching"), not a place, and it is pruned and counted
+   in `extraction.generic_items_pruned`. One specific word keeps it ("Palma old town").
 
-Rule 3 also catches activity headers ("Hiking:", "Churches"): they are kept as things to do and
-can be pruned by the curation pass. Cities, regions and Eat / Sleep / Get in listings are not POIs.
-The first POI with a given id wins; later duplicates are counted and dropped.
+Cities, regions and Eat / Sleep / Get in listings are not POIs. Ids are stable:
+`<destination>-<slug>` for the region guide and `<destination>-<place-id>-<slug>` for a place
+article; the first POI with a given id wins and later duplicates are counted and dropped.
 
 **Kinds** (`hiking, beach, nature, historic_site, museum, religious_site, village, viewpoint,
 boat_trip, food, wine, nightlife, family, adventure, other`) come from the keyword table in
 `scripts/poi-kinds.ts`, matched on whole words (with `*` endings) against the name, the
 description and the subsection titles. A POI can have several kinds; no match gives `other`.
 
-**Costs** use only the `price=` field of listings in the Sleep and Eat sections. An amount counts
-when a currency is written next to it (`€50`, `450 kr`, `NOK 900`) or at the other end of its
-range (`€50-80`). Each listing counts once, at the midpoint of its lowest and highest amount;
-figures are medians over the listings in the most frequent currency (kept as written, never
-converted). Lodging prices quoted per week or month are left out. Lodging may be per room, bed
-or person and meals are whatever the listing quotes: read `sample_size` and `notes`.
+**Costs** use only the `price=` field of listings in the Sleep and Eat sections of all the
+documents of a destination. An amount counts when a currency is written next to it (`€50`,
+`450 kr`, `NOK 900`) or at the other end of its range (`€50-80`). Each listing counts once, at the
+midpoint of its lowest and highest amount; figures are medians over the listings in the most
+frequent currency (kept as written, never converted). Lodging prices quoted per week or month are
+left out. Lodging may be per room, bed or person and meals are whatever the listing quotes: read
+`sample_size` and `notes`.
 
 **Climate** uses daily `temperature_2m_max`, `temperature_2m_min` and `precipitation_sum` from
 2015-01-01 to 2024-12-31 with the `era5_seamless` model (ERA5-Land temperatures at 0.1° with
@@ -110,19 +150,24 @@ precipitation means.
 ## Regenerating
 
 ```sh
-npx tsx --conditions=development data/scripts/fetch-wikivoyage.ts [--only <id>] [--latest]   # → corpus/<id>/guide.md
-npx tsx --conditions=development data/scripts/fetch-climate.ts [--only <id>] [--refresh]     # → climate/<id>.yaml
-npx tsx --conditions=development data/scripts/build-facts.ts [--only <id>]                   # → corpus/<id>/facts.yaml, ATTRIBUTION.md
-npx tsx --conditions=development data/scripts/validate.ts                                    # exit 1 if anything is invalid
-npx vitest run --root data                                          # unit tests of the pure parts
+npx tsx --conditions=development data/scripts/select-places.ts [--write]       # review/record places
+npx tsx --conditions=development data/scripts/fetch-wikivoyage.ts [--only <id>] [--latest]
+npx tsx --conditions=development data/scripts/fetch-climate.ts [--only <id>] [--refresh]
+npx tsx --conditions=development data/scripts/build-facts.ts [--only <id>]     # + ATTRIBUTION.md
+npx tsx --conditions=development data/scripts/validate.ts                      # exit 1 if invalid
+npx vitest run --root data                                                     # unit tests
 ```
 
 - `--conditions=development` makes `@wanderly/contracts` resolve to its TypeScript sources (the
   corpus schemas live in `packages/contracts/src/corpus.ts`); without it Node loads the built
   `dist/`, which may be missing or stale.
-- **Pinned by default.** `fetch-wikivoyage` re-uses the revision recorded in the existing
-  `guide.md` (from `data/raw/` or fetched by revision id), so regenerating gives the same text.
-  `--latest` moves to the current revisions; review the diff before committing.
+- **Place selection is a reviewed step.** It depends on the current content of the candidate
+  pages, so `select-places.ts` only prints its ranking unless `--write` is given; the other
+  scripts follow `destinations.yaml`. Candidate pages are cached in `data/raw/candidates/`.
+- **Pinned by default.** `fetch-wikivoyage` re-uses the revision recorded in each existing
+  Markdown file (from `data/raw/` or fetched by revision id), so regenerating gives the same
+  text, and deletes place files no longer listed. `--latest` moves to the current revisions;
+  review the diff before committing.
 - `fetch-climate` caches each response keyed by its request URL; `--refresh` downloads again.
 - Requests are sequential with an identified User-Agent
   (`WanderlyCorpusBot/0.1 (https://github.com/patrickz24/wanderly)`), `maxlag` and bounded retries.
@@ -139,7 +184,9 @@ npx vitest run --root data                                          # unit tests
 2. `climate_point`: the article's GeoData coordinates (`prop=coordinates` of the MediaWiki API),
    unless that point is at sea or above 500 m in a destination visitors mostly experience lower
    down; then use the GeoData point of the main gateway city and say so in `source`.
-3. Run the three scripts with `--only <id>`, then `validate.ts`, and read the guide.
+3. Run `fetch-wikivoyage.ts --only <id>` (region guide), then `select-places.ts --write`, then
+   `fetch-wikivoyage.ts --only <id>` again (places), `fetch-climate.ts` and `build-facts.ts` with
+   `--only <id>`, then `validate.ts`, and read the guides.
 4. If the article is missing or too thin (an outline whose See + Do sections have fewer than
    150 words once converted), pick a close substitute of the same trip style and record it under
    `substitution` with the measured numbers and revision.
@@ -151,11 +198,12 @@ kept with a note because it covers Provence entirely (plus the Côte d'Azur and 
 
 ## Licensing
 
-- **Wikivoyage text** (guides, and the POI names, descriptions and prices derived from them) is
-  licensed **CC BY-SA 4.0** (checked on 2026-10-09 through the wiki's `siteinfo` API, recorded per
-  guide in `license_url`). The corpus is therefore CC BY-SA 4.0 and **separate from the MIT
-  licence of the code**. Attribution and the list of changes are in each front matter and in
-  `corpus/ATTRIBUTION.md`; anyone redistributing the corpus must keep them and share alike.
+- **Wikivoyage text** (guides, place articles, and the POI names, descriptions and prices derived
+  from them) is licensed **CC BY-SA 4.0** (checked on 2026-10-09 through the wiki's `siteinfo`
+  API, recorded per document in `license_url`). The corpus is therefore CC BY-SA 4.0 and
+  **separate from the MIT licence of the code**. Attribution and the list of changes are in each
+  front matter and in `corpus/ATTRIBUTION.md`; anyone redistributing the corpus must keep them
+  and share alike.
 - **Climate normals** are computed from Open-Meteo data, licensed **CC BY 4.0**, which requires
   the attribution "Weather data by Open-Meteo.com" with a link wherever the data is displayed
   (the UI showing weather must carry it). The reanalyses are Copernicus Climate Change Service
@@ -171,15 +219,16 @@ instructions (see the guardrails of the plan).
 
 ## Known limitations
 
-- **Region and country articles are prose-heavy.** Wikivoyage puts most listings in city
-  articles, so several destinations have few listings and POIs (Sardinia: 1 POI; Corsica,
-  Slovenia, Santorini, Scottish Highlands: 5-6). `validate.ts` flags thin destinations.
-- **Costs are mostly unknown.** Only Hvar, Lofoten and Madeira have priced Sleep or Eat listings,
-  with small samples, and none of the 20 articles uses Budget / Mid-range / Splurge subsections, so
-  every level is `null`. Listing prices can be years old (Croatian prices may predate the euro).
-  `estimate_budget` needs another source or must answer "unknown".
-- **Heuristic POIs and kinds.** Rule 3 above and the keyword table produce some generic entries
-  ("Golf", "Churches") and imperfect kinds; the curation pass should review them.
+- **Uneven coverage.** Seiser Alm and Hvar have no place article (13 and 5 POIs, Seiser Alm has
+  no priced listing), Lofoten has one; the other destinations have four. `validate.ts` prints the
+  statistics and flags thin destinations.
+- **Cost figures are sparse and approximate.** Meal figures are null for Sicily, Mallorca and
+  Seiser Alm, and several levels have no figure (see the cost columns of `validate.ts`). Listings
+  quote prices per room, per bed or per person, sometimes years old (Croatian prices may predate
+  the euro); figures are medians of what is written, with their sample size.
+- **Heuristic POIs and kinds.** The bold-name rule and the keyword table still produce some
+  generic or local entries ("City walls" of a town) and imperfect kinds; the curation pass should
+  review them.
 - **One climate point per destination.** Large regions have varied climates (coast vs mountains),
   and reanalysis cells on small islands are partly sea, which damps daytime highs (Santorini and
   Hvar July highs come out around 25-26 °C).
