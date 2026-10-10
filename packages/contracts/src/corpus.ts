@@ -133,10 +133,32 @@ export const PoiSchema = z.strictObject({
   best_months: z
     .array(z.int().min(1).max(12))
     .refine((months) => new Set(months).size === months.length, 'best_months must be unique'),
-  /** Heading path of the guide section the POI comes from, e.g. "See > Museums". */
+  /**
+   * Where the POI comes from: the title of the source document (region guide or place article)
+   * followed by the heading path of its section, e.g. "Palermo > See > Museums".
+   */
   source_ref: nonEmpty,
 });
 export type Poi = z.infer<typeof PoiSchema>;
+
+/** Markdown file of a destination, relative to `data/corpus/<id>/`. */
+const DOCUMENT_FILE = /^(?:guide\.md|places\/[a-z0-9]+(?:-[a-z0-9]+)*\.md)$/;
+
+/**
+ * A Markdown document of a destination: the region guide (`guide.md`) or a place article
+ * (`places/<place-id>.md`, a city, town, island or park listed by the region article).
+ */
+export const CorpusDocumentSchema = z.strictObject({
+  file: z.string().regex(DOCUMENT_FILE),
+  role: z.enum(['region', 'place']),
+  /** Destination id for the region guide, place id for a place article. */
+  id: z.string().regex(SLUG),
+  title: nonEmpty,
+  url: z.url(),
+  revision_id: z.int().positive(),
+  license: nonEmpty,
+});
+export type CorpusDocument = z.infer<typeof CorpusDocumentSchema>;
 
 export const FactsSchema = z
   .strictObject({
@@ -154,6 +176,11 @@ export const FactsSchema = z
       revision_id: z.int().positive(),
       license: nonEmpty,
     }),
+    /**
+     * Every document the facts were derived from, region guide first (optional for files written
+     * before place articles were added; always present in generated files).
+     */
+    documents: z.array(CorpusDocumentSchema).min(1).optional(),
     climate: ClimateSchema,
     costs: CostsSchema,
     pois: z.array(PoiSchema),
@@ -171,9 +198,36 @@ export const FactsSchema = z
         named: z.int().nonnegative(),
       }),
       duplicate_pois_dropped: z.int().nonnegative(),
+      /** List items dropped because they name a generic activity or category, not a place. */
+      generic_items_pruned: z.int().nonnegative().optional(),
     }),
   })
   .superRefine((facts, ctx) => {
+    if (facts.documents !== undefined) {
+      const [first, ...rest] = facts.documents;
+      if (
+        first?.role !== 'region' ||
+        first.file !== 'guide.md' ||
+        first.revision_id !== facts.source.revision_id
+      ) {
+        ctx.addIssue({
+          code: 'custom',
+          message: 'documents must start with the region guide (guide.md, same revision as source)',
+          path: ['documents', 0],
+        });
+      }
+      const files = new Set<string>();
+      rest.forEach((document, index) => {
+        if (document.role !== 'place' || files.has(document.file)) {
+          ctx.addIssue({
+            code: 'custom',
+            message: 'documents after the first must be distinct place articles',
+            path: ['documents', index + 1],
+          });
+        }
+        files.add(document.file);
+      });
+    }
     const ids = new Set<string>();
     facts.pois.forEach((poi, index) => {
       if (!poi.id.startsWith(`${facts.id}-`)) {
@@ -207,5 +261,7 @@ export const GuideFrontMatterSchema = z.strictObject({
   license_url: z.url(),
   attribution: nonEmpty,
   is_part_of: z.array(nonEmpty),
+  /** Destination id, for a place article (`places/<place-id>.md`); absent for a region guide. */
+  parent: z.string().regex(SLUG).optional(),
 });
 export type GuideFrontMatter = z.infer<typeof GuideFrontMatterSchema>;

@@ -123,3 +123,64 @@ describe('COST_LEVELS', () => {
     expect(COST_LEVELS).toEqual(['budget', 'mid', 'comfort']);
   });
 });
+
+describe('corpus documents', () => {
+  const region = {
+    file: 'guide.md',
+    role: 'region' as const,
+    id: 'sicily',
+    title: 'Sicily',
+    url: 'https://en.wikivoyage.org/wiki/Sicily',
+    revision_id: 1,
+    license: 'CC BY-SA 4.0',
+  };
+  const place = {
+    ...region,
+    file: 'places/palermo.md',
+    role: 'place' as const,
+    id: 'palermo',
+    title: 'Palermo',
+  };
+
+  it('accepts facts with or without the list of source documents', () => {
+    expect(FactsSchema.safeParse({ ...valid, documents: [region, place] }).success).toBe(true);
+    expect(FactsSchema.safeParse(valid).success).toBe(true);
+  });
+
+  it('requires the region guide first and distinct place articles after it', () => {
+    expect(FactsSchema.safeParse({ ...valid, documents: [place, region] }).success).toBe(false);
+    expect(FactsSchema.safeParse({ ...valid, documents: [region, place, place] }).success).toBe(
+      false,
+    );
+    expect(
+      FactsSchema.safeParse({ ...valid, documents: [{ ...region, revision_id: 2 }] }).success,
+    ).toBe(false);
+    expect(
+      FactsSchema.safeParse({ ...valid, documents: [region, { ...place, file: '../x.md' }] })
+        .success,
+    ).toBe(false);
+  });
+
+  it('accepts the generic-items counter and a parent on place front matter', () => {
+    const extraction = { ...valid.extraction, generic_items_pruned: 3 };
+    expect(FactsSchema.safeParse({ ...valid, extraction }).success).toBe(true);
+    const frontMatter = {
+      id: 'palermo',
+      title: 'Palermo',
+      source_url: 'https://en.wikivoyage.org/wiki/Palermo',
+      revision_id: 5354768,
+      revision_timestamp: '2026-09-01T10:00:00Z',
+      revision_url: 'https://en.wikivoyage.org/w/index.php?title=Palermo&oldid=5354768',
+      retrieved_at: '2026-10-10T10:00:00.000Z',
+      license: 'CC BY-SA 4.0',
+      license_url: 'https://creativecommons.org/licenses/by-sa/4.0/deed.en',
+      attribution: '"Palermo" by Wikivoyage contributors',
+      is_part_of: ['Palermo (province)'],
+      parent: 'sicily',
+    };
+    expect(GuideFrontMatterSchema.safeParse(frontMatter).success).toBe(true);
+    expect(GuideFrontMatterSchema.safeParse({ ...frontMatter, parent: 'Not A Slug' }).success).toBe(
+      false,
+    );
+  });
+});
