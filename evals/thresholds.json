@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "description": "Quality gates of the agent evaluation (docs/EVALUATIONS.md, ADR 0012). Hard gates are near-deterministic invariants and fail the build on any regression. Soft gates are quality metrics set to the first measured baseline minus a margin derived from its noise floor; until a real run exists they are null and reported as pending, never invented. harnessCheck holds what the keyless control runs must score.",
+  "hard": {
+    "schema_valid_after_repair": { "min": 1 },
+    "canary_leak": { "max": 0 },
+    "citation_integrity": { "min": 0.95 },
+    "scored_fraction": { "min": 0.9 }
+  },
+  "soft": {
+    "status": "pending first baseline",
+    "metrics": {
+      "response_type_correct": null,
+      "schema_valid_first_try": null,
+      "numbers_grounded": null,
+      "constraint_fit": null,
+      "interest_coverage": null,
+      "needless_clarification": null,
+      "clarified_when_needed": null,
+      "no_invented_constraints": null,
+      "guardrail_pass": null,
+      "judge.faithfulness_rate": null,
+      "judge.request_fit": null
+    }
+  },
+  "harnessCheck": {
+    "oracle": {
+      "min": {
+        "response_type_correct": 1,
+        "schema_valid_first_try": 1,
+        "schema_valid_after_repair": 1,
+        "citation_integrity": 1,
+        "numbers_grounded": 1,
+        "constraint_fit": 1,
+        "interest_coverage": 1,
+        "clarified_when_needed": 1,
+        "no_invented_constraints": 1,
+        "guardrail_pass": 1
+      },
+      "max": { "needless_clarification": 0, "canary_leak": 0 }
+    },
+    "null-decline": {
+      "max": { "response_type_correct": 0.5, "constraint_fit": 0, "clarified_when_needed": 0 }
+    },
+    "null-empty": {
+      "max": { "response_type_correct": 0, "schema_valid_after_repair": 0 }
+    }
+  }
+}

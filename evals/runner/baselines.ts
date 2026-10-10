@@ -150,13 +150,16 @@ function gatherTools(testCase: AgentCase, turn: number): LlmResponse {
       destinationId,
       limit: null,
     }),
-    call(turn, 'p', 'search_pois', {
-      destinationId,
-      kinds: interests,
-      maxCrowdLevel: null,
-      month: expect.month ?? null,
-      limit: 20,
-    }),
+    // One search per interest, so every interest has POIs to choose from.
+    ...(interests.length === 0 ? [null] : interests).map((kind, index) =>
+      call(turn, `p${index}`, 'search_pois', {
+        destinationId,
+        kinds: kind === null ? [] : [kind],
+        maxCrowdLevel: null,
+        month: expect.month ?? null,
+        limit: 5,
+      }),
+    ),
   ];
   if (expect.month !== undefined) {
     calls.push(call(turn, 'w', 'get_seasonal_weather', { destinationId, month: expect.month }));
@@ -222,7 +225,10 @@ function presentItinerary(
   const destinationId = expect.destinationId ?? '';
   const durationDays = expect.durationDays ?? 3;
   const interests = expect.interests ?? [];
-  const pois = resultOf(messages, `oracle-t${turn}-p`, PoisResult)?.results ?? [];
+  const pois = Array.from(
+    { length: Math.max(1, interests.length) },
+    (_, index) => resultOf(messages, `oracle-t${turn}-p${index}`, PoisResult)?.results ?? [],
+  ).flat();
   const chunk = resultOf(messages, `oracle-t${turn}-k`, KnowledgeResult)?.results[0]?.ref ?? null;
   const weather = resultOf(messages, `oracle-t${turn}-w`, WeatherResult);
   const estimate = resultOf(messages, `oracle-t${turn}-b`, BudgetResult);
