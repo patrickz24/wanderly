@@ -34,6 +34,19 @@ export interface ChunkingOptions {
 /** Bump when the algorithm changes, so that ingestion re-chunks every document. */
 export const CHUNKER_VERSION = 1;
 
+/**
+ * Default parameters (provisional until the retrieval evaluation compares the variants; see
+ * docs/EVALUATIONS.md). Bodies stay under ~450 estimated tokens so that, with the breadcrumb,
+ * the embedded text fits the model's 512-token window.
+ */
+export const DEFAULT_CHUNKING: ChunkingOptions = {
+  targetTokens: 300,
+  maxTokens: 450,
+  overlapTokens: 30,
+  minTokens: 60,
+  contextualHeader: true,
+};
+
 export const BREADCRUMB_SEPARATOR = ' > ';
 
 export interface MarkdownDocument {

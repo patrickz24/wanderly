@@ -1,4 +1,5 @@
 import type { ToolCallSummary } from '@wanderly/contracts';
+import { useDisplayOptions } from '../../lib/displayOptions';
 import { formatDuration } from '../../lib/format';
 import { describeToolCall } from '../../lib/toolLabels';
 import { CheckIcon, CrossIcon } from '../common/icons';
@@ -17,6 +18,7 @@ function prettyJson(value: unknown): string {
 
 /** Every tool the agent called for this answer, failures included. */
 export function ToolCallList({ toolCalls }: ToolCallListProps) {
+  const { showMeasurements } = useDisplayOptions();
   if (toolCalls.length === 0) {
     return <p className="text-sm text-fg-muted">No tool was called for this answer.</p>;
   }

@@ -1,3 +1,4 @@
+import { useDisplayOptions } from '../../lib/displayOptions';
 import { formatDuration } from '../../lib/format';
 import { describeToolCall } from '../../lib/toolLabels';
 import type { ActiveRun, ToolStep } from '../../state/chatReducer';

@@ -7,6 +7,7 @@ import { DemoNotice } from './components/DemoNotice';
 import { SiteFooter } from './components/SiteFooter';
 import { SkipLink } from './components/SkipLink';
 import { httpTransport, type ChatTransport } from './lib/chatApi';
+import { DEMO_DISPLAY, DisplayOptionsContext, LIVE_DISPLAY } from './lib/displayOptions';
 
 const MAIN_ID = 'main';
 
@@ -34,11 +35,9 @@ export function App({ demo = false, transport, initialConversationId = null }: A
         tabIndex={-1}
         className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 focus:outline-none sm:px-6"
       >
-        <ChatApp
-          transport={chatTransport}
-          initialConversationId={initialConversationId}
-          illustrativeStats={demo}
-        />
+        <DisplayOptionsContext value={demo ? DEMO_DISPLAY : LIVE_DISPLAY}>
+          <ChatApp transport={chatTransport} initialConversationId={initialConversationId} />
+        </DisplayOptionsContext>
       </main>
       <SiteFooter />
     </div>
