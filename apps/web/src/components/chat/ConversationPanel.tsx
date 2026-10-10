@@ -20,12 +20,24 @@ interface ConversationPanelProps {
   readonly onStartNew: () => void;
   readonly illustrativeStats: boolean;
   readonly textareaRef: Ref<HTMLTextAreaElement>;
+  /** Focused when a trip is opened, so keyboard and screen reader users land on it. */
+  readonly headingRef: Ref<HTMLHeadingElement>;
 }
 
 function prefersReducedMotion(): boolean {
   return typeof window.matchMedia === 'function'
     ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
     : false;
+}
+
+function panelTitle(state: ChatState): string {
+  if (state.title !== null) {
+    return state.title;
+  }
+  if (state.loading) {
+    return 'Loading trip…';
+  }
+  return state.conversationId === null ? 'New trip' : 'Untitled trip';
 }
 
 /** The open conversation: messages, live progress, errors and the composer. */
@@ -41,6 +53,7 @@ export function ConversationPanel({
   onStartNew,
   illustrativeStats,
   textareaRef,
+  headingRef,
 }: ConversationPanelProps) {
   const headingId = useId();
   const lastMessageRef = useRef<HTMLLIElement>(null);
@@ -71,8 +84,13 @@ export function ConversationPanel({
       className="flex min-h-[70dvh] min-w-0 flex-col rounded-xl border border-line bg-surface shadow-sm"
     >
       <div className="border-b border-line px-4 py-3 sm:px-5">
-        <h2 id={headingId} className="truncate text-base font-semibold">
-          {state.title ?? (state.conversationId === null ? 'New trip' : 'Untitled trip')}
+        <h2
+          id={headingId}
+          ref={headingRef}
+          tabIndex={-1}
+          className="scroll-mt-4 truncate text-base font-semibold"
+        >
+          {panelTitle(state)}
         </h2>
       </div>
 

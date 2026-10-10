@@ -26,6 +26,7 @@ export function ChatApp({
   });
   const [draft, setDraft] = useState('');
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const { send, startNewConversation, openConversation } = chat;
 
   const focusComposer = useCallback(() => {
@@ -53,6 +54,14 @@ export function ChatApp({
     [focusComposer],
   );
 
+  const handleOpenTrip = useCallback(
+    (id: string) => {
+      openConversation(id);
+      headingRef.current?.focus();
+    },
+    [openConversation],
+  );
+
   const handleNewTrip = useCallback(() => {
     startNewConversation();
     setDraft('');
@@ -64,7 +73,7 @@ export function ChatApp({
       <TripList
         state={list.state}
         activeId={chat.state.conversationId}
-        onSelect={openConversation}
+        onSelect={handleOpenTrip}
         onNewTrip={handleNewTrip}
         onRetry={list.refresh}
       />
@@ -80,6 +89,7 @@ export function ChatApp({
         onStartNew={handleNewTrip}
         illustrativeStats={illustrativeStats}
         textareaRef={textareaRef}
+        headingRef={headingRef}
       />
     </div>
   );
