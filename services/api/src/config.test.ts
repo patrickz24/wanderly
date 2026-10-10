@@ -1,6 +1,6 @@
 import { inspect } from 'node:util';
 import { describe, expect, it } from 'vitest';
-import { ConfigError, Secret, loadConfig } from './config.js';
+import { ConfigError, Secret, deriveCanaryToken, loadConfig } from './config.js';
 
 const SESSION_SECRET = 'test-session-secret-0123456789abcdef';
 const DATABASE_URL = 'postgres://wanderly:s3cr3t-db-password@localhost:5432/wanderly';
@@ -38,9 +38,16 @@ describe('loadConfig', () => {
       judgeModel: 'claude-sonnet-5-5',
       timeoutMs: 45_000,
     });
-    expect(config.agent).toEqual({ runDeadlineMs: 90_000, maxSteps: 8 });
+    expect(config.agent).toEqual({
+      runDeadlineMs: 90_000,
+      maxSteps: 8,
+      maxRunCostUsd: undefined,
+      canaryToken: expect.any(Secret),
+    });
+    expect(config.agent.canaryToken.reveal()).toBe(deriveCanaryToken(SESSION_SECRET));
     expect(config.budget).toEqual({ dailyUsd: 2 });
     expect(config.rateLimit).toEqual({ max: 10, windowMs: 600_000 });
+    expect(config.apiRateLimit).toEqual({ max: 120, windowMs: 60_000 });
     expect(config.langfuse).toEqual({
       publicKey: undefined,
       secretKey: undefined,
@@ -171,6 +178,47 @@ describe('loadConfig', () => {
     ]);
     expect(error.message).not.toContain(shortSecret);
     expect(error.message).not.toContain('hunter2');
+  });
+});
+
+describe('agent and API limits', () => {
+  it('reads the per-run cost ceiling, an explicit canary and the API rate limit', () => {
+    const config = loadConfig({
+      ...minimalEnv,
+      AGENT_MAX_RUN_COST_USD: '0.25',
+      AGENT_CANARY_TOKEN: 'canary-from-env-0123',
+      API_RATE_LIMIT_MAX: '30',
+      API_RATE_LIMIT_WINDOW_MS: '1000',
+    });
+
+    expect(config.agent.maxRunCostUsd).toBe(0.25);
+    expect(config.agent.canaryToken.reveal()).toBe('canary-from-env-0123');
+    expect(config.apiRateLimit).toEqual({ max: 30, windowMs: 1_000 });
+  });
+
+  it('rejects a short canary and a non-positive cost ceiling, without echoing them', () => {
+    const error = configError({
+      ...minimalEnv,
+      AGENT_CANARY_TOKEN: 'short-canary',
+      AGENT_MAX_RUN_COST_USD: '0',
+    });
+
+    expect(error.issues).toEqual([
+      expect.stringMatching(/^AGENT_MAX_RUN_COST_USD: /),
+      'AGENT_CANARY_TOKEN: must be at least 16 characters',
+    ]);
+    expect(error.message).not.toContain('short-canary');
+  });
+});
+
+describe('deriveCanaryToken', () => {
+  it('is stable for a secret, differs across secrets and does not contain the secret', () => {
+    const canary = deriveCanaryToken(SESSION_SECRET);
+
+    expect(canary).toMatch(/^cnry-[A-Za-z0-9_-]{24}$/);
+    expect(deriveCanaryToken(SESSION_SECRET)).toBe(canary);
+    expect(deriveCanaryToken(`${SESSION_SECRET}x`)).not.toBe(canary);
+    expect(canary).not.toContain(SESSION_SECRET.slice(0, 8));
   });
 });
 
