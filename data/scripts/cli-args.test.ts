@@ -24,6 +24,7 @@ describe('destinations', () => {
     wikivoyage_title: id,
     aliases: [],
     climate_point: { lat: 1, lon: 2, source: 'test' },
+    places: [],
   });
 
   it('rejects duplicate ids and non-slug ids', () => {

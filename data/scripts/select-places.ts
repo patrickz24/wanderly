@@ -1,0 +1,217 @@
+/**
+ * Proposes the place articles of each destination by applying the rule documented in places.ts
+ * to the pages linked from its region article, and (with --write) records the choice in
+ * data/destinations.yaml and the full ranking in data/places-selection.md.
+ *
+ * Usage: npx tsx --conditions=development data/scripts/select-places.ts [--only <id>] [--refresh] [--write]
+ *
+ * The selection depends on the current content of the candidate pages, so it is a deliberate,
+ * reviewed step: its output is committed, and fetch-wikivoyage.ts only follows destinations.yaml.
+ * Candidate pages are cached in data/raw/candidates/ (gitignored); --refresh downloads them again.
+ */
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import path from 'node:path';
+import { format, resolveConfig } from 'prettier';
+import { z } from 'zod';
+import { parseCliArgs } from './cli-args.js';
+import { type Destination, loadDestinations, selectDestinations } from './destinations.js';
+import { RequestPacer } from './http.js';
+import { fetchLatestRevisions } from './mediawiki.js';
+import { DATA_DIR, DESTINATIONS_FILE } from './paths.js';
+import {
+  type Candidate,
+  MAX_PLACES,
+  MIN_PRICED,
+  MIN_SEE_DO,
+  type Verdict,
+  articleType,
+  candidateTitles,
+  measurePlace,
+  placeId,
+  setPlacesBlock,
+  selectPlaces,
+} from './places.js';
+import { readRawArticle } from './raw-cache.js';
+import { convertArticle } from './wikitext.js';
+import { readJsonIfExists } from './yaml-io.js';
+
+const CANDIDATES_DIR = path.join(DATA_DIR, 'raw', 'candidates');
+const REPORT_FILE = path.join(DATA_DIR, 'places-selection.md');
+const pacer = new RequestPacer(1000);
+
+const CachedCandidatesSchema = z.object({
+  retrieved_at: z.string(),
+  pages: z.array(
+    z.object({
+      requested: z.string(),
+      title: z.string().nullable(),
+      redirected: z.boolean(),
+      revision_id: z.number().nullable(),
+      wikitext: z.string().nullable(),
+    }),
+  ),
+});
+type CachedCandidates = z.infer<typeof CachedCandidatesSchema>;
+
+async function loadCandidatePages(
+  destination: Destination,
+  titles: readonly string[],
+  refresh: boolean,
+): Promise<CachedCandidates> {
+  const file = path.join(CANDIDATES_DIR, `${destination.id}.json`);
+  const cached = CachedCandidatesSchema.safeParse(await readJsonIfExists(file));
+  const sameTitles =
+    cached.success &&
+    cached.data.pages.map((page) => page.requested).join('|') === titles.join('|');
+  if (!refresh && cached.success && sameTitles) return cached.data;
+
+  const pages: CachedCandidates['pages'] = [];
+  for (let start = 0; start < titles.length; start += 20) {
+    const batch = titles.slice(start, start + 20);
+    const results = await fetchLatestRevisions(batch, pacer);
+    for (const requested of batch) {
+      const result = results.get(requested);
+      pages.push(
+        result?.kind === 'page'
+          ? {
+              requested,
+              title: result.revision.title,
+              redirected: result.redirectedFrom !== null,
+              revision_id: result.revision.revisionId,
+              wikitext: result.revision.wikitext,
+            }
+          : { requested, title: null, redirected: false, revision_id: null, wikitext: null },
+      );
+    }
+  }
+  const data = { retrieved_at: new Date().toISOString(), pages };
+  await mkdir(CANDIDATES_DIR, { recursive: true });
+  await writeFile(file, JSON.stringify(data), 'utf8');
+  return data;
+}
+
+interface Row {
+  readonly candidate: Candidate;
+  readonly verdict: Verdict;
+}
+
+interface Ranked {
+  readonly destination: Destination;
+  readonly rows: readonly Row[];
+  readonly missing: readonly string[];
+}
+
+async function rankDestination(destination: Destination, refresh: boolean): Promise<Ranked> {
+  const article = await readRawArticle(destination.id);
+  if (article === null) {
+    throw new Error(`${destination.id}: run fetch-wikivoyage.ts first (no cached region article)`);
+  }
+  const titles = candidateTitles(article.wikitext);
+  const { pages } = await loadCandidatePages(destination, titles, refresh);
+  // Redirects back to the destination itself (a town merged into the region page) are skipped.
+  const seen = new Set<string>([destination.wikivoyage_title]);
+  const candidates: Candidate[] = [];
+  const missing: string[] = [];
+  for (const page of pages) {
+    if (page.title === null || page.wikitext === null) {
+      missing.push(page.requested);
+      continue;
+    }
+    if (seen.has(page.title)) continue;
+    seen.add(page.title);
+    candidates.push({
+      title: page.title,
+      type: articleType(page.wikitext),
+      metrics: measurePlace(convertArticle(page.title, page.wikitext)),
+    });
+  }
+  return { destination, rows: selectPlaces(candidates), missing };
+}
+
+function renderReport(results: readonly Ranked[]): string {
+  const lines = [
+    '# Place selection',
+    '',
+    'Generated by `data/scripts/select-places.ts --write`. Do not edit by hand.',
+    '',
+    `Rule (see \`data/scripts/places.ts\`): candidates are the pages linked from the`,
+    'destination-listing sections of the region article (before "Understand"); a candidate must be',
+    `a city, park or rural-area article with at least ${MIN_PRICED} priced Sleep/Eat listings or`,
+    `${MIN_SEE_DO} See/Do listings; candidates are ranked by priced Sleep/Eat listings under Budget /`,
+    'Mid-range / Splurge subsections, then all priced Sleep/Eat listings, then See/Do listings, then',
+    `title, and the first ${MAX_PLACES} are kept. Metrics were measured on the latest revisions at`,
+    'selection time.',
+    '',
+  ];
+  for (const { destination, rows, missing } of results) {
+    lines.push(`## ${destination.name} (\`${destination.id}\`)`, '');
+    if (rows.length === 0) {
+      lines.push('No candidate page is linked from the destination-listing sections.', '');
+      continue;
+    }
+    lines.push(
+      '| Candidate | Type | Priced in price levels | Priced Sleep/Eat | See/Do listings | Verdict |',
+      '| --- | --- | --: | --: | --: | --- |',
+    );
+    for (const { candidate, verdict } of rows) {
+      const { metrics } = candidate;
+      lines.push(
+        `| ${candidate.title} | ${candidate.type ?? 'unknown'} ` +
+          `| ${metrics.pricedInLevels} | ${metrics.pricedSleepEat} | ${metrics.seeDoListings} | ${verdict} |`,
+      );
+    }
+    if (missing.length > 0) lines.push('', `Missing pages: ${missing.join(', ')}.`);
+    lines.push('');
+  }
+  return lines.join('\n');
+}
+
+/** Writes the selected places into destinations.yaml, keeping its comments and layout. */
+async function writeSelection(results: readonly Ranked[]): Promise<void> {
+  let text = await readFile(DESTINATIONS_FILE, 'utf8');
+  for (const { destination, rows } of results) {
+    const places = rows
+      .filter((row) => row.verdict === 'selected')
+      .map(({ candidate }) => ({ id: placeId(candidate.title), title: candidate.title }));
+    text = setPlacesBlock(text, destination.id, places);
+  }
+  const config = (await resolveConfig(DESTINATIONS_FILE)) ?? {};
+  await writeFile(
+    DESTINATIONS_FILE,
+    await format(text, { ...config, filepath: DESTINATIONS_FILE }),
+    'utf8',
+  );
+}
+
+async function main(): Promise<void> {
+  const options = parseCliArgs(process.argv.slice(2), ['--refresh', '--write']);
+  const destinations = selectDestinations(await loadDestinations(), options.only);
+  const results: Ranked[] = [];
+  for (const destination of destinations) {
+    const ranked = await rankDestination(destination, options.flags.has('--refresh'));
+    results.push(ranked);
+    const selected = ranked.rows.filter((row) => row.verdict === 'selected');
+    console.log(
+      `${destination.id.padEnd(20)} ${ranked.rows.length} candidates → ` +
+        (selected.map((row) => row.candidate.title).join(', ') || 'none'),
+    );
+  }
+  if (options.flags.has('--write')) {
+    if (options.only !== null) throw new Error('--write needs the full list (no --only)');
+    await writeSelection(results);
+    const config = (await resolveConfig(REPORT_FILE)) ?? {};
+    await writeFile(
+      REPORT_FILE,
+      await format(renderReport(results), { ...config, filepath: REPORT_FILE }),
+      'utf8',
+    );
+    console.log(`Wrote ${DESTINATIONS_FILE} and ${REPORT_FILE}`);
+  } else {
+    console.log(renderReport(results));
+  }
+}
+
+main().catch((error: unknown) => {
+  console.error(error instanceof Error ? error.message : error);
+  process.exitCode = 1;
+});

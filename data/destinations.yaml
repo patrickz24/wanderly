@@ -12,6 +12,12 @@
 #   fewer than 150 words once converted (the "almost no See/Do content" case). Word counts come
 #   from data/scripts/wikitext.ts on the revision quoted in the reason.
 # - note: present when the requested name maps to a page whose scope differs.
+# - places: up to 4 place articles (cities, towns, islands, parks) whose listings feed the POIs and
+#   costs. Written by `select-places.ts --write` with the rule of data/scripts/places.ts: pages
+#   linked from the region article's destination-listing sections, city/park/rural-area articles
+#   with >= 3 priced Sleep/Eat listings or >= 5 See/Do listings, ranked by priced listings under
+#   Budget/Mid-range/Splurge, then priced listings, then See/Do listings, then title. The ranking
+#   of every candidate is in data/places-selection.md. Do not edit by hand: rerun the selection.
 destinations:
   - id: sicily
     name: Sicily
@@ -22,6 +28,15 @@ destinations:
       lat: 38.116667
       lon: 13.366667
       source: 'Wikivoyage GeoData of "Palermo" (main gateway); the "Sicily" point (37.5, 14) is inland at 555 m'
+    places:
+      - id: catania
+        title: Catania
+      - id: syracuse-italy
+        title: Syracuse (Italy)
+      - id: palermo
+        title: Palermo
+      - id: agrigento
+        title: Agrigento
 
   - id: sardinia
     name: Sardinia
@@ -32,6 +47,15 @@ destinations:
       lat: 39.246389
       lon: 9.0575
       source: 'Wikivoyage GeoData of "Cagliari" (main gateway); the "Sardinia" point (40.1, 9) is inland at 629 m'
+    places:
+      - id: cagliari
+        title: Cagliari
+      - id: alghero
+        title: Alghero
+      - id: olbia
+        title: Olbia
+      - id: sassari
+        title: Sassari
 
   - id: apulia
     name: Apulia
@@ -42,6 +66,15 @@ destinations:
       lat: 41.008611
       lon: 16.512778
       source: 'Wikivoyage GeoData of "Apulia" (334 m, on the Murge plateau)'
+    places:
+      - id: bari
+        title: Bari
+      - id: monopoli
+        title: Monopoli
+      - id: gallipoli-italy
+        title: Gallipoli (Italy)
+      - id: tremiti-islands
+        title: Tremiti Islands
 
   - id: tuscany
     name: Tuscany
@@ -52,6 +85,15 @@ destinations:
       lat: 43.35
       lon: 11.01666667
       source: 'Wikivoyage GeoData of "Tuscany"'
+    places:
+      - id: florence
+        title: Florence
+      - id: pisa
+        title: Pisa
+      - id: lucca
+        title: Lucca
+      - id: siena
+        title: Siena
 
   - id: seiser-alm
     name: Seiser Alm
@@ -69,6 +111,7 @@ destinations:
         hold 37 words in total at revision 5266223 (a name-only list of sights, empty Do). "Seiser Alm" is a usable-status rural-area article about the largest alpine plateau of
         the South Tyrolean Dolomites, with 1,459 words of See and Do (hiking, climbing, biking,
         skiing) and 22 listings.
+    places: []
 
   - id: corsica
     name: Corsica
@@ -79,6 +122,15 @@ destinations:
       lat: 41.9267
       lon: 8.7369
       source: 'Wikivoyage GeoData of "Ajaccio" (main gateway); the "Corsica" point (42.15, 9.0833) is in the mountains at 1,683 m'
+    places:
+      - id: bonifacio
+        title: Bonifacio
+      - id: saint-florent
+        title: Saint-Florent
+      - id: ajaccio
+        title: Ajaccio
+      - id: sartene
+        title: Sartène
 
   - id: provence
     name: Provence
@@ -92,6 +144,15 @@ destinations:
     note: >-
       Wikivoyage redirects "Provence" to the regional article "Provence-Alpes-Côte d'Azur", which also
       covers the Côte d'Azur and the Southern Alps. Kept as the closest match.
+    places:
+      - id: nice
+        title: Nice
+      - id: avignon
+        title: Avignon
+      - id: marseille
+        title: Marseille
+      - id: aix-en-provence
+        title: Aix-en-Provence
 
   - id: andalusia
     name: Andalusia
@@ -102,6 +163,15 @@ destinations:
       lat: 37.377222
       lon: -5.986944
       source: 'Wikivoyage GeoData of "Seville" (regional capital); the "Andalusia" point (37.46, -4.16) is at 967 m'
+    places:
+      - id: seville
+        title: Seville
+      - id: ronda
+        title: Ronda
+      - id: granada
+        title: Granada
+      - id: marbella
+        title: Marbella
 
   - id: mallorca
     name: Mallorca
@@ -112,6 +182,15 @@ destinations:
       lat: 39.624
       lon: 2.966
       source: 'Wikivoyage GeoData of "Mallorca"'
+    places:
+      - id: palma-de-mallorca
+        title: Palma de Mallorca
+      - id: alcudia
+        title: Alcúdia
+      - id: cala-millor
+        title: Cala Millor
+      - id: calvia
+        title: Calvià
 
   - id: algarve
     name: Algarve
@@ -122,6 +201,15 @@ destinations:
       lat: 37.014444
       lon: -7.935278
       source: 'Wikivoyage GeoData of "Algarve"'
+    places:
+      - id: faro
+        title: Faro
+      - id: albufeira
+        title: Albufeira
+      - id: portimao
+        title: Portimão
+      - id: sao-bras-de-alportel
+        title: São Brás de Alportel
 
   - id: madeira
     name: Madeira
@@ -132,6 +220,15 @@ destinations:
       lat: 32.63333
       lon: -16.9
       source: 'Wikivoyage GeoData of "Funchal" (main gateway); the "Madeira" point (32.822, -16.834) has a DEM elevation of 0 m (sea)'
+    places:
+      - id: funchal
+        title: Funchal
+      - id: santa-cruz-madeira
+        title: Santa Cruz (Madeira)
+      - id: porto-da-cruz
+        title: Porto da Cruz
+      - id: calheta
+        title: Calheta
 
   - id: azores
     name: Azores
@@ -142,6 +239,15 @@ destinations:
       lat: 37.7333
       lon: -25.6667
       source: 'Wikivoyage GeoData of "Ponta Delgada" (main gateway); the "Azores" point (38.5, -28) is at sea'
+    places:
+      - id: pico
+        title: Pico
+      - id: sao-jorge-azores
+        title: São Jorge (Azores)
+      - id: faial
+        title: Faial
+      - id: flores-azores
+        title: Flores (Azores)
 
   - id: crete
     name: Crete
@@ -152,6 +258,15 @@ destinations:
       lat: 35.333333
       lon: 25.133333
       source: 'Wikivoyage GeoData of "Heraklion" (main gateway); the "Crete" point (35.21, 24.91) is in the mountains at 1,313 m'
+    places:
+      - id: heraklion
+        title: Heraklion
+      - id: rethymno
+        title: Rethymno
+      - id: chania
+        title: Chania
+      - id: agios-nikolaos
+        title: Agios Nikolaos
 
   - id: santorini
     name: Santorini
@@ -162,6 +277,15 @@ destinations:
       lat: 36.4067
       lon: 25.4333
       source: 'Wikivoyage GeoData of "Santorini"'
+    places:
+      - id: oia-greece
+        title: Oia (Greece)
+      - id: fira
+        title: Fira
+      - id: perissa
+        title: Perissa
+      - id: megalochori
+        title: Megalochori
 
   - id: hvar
     name: Hvar
@@ -179,6 +303,7 @@ destinations:
         revision 4989248, with no listings. "Hvar" is a usable-status article about a Dalmatian island
         (coast, old towns, beaches, island hopping: the same trip style), with 674 words of See and Do
         and 24 listings including priced Sleep listings.
+    places: []
 
   - id: montenegro
     name: Montenegro
@@ -189,6 +314,15 @@ destinations:
       lat: 42.43
       lon: 18.77
       source: 'Wikivoyage GeoData of "Kotor" (coast, where most visitors stay); the "Montenegro" point (42.7833, 19.4667) is in the mountains at 1,259 m'
+    places:
+      - id: ulcinj
+        title: Ulcinj
+      - id: podgorica
+        title: Podgorica
+      - id: budva
+        title: Budva
+      - id: kotor
+        title: Kotor
 
   - id: slovenia
     name: Slovenia
@@ -199,6 +333,15 @@ destinations:
       lat: 46.05
       lon: 14.9
       source: 'Wikivoyage GeoData of "Slovenia"'
+    places:
+      - id: bled
+        title: Bled
+      - id: ljubljana
+        title: Ljubljana
+      - id: piran
+        title: Piran
+      - id: koper
+        title: Koper
 
   - id: lofoten
     name: Lofoten
@@ -209,6 +352,9 @@ destinations:
       lat: 68.333056
       lon: 14.666389
       source: 'Wikivoyage GeoData of "Lofoten"'
+    places:
+      - id: vaeroy
+        title: Værøy
 
   - id: scottish-highlands
     name: Scottish Highlands
@@ -219,6 +365,15 @@ destinations:
       lat: 57.12
       lon: -4.71
       source: 'Wikivoyage GeoData of "Scottish Highlands"'
+    places:
+      - id: oban
+        title: Oban
+      - id: inverness
+        title: Inverness
+      - id: fort-william
+        title: Fort William
+      - id: aviemore
+        title: Aviemore
 
   - id: iceland
     name: Iceland
@@ -229,3 +384,12 @@ destinations:
       lat: 64.14019
       lon: -21.90794
       source: 'Wikivoyage GeoData of "Reykjavík" (capital and main gateway); the "Iceland" point (65, -19) is in the interior highlands at 801 m'
+    places:
+      - id: reykjavik
+        title: Reykjavík
+      - id: akureyri
+        title: Akureyri
+      - id: vatnajokull-national-park
+        title: Vatnajökull National Park
+      - id: hofn
+        title: Höfn

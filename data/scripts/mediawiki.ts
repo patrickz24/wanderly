@@ -151,6 +151,93 @@ export async function fetchArticleRevision(
   };
 }
 
+const BatchQuerySchema = RevisionQuerySchema.extend({
+  query: RevisionQuerySchema.shape.query.extend({
+    normalized: z.array(z.object({ from: z.string(), to: z.string() })).optional(),
+    redirects: z.array(z.object({ from: z.string(), to: z.string() })).optional(),
+  }),
+  continue: z.record(z.string(), z.union([z.string(), z.number()])).optional(),
+});
+
+export type BatchResult =
+  | {
+      readonly kind: 'page';
+      readonly redirectedFrom: string | null;
+      readonly revision: ArticleRevision;
+    }
+  | { readonly kind: 'missing' };
+
+/**
+ * Latest revisions of up to 50 titles in one request (following continuation when the content is
+ * too large for one response). Redirects are followed and reported, so that callers can decide
+ * whether the target is acceptable. Keys of the result are the requested titles.
+ */
+export async function fetchLatestRevisions(
+  titles: readonly string[],
+  pacer: RequestPacer,
+): Promise<Map<string, BatchResult>> {
+  if (titles.length > 50) throw new Error('fetchLatestRevisions accepts at most 50 titles');
+  const base: Record<string, string> = {
+    action: 'query',
+    prop: 'revisions|info|coordinates',
+    rvprop: 'ids|timestamp|content',
+    rvslots: 'main',
+    inprop: 'url',
+    colimit: 'max',
+    redirects: '1',
+    titles: titles.join('|'),
+  };
+  const pages = new Map<string, ArticleRevision>();
+  const aliases = new Map<string, string>();
+  const redirected = new Set<string>();
+  let extra: Record<string, string> = {};
+  for (let round = 0; round < 20; round++) {
+    const { query, continue: next } = BatchQuerySchema.parse(
+      await callApi({ ...base, ...extra }, pacer),
+    );
+    for (const { from, to } of query.normalized ?? []) aliases.set(from, to);
+    for (const { from, to } of query.redirects ?? []) {
+      aliases.set(from, to);
+      redirected.add(from);
+    }
+    for (const page of query.pages) {
+      const revision = page.revisions?.[0];
+      if (page.missing === true || page.invalid === true || revision === undefined) continue;
+      const primary = page.coordinates?.find((c) => c.primary === true) ?? page.coordinates?.[0];
+      pages.set(page.title, {
+        title: page.title,
+        pageId: page.pageid ?? 0,
+        revisionId: revision.revid,
+        revisionTimestamp: revision.timestamp,
+        canonicalUrl:
+          page.canonicalurl ??
+          `https://en.wikivoyage.org/wiki/${encodeURIComponent(page.title.replace(/ /g, '_'))}`,
+        coordinates: primary === undefined ? null : { lat: primary.lat, lon: primary.lon },
+        wikitext: revision.slots.main.content,
+      });
+    }
+    if (next === undefined) break;
+    extra = Object.fromEntries(Object.entries(next).map(([key, value]) => [key, String(value)]));
+  }
+  const results = new Map<string, BatchResult>();
+  for (const title of titles) {
+    let current = title;
+    let wasRedirected = false;
+    for (let hop = 0; hop < 5 && aliases.has(current); hop++) {
+      if (redirected.has(current)) wasRedirected = true;
+      current = aliases.get(current) ?? current;
+    }
+    const revision = pages.get(current);
+    results.set(
+      title,
+      revision === undefined
+        ? { kind: 'missing' }
+        : { kind: 'page', redirectedFrom: wasRedirected ? title : null, revision },
+    );
+  }
+  return results;
+}
+
 export const revisionUrl = (title: string, revisionId: number): string =>
   `https://en.wikivoyage.org/w/index.php?title=${encodeURIComponent(title.replace(/ /g, '_'))}&oldid=${revisionId}`;
 
