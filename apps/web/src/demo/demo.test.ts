@@ -8,7 +8,7 @@ import { describe, expect, it } from 'vitest';
 import { numberSources, sourceKey } from '../lib/sources';
 import { isDemoMode } from './demoMode';
 import { createDemoTransport } from './demoTransport';
-import { DEMO_CONVERSATIONS, DEMO_IDS, DEMO_REPLAY, DEMO_RUN_STATS } from './fixtures';
+import { DEMO_CONVERSATIONS, DEMO_IDS, DEMO_REPLAY } from './fixtures';
 
 const assistantMessages = DEMO_CONVERSATIONS.flatMap((conversation) =>
   conversation.messages.filter((message) => message.role === 'assistant'),
@@ -58,23 +58,36 @@ describe('demo fixtures', () => {
     ).toMatchObject({ total: null, perPerson: null });
   });
 
-  it('has statistics for every sample run', () => {
+  it('contains no made-up measurements: no run statistics, tool durations left at 0', () => {
     for (const message of assistantMessages) {
-      expect(DEMO_RUN_STATS[message.runId], message.runId).toBeDefined();
+      expect(message.run, message.runId).toBeUndefined();
+      expect(message.toolCalls.every((call) => call.durationMs === 0)).toBe(true);
     }
+    expect(DEMO_REPLAY.toolCalls.every((call) => call.durationMs === 0)).toBe(true);
   });
 });
 
 describe('createDemoTransport', () => {
-  it('lists and loads the sample trips with their statistics', async () => {
+  it('lists and loads the sample trips', async () => {
     const transport = createDemoTransport({ speed: 0 });
 
     const summaries = await transport.listConversations();
     expect(summaries.map((s) => s.id)).toEqual([DEMO_IDS.hikingTrip, DEMO_IDS.coastTrip]);
 
-    const { conversation, runStats } = await transport.getConversation(DEMO_IDS.hikingTrip);
+    const conversation = await transport.getConversation(DEMO_IDS.hikingTrip);
     expect(conversation.messages).toHaveLength(6);
-    expect(runStats[DEMO_IDS.runItinerary]).toEqual(DEMO_RUN_STATS[DEMO_IDS.runItinerary]);
+  });
+
+  it('remembers a rating until reload', async () => {
+    const transport = createDemoTransport({ speed: 0 });
+
+    await transport.postFeedback(DEMO_IDS.runItinerary, { rating: 1, comment: null });
+
+    const conversation = await transport.getConversation(DEMO_IDS.hikingTrip);
+    const rated = conversation.messages.find(
+      (message) => message.role === 'assistant' && message.runId === DEMO_IDS.runItinerary,
+    );
+    expect(rated).toMatchObject({ feedback: { rating: 1 } });
   });
 
   it('answers NOT_FOUND for an unknown trip', async () => {
@@ -101,9 +114,14 @@ describe('createDemoTransport', () => {
       'response',
       'run.finished',
     ]);
-    expect(RunFinishedEventSchema.parse(events.at(-1)).costUsd).toBe(DEMO_REPLAY.stats.costUsd);
+    // The event needs figures; they are zeros because nothing was measured.
+    expect(RunFinishedEventSchema.parse(events.at(-1))).toMatchObject({
+      costUsd: 0,
+      latencyMs: 0,
+      usage: { inputTokens: 0, outputTokens: 0 },
+    });
 
-    const { conversation } = await transport.getConversation(id);
+    const conversation = await transport.getConversation(id);
     expect(conversation.title).toBe('Any hikes?');
     expect(conversation.messages.map((m) => m.role)).toEqual(['user', 'assistant']);
   });

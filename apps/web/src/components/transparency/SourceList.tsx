@@ -1,11 +1,13 @@
 import type { SourceSummary } from '@wanderly/contracts';
+import { Fragment, type ReactNode } from 'react';
 import { destinationName } from '../../lib/format';
 import {
   isWikivoyageUrl,
+  licenceFor,
   OPEN_METEO,
   safeExternalUrl,
   SOURCE_KIND_LABELS,
-  WIKIVOYAGE_LICENSE,
+  type Licence,
 } from '../../lib/sources';
 import { ExternalLink } from '../common/ExternalLink';
 
@@ -15,31 +17,50 @@ interface SourceListProps {
   readonly idPrefix: string;
 }
 
+function LicenceText({ licence }: { readonly licence: Licence }) {
+  return licence.url === null ? (
+    <>{licence.name}</>
+  ) : (
+    <ExternalLink href={licence.url}>{licence.name}</ExternalLink>
+  );
+}
+
+/** Where the source comes from and under which licence; weather always credits Open-Meteo. */
 function Attribution({ source }: { readonly source: SourceSummary }) {
   const url = safeExternalUrl(source.url);
+  const licence = licenceFor(source);
+  const parts: ReactNode[] = [];
   if (source.kind === 'weather') {
-    return (
-      <p className="text-xs text-fg-muted">
-        <ExternalLink href={OPEN_METEO.url}>{OPEN_METEO.text}</ExternalLink>
-        {' (CC BY 4.0)'}
-      </p>
+    parts.push(
+      <ExternalLink key="credit" href={OPEN_METEO.url}>
+        {OPEN_METEO.text}
+      </ExternalLink>,
     );
+  } else if (url !== null) {
+    const wikivoyage = isWikivoyageUrl(url);
+    parts.push(
+      <ExternalLink key="link" href={url}>
+        {wikivoyage ? 'Wikivoyage revision' : 'Original source'}
+      </ExternalLink>,
+    );
+    if (wikivoyage) {
+      parts.push(<span key="authors">text by Wikivoyage contributors</span>);
+    }
   }
-  if (url === null) {
+  if (licence !== null) {
+    parts.push(<LicenceText key="licence" licence={licence} />);
+  }
+  if (parts.length === 0) {
     return null;
-  }
-  if (isWikivoyageUrl(url)) {
-    return (
-      <p className="text-xs text-fg-muted">
-        <ExternalLink href={url}>Wikivoyage revision</ExternalLink>
-        {' · text by Wikivoyage contributors, '}
-        <ExternalLink href={WIKIVOYAGE_LICENSE.url}>{WIKIVOYAGE_LICENSE.name}</ExternalLink>
-      </p>
-    );
   }
   return (
     <p className="text-xs text-fg-muted">
-      <ExternalLink href={url}>Original source</ExternalLink>
+      {parts.map((part, index) => (
+        <Fragment key={index}>
+          {index > 0 && ' · '}
+          {part}
+        </Fragment>
+      ))}
     </p>
   );
 }

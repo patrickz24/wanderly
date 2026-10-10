@@ -1,12 +1,15 @@
 import {
   EMPTY_TRIP_BRIEF,
   type AgentResponse,
+  type AssistantMessage,
   type ConversationSummary,
   type GetConversationResponse,
+  type RunFinishedEvent,
+  type RunStats,
   type SourceSummary,
   type ToolCallSummary,
 } from '@wanderly/contracts';
-import type { AgentResponseOf, AssistantMessage, RunFinishedEvent, RunStats } from '../lib/types';
+import type { AgentResponseOf } from '../lib/types';
 
 /** Stable, contract-valid UUIDs for tests. */
 export const ids = {
@@ -121,7 +124,7 @@ export function itineraryResponse(): AgentResponseOf<'itinerary'> {
       ],
       budget: {
         level: 'mid',
-        currency: 'unknown',
+        currency: null,
         total: null,
         perPerson: null,
         fromToolCallId: 'toolu_budget',

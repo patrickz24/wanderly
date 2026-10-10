@@ -1,19 +1,15 @@
 import { formatDuration, formatInteger, formatUsd } from '../../lib/format';
-import type { RunStats } from '../../lib/types';
+import type { RunStats } from '@wanderly/contracts';
 
 interface RunFooterProps {
   readonly stats: RunStats | undefined;
-  /** Demo mode: the figures are fixture values, not measurements. */
-  readonly illustrative?: boolean;
 }
 
 /** What the run cost: LLM steps, tokens, dollars and wall-clock time. */
-export function RunFooter({ stats, illustrative = false }: RunFooterProps) {
+export function RunFooter({ stats }: RunFooterProps) {
   if (stats === undefined) {
     return (
-      <p className="text-xs text-fg-muted">
-        Run statistics are only available for answers produced during this visit.
-      </p>
+      <p className="text-xs text-fg-muted">Run statistics are not available for this answer.</p>
     );
   }
   const { usage } = stats;
@@ -37,9 +33,6 @@ export function RunFooter({ stats, illustrative = false }: RunFooterProps) {
           </div>
         ))}
       </dl>
-      {illustrative && (
-        <p className="text-xs text-fg-muted">Illustrative values (demo mode), not measurements.</p>
-      )}
       {stats.traceId !== null && (
         <p className="text-xs text-fg-muted">
           Trace reference <code>{stats.traceId}</code>

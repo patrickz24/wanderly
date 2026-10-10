@@ -59,3 +59,34 @@ export function isWikivoyageUrl(url: string | null): boolean {
   const host = new URL(safe).hostname;
   return host === 'wikivoyage.org' || host.endsWith('.wikivoyage.org');
 }
+
+const KNOWN_LICENCE_URLS: Readonly<Record<string, string>> = {
+  'CC BY-SA 4.0': WIKIVOYAGE_LICENSE.url,
+  'CC BY 4.0': 'https://creativecommons.org/licenses/by/4.0/',
+};
+
+export interface Licence {
+  readonly name: string;
+  /** Link to the licence text, when it is a licence we recognise. */
+  readonly url: string | null;
+}
+
+/**
+ * The licence to display next to a source: the one the API sent (`license`), otherwise the
+ * licence of the corpus the source evidently comes from (Wikivoyage text, Open-Meteo weather).
+ */
+export function licenceFor(
+  source: Pick<SourceSummary, 'kind' | 'url' | 'license'>,
+): Licence | null {
+  const declared = source.license?.trim();
+  if (declared !== undefined && declared !== '') {
+    return { name: declared, url: KNOWN_LICENCE_URLS[declared] ?? null };
+  }
+  if (source.kind === 'weather') {
+    return { name: 'CC BY 4.0', url: KNOWN_LICENCE_URLS['CC BY 4.0'] ?? null };
+  }
+  if (isWikivoyageUrl(source.url)) {
+    return { name: WIKIVOYAGE_LICENSE.name, url: WIKIVOYAGE_LICENSE.url };
+  }
+  return null;
+}

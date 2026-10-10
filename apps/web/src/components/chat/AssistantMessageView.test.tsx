@@ -2,7 +2,7 @@ import type { AgentResponse } from '@wanderly/contracts';
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it, vi } from 'vitest';
-import type { AssistantMessage } from '../../lib/types';
+import type { AssistantMessage } from '@wanderly/contracts';
 import {
   answerResponse,
   assistantMessage,

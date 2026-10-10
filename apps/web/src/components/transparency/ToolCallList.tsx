@@ -34,9 +34,11 @@ export function ToolCallList({ toolCalls }: ToolCallListProps) {
               {call.ok ? <CheckIcon className="size-3.5" /> : <CrossIcon className="size-3.5" />}
               {call.ok ? 'OK' : 'Error'}
             </span>
-            <span className="text-xs text-fg-muted tabular-nums">
-              {formatDuration(call.durationMs)}
-            </span>
+            {showMeasurements && (
+              <span className="text-xs text-fg-muted tabular-nums">
+                {formatDuration(call.durationMs)}
+              </span>
+            )}
           </div>
           <p className="mt-1.5">{describeToolCall(call.name, call.input)}</p>
           {call.summary !== '' && (

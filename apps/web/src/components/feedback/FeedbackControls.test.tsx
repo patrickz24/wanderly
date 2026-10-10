@@ -59,6 +59,14 @@ describe('FeedbackControls', () => {
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
   });
 
+  it('shows a rating given before this visit, with no way to rate again', () => {
+    renderControls({ status: 'rated', rating: -1 });
+
+    expect(screen.getByText(/You rated this answer/)).toBeInTheDocument();
+    expect(screen.getByRole('img', { name: 'not helpful' })).toBeInTheDocument();
+    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+  });
+
   it('explains a failure and allows a retry', async () => {
     const { onSubmit } = renderControls({
       status: 'failed',

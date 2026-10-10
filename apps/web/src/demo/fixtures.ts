@@ -1,4 +1,5 @@
 import type {
+  AssistantMessage,
   ConversationSummary,
   GetConversationResponse,
   SourceRef,
@@ -6,7 +7,6 @@ import type {
   ToolCallSummary,
   TripBrief,
 } from '@wanderly/contracts';
-import type { AssistantMessage, RunStats } from '../lib/types';
 
 /**
  * SAMPLE DATA for demo mode (`?demo=1`): screenshots and a server-free tour of the UI.
@@ -14,8 +14,10 @@ import type { AssistantMessage, RunStats } from '../lib/types';
  * Everything cited comes from the real corpus: place names, descriptions and excerpts from
  * `data/corpus/sicily/guide.md` (Wikivoyage revision 5320270, CC BY-SA 4.0) and the May
  * climate normals of `data/corpus/sicily/facts.yaml` (Open-Meteo, CC BY 4.0). No price is
- * invented: the corpus has no meal prices for Sicily, so the sample budget has no total. Tool
- * timings, token counts and costs are ILLUSTRATIVE, not measurements, and the UI labels them so.
+ * invented: the corpus has no meal prices for Sicily, so the sample budget has no total.
+ *
+ * Nothing here was measured, so nothing pretends to be: messages carry no run statistics, tool
+ * durations are 0 (the schema requires a number) and demo mode hides every measured figure.
  */
 
 const REVISION_URL = 'https://en.wikivoyage.org/w/index.php?title=Sicily&oldid=5320270';
@@ -368,7 +370,7 @@ const itineraryMessage: AssistantMessage = {
       ],
       budget: {
         level: 'mid',
-        currency: 'unknown',
+        currency: null,
         total: null,
         perPerson: null,
         fromToolCallId: 'toolu_demo_budget',
@@ -534,50 +536,10 @@ export const DEMO_SUMMARIES: readonly ConversationSummary[] = DEMO_CONVERSATIONS
   ({ id, title, createdAt, updatedAt }) => ({ id, title, createdAt, updatedAt }),
 );
 
-/** Illustrative run statistics (not measurements), shown with a "demo" label. */
-export const DEMO_RUN_STATS: Readonly<Record<string, RunStats>> = {
-  [DEMO_IDS.runClarify]: {
-    steps: 1,
-    usage: { inputTokens: 3120, outputTokens: 240, cacheReadTokens: 2048, cacheWriteTokens: 0 },
-    costUsd: 0.0041,
-    latencyMs: 2870,
-    traceId: null,
-  },
-  [DEMO_IDS.runItinerary]: {
-    steps: 4,
-    usage: { inputTokens: 21480, outputTokens: 2960, cacheReadTokens: 12288, cacheWriteTokens: 0 },
-    costUsd: 0.0368,
-    latencyMs: 24310,
-    traceId: null,
-  },
-  [DEMO_IDS.runDecline]: {
-    steps: 1,
-    usage: { inputTokens: 3980, outputTokens: 150, cacheReadTokens: 3072, cacheWriteTokens: 0 },
-    costUsd: 0.0045,
-    latencyMs: 2140,
-    traceId: null,
-  },
-  [DEMO_IDS.runAnswer]: {
-    steps: 2,
-    usage: { inputTokens: 6210, outputTokens: 410, cacheReadTokens: 3072, cacheWriteTokens: 0 },
-    costUsd: 0.0089,
-    latencyMs: 6420,
-    traceId: null,
-  },
-  [DEMO_IDS.runCoastClarify]: {
-    steps: 1,
-    usage: { inputTokens: 7020, outputTokens: 260, cacheReadTokens: 6144, cacheWriteTokens: 0 },
-    costUsd: 0.0078,
-    latencyMs: 3010,
-    traceId: null,
-  },
-};
-
 export interface DemoReplay {
   readonly toolCalls: ToolCallSummary[];
   readonly sources: SourceSummary[];
   readonly message: string;
-  readonly stats: RunStats;
 }
 
 /** The recorded answer demo mode replays for any new message. */
@@ -611,13 +573,6 @@ export const DEMO_REPLAY: DemoReplay = {
   sources: [hikingChunk, madonie, pantalica],
   message:
     'Demo mode replays this recorded answer whatever you write: no AI model is called. As an example of a grounded answer, the Sicily guide suggests the Madonie and Nebrodi mountain parks for forested ridges and village-to-village hikes, and the gorge of Pantalica near Syracuse for a walk among rock-cut tombs.',
-  stats: {
-    steps: 2,
-    usage: { inputTokens: 5480, outputTokens: 380, cacheReadTokens: 3072, cacheWriteTokens: 0 },
-    costUsd: 0.0077,
-    latencyMs: 5200,
-    traceId: null,
-  },
 };
 
 export const DEMO_REPLAY_SOURCE_REFS: readonly SourceRef[] = [

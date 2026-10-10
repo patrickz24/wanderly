@@ -1,7 +1,11 @@
-import type { AgentResponseType, FeedbackRequest } from '@wanderly/contracts';
+import type {
+  AgentResponseType,
+  AssistantMessage,
+  FeedbackRequest,
+  RunStats,
+} from '@wanderly/contracts';
 import { useCallback, useId, useMemo, useState } from 'react';
 import { numberSources, sourceKey } from '../../lib/sources';
-import type { AssistantMessage, RunStats } from '../../lib/types';
 import type { FeedbackState } from '../../state/chatReducer';
 import { CompassMark } from '../common/icons';
 import { FeedbackControls } from '../feedback/FeedbackControls';
@@ -15,7 +19,6 @@ import { TransparencyPanel, type SourceFocusRequest } from '../transparency/Tran
 interface AssistantMessageViewProps {
   readonly message: AssistantMessage;
   readonly stats: RunStats | undefined;
-  readonly illustrativeStats?: boolean;
   readonly feedback: FeedbackState | undefined;
   readonly onFeedback: (runId: string, feedback: FeedbackRequest) => void;
   /** Present only on the latest message, when a reply can be sent now. */
@@ -33,7 +36,6 @@ const TYPE_LABELS: Readonly<Record<AgentResponseType, string>> = {
 export function AssistantMessageView({
   message,
   stats,
-  illustrativeStats = false,
   feedback,
   onFeedback,
   onQuickReply,
@@ -89,7 +91,6 @@ export function AssistantMessageView({
           sources={message.sources}
           toolCalls={message.toolCalls}
           stats={stats}
-          illustrativeStats={illustrativeStats}
           open={panelOpen}
           onOpenChange={setPanelOpen}
           focusRequest={focusRequest}

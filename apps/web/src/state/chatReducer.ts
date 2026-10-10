@@ -1,11 +1,13 @@
 import type {
   AgentEvent,
+  AssistantMessage,
   ConversationSummary,
   GetConversationResponse,
+  RunStats,
   ToolCallSummary,
+  UserMessage,
 } from '@wanderly/contracts';
 import type { ChatError } from '../lib/chatErrors';
-import type { AssistantMessage, RunStats, UserMessage } from '../lib/types';
 
 /**
  * State of the open conversation: its messages, the agent run in flight (with its live tool
@@ -43,6 +45,8 @@ export interface ActiveRun {
 export type FeedbackState =
   | { readonly status: 'sending'; readonly rating: 1 | -1 }
   | { readonly status: 'sent'; readonly rating: 1 | -1 }
+  /** Rated before this visit (the stored conversation says so). */
+  | { readonly status: 'rated'; readonly rating: 1 | -1 }
   | { readonly status: 'failed'; readonly rating: 1 | -1; readonly error: ChatError };
 
 /** A neutral notice (not an error) about the last run. */
@@ -57,20 +61,16 @@ export interface ChatState {
   readonly run: ActiveRun | null;
   readonly error: ChatError | null;
   readonly notice: ChatNotice | null;
-  /** Footer statistics by run id. */
+  /** Footer statistics by run id: from run.finished, or stored with a loaded message. */
   readonly stats: Readonly<Record<string, RunStats>>;
-  /** Feedback by run id. Kept across conversations: a run is rated once per page session. */
+  /** Feedback by run id, kept across conversations: a run is rated once. */
   readonly feedback: Readonly<Record<string, FeedbackState>>;
 }
 
 export type ChatAction =
   | { readonly type: 'conversation/new' }
   | { readonly type: 'conversation/loading'; readonly id: string }
-  | {
-      readonly type: 'conversation/loaded';
-      readonly conversation: GetConversationResponse;
-      readonly stats: Readonly<Record<string, RunStats>>;
-    }
+  | { readonly type: 'conversation/loaded'; readonly conversation: GetConversationResponse }
   | { readonly type: 'conversation/load-failed'; readonly id: string; readonly error: ChatError }
   | {
       readonly type: 'conversation/created';
@@ -204,6 +204,32 @@ function applyEvent(state: ChatState, run: ActiveRun, event: AgentEvent): ChatSt
   }
 }
 
+function assistantMessages(conversation: GetConversationResponse): AssistantMessage[] {
+  return conversation.messages.filter((message) => message.role === 'assistant');
+}
+
+/** Run statistics the API stored with each answer. */
+function storedStats(conversation: GetConversationResponse): Record<string, RunStats> {
+  const stats: Record<string, RunStats> = {};
+  for (const message of assistantMessages(conversation)) {
+    if (message.run !== undefined) {
+      stats[message.runId] = message.run;
+    }
+  }
+  return stats;
+}
+
+/** Ratings given before this visit; a rating made during the visit takes precedence. */
+function storedFeedback(conversation: GetConversationResponse): Record<string, FeedbackState> {
+  const feedback: Record<string, FeedbackState> = {};
+  for (const message of assistantMessages(conversation)) {
+    if (message.feedback !== undefined && message.feedback !== null) {
+      feedback[message.runId] = { status: 'rated', rating: message.feedback.rating };
+    }
+  }
+  return feedback;
+}
+
 /** Run actions only apply to the run they were issued for. */
 function activeRun(state: ChatState, clientRunId: string): ActiveRun | null {
   return state.run?.clientRunId === clientRunId ? state.run : null;
@@ -235,7 +261,8 @@ export function chatReducer(state: ChatState, action: ChatAction): ChatState {
         messages: conversation.messages.map((message) =>
           message.role === 'user' ? { ...message, pending: false } : message,
         ),
-        stats: { ...state.stats, ...action.stats },
+        stats: { ...state.stats, ...storedStats(conversation) },
+        feedback: { ...storedFeedback(conversation), ...state.feedback },
       };
     }
 

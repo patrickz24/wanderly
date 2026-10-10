@@ -1,13 +1,13 @@
-import type { AgentEvent, ConversationSummary, GetConversationResponse } from '@wanderly/contracts';
+import type {
+  AgentEvent,
+  AssistantMessage,
+  ConversationSummary,
+  GetConversationResponse,
+  RunStats,
+} from '@wanderly/contracts';
 import { ApiError } from '../lib/api';
-import type { ChatTransport, LoadedConversation } from '../lib/chatApi';
-import type { AssistantMessage, RunStats } from '../lib/types';
-import {
-  DEMO_CONVERSATIONS,
-  DEMO_REPLAY,
-  DEMO_REPLAY_SOURCE_REFS,
-  DEMO_RUN_STATS,
-} from './fixtures';
+import type { ChatTransport } from '../lib/chatApi';
+import { DEMO_CONVERSATIONS, DEMO_REPLAY, DEMO_REPLAY_SOURCE_REFS } from './fixtures';
 
 export interface DemoTransportOptions {
   /** Scales the replay delays; 0 makes tests instant. */
@@ -49,16 +49,27 @@ function notFound(): ApiError {
 const TITLE_MAX_CHARS = 60;
 
 /**
+ * The run.finished event must carry figures, but nothing is measured in demo mode: zeros,
+ * which the UI never shows (demo mode hides every measured figure).
+ */
+const UNMEASURED: RunStats = {
+  steps: 0,
+  usage: { inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, cacheWriteTokens: 0 },
+  costUsd: 0,
+  latencyMs: 0,
+  traceId: null,
+};
+
+/**
  * A `ChatTransport` over the sample conversations, for demo mode. Nothing leaves the browser:
- * sending a message replays a recorded run (tool events with realistic pauses, then a fixed
- * answer that says it is a replay), and new conversations live in memory until reload.
+ * sending a message replays a recorded run (tool events with pauses, then a fixed answer that
+ * says it is a replay); new conversations and ratings live in memory until reload.
  */
 export function createDemoTransport(options: DemoTransportOptions = {}): ChatTransport {
   const { speed = 1, now = () => new Date() } = options;
   const conversations = new Map<string, GetConversationResponse>(
     DEMO_CONVERSATIONS.map((conversation) => [conversation.id, structuredClone(conversation)]),
   );
-  const runStats = new Map<string, RunStats>(Object.entries(DEMO_RUN_STATS));
   const pause = (ms: number, signal?: AbortSignal): Promise<void> => wait(ms * speed, signal);
 
   const summaries = (): ConversationSummary[] =>
@@ -99,20 +110,13 @@ export function createDemoTransport(options: DemoTransportOptions = {}): ChatTra
       return { id: conversation.id, title: null, createdAt: timestamp, updatedAt: timestamp };
     },
 
-    async getConversation(id, signal): Promise<LoadedConversation> {
+    async getConversation(id, signal) {
       await pause(200, signal);
       const conversation = conversations.get(id);
       if (conversation === undefined) {
         throw notFound();
       }
-      const stats: Record<string, RunStats> = {};
-      for (const message of conversation.messages) {
-        const value = message.role === 'assistant' ? runStats.get(message.runId) : undefined;
-        if (message.role === 'assistant' && value !== undefined) {
-          stats[message.runId] = value;
-        }
-      }
-      return { conversation: structuredClone(conversation), runStats: stats };
+      return structuredClone(conversation);
     },
 
     async sendMessage(conversationId, text, { signal, onEvent }) {
@@ -144,7 +148,7 @@ export function createDemoTransport(options: DemoTransportOptions = {}): ChatTra
           name: call.name,
           input: call.input,
         });
-        await pause(call.durationMs + 400, signal);
+        await pause(600, signal);
         emit({ type: 'tool.finished', runId, call });
       }
 
@@ -165,15 +169,21 @@ export function createDemoTransport(options: DemoTransportOptions = {}): ChatTra
       };
       conversation.messages.push(answer);
       conversation.updatedAt = answer.createdAt;
-      runStats.set(runId, DEMO_REPLAY.stats);
       emit({ type: 'response', runId, message: answer });
 
       await pause(150, signal);
-      emit({ type: 'run.finished', runId, ...DEMO_REPLAY.stats });
+      emit({ type: 'run.finished', runId, ...UNMEASURED });
     },
 
-    async postFeedback(_runId, _feedback, signal) {
+    async postFeedback(runId, feedback, signal) {
       await pause(300, signal);
+      for (const conversation of conversations.values()) {
+        for (const message of conversation.messages) {
+          if (message.role === 'assistant' && message.runId === runId) {
+            message.feedback = { rating: feedback.rating };
+          }
+        }
+      }
     },
   };
 }

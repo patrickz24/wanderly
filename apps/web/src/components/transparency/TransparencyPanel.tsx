@@ -1,7 +1,8 @@
 import type { SourceSummary, ToolCallSummary } from '@wanderly/contracts';
 import { useEffect, type SyntheticEvent } from 'react';
+import { useDisplayOptions } from '../../lib/displayOptions';
 import { plural } from '../../lib/format';
-import type { RunStats } from '../../lib/types';
+import type { RunStats } from '@wanderly/contracts';
 import { RunFooter } from './RunFooter';
 import { SourceList } from './SourceList';
 import { ToolCallList } from './ToolCallList';
@@ -17,7 +18,6 @@ interface TransparencyPanelProps {
   readonly sources: readonly SourceSummary[];
   readonly toolCalls: readonly ToolCallSummary[];
   readonly stats: RunStats | undefined;
-  readonly illustrativeStats?: boolean;
   readonly open: boolean;
   readonly onOpenChange: (open: boolean) => void;
   readonly focusRequest: SourceFocusRequest | null;
@@ -32,11 +32,11 @@ export function TransparencyPanel({
   sources,
   toolCalls,
   stats,
-  illustrativeStats = false,
   open,
   onOpenChange,
   focusRequest,
 }: TransparencyPanelProps) {
+  const { showMeasurements } = useDisplayOptions();
   const sourceIdPrefix = `${id}-source`;
 
   useEffect(() => {
@@ -81,10 +81,12 @@ export function TransparencyPanel({
           <h4 className="text-sm font-semibold">Tool calls</h4>
           <ToolCallList toolCalls={toolCalls} />
         </section>
-        <section className="space-y-2 border-t border-line pt-3">
-          <h4 className="text-sm font-semibold">Run</h4>
-          <RunFooter stats={stats} illustrative={illustrativeStats} />
-        </section>
+        {showMeasurements && (
+          <section className="space-y-2 border-t border-line pt-3">
+            <h4 className="text-sm font-semibold">Run</h4>
+            <RunFooter stats={stats} />
+          </section>
+        )}
       </div>
     </details>
   );

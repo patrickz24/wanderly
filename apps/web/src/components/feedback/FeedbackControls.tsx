@@ -28,6 +28,17 @@ export function FeedbackControls({ runId, state, onSubmit }: FeedbackControlsPro
   const commentId = useId();
   const groupLabelId = useId();
 
+  if (state?.status === 'rated') {
+    return (
+      <p className="text-sm text-fg-muted">
+        You rated this answer{' '}
+        <span role="img" aria-label={state.rating === 1 ? 'helpful' : 'not helpful'}>
+          {state.rating === 1 ? '👍' : '👎'}
+        </span>
+      </p>
+    );
+  }
+
   if (state?.status === 'sent') {
     return (
       <p role="status" className="text-sm text-fg-muted">

@@ -9,16 +9,10 @@ interface ChatAppProps {
   readonly transport: ChatTransport;
   /** Conversation to open on load (demo mode opens its sample trip). */
   readonly initialConversationId?: string | null;
-  /** Demo mode: run statistics are fixture values and say so. */
-  readonly illustrativeStats?: boolean;
 }
 
 /** The chat feature: trip list on the side, the open conversation in the main column. */
-export function ChatApp({
-  transport,
-  initialConversationId = null,
-  illustrativeStats = false,
-}: ChatAppProps) {
+export function ChatApp({ transport, initialConversationId = null }: ChatAppProps) {
   const list = useConversationList(transport);
   const chat = useChat(transport, {
     initialConversationId,
@@ -87,7 +81,6 @@ export function ChatApp({
         onFeedback={chat.sendFeedback}
         onDismissError={chat.dismissError}
         onStartNew={handleNewTrip}
-        illustrativeStats={illustrativeStats}
         textareaRef={textareaRef}
         headingRef={headingRef}
       />

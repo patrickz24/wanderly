@@ -253,13 +253,43 @@ describe('chatReducer: conversations', () => {
     const loaded = reduce(loading, {
       type: 'conversation/loaded',
       conversation: conversationDetail(),
-      stats: { [ids.run]: runStats() },
     });
     expect(loaded.loading).toBe(false);
     expect(loaded.title).toBe('Quiet hiking in Sicily');
     expect(loaded.messages.map((m) => m.role)).toEqual(['user', 'assistant']);
     expect(loaded.messages[0]).toMatchObject({ pending: false });
-    expect(loaded.stats[ids.run]).toBeDefined();
+    expect(loaded.stats[ids.run]).toBeUndefined();
+    expect(loaded.feedback[ids.run]).toBeUndefined();
+  });
+
+  it('takes run statistics and earlier ratings from the stored messages', () => {
+    const conversation = conversationDetail({
+      messages: [assistantMessage(undefined, { run: runStats(), feedback: { rating: -1 } })],
+    });
+    const loaded = reduce(
+      INITIAL_CHAT_STATE,
+      { type: 'conversation/loading', id: ids.conversation },
+      { type: 'conversation/loaded', conversation },
+    );
+
+    expect(loaded.stats[ids.run]).toEqual(runStats());
+    expect(loaded.feedback[ids.run]).toEqual({ status: 'rated', rating: -1 });
+    // Already rated: a new rating is refused.
+    expect(reduce(loaded, { type: 'feedback/sending', runId: ids.run, rating: 1 })).toBe(loaded);
+  });
+
+  it('keeps a rating given during this visit over the stored one', () => {
+    const conversation = conversationDetail({
+      messages: [assistantMessage(undefined, { feedback: { rating: -1 } })],
+    });
+    const loaded = reduce(
+      INITIAL_CHAT_STATE,
+      { type: 'feedback/sending', runId: ids.run, rating: 1 },
+      { type: 'feedback/sent', runId: ids.run },
+      { type: 'conversation/loading', id: ids.conversation },
+      { type: 'conversation/loaded', conversation },
+    );
+    expect(loaded.feedback[ids.run]).toEqual({ status: 'sent', rating: 1 });
   });
 
   it('ignores a load that a newer selection superseded', () => {
@@ -268,9 +298,9 @@ describe('chatReducer: conversations', () => {
       { type: 'conversation/loading', id: ids.conversation },
       { type: 'conversation/loading', id: ids.otherConversation },
     );
-    expect(
-      reduce(state, { type: 'conversation/loaded', conversation: conversationDetail(), stats: {} }),
-    ).toBe(state);
+    expect(reduce(state, { type: 'conversation/loaded', conversation: conversationDetail() })).toBe(
+      state,
+    );
     expect(
       reduce(state, {
         type: 'conversation/load-failed',

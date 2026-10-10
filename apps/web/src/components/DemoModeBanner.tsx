@@ -6,8 +6,8 @@ export function DemoModeBanner() {
         <p>
           <strong className="font-semibold">Demo mode: sample data.</strong> These conversations are
           built from Wanderly’s Sicily guide (Wikivoyage) and Open-Meteo climate data. No AI model
-          is called: a new message replays a recorded answer, and timings, tokens and costs are
-          illustrative.
+          is called: a new message replays a recorded answer. Nothing is measured, so no timing,
+          token or cost figure is shown.
         </p>
         <a href="/" className="shrink-0 font-medium underline underline-offset-2">
           Leave demo mode

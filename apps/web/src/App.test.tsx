@@ -80,9 +80,10 @@ describe('App in demo mode', () => {
       screen.getByRole('article', { name: 'Wanderly: follow-up questions' }),
     ).toBeInTheDocument();
     expect(screen.getByRole('article', { name: 'Wanderly: declined' })).toBeInTheDocument();
-    expect(screen.getAllByText('Illustrative values (demo mode), not measurements.').length).toBe(
-      3,
-    );
+    // Nothing in demo mode was measured, so no figure is shown: no run footer, no durations.
+    expect(screen.queryAllByRole('heading', { name: 'Run' })).toHaveLength(0);
+    expect(screen.queryByText(/^\d+(\.\d+)? (ms|s)$/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/^\$\d/)).not.toBeInTheDocument();
     expect(fetchMock).not.toHaveBeenCalled();
   });
 });

@@ -18,7 +18,6 @@ interface ConversationPanelProps {
   readonly onFeedback: (runId: string, feedback: FeedbackRequest) => void;
   readonly onDismissError: () => void;
   readonly onStartNew: () => void;
-  readonly illustrativeStats: boolean;
   readonly textareaRef: Ref<HTMLTextAreaElement>;
   /** Focused when a trip is opened, so keyboard and screen reader users land on it. */
   readonly headingRef: Ref<HTMLHeadingElement>;
@@ -51,7 +50,6 @@ export function ConversationPanel({
   onFeedback,
   onDismissError,
   onStartNew,
-  illustrativeStats,
   textareaRef,
   headingRef,
 }: ConversationPanelProps) {
@@ -116,7 +114,6 @@ export function ConversationPanel({
                   <AssistantMessageView
                     message={message}
                     stats={state.stats[message.runId]}
-                    illustrativeStats={illustrativeStats}
                     feedback={state.feedback[message.runId]}
                     onFeedback={onFeedback}
                     onQuickReply={message.id === quickReplyTarget ? onSend : undefined}

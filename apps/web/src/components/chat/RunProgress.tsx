@@ -9,21 +9,25 @@ interface RunProgressProps {
 }
 
 function StepStatus({ step }: { readonly step: ToolStep }) {
+  const { showMeasurements } = useDisplayOptions();
+  const duration =
+    showMeasurements && step.durationMs !== null ? formatDuration(step.durationMs) : null;
   switch (step.status) {
     case 'running':
       return <span className="sr-only">in progress</span>;
     case 'ok':
-      return (
+      return duration === null ? (
+        <span className="sr-only">done</span>
+      ) : (
         <span className="text-xs text-fg-muted tabular-nums">
           <span className="sr-only">done in </span>
-          {step.durationMs === null ? '' : formatDuration(step.durationMs)}
+          {duration}
         </span>
       );
     case 'error':
       return (
         <span className="text-xs font-medium text-danger tabular-nums">
-          failed
-          {step.durationMs === null ? '' : ` after ${formatDuration(step.durationMs)}`}
+          failed{duration === null ? '' : ` after ${duration}`}
         </span>
       );
   }

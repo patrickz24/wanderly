@@ -13,6 +13,7 @@ import {
   ids,
   NOW,
   runFinished,
+  runStats,
   weatherCall,
 } from '../../test/factories';
 import { controllableSseResponse } from '../../test/streams';
@@ -273,6 +274,31 @@ describe('ChatApp: sending', () => {
     expect(callsTo(fetchMock, SEND)[0]?.body).toBe('{"text":"Comfort"}');
     // No second quick reply while the run is in flight.
     expect(screen.queryByRole('button', { name: 'Budget' })).not.toBeInTheDocument();
+  });
+});
+
+describe('ChatApp: resumed answers', () => {
+  it('shows the stored run statistics and an earlier rating', async () => {
+    const detail = conversationDetail({
+      messages: [
+        { id: ids.userMessage, role: 'user', text: 'Hiking in Sicily?', createdAt: NOW },
+        assistantMessage(undefined, { run: runStats(), feedback: { rating: 1 } }),
+      ],
+    });
+    const fetchMock = routeFetch({
+      [LIST]: () => jsonResponse({ conversations: [conversationSummary()] }),
+      [DETAIL]: () => jsonResponse(detail),
+    });
+    renderChat();
+
+    await userEvent.click(await within(trips()).findByText('Quiet hiking in Sicily'));
+
+    expect(await screen.findByText(/You rated this answer/)).toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Helpful' })).not.toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Run' }).closest('section')).toHaveTextContent(
+      'Cost$0.0215',
+    );
+    expect(callsTo(fetchMock, FEEDBACK)).toHaveLength(0);
   });
 });
 

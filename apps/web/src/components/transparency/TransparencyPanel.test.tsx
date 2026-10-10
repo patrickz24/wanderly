@@ -9,6 +9,7 @@ import {
   weatherCall,
   weatherSource,
 } from '../../test/factories';
+import { DEMO_DISPLAY, DisplayOptionsContext } from '../../lib/displayOptions';
 import { TransparencyPanel } from './TransparencyPanel';
 
 function renderPanel(overrides: Partial<Parameters<typeof TransparencyPanel>[0]> = {}) {
@@ -107,15 +108,50 @@ describe('TransparencyPanel', () => {
   it('says when run statistics are not available', () => {
     renderPanel({ stats: undefined });
     expect(
-      screen.getByText('Run statistics are only available for answers produced during this visit.'),
+      screen.getByText('Run statistics are not available for this answer.'),
     ).toBeInTheDocument();
   });
 
-  it('labels demo statistics as illustrative', () => {
-    renderPanel({ illustrativeStats: true });
+  it('shows no measured figure when measurements are off (demo mode)', () => {
+    render(
+      <DisplayOptionsContext value={DEMO_DISPLAY}>
+        <TransparencyPanel
+          id="panel"
+          sources={[chunkSource]}
+          toolCalls={[weatherCall, failedCall]}
+          stats={runStats()}
+          open
+          onOpenChange={vi.fn()}
+          focusRequest={null}
+        />
+      </DisplayOptionsContext>,
+    );
+
+    expect(screen.queryByRole('heading', { name: 'Run' })).not.toBeInTheDocument();
+    expect(screen.queryByText(/Cost/)).not.toBeInTheDocument();
+    expect(screen.queryByText('38 ms')).not.toBeInTheDocument();
+    expect(screen.queryByText('5.0 s')).not.toBeInTheDocument();
+    expect(screen.getByText('get_seasonal_weather')).toBeInTheDocument();
+  });
+
+  it('prefers the licence the API declares', () => {
+    renderPanel({
+      sources: [
+        { ...chunkSource, license: 'CC BY 4.0' },
+        { ...chunkSource, id: 'other', url: 'https://example.org/doc', license: 'Public domain' },
+        { ...chunkSource, id: 'none', url: 'https://example.org/doc', license: null },
+      ],
+    });
+
+    expect(within(sourceItem(1)).getByRole('link', { name: /CC BY 4.0/ })).toHaveAttribute(
+      'href',
+      'https://creativecommons.org/licenses/by/4.0/',
+    );
+    expect(within(sourceItem(2)).getByText(/Public domain/)).toBeInTheDocument();
     expect(
-      screen.getByText('Illustrative values (demo mode), not measurements.'),
+      within(sourceItem(2)).getByRole('link', { name: /Original source/ }),
     ).toBeInTheDocument();
+    expect(within(sourceItem(3)).queryByText(/CC BY/)).not.toBeInTheDocument();
   });
 
   it('reports the toggle state to its owner', async () => {

@@ -48,8 +48,8 @@ async function loadConversation(
   signal: AbortSignal,
 ): Promise<void> {
   try {
-    const { conversation, runStats } = await transport.getConversation(id, signal);
-    dispatch({ type: 'conversation/loaded', conversation, stats: runStats });
+    const conversation = await transport.getConversation(id, signal);
+    dispatch({ type: 'conversation/loaded', conversation });
   } catch (error) {
     if (!isAbort(error, signal)) {
       dispatch({ type: 'conversation/load-failed', id, error: toChatError(error) });

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { chunkSource, poiSource, weatherSource } from '../test/factories';
-import { isWikivoyageUrl, numberSources, safeExternalUrl, sourceKey } from './sources';
+import { isWikivoyageUrl, licenceFor, numberSources, safeExternalUrl, sourceKey } from './sources';
 
 describe('numberSources', () => {
   it('numbers sources from 1 in their listed order, once each', () => {
@@ -47,5 +47,24 @@ describe('isWikivoyageUrl', () => {
     [null, false],
   ])('%j → %s', (url, expected) => {
     expect(isWikivoyageUrl(url)).toBe(expected);
+  });
+});
+
+describe('licenceFor', () => {
+  it('uses the licence the API declares, linked when it is a known one', () => {
+    expect(licenceFor({ ...chunkSource, license: 'CC BY-SA 4.0' })).toEqual({
+      name: 'CC BY-SA 4.0',
+      url: 'https://creativecommons.org/licenses/by-sa/4.0/deed.en',
+    });
+    expect(licenceFor({ ...chunkSource, license: 'Some other licence' })).toEqual({
+      name: 'Some other licence',
+      url: null,
+    });
+  });
+
+  it('falls back to the corpus licence when the API sends none', () => {
+    expect(licenceFor({ ...chunkSource, license: null })?.name).toBe('CC BY-SA 4.0');
+    expect(licenceFor(weatherSource)?.name).toBe('CC BY 4.0');
+    expect(licenceFor({ ...chunkSource, url: 'https://example.org/' })).toBeNull();
   });
 });

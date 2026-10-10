@@ -9,21 +9,10 @@ import {
 } from '@wanderly/contracts';
 import { apiRequest } from './api';
 import { streamAgentRun } from './agentStream';
-import type { RunStats } from './types';
 
 export interface SendMessageOptions {
   readonly signal: AbortSignal;
   readonly onEvent: (event: AgentEvent) => void;
-}
-
-/** A conversation as the chat needs it to resume. */
-export interface LoadedConversation {
-  readonly conversation: GetConversationResponse;
-  /**
-   * Footer statistics of past runs, by run id. The HTTP API does not return them for stored
-   * conversations yet, so this is empty there; the demo transport fills it.
-   */
-  readonly runStats: Readonly<Record<string, RunStats>>;
 }
 
 /**
@@ -33,7 +22,8 @@ export interface LoadedConversation {
 export interface ChatTransport {
   listConversations(signal?: AbortSignal): Promise<readonly ConversationSummary[]>;
   createConversation(signal?: AbortSignal): Promise<ConversationSummary>;
-  getConversation(id: string, signal?: AbortSignal): Promise<LoadedConversation>;
+  /** Stored messages carry their run statistics and the caller's rating, when known. */
+  getConversation(id: string, signal?: AbortSignal): Promise<GetConversationResponse>;
   /** Resolves once the run has ended (terminal event); see `streamAgentRun`. */
   sendMessage(conversationId: string, text: string, options: SendMessageOptions): Promise<void>;
   postFeedback(runId: string, feedback: FeedbackRequest, signal?: AbortSignal): Promise<void>;
@@ -61,13 +51,10 @@ export const httpTransport: ChatTransport = {
     );
   },
 
-  async getConversation(id, signal) {
-    const conversation = await apiRequest(
-      conversationPath(id),
-      (data) => GetConversationResponseSchema.parse(data),
-      { signal },
-    );
-    return { conversation, runStats: {} };
+  getConversation(id, signal) {
+    return apiRequest(conversationPath(id), (data) => GetConversationResponseSchema.parse(data), {
+      signal,
+    });
   },
 
   sendMessage(conversationId, text, options) {
