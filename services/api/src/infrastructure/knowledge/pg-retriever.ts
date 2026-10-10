@@ -18,6 +18,11 @@ export interface PgRetrieverOptions {
   /** Candidates taken from each list before fusion (at least the requested limit). */
   readonly candidates?: number;
   readonly rrfK?: number;
+  /**
+   * `all` (default) requires every word, as `websearch_to_tsquery` does; `any` ORs them. In the
+   * evaluation, `any` is far better for full text alone but, fused with the vector list, it lowered
+   * MRR@10 by 5.3 points (95 % CI -12.9 to 2.2) for +0.9 point of Recall@5 (docs/EVALUATIONS.md).
+   */
   readonly fullTextMatch?: FullTextMatch;
   /** HNSW search breadth (`hnsw.ef_search`); must be >= the candidates to return them all. */
   readonly efSearch?: number;
@@ -37,7 +42,7 @@ const DEFAULTS = {
   strategy: 'hybrid',
   candidates: 20,
   rrfK: DEFAULT_RRF_K,
-  fullTextMatch: 'any',
+  fullTextMatch: 'all',
   efSearch: 100,
 } as const satisfies Required<PgRetrieverOptions>;
 
@@ -172,12 +177,14 @@ async function fullTextSearch(
   limit: number,
 ): Promise<string[]> {
   if (webSearchQuery.trim() === '') return [];
-  // Ties on rank are ordered by id so that the list is deterministic.
+  // Ties on rank (frequent with "any word") are ordered by document and position, not by the
+  // random chunk id, so that the list is the same after a re-ingestion.
   const { rows } = await client.query<{ id: string }>(
     `SELECT c.id
-     FROM chunks c, websearch_to_tsquery('english', $1) AS q
+     FROM chunks c JOIN documents d ON d.id = c.document_id,
+          websearch_to_tsquery('english', $1) AS q
      WHERE c.tsv @@ q AND ($2::text IS NULL OR c.destination_id = $2::text)
-     ORDER BY ts_rank_cd(c.tsv, q) DESC, c.id
+     ORDER BY ts_rank_cd(c.tsv, q) DESC, d.source_path, c.ordinal
      LIMIT $3`,
     [webSearchQuery, destinationId, limit],
   );

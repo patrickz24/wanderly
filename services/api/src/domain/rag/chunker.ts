@@ -35,9 +35,10 @@ export interface ChunkingOptions {
 export const CHUNKER_VERSION = 1;
 
 /**
- * Default parameters (provisional until the retrieval evaluation compares the variants; see
- * docs/EVALUATIONS.md). Bodies stay under ~450 estimated tokens so that, with the breadcrumb,
- * the embedded text fits the model's 512-token window.
+ * Default parameters. In the retrieval evaluation (docs/EVALUATIONS.md) this configuration beats
+ * a fixed-size baseline by 10.4 points of Recall@5 with vector search (95 % CI 2.8 to 18.9); other
+ * sizes have not been compared yet. Bodies stay under ~450 estimated tokens so that, with the
+ * breadcrumb, the embedded text fits the model's 512-token window (2 of 2,136 chunks exceed it).
  */
 export const DEFAULT_CHUNKING: ChunkingOptions = {
   targetTokens: 300,
