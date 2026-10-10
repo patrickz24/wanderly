@@ -16,6 +16,8 @@
 #   make lint              npm run lint && npm run format:check
 #   make typecheck         npm run typecheck
 #   make build             npm run build
+#   make deploy            flyctl deploy --config infra/fly/api.fly.toml --ha=false --no-public-ips
+#                          then flyctl deploy --config infra/fly/web.fly.toml --ha=false
 #
 # Host-side commands that need configuration (migrate, dev, test-integration) source .env
 # (simple KEY=value lines) in their own shell only; nothing is exported to other targets, so a
@@ -27,10 +29,26 @@ LOCAL_DATABASE_URL := postgres://wanderly:wanderly@localhost:5432/wanderly
 WITH_ENV = set -a; if [ -f .env ]; then . ./.env; fi; set +a; \
 	export DATABASE_URL="$${DATABASE_URL:-$(LOCAL_DATABASE_URL)}";
 
+# Fly.io (docs/DEPLOYMENT.md). App names are read from the config files.
+FLY_API_CONFIG := infra/fly/api.fly.toml
+FLY_WEB_CONFIG := infra/fly/web.fly.toml
+FLYCTL = $(shell command -v flyctl 2>/dev/null || command -v fly 2>/dev/null)
+fly_app = $(shell sed -n 's/^app = "\(.*\)"$$/\1/p' $(1))
+
+# $(call fly_preflight,<config>): flyctl is installed, authenticated, and the app exists.
+define fly_preflight
+	@if [ -z "$(FLYCTL)" ]; then \
+		echo "flyctl not found: install it, then run 'fly auth login' (docs/DEPLOYMENT.md, section 2)." >&2; exit 1; fi
+	@[ -n "$$FLY_API_TOKEN" ] || $(FLYCTL) auth whoami >/dev/null 2>&1 || { \
+		echo "flyctl is not authenticated: run 'fly auth login' or set FLY_API_TOKEN." >&2; exit 1; }
+	@$(FLYCTL) status --app "$(call fly_app,$(1))" >/dev/null 2>&1 || { \
+		echo "Fly app '$(call fly_app,$(1))' not found or not accessible: run the one-time setup (docs/DEPLOYMENT.md, section 4)." >&2; exit 1; }
+endef
+
 .DEFAULT_GOAL := help
 
 .PHONY: help install env up down logs ps db migrate seed dev dev-api dev-web test \
-	test-integration lint typecheck eval build deploy clean
+	test-integration lint typecheck eval build deploy deploy-api deploy-web clean
 
 help: ## List available commands
 	@echo "Usage: make <target>"
@@ -103,9 +121,19 @@ eval: ## Run the LLM evaluation pipeline (milestone 5)
 build: ## Build every workspace (contracts first)
 	npm run build
 
-deploy: ## Deploy to production (milestone 7, see docs/DEPLOYMENT.md)
-	@echo "make deploy: not available before milestone 7; the procedure will be in docs/DEPLOYMENT.md." >&2
-	@exit 1
+deploy: ## Deploy the API (with migrations), then the web app, to Fly.io (docs/DEPLOYMENT.md)
+	@$(MAKE) --no-print-directory deploy-api
+	@$(MAKE) --no-print-directory deploy-web
+
+# One Machine per app (--ha=false): the API rate limiter is in memory, so it must be a single
+# instance. The API never gets a public IP (--no-public-ips); it is reached over Flycast.
+deploy-api: ## Deploy only the API to Fly.io (its release command applies migrations first)
+	$(call fly_preflight,$(FLY_API_CONFIG))
+	$(FLYCTL) deploy --config $(FLY_API_CONFIG) --ha=false --no-public-ips
+
+deploy-web: ## Deploy only the web app (nginx + SPA) to Fly.io
+	$(call fly_preflight,$(FLY_WEB_CONFIG))
+	$(FLYCTL) deploy --config $(FLY_WEB_CONFIG) --ha=false
 
 clean: ## Remove build outputs and coverage (keeps node_modules and Docker volumes)
 	rm -rf packages/*/dist services/*/dist apps/*/dist evals/dist
