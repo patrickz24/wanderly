@@ -82,8 +82,8 @@ export type ItineraryDay = z.infer<typeof ItineraryDaySchema>;
 /** Budget copied from an `estimate_budget` result; the agent never computes prices itself. */
 export const ItineraryBudgetSchema = z.object({
   level: BudgetLevelSchema,
-  /** Currency as written in the source (no conversion is ever made). */
-  currency: text(16),
+  /** Currency as written in the source (no conversion is ever made); null when no price is known. */
+  currency: text(16).nullable(),
   total: z.number().nonnegative().nullable(),
   perPerson: z.number().nonnegative().nullable(),
   /** The `estimate_budget` tool call this budget comes from. */

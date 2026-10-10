@@ -45,6 +45,8 @@ export const SourceSummarySchema = z.object({
   snippet: z.string().nullable(),
   /** Public URL of the original document (e.g. the Wikivoyage revision), when there is one. */
   url: z.url().nullable(),
+  /** Licence or attribution text required by the source (e.g. "CC BY-SA 4.0"), when known. */
+  license: z.string().min(1).nullable().optional(),
 });
 export type SourceSummary = z.infer<typeof SourceSummarySchema>;
 
@@ -69,12 +71,24 @@ export const UsageSchema = z.object({
 });
 export type Usage = z.infer<typeof UsageSchema>;
 
+/** Measured figures of one agent run. */
+export const RunStatsSchema = z.object({
+  steps: z.int().nonnegative(),
+  usage: UsageSchema,
+  costUsd: z.number().nonnegative(),
+  latencyMs: z.number().nonnegative(),
+  /** Langfuse trace id when tracing is enabled. */
+  traceId: z.string().nullable(),
+});
+export type RunStats = z.infer<typeof RunStatsSchema>;
+
 export const UserMessageSchema = z.object({
   id: uuid,
   role: z.literal('user'),
   text: z.string(),
   createdAt: timestamp,
 });
+export type UserMessage = z.infer<typeof UserMessageSchema>;
 
 export const AssistantMessageSchema = z.object({
   id: uuid,
@@ -84,7 +98,15 @@ export const AssistantMessageSchema = z.object({
   sources: z.array(SourceSummarySchema),
   toolCalls: z.array(ToolCallSummarySchema),
   createdAt: timestamp,
+  /** Present when the conversation is loaded; absent in the live `response` event (see `run.finished`). */
+  run: RunStatsSchema.optional(),
+  /** The caller's rating of this run, when loaded and already given. */
+  feedback: z
+    .object({ rating: z.union([z.literal(1), z.literal(-1)]) })
+    .nullable()
+    .optional(),
 });
+export type AssistantMessage = z.infer<typeof AssistantMessageSchema>;
 
 export const ConversationMessageSchema = z.discriminatedUnion('role', [
   UserMessageSchema,
@@ -163,3 +185,10 @@ export const AgentEventSchema = z.discriminatedUnion('type', [
 ]);
 export type AgentEvent = z.infer<typeof AgentEventSchema>;
 export type AgentEventType = AgentEvent['type'];
+
+export type RunStartedEvent = z.infer<typeof RunStartedEventSchema>;
+export type ToolStartedEvent = z.infer<typeof ToolStartedEventSchema>;
+export type ToolFinishedEvent = z.infer<typeof ToolFinishedEventSchema>;
+export type ResponseEvent = z.infer<typeof ResponseEventSchema>;
+export type RunFinishedEvent = z.infer<typeof RunFinishedEventSchema>;
+export type ErrorEvent = z.infer<typeof ErrorEventSchema>;

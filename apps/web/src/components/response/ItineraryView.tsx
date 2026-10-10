@@ -79,7 +79,7 @@ function BudgetBlock({
   citations: CitationContext;
 }) {
   const amount = (value: number | null): string =>
-    value === null ? 'Unknown' : formatMoney(value, budget.currency);
+    value === null || budget.currency === null ? 'Unknown' : formatMoney(value, budget.currency);
   return (
     <section className="space-y-2 rounded-lg border border-line p-4">
       <div className="flex flex-wrap items-center justify-between gap-2">
