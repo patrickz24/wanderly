@@ -5,6 +5,9 @@
 # (`wanderly-api.flycast`, a stable private IPv6 routed through the Fly proxy), which is what
 # makes auto-stop/auto-start possible for a private app. Secrets (DATABASE_URL, SESSION_SECRET,
 # ANTHROPIC_API_KEY, LANGFUSE_*) are set with `fly secrets set`, never in this file.
+#
+# The image bakes in the embedding model and sets HF_HUB_OFFLINE=1: the API loads the model from
+# its own filesystem at startup and never downloads it (no Hugging Face egress, faster cold start).
 
 app = "wanderly-api"
 primary_region = "cdg"
@@ -59,8 +62,9 @@ kill_timeout = 15
     path = "/health"
     timeout = "5s"
 
-# Readiness (database reachable + migrations applied), visible in `fly checks list`. It queries
-# Neon, so it only runs while the Machine runs (auto-stop keeps Neon's scale-to-zero working).
+# Readiness (database reachable, migrations applied, embedding model loaded), visible in
+# `fly checks list`. It queries Neon, so it only runs while the Machine runs (auto-stop keeps
+# Neon's scale-to-zero working).
 [checks]
   [checks.ready]
     type = "http"
@@ -72,8 +76,10 @@ kill_timeout = 15
     timeout = "10s"
 
 [[vm]]
-  # Measured at milestone 1 with docker stats: 33 MiB idle (Node + Fastify, no embedder).
-  # 512 MB is provisional headroom for the in-process embedding model added at milestone 2.
-  # TODO(milestone 2): re-measure idle and peak memory with the embedder loaded, then resize.
+  # Measured on 2026-10-11 in the compose stack (same image): the Node process holds 421 MiB RSS
+  # with the embedding model loaded (peak 430 MiB after a request); 33 MiB before the embedder
+  # existed. 512 MB would leave under 100 MB for query embeddings and concurrent runs, so 1 GB.
+  # Corpus ingestion (peak 2.1 GiB) never runs here: it runs from a workstation (seed-remote).
+  # TODO(first deploy): check fly_instance_memory_mem_available under real traffic.
   size = "shared-cpu-1x"
-  memory = "512mb"
+  memory = "1gb"
