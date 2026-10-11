@@ -32,12 +32,8 @@ import type { LlmPort } from '../domain/ports/llm.js';
 import { ConversationBusyError, TurnLimitReachedError } from './errors.js';
 import type { RunAgent } from './ports/agent-runner.js';
 import type { UseCaseLogger } from './ports/system.js';
-import {
-  MAX_USER_TURNS,
-  TRACE_SCORES,
-  createSendMessage,
-  type SendMessageDeps,
-} from './send-message.js';
+import { TRACE_SCORES } from './run-trace.js';
+import { MAX_USER_TURNS, createSendMessage, type SendMessageDeps } from './send-message.js';
 
 const CONVERSATION_ID = 'c0000000-0000-4000-8000-000000000001';
 const CANARY = 'canary-0123456789abcdef';
@@ -256,6 +252,10 @@ describe('SendMessage — a completed turn', () => {
       { name: TRACE_SCORES.validFirstTry, value: 1, comment: undefined },
       { name: TRACE_SCORES.citationsOk, value: 1, comment: undefined },
       { name: TRACE_SCORES.toolErrors, value: 1, comment: undefined },
+      { name: TRACE_SCORES.repairs, value: 0, comment: undefined },
+      { name: TRACE_SCORES.canaryLeak, value: 0, comment: undefined },
+      { name: TRACE_SCORES.providerRefusal, value: 0, comment: undefined },
+      { name: TRACE_SCORES.injectionSignals, value: 0, comment: undefined },
     ]);
     expect(trace?.end).toMatchObject({
       status: 'ok',
@@ -318,6 +318,35 @@ describe('SendMessage — a completed turn', () => {
       { runId, injectionSignals: ['ignore-previous-instructions'] },
       'prompt injection signals',
     );
+  });
+
+  it('scores the guardrail signals on the trace, with the injection signal names', async () => {
+    const runAgent = scriptedRunAgent((input) =>
+      okResult(input, {
+        repairs: 1,
+        validFirstTry: false,
+        signals: {
+          canaryLeak: true,
+          providerRefusal: true,
+          injectionSignals: ['user:role_override', 'tool:fake_system_tag', 'user:role_override'],
+        },
+      }),
+    );
+
+    await sendMessage(runAgent).execute(command(), io());
+
+    const scores = Object.fromEntries(
+      (tracer.traces[0]?.scores ?? []).map((score) => [score.name, score]),
+    );
+    expect(scores[TRACE_SCORES.repairs]?.value).toBe(1);
+    expect(scores[TRACE_SCORES.validFirstTry]?.value).toBe(0);
+    expect(scores[TRACE_SCORES.canaryLeak]?.value).toBe(1);
+    expect(scores[TRACE_SCORES.providerRefusal]?.value).toBe(1);
+    expect(scores[TRACE_SCORES.injectionSignals]).toEqual({
+      name: TRACE_SCORES.injectionSignals,
+      value: 2,
+      comment: 'tool:fake_system_tag, user:role_override',
+    });
   });
 
   it('logs nothing for a run without signals', async () => {
@@ -530,7 +559,12 @@ describe('SendMessage — failed runs', () => {
     expect(trace?.scores.map((score) => score.name)).toEqual([
       TRACE_SCORES.validFirstTry,
       TRACE_SCORES.toolErrors,
+      TRACE_SCORES.repairs,
+      TRACE_SCORES.canaryLeak,
+      TRACE_SCORES.providerRefusal,
+      TRACE_SCORES.injectionSignals,
     ]);
+    expect(trace?.scores.find((score) => score.name === TRACE_SCORES.repairs)?.value).toBe(1);
     expect(trace?.end).toMatchObject({
       status: 'error',
       errorCode: 'INVALID_OUTPUT',
@@ -614,6 +648,8 @@ describe('SendMessage — failed runs', () => {
       }),
     ]);
     expect(tracer.traces[0]?.end).toMatchObject({ status: 'error', errorCode: 'INTERNAL_ERROR' });
+    // The runtime reported nothing: no repairs or guardrail scores are guessed.
+    expect(tracer.traces[0]?.scores.map((score) => score.name)).toEqual([TRACE_SCORES.toolErrors]);
   });
 
   it('records a crash after the client left as CANCELLED', async () => {

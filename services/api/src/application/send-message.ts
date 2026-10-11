@@ -25,16 +25,15 @@ import {
   titleFrom,
   utcDayBounds,
 } from './run-accounting.js';
+import {
+  closeRunTrace,
+  validFirstTryOf,
+  type RunTraceSummary,
+  type RuntimeReport,
+} from './run-trace.js';
 
 /** Plan §5.6: a conversation holds at most 12 user turns, so no compaction is needed. */
 export const MAX_USER_TURNS = 12;
-
-/** Score names attached to every run's trace (online checks). */
-export const TRACE_SCORES = {
-  validFirstTry: 'schema_valid_first_try',
-  citationsOk: 'citations_ok',
-  toolErrors: 'tool_errors',
-} as const;
 
 /** Everything the agent runtime needs besides the per-run trace, clock and event sink. */
 export interface AgentRuntime {
@@ -240,7 +239,7 @@ async function runTurn(
 
   if (outcome.kind === 'crash') {
     const record = crashedRunRecord(context, metered.usage(), metered.costUsd());
-    closeTrace(trace, record, null);
+    closeRunTrace(trace, traceSummary(record, null, null));
     await saveFailedRun(context, record);
     throw outcome.error;
   }
@@ -249,14 +248,14 @@ async function runTurn(
   logSignals(log, runId, result);
   if (result.status === 'error') {
     const record = failedRunRecord(context, result);
-    closeTrace(trace, record, { error: record.errorCode });
+    closeRunTrace(trace, traceSummary(record, { error: record.errorCode }, runtimeOf(result)));
     await saveFailedRun(context, record);
     throw result.error;
   }
 
   const messages = withIds(context, result.newMessages);
   const record = completedRunRecord(context, result, messages);
-  closeTrace(trace, record, result.response);
+  closeRunTrace(trace, traceSummary(record, result.response, runtimeOf(result)));
   await commitTurn(context, record, messages);
 
   const message = toAssistantMessage({
@@ -382,7 +381,7 @@ function failedRunRecord(
     usage: result.usage,
     costUsd: result.costUsd,
     latencyMs: result.latencyMs,
-    validFirstTry: result.error.code === 'INVALID_OUTPUT' ? false : null,
+    validFirstTry: validFirstTryOf(result),
     citationsOk: null,
     userMessageId: null,
     assistantMessageId: null,
@@ -421,16 +420,18 @@ function crashedRunRecord(
   };
 }
 
-/** Online scores and the end of the trace. Tracing never changes the outcome of a run. */
-function closeTrace(trace: RunTrace, record: RunRecord, output: unknown): void {
-  if (record.validFirstTry !== null) {
-    trace.score(TRACE_SCORES.validFirstTry, record.validFirstTry ? 1 : 0);
-  }
-  if (record.citationsOk !== null) {
-    trace.score(TRACE_SCORES.citationsOk, record.citationsOk ? 1 : 0);
-  }
-  trace.score(TRACE_SCORES.toolErrors, record.toolErrorCount);
-  trace.end({
+const runtimeOf = (result: AgentRunResult): RuntimeReport => ({
+  repairs: result.repairs,
+  signals: result.signals,
+});
+
+/** The trace is closed from the recorded run, so the trace and `agent_runs` agree. */
+function traceSummary(
+  record: RunRecord,
+  output: unknown,
+  runtime: RuntimeReport | null,
+): RunTraceSummary {
+  return {
     status: record.status,
     responseType: record.responseType,
     errorCode: record.errorCode,
@@ -438,7 +439,11 @@ function closeTrace(trace: RunTrace, record: RunRecord, output: unknown): void {
     usage: record.usage,
     costUsd: record.costUsd,
     steps: record.steps,
-  });
+    validFirstTry: record.validFirstTry,
+    citationsOk: record.citationsOk,
+    toolErrorCount: record.toolErrorCount,
+    runtime,
+  };
 }
 
 /**
