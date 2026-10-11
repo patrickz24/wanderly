@@ -46,6 +46,13 @@ browser ──HTTPS──▶ Fly edge proxy ──HTTP──▶ wanderly-web (ng
                                   Neon Postgres 16 + pgvector (Frankfurt)
 ```
 
+- **The API image is self-contained**: compiled API, production dependencies, SQL migrations,
+  the embedding model (`Xenova/bge-small-en-v1.5`, fp32 ONNX, 128 MB, downloaded at build time
+  through the API's own embedder) and `data/corpus` for the ingestion CLI. It runs with
+  `HF_HUB_OFFLINE=1`: the model loads from the image (398 ms measured in a container with no
+  network and a read-only root filesystem), so a cold start never downloads anything.
+  Measured sizes (`docker image inspect`, uncompressed, 2026-10-11): API **655 MiB**, web
+  **60 MiB**.
 - **Two apps, two images**, the same ones as `docker compose`: `infra/fly/web.fly.toml` and
   `infra/fly/api.fly.toml`. A single app would need a third image bundling nginx and Node under a
   process supervisor; two apps keep the images identical across environments.
@@ -116,23 +123,24 @@ Store both as **environment secrets** of the GitHub `production` environment.
 
 ## 5. Configuration reference
 
-| Variable                                                                  | App | Set in                                          | Value                                            |
-| ------------------------------------------------------------------------- | --- | ----------------------------------------------- | ------------------------------------------------ |
-| `DATABASE_URL`                                                            | api | `fly secrets`                                   | Neon direct connection string, `sslmode=require` |
-| `SESSION_SECRET`                                                          | api | `fly secrets`                                   | ≥ 32 random characters                           |
-| `ANTHROPIC_API_KEY`                                                       | api | `fly secrets`                                   | milestone 3                                      |
-| `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`                              | api | `fly secrets`                                   | milestone 3, both or neither                     |
-| `NODE_ENV=production`                                                     | api | `api.fly.toml` `[env]` (also the image default) | Secure cookies, JSON logs                        |
-| `LOG_LEVEL=info`                                                          | api | `api.fly.toml`                                  |                                                  |
-| `CORS_ORIGINS`                                                            | api | `api.fly.toml`                                  | `https://wanderly-web.fly.dev` (+ custom domain) |
-| `TRUST_PROXY=uniquelocal`                                                 | api | `api.fly.toml`                                  | see section 3                                    |
-| `LANGFUSE_BASE_URL`                                                       | api | `api.fly.toml`                                  | `https://cloud.langfuse.com` (EU)                |
-| `HOST`, `PORT`, `EMBEDDING_CACHE_DIR`                                     | api | image defaults                                  | `0.0.0.0`, `3000`, `/app/.cache/models`          |
-| `LLM_*`, `AGENT_*`, `DAILY_BUDGET_USD`, `RATE_LIMIT_*`, `EMBEDDING_MODEL` | api | defaults in `services/api/src/config.ts`        | override in `[env]` if needed                    |
-| `WANDERLY_API_UPSTREAM`                                                   | web | `web.fly.toml`                                  | `wanderly-api.flycast:80`                        |
-| `WANDERLY_REAL_IP_HEADER`, `WANDERLY_REAL_IP_FROM`                        | web | `web.fly.toml`                                  | `Fly-Client-IP`, `172.16.0.0/16`                 |
-| `VITE_API_BASE_URL`                                                       | web | Docker build arg                                | empty: same origin (recommended)                 |
-| `FLY_API_TOKEN_API`, `FLY_API_TOKEN_WEB`                                  | CI  | GitHub environment `production`                 | `fly tokens create deploy`                       |
+| Variable                                                | App | Set in                                          | Value                                            |
+| ------------------------------------------------------- | --- | ----------------------------------------------- | ------------------------------------------------ |
+| `DATABASE_URL`                                          | api | `fly secrets`                                   | Neon direct connection string, `sslmode=require` |
+| `SESSION_SECRET`                                        | api | `fly secrets`                                   | ≥ 32 random characters                           |
+| `ANTHROPIC_API_KEY`                                     | api | `fly secrets`                                   | milestone 3                                      |
+| `LANGFUSE_PUBLIC_KEY`, `LANGFUSE_SECRET_KEY`            | api | `fly secrets`                                   | milestone 3, both or neither                     |
+| `NODE_ENV=production`                                   | api | `api.fly.toml` `[env]` (also the image default) | Secure cookies, JSON logs                        |
+| `LOG_LEVEL=info`                                        | api | `api.fly.toml`                                  |                                                  |
+| `CORS_ORIGINS`                                          | api | `api.fly.toml`                                  | `https://wanderly-web.fly.dev` (+ custom domain) |
+| `TRUST_PROXY=uniquelocal`                               | api | `api.fly.toml`                                  | see section 3                                    |
+| `LANGFUSE_BASE_URL`                                     | api | `api.fly.toml`                                  | `https://cloud.langfuse.com` (EU)                |
+| `HOST`, `PORT`, `EMBEDDING_CACHE_DIR`, `HF_HUB_OFFLINE` | api | image defaults                                  | `0.0.0.0`, `3000`, `/app/.cache/models`, `1`     |
+| `LLM_*`, `AGENT_*`, `DAILY_BUDGET_USD`, `RATE_LIMIT_*`  | api | defaults in `services/api/src/config.ts`        | override in `[env]` if needed                    |
+| `EMBEDDING_MODEL`                                       | api | Docker build arg (baked into the image)         | must match the model of the seeded vectors       |
+| `WANDERLY_API_UPSTREAM`                                 | web | `web.fly.toml`                                  | `wanderly-api.flycast:80`                        |
+| `WANDERLY_REAL_IP_HEADER`, `WANDERLY_REAL_IP_FROM`      | web | `web.fly.toml`                                  | `Fly-Client-IP`, `172.16.0.0/16`                 |
+| `VITE_API_BASE_URL`                                     | web | Docker build arg                                | empty: same origin (recommended)                 |
+| `FLY_API_TOKEN_API`, `FLY_API_TOKEN_WEB`                | CI  | GitHub environment `production`                 | `fly tokens create deploy`                       |
 
 Secrets override `[env]` values with the same name. `fly secrets list -a wanderly-api` shows
 names and digests, never values.
@@ -183,16 +191,27 @@ fly logs -a wanderly-api --no-tail | tail   # "incoming request" remoteAddress =
 
 ## 8. Seeding the corpus in production
 
-TODO(milestone 2): the ingestion CLI does not exist yet (`make seed` is a placeholder). The
-corpus (`data/corpus`) is not in the API image (`.dockerignore`), so ingestion is meant to run
-from a workstation against Neon, embeddings computed locally on CPU:
+The API image carries the ingestion CLI, the model and `data/corpus`, so seeding Neon is the
+compose `seed` service pointed at another database, run from a workstation (any OS, Docker only):
 
 ```bash
-DATABASE_URL='<neon direct url>' make seed
+make deploy-api        # first: the release command creates the schema the seed writes into
+SEED_DATABASE_URL='<neon direct url>' make seed-remote
 ```
 
-It must use the same `EMBEDDING_MODEL` as the API (vectors are only comparable within one
-model). Re-running it must be idempotent (documents carry a checksum).
+- `seed-remote` runs `docker compose run --rm --build --no-deps seed` with
+  `DATABASE_URL=$SEED_DATABASE_URL`: the image's `node dist/cli/ingest.js`, offline model, no
+  local database. Use the **direct** Neon URL (the CLI takes an advisory lock so that two
+  ingestions never run at once).
+- Measured on the development machine (Docker with 12 CPUs, 2026-10-11, against the compose
+  database): **89 documents, 2,136 chunks in 341.6 s**, peak RSS **2.1 GiB** (the `seed` service
+  has a 3 GB memory limit). Against Neon add the network round trips; not measured.
+- Idempotent: documents carry a checksum, so a re-run only re-indexes what changed (measured:
+  89 skipped in 0.4 s). Re-run it after every corpus change, with the image built from the same
+  commit as the deployed API, so that both use the same `EMBEDDING_MODEL` (vectors are only
+  comparable within one model).
+- Size: the seeded database is **24 MB** (`pg_database_size`, compose, 2026-10-11), well below the
+  1 GB per project of Neon's Free plan.
 
 ## 9. Routine deploys
 
@@ -248,8 +267,11 @@ Both apps use `auto_stop_machines = "stop"`, `auto_start_machines = true`,
 - **Latency**: the first request after a quiet period waits for a cold start of the web Machine,
   then of the API Machine (woken through Flycast), then of the Neon compute. These have not been
   measured; TODO(first deploy): measure with `curl -w '%{time_total}'` after 15 minutes idle.
-  Milestone 2 adds the embedding model load to the API's cold start (TODO: measure, and consider
-  baking the model into the image so that it is never downloaded at startup).
+  The embedding model is baked into the image: loading it took 398 ms in a local container, and
+  `/ready` only passes once it is loaded.
+- **Memory**: the API process holds **421 MiB RSS** with the model loaded (peak **430 MiB** after a
+  request; compose, 2026-10-11), hence a 1 GB Machine (`infra/fly/api.fly.toml`). nginx: 12 MiB
+  idle (milestone 1), 256 MB Machine.
 - **Before an interview or a live demo**: set `min_machines_running = 1` in both config files (or
   `fly scale count 1` and disable auto-stop) and redeploy, then revert. Note that the API's
   `/ready` check queries Neon every 60 s while the API runs, so an always-on API also keeps Neon
@@ -260,8 +282,8 @@ deciding; nothing below was measured on a real bill):
 
 - Fly.io (https://fly.io/docs/about/pricing/): shared-cpu-1x **256 MB $2.19/month**, **512 MB
   $3.69/month**, 1 GB $6.70/month (30 days, running 24/7) in the cheapest regions (`iad`, `ewr`);
-  Paris (`cdg`) applies a 1.134615385× regional multiplier, i.e. about $2.48 and $4.19 per month
-  (computed). Stopped Machines: $0.15/GB/month of root filesystem. Shared IPv4 and IPv6: no
+  Paris (`cdg`) applies a 1.134615385× regional multiplier, i.e. about $2.48 (256 MB, web) and
+  $7.60 (1 GB, API) per month (computed). Stopped Machines: $0.15/GB/month of root filesystem. Shared IPv4 and IPv6: no
   charge; a dedicated IPv4 is $2/month (not needed). Outbound data transfer from Europe:
   $0.02/GB. No free tier for new organizations; a free trial of up to 2 hours of Machine runtime
   or 7 days.
@@ -269,8 +291,8 @@ deciding; nothing below was measured on a real bill):
   project, scale-to-zero after 5 minutes (cannot be disabled), 6-hour history window, 5 GB
   egress per project. Launch plan: $0.106/CU-hour and $0.35/GB-month, no monthly minimum,
   invoices under $0.50 not collected.
-- Upper bound for this setup if both Machines ran 24/7 in `cdg`: about $4.19 + $2.48 =
-  **$6.67/month** for compute (computed from the figures above), before storage, transfer and
+- Upper bound for this setup if both Machines ran 24/7 in `cdg`: about $7.60 + $2.48 =
+  **$10.08/month** for compute (computed from the figures above), before storage, transfer and
   the database. With scale-to-zero the real figure depends on traffic.
 - LLM usage is capped separately by `DAILY_BUDGET_USD` (API) and the monthly spend limit set in
   the Anthropic console.
