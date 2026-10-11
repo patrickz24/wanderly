@@ -3,7 +3,9 @@ import {
   BGE_QUERY_INSTRUCTION,
   EmbeddingModelError,
   TransformersEmbedder,
+  alignTransformersEnv,
   createEmbedderReadinessCheck,
+  isHubOffline,
   type ExtractorFactory,
   type FeatureExtractor,
 } from './transformers-embedder.js';
@@ -32,6 +34,8 @@ function embedderWith(extractor: FeatureExtractor, options: { batchSize?: number
     cacheDir: '/tmp/models',
     dimensions: 4,
     loadExtractor,
+    // Hermetic: the default must not depend on the HF_HUB_OFFLINE of the machine running the tests.
+    env: {},
     ...options,
   });
   return { embedder, loadExtractor };
@@ -182,6 +186,73 @@ describe('TransformersEmbedder', () => {
       RangeError,
     );
     expect(new TransformersEmbedder({ model: 'm', cacheDir: 'c' }).dimensions).toBe(384);
+  });
+});
+
+describe('offline mode', () => {
+  it.each(['1', 'true', 'TRUE', 'yes', 'on', ' 1 '])(
+    'treats HF_HUB_OFFLINE=%j as offline',
+    (value) => {
+      expect(isHubOffline({ HF_HUB_OFFLINE: value })).toBe(true);
+    },
+  );
+
+  it.each([undefined, '', '0', 'false', 'no', 'off'])(
+    'treats HF_HUB_OFFLINE=%j as online',
+    (value) => {
+      expect(isHubOffline({ HF_HUB_OFFLINE: value })).toBe(false);
+    },
+  );
+
+  it('loads from the local cache only when HF_HUB_OFFLINE is set', async () => {
+    const { extractor } = fakeExtractor();
+    const loadExtractor = vi.fn<ExtractorFactory>(async () => extractor);
+    const embedder = new TransformersEmbedder({
+      model: 'Xenova/bge-small-en-v1.5',
+      cacheDir: '/app/.cache/models',
+      dimensions: 4,
+      loadExtractor,
+      env: { HF_HUB_OFFLINE: '1' },
+    });
+
+    await embedder.load();
+
+    expect(loadExtractor).toHaveBeenCalledWith('Xenova/bge-small-en-v1.5', {
+      cacheDir: '/app/.cache/models',
+      dtype: 'fp32',
+      allowRemoteModels: false,
+    });
+  });
+
+  it('aligns the Transformers.js global cache and remote switch with the load options', () => {
+    const env = { cacheDir: null as string | null, allowRemoteModels: true };
+
+    alignTransformersEnv(env, { cacheDir: '/app/.cache/models', allowRemoteModels: false });
+    expect(env).toEqual({ cacheDir: '/app/.cache/models', allowRemoteModels: false });
+
+    alignTransformersEnv(env, { cacheDir: '.cache/models', allowRemoteModels: true });
+    expect(env).toEqual({ cacheDir: '.cache/models', allowRemoteModels: true });
+  });
+
+  it('lets an explicit allowRemoteModels win over the environment', async () => {
+    const { extractor } = fakeExtractor();
+    const loadExtractor = vi.fn<ExtractorFactory>(async () => extractor);
+    const embedder = new TransformersEmbedder({
+      model: 'm',
+      cacheDir: 'c',
+      dimensions: 4,
+      loadExtractor,
+      allowRemoteModels: true,
+      env: { HF_HUB_OFFLINE: '1' },
+    });
+
+    await embedder.load();
+
+    expect(loadExtractor).toHaveBeenCalledWith('m', {
+      cacheDir: 'c',
+      dtype: 'fp32',
+      allowRemoteModels: true,
+    });
   });
 });
 

@@ -55,8 +55,13 @@ export interface TransformersEmbedderOptions {
   readonly dtype?: ModelDtype;
   /** Texts per forward pass. */
   readonly batchSize?: number;
-  /** False forbids downloads: the model must already be in `cacheDir` (pre-baked images). */
+  /**
+   * False forbids downloads: the model must already be in `cacheDir` (pre-baked images).
+   * Defaults to true, unless the environment sets `HF_HUB_OFFLINE` (see {@link isHubOffline}).
+   */
   readonly allowRemoteModels?: boolean;
+  /** Where `HF_HUB_OFFLINE` is read from; defaults to `process.env` (injected in unit tests). */
+  readonly env?: Readonly<Record<string, string | undefined>>;
   /** Injected in unit tests; defaults to the Transformers.js pipeline. */
   readonly loadExtractor?: ExtractorFactory;
 }
@@ -100,7 +105,7 @@ export class TransformersEmbedder implements Embedder {
     this.#loadOptions = {
       cacheDir: options.cacheDir,
       dtype: this.dtype,
-      allowRemoteModels: options.allowRemoteModels ?? true,
+      allowRemoteModels: options.allowRemoteModels ?? !isHubOffline(options.env ?? process.env),
     };
     this.#loadExtractor = options.loadExtractor ?? loadTransformersExtractor;
   }
@@ -217,6 +222,17 @@ function sliceRow(data: ArrayLike<number>, row: number, columns: number): number
   return values;
 }
 
+/**
+ * Hugging Face's offline switch (the `HF_HUB_OFFLINE` convention of huggingface_hub and
+ * transformers, which Transformers.js itself does not read): `1`, `true`, `yes` or `on` means
+ * "use the local cache only, never download". The API image sets it, since its model is baked in
+ * at build time; the API, the ingestion CLI and the evaluations all honor it through this adapter.
+ */
+export function isHubOffline(env: Readonly<Record<string, string | undefined>>): boolean {
+  const value = env['HF_HUB_OFFLINE']?.trim().toLowerCase();
+  return value === '1' || value === 'true' || value === 'yes' || value === 'on';
+}
+
 /** `/ready` reports the model as a dependency: not ready until it is loaded and verified. */
 export function createEmbedderReadinessCheck(embedder: {
   readonly model: string;
@@ -240,12 +256,34 @@ export function createEmbedderReadinessCheck(embedder: {
   };
 }
 
+/** The part of the Transformers.js global `env` that {@link alignTransformersEnv} sets. */
+export interface TransformersGlobalEnv {
+  cacheDir: string | null;
+  allowRemoteModels: boolean;
+}
+
+/**
+ * Transformers.js 4.3 resolves part of a pipeline load (the model config and the tokenizer file
+ * lookups made by `pipeline()` itself) through its global `env` instead of the pipeline options:
+ * left at their defaults, an offline load still calls huggingface.co and looks in another cache
+ * directory. Setting the global cache and remote switch to the same values makes every lookup
+ * agree. Process-wide by design: one embedding model per process (API, ingestion, evaluations).
+ */
+export function alignTransformersEnv(
+  env: TransformersGlobalEnv,
+  options: Pick<ExtractorLoadOptions, 'cacheDir' | 'allowRemoteModels'>,
+): void {
+  env.cacheDir = options.cacheDir;
+  env.allowRemoteModels = options.allowRemoteModels;
+}
+
 /**
  * Default factory: the Transformers.js feature-extraction pipeline on ONNX Runtime CPU.
  * Imported lazily so that importing this module (and unit tests) never loads the native runtime.
  */
 export const loadTransformersExtractor: ExtractorFactory = async (model, options) => {
-  const { pipeline } = await import('@huggingface/transformers');
+  const { pipeline, env } = await import('@huggingface/transformers');
+  alignTransformersEnv(env, options);
   const extractor = await pipeline('feature-extraction', model, {
     cache_dir: options.cacheDir,
     local_files_only: !options.allowRemoteModels,
