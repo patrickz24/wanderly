@@ -181,7 +181,7 @@ Pour chaque choix : pourquoi, l'alternative, et ce que ça coûte. Les ADR déta
 - La récupération : le tableau de [EVALUATIONS.md](EVALUATIONS.md#results) (run du 2026-10-10,
   53 requêtes), avec intervalles bootstrap et différences appariées.
 - Les contrôles du harnais d'éval (oracle, deux baselines nulles), relancés le 2026-10-11.
-- Les tests : 1 100 tests unitaires et de composants, 49 tests d'intégration sur un vrai Postgres.
+- Les tests : 1 115 tests unitaires et de composants, 49 tests d'intégration sur un vrai Postgres.
 - L'embedder sur la machine de dev ([ADR 0004](adr/0004-local-embeddings.md)) : chargement,
   mémoire, débit d'ingestion, latence de recherche.
 - L'estimation de tokens du chunker, calibrée contre le vrai tokenizer
@@ -335,7 +335,7 @@ le choix le plus simple. Savoir dire « mon choix n'est pas prouvé » fait part
 **Q16. Pourquoi des embeddings locaux ?**
 
 Gratuits, déterministes (donc l'éval est reproductible), sans deuxième fournisseur ni secret :
-l'éval de récupération peut tourner en CI même sur une PR de fork, qui n'a pas de secrets. Le
+l'éval de récupération tourne en CI sur chaque PR concernée, y compris celles des forks. Le
 coût, mesuré dans l'ADR 0004 : 2 à 3 s de chargement, 500 à 531 Mo de RSS après chargement,
 2 136 chunks vectorisés en 666 s à la première ingestion. S'y ajoute une qualité a priori
 inférieure aux gros modèles hébergés, que nous n'avons pas mesurée. Changer de modèle ne touche
@@ -569,10 +569,10 @@ boucle au tableau » : fais-le avant les entretiens.
 | Latence médiane de recherche (embedding inclus)                   | 13 ms (vecteur) à 18 ms (hybride « any word »)                                                                                                                  | idem                                                                                          |
 | Dataset agent                                                     | 45 cas (27 EN, 18 FR), 7 catégories                                                                                                                             | [EVALUATIONS.md](EVALUATIONS.md#dataset-1)                                                    |
 | Bruit d'un taux de réussite à 45 cas                              | environ ±15 points (1/√45)                                                                                                                                      | idem                                                                                          |
-| Contrôle oracle                                                   | 100 % sur chaque métrique applicable                                                                                                                            | `npm run eval:controls`, 2026-10-11, commit `d716525`                                         |
+| Contrôle oracle                                                   | 100 % sur chaque métrique applicable                                                                                                                            | `npm run eval:controls`, 2026-10-11, commit `c403cad`                                         |
 | Contrôle `null-decline`                                           | `response_type_correct` 22,2 % (IC 11,1 à 35,6) ; `guardrail_pass` 100 %                                                                                        | idem                                                                                          |
 | Contrôle `null-empty`                                             | `response_type_correct` 0 % ; `schema_valid_after_repair` 0 %                                                                                                   | idem                                                                                          |
-| Tests unitaires et de composants                                  | 1 100 réussis (88 fichiers)                                                                                                                                     | `npm test`, 2026-10-11, commit `d716525`                                                      |
+| Tests unitaires et de composants                                  | 1 115 réussis (88 fichiers)                                                                                                                                     | `npm test`, 2026-10-11, commit `1e05ba0`                                                      |
 | Tests d'intégration (Postgres + pgvector)                         | 49 réussis (5 fichiers)                                                                                                                                         | `npm run test:integration`, idem                                                              |
 | Embedder                                                          | chargement 2 à 3 s ; RSS 500 à 531 Mo ; 2 136 chunks en 666 s à la première ingestion                                                                           | [ADR 0004](adr/0004-local-embeddings.md)                                                      |
 | Limites par défaut (configuration, pas des mesures)               | 8 appels, 1 réparation, 45 s par appel, 5 s par outil, 90 s par run, 0,10 $ par run, 2 $ par jour, 12 tours, 2 000 caractères, 10 messages par 10 min et par IP | `services/api/src/domain/agent/limits.ts`, `services/api/src/config.ts`                       |
