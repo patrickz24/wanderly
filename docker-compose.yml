@@ -1,7 +1,13 @@
-# Wanderly local stack: Postgres + pgvector, one-shot migrations, API, web (nginx).
+# Wanderly local stack: Postgres + pgvector, one-shot migrations and corpus seeding, API, web.
 #
 #   make up                     # creates .env from .env.example if missing, then the command below
 #   docker compose up --build -d --wait
+#
+# The FIRST `up` embeds the whole corpus on CPU in the `seed` service: 2,136 chunks in 342 s with
+# 12 CPUs given to Docker (2026-10-11), longer with fewer cores; follow it with
+# `docker compose logs -f seed`. Later runs re-index only changed documents (under a second), as
+# long as the db-data volume is kept (`docker compose down`, not `down -v`). The seed needs about
+# 2.1 GiB of memory: give Docker at least 4 GB.
 #
 # Secrets come from .env (gitignored, see .env.example); SESSION_SECRET is required. Values that
 # must match the compose topology (DATABASE_URL, PORT, TRUST_PROXY...) are set here and override
@@ -78,6 +84,27 @@ services:
     healthcheck:
       disable: true
 
+  seed:
+    <<: [*api-image, *hardening]
+    # Ingests data/corpus (baked into the image) with the baked-in embedding model, offline.
+    # Idempotent: unchanged documents are skipped by checksum. SEED_DATABASE_URL targets another
+    # database, e.g. Neon in production (`make seed-remote`, docs/DEPLOYMENT.md).
+    command: ['node', 'dist/cli/ingest.js']
+    environment:
+      DATABASE_URL: ${SEED_DATABASE_URL:-postgres://wanderly:${POSTGRES_PASSWORD:-wanderly}@db:5432/wanderly}
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    networks: [backend]
+    tmpfs:
+      - /tmp
+    read_only: true
+    # Measured peak RSS while embedding the whole corpus: 2.1 GiB (2026-10-11, batches of 32).
+    mem_limit: 3g
+    restart: 'no'
+    healthcheck:
+      disable: true
+
   api:
     <<: [*api-image, *hardening]
     env_file:
@@ -90,21 +117,19 @@ services:
       DATABASE_URL: postgres://wanderly:${POSTGRES_PASSWORD:-wanderly}@db:5432/wanderly
       # Requests arrive through the web container (nginx) on the private compose network.
       TRUST_PROXY: uniquelocal
+      # The model baked into the image (a relative EMBEDDING_CACHE_DIR from .env would miss it).
       EMBEDDING_CACHE_DIR: /app/.cache/models
     ports:
       - '127.0.0.1:${API_PORT:-3000}:3000'
-    volumes:
-      # Downloaded embedding model, kept across restarts (the root filesystem is read-only).
-      - models:/app/.cache/models
     tmpfs:
       - /tmp
     networks: [backend, frontend]
     depends_on:
-      migrate:
+      seed:
         condition: service_completed_successfully
     init: true
     read_only: true
-    # Generous until the embedder footprint is measured (milestone 2).
+    # Measured RSS with the embedding model loaded: 421 MiB, peak 430 MiB (2026-10-11).
     mem_limit: 1g
     pids_limit: 200
     restart: unless-stopped
@@ -156,4 +181,3 @@ networks:
 
 volumes:
   db-data: {}
-  models: {}
