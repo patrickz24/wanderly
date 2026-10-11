@@ -359,6 +359,12 @@ push cancels the previous run.
 
 - **Keyless job, always:** scorer, judge and harness unit tests, then the three controls; a control
   that does not score as expected fails the job.
+- **Knowledge base, shared:** a composite action (`.github/actions/knowledge-base`) restores a cached
+  dump of the ingested corpus, or ingests it once and caches it, keyed on the corpus, the chunking
+  and ingestion code and the migrations. Pushes to `main` also run the workflow so pull requests
+  can restore that cache.
+- **Retrieval job, keyless, always:** the retrieval evaluation on the cached knowledge base, with
+  its results table in the job summary.
 - **Agent job, with the `ANTHROPIC_API_KEY` secret:** Postgres + pgvector service, the embedding
   model and a dump of the ingested knowledge base cached (keyed on the corpus, the chunking and
   ingestion code and the migrations), then `eval:agent --gate --max-usd 2`. Results are uploaded as
@@ -384,20 +390,14 @@ npm run eval:agent -w @wanderly/evals -- --write                # update the bas
 Comparing a more expensive agent model needs a higher per-run ceiling (`--max-run-usd`), or the
 runtime refuses its first call. The judge must stay a different model from the agent.
 
-On Windows, the ONNX runtime crashes on this project's development host (ADR 0004): run the real
-evaluation in a `node:22-bookworm-slim` container with the repository mounted and Linux
-dependencies installed in anonymous volumes, against the Compose database:
-
-The Makefile wraps it as `make eval-agent-docker` (and `make seed-docker` for ingestion alone):
+On Windows, the ONNX runtime crashes on this project's development host (ADR 0004). The Makefile
+runs the same commands in a Linux `node:22-bookworm-slim` container (repository mounted, Linux
+dependencies in anonymous volumes) on the Compose network, after seeding the Compose database
+with the corpus; this works on any OS:
 
 ```sh
-docker compose up -d db
-docker run --rm -it -v "C:/dev/wanderly:/repo" -w /repo \
-  -v /repo/node_modules -v /repo/evals/node_modules -v /repo/services/api/node_modules \
-  -v /repo/apps/web/node_modules -v /repo/packages/contracts/node_modules -v /repo/data/node_modules \
-  --env-file .env -e DATABASE_URL=postgres://wanderly:wanderly@host.docker.internal:5432/wanderly \
-  node:22-bookworm-slim bash -c \
-  "npm ci --ignore-scripts && npm run migrate && npm run ingest && npm run eval:agent -w @wanderly/evals -- --max-usd 2"
+make eval-agent-docker MAX_USD=2   # seeds the corpus if needed, then the real agent evaluation
+make eval-retrieval-docker         # retrieval evaluation (keyless)
 ```
 
 ### Results
