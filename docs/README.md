@@ -11,6 +11,7 @@ and what is still pending; nothing describes a run, a trace or a deployment that
 | [`DEPLOYMENT.md`](DEPLOYMENT.md)           | Fly.io + Neon: topology, secrets, first deploy, migrations, seeding, rollback, costs, monitoring, teardown.                                                                        | Prepared; first deploy pending accounts                                                           |
 | [`INTERVIEW_NOTES.md`](INTERVIEW_NOTES.md) | Interview preparation, in French: the architecture explained simply, the path of one request, every trade-off, limits, and 35 questions with answers.                              | Written                                                                                           |
 | [`LEARNING.md`](LEARNING.md)               | Learning kit, in French: guides to the agent loop, chunking with RRF and the evaluation metrics, and exercise branches (`learning/*`) whose unchanged tests are the specification. | Written; branches local, not pushed                                                               |
+| [`HANDOFF.md`](HANDOFF.md)                 | State of the project on 2026-10-11: what is verified and how, what is not, and the next steps in order.                                                                            | Written                                                                                           |
 
 Related files at the repository root and elsewhere:
 
