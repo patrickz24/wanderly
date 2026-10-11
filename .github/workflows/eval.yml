@@ -1,20 +1,29 @@
-name: Agent evaluation
+name: Evaluation
 
-# Offline evaluation of the agent (docs/EVALUATIONS.md, ADRs 0012 and 0013).
+# Offline evaluations (docs/EVALUATIONS.md, ADRs 0004, 0005, 0012 and 0013).
 # - harness: scorer and judge unit tests, then the keyless control runs (oracle must score near
 #   100 %, null baselines must score low). No secret: runs on every matching PR, forks included.
+# - knowledge-base: ingests the corpus into Postgres once per corpus/ingestion/migration/model
+#   change and caches the dump (about 10 minutes of CPU on a miss, a restore otherwise).
+# - retrieval-eval: the retrieval evaluation (chunking variants x vector / full text / hybrid) with
+#   the local embedding model. No secret: every matching PR measures retrieval, forks included.
 # - agent-eval: the real evaluation against Claude with the ANTHROPIC_API_KEY secret, gated by
 #   evals/thresholds.json and capped in dollars. Skipped, with a note, when the secret is missing
 #   and on pull requests from forks (GitHub never gives them secrets; this is by design).
+# Pushes to main build the caches in the default branch's scope, which every PR can restore.
 
 on:
   pull_request:
-    paths:
+    paths: &eval-paths
       - 'services/**'
       - 'packages/**'
       - 'evals/**'
       - 'data/corpus/**'
       - '.github/workflows/eval.yml'
+      - '.github/actions/knowledge-base/**'
+  push:
+    branches: [main]
+    paths: *eval-paths
   workflow_dispatch:
     inputs:
       reps:
@@ -28,7 +37,7 @@ on:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 permissions:
   contents: read
@@ -64,6 +73,105 @@ jobs:
           if-no-files-found: ignore
           retention-days: 14
 
+  knowledge-base:
+    name: Knowledge base (ingested corpus cache)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_DB: wanderly
+          POSTGRES_USER: wanderly
+          POSTGRES_PASSWORD: wanderly
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U wanderly -d wanderly"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      # Throwaway CI database (job service container), not a secret.
+      DATABASE_URL: postgres://wanderly:wanderly@localhost:5432/wanderly
+      EMBEDDING_MODEL: Xenova/bge-small-en-v1.5
+      EMBEDDING_CACHE_DIR: .cache/models
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - uses: ./.github/actions/knowledge-base
+        with:
+          postgres-container: ${{ job.services.postgres.id }}
+          embedding-model: ${{ env.EMBEDDING_MODEL }}
+
+  retrieval-eval:
+    name: Retrieval evaluation (keyless)
+    needs: knowledge-base
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_DB: wanderly
+          POSTGRES_USER: wanderly
+          POSTGRES_PASSWORD: wanderly
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U wanderly -d wanderly"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      # Throwaway CI database (job service container), not a secret.
+      DATABASE_URL: postgres://wanderly:wanderly@localhost:5432/wanderly
+      EMBEDDING_MODEL: Xenova/bge-small-en-v1.5
+      EMBEDDING_CACHE_DIR: .cache/models
+      # Reuse the vectors of the ingested knowledge base (default chunking) instead of
+      # re-embedding them; only the other chunking variants and the queries are embedded.
+      EVAL_SEED_DATABASE_URL: postgres://wanderly:wanderly@localhost:5432/wanderly
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: ./.github/actions/setup
+      - uses: ./.github/actions/knowledge-base
+        with:
+          postgres-container: ${{ job.services.postgres.id }}
+          embedding-model: ${{ env.EMBEDDING_MODEL }}
+      # Vectors are cached by (model settings, kind, text): an older cache is still valid, so a
+      # partial match is restored and only new texts are embedded.
+      - name: Cache the evaluation embeddings
+        uses: actions/cache@v6
+        with:
+          path: evals/results/.embedding-cache
+          key: >-
+            retrieval-embeddings-${{ env.EMBEDDING_MODEL }}-${{ hashFiles('data/corpus/**',
+            'services/api/src/domain/rag/**', 'evals/runner/**', 'evals/datasets/retrieval.yaml') }}
+          restore-keys: retrieval-embeddings-${{ env.EMBEDDING_MODEL }}-
+      - name: Evaluate retrieval
+        shell: bash
+        run: |
+          npm run eval:retrieval -w @wanderly/evals | tee retrieval-report.txt
+          {
+            echo '### Retrieval evaluation'
+            echo
+            echo '```text'
+            cat retrieval-report.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload retrieval results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v7
+        with:
+          name: eval-retrieval-results
+          path: evals/results/
+          if-no-files-found: ignore
+          retention-days: 30
+
   fork-note:
     name: Agent evaluation (skipped on forks)
     if: >-
@@ -77,12 +185,12 @@ jobs:
           {
             echo '### Agent evaluation skipped'
             echo 'Pull requests from forks get no secrets, so the paid evaluation against Claude does not run here.'
-            echo 'The keyless harness checks above still ran. A maintainer can run this workflow manually after review.'
+            echo 'The keyless harness checks and the retrieval evaluation still ran. A maintainer can run this workflow manually after review.'
           } >> "$GITHUB_STEP_SUMMARY"
 
   agent-eval:
     name: Agent evaluation (Claude)
-    needs: harness
+    needs: [harness, knowledge-base]
     if: >-
       github.event_name == 'workflow_dispatch' ||
       github.event.pull_request.head.repo.full_name == github.repository
@@ -103,11 +211,11 @@ jobs:
           --health-timeout 5s
           --health-retries 12
     env:
-      # Throwaway CI database, not a secret.
+      # Throwaway CI database (job service container), not a secret.
       DATABASE_URL: postgres://wanderly:wanderly@localhost:5432/wanderly
-      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       EMBEDDING_MODEL: Xenova/bge-small-en-v1.5
       EMBEDDING_CACHE_DIR: .cache/models
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
       REPS: ${{ inputs.reps || '1' }}
       MAX_USD: ${{ inputs.max-usd || '2' }}
     steps:
@@ -130,42 +238,11 @@ jobs:
           persist-credentials: false
       - uses: ./.github/actions/setup
         if: steps.key.outputs.present == 'true'
-
-      - name: Cache the embedding model
+      - uses: ./.github/actions/knowledge-base
         if: steps.key.outputs.present == 'true'
-        uses: actions/cache@v5
         with:
-          path: .cache/models
-          key: embedding-model-${{ env.EMBEDDING_MODEL }}
-
-      # The ingested knowledge base only changes with the corpus, the chunking/ingestion code,
-      # the migrations and the model: a dump keyed on them skips re-embedding on most runs.
-      - name: Cache the ingested knowledge base
-        id: kb
-        if: steps.key.outputs.present == 'true'
-        uses: actions/cache@v5
-        with:
-          path: .cache/knowledge.dump
-          key: >-
-            knowledge-${{ env.EMBEDDING_MODEL }}-${{ hashFiles('data/corpus/**',
-            'services/api/src/domain/rag/**', 'services/api/src/application/ingest-corpus.ts',
-            'services/api/src/infrastructure/knowledge/**', 'services/api/migrations/**') }}
-
-      - name: Restore the knowledge base
-        if: steps.key.outputs.present == 'true' && steps.kb.outputs.cache-hit == 'true'
-        env:
-          PG_CONTAINER: ${{ job.services.postgres.id }}
-        run: docker exec -i "$PG_CONTAINER" pg_restore -U wanderly -d wanderly --no-owner < .cache/knowledge.dump
-
-      - name: Migrate and ingest the corpus
-        if: steps.key.outputs.present == 'true' && steps.kb.outputs.cache-hit != 'true'
-        env:
-          PG_CONTAINER: ${{ job.services.postgres.id }}
-        run: |
-          npm run migrate
-          npm run ingest
-          mkdir -p .cache
-          docker exec "$PG_CONTAINER" pg_dump -U wanderly -Fc wanderly > .cache/knowledge.dump
+          postgres-container: ${{ job.services.postgres.id }}
+          embedding-model: ${{ env.EMBEDDING_MODEL }}
 
       - name: Evaluate the agent (gated, capped)
         if: steps.key.outputs.present == 'true'

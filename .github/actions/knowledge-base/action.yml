@@ -1,0 +1,68 @@
+name: Knowledge base
+description: >-
+  Loads the ingested corpus into the job's Postgres service: restores a pg_dump cached under a key
+  derived from everything that changes the stored chunks and vectors, or migrates and ingests
+  (about 10 minutes of CPU) and caches the dump. Needs `npm ci` and DATABASE_URL beforehand.
+
+inputs:
+  postgres-container:
+    description: Container id of the Postgres service (`job.services.postgres.id`).
+    required: true
+  embedding-model:
+    description: Embedding model id; must match EMBEDDING_MODEL of the caller.
+    required: false
+    default: Xenova/bge-small-en-v1.5
+
+runs:
+  using: composite
+  steps:
+    - name: Restore the embedding model
+      id: model
+      uses: actions/cache/restore@v6
+      with:
+        path: .cache/models
+        key: embedding-model-${{ inputs.embedding-model }}
+
+    # The stored knowledge base only changes with the corpus, the chunking and ingestion code, the
+    # migrations and the model.
+    - name: Restore the ingested knowledge base
+      id: kb
+      uses: actions/cache/restore@v6
+      with:
+        path: .cache/knowledge.dump
+        key: >-
+          knowledge-${{ inputs.embedding-model }}-${{ hashFiles('data/corpus/**',
+          'services/api/src/domain/rag/**', 'services/api/src/application/ingest-corpus.ts',
+          'services/api/src/infrastructure/knowledge/**', 'services/api/migrations/**') }}
+
+    - name: Load the cached knowledge base
+      if: steps.kb.outputs.cache-hit == 'true'
+      shell: bash
+      env:
+        PG_CONTAINER: ${{ inputs.postgres-container }}
+      run: docker exec -i "$PG_CONTAINER" pg_restore -U wanderly -d wanderly --no-owner < .cache/knowledge.dump
+
+    - name: Migrate and ingest the corpus
+      if: steps.kb.outputs.cache-hit != 'true'
+      shell: bash
+      env:
+        PG_CONTAINER: ${{ inputs.postgres-container }}
+      run: |
+        npm run migrate
+        npm run ingest
+        mkdir -p .cache
+        docker exec "$PG_CONTAINER" pg_dump -U wanderly -Fc wanderly > .cache/knowledge.dump
+
+    - name: Cache the knowledge base
+      if: steps.kb.outputs.cache-hit != 'true'
+      uses: actions/cache/save@v6
+      with:
+        path: .cache/knowledge.dump
+        key: ${{ steps.kb.outputs.cache-primary-key }}
+
+    - name: Cache the embedding model
+      if: steps.model.outputs.cache-hit != 'true' && hashFiles('.cache/models/**') != ''
+      uses: actions/cache/save@v6
+      with:
+        path: .cache/models
+        key: ${{ steps.model.outputs.cache-primary-key }}
