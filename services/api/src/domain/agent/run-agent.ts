@@ -422,7 +422,8 @@ class AgentRun {
       startedAt,
       endedAt,
       input: call.input,
-      output: result.ok ? result.output : null,
+      // What the model received, or the tool's richer trace view of it (never sent to the model).
+      output: result.ok ? (result.traceOutput ?? result.output) : null,
       ok: result.ok,
       error: result.ok ? null : (internalError ?? result.error),
     });

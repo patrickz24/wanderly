@@ -53,6 +53,51 @@ describe('search_knowledge', () => {
     expect(ctx.evidence.has({ kind: 'chunk', id: 'chunk-sicily-etna' })).toBe(true);
   });
 
+  it('adds each excerpt fused score and ranks to the trace output only', async () => {
+    const ranked = {
+      ...chunk('chunk-ranked', 'sicily', 'Quiet trails.'),
+      score: 0.032,
+      ranks: { vector: 1, fullText: null },
+    };
+    const result = await searchKnowledgeTool.run(
+      { query: 'quiet trails', destinationId: null, limit: 1 },
+      context({ retriever: new FakeRetriever([ranked]) }),
+    );
+
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.output).toEqual({
+      results: [
+        {
+          ref: { kind: 'chunk', id: 'chunk-ranked' },
+          destinationId: 'sicily',
+          section: 'Sicily > Do',
+          text: 'Quiet trails.',
+        },
+      ],
+    });
+    expect(result.traceOutput).toEqual({
+      results: [
+        {
+          ref: { kind: 'chunk', id: 'chunk-ranked' },
+          destinationId: 'sicily',
+          section: 'Sicily > Do',
+          text: 'Quiet trails.',
+          score: 0.032,
+          ranks: { vector: 1, fullText: null },
+        },
+      ],
+    });
+  });
+
+  it('gives the other tools no separate trace output', async () => {
+    const result = await getSeasonalWeatherTool.run(
+      { destinationId: 'sicily', month: 5 },
+      context(),
+    );
+    expect(result.ok && 'traceOutput' in result).toBe(false);
+  });
+
   it('cuts long excerpts and says when nothing was found', async () => {
     const long = chunk('c-long', 'sicily', 'x'.repeat(MAX_EXCERPT_CHARS + 50));
     const found = await searchKnowledgeTool.run(

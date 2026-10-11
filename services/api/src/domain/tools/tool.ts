@@ -21,6 +21,11 @@ export interface ToolSuccess {
   readonly output: unknown;
   /** One line for the transparency panel. */
   readonly summary: string;
+  /**
+   * What the trace records instead of `output`, when set: the same result plus diagnostics the
+   * model does not need (e.g. retrieval scores), so they cost no prompt tokens.
+   */
+  readonly traceOutput?: unknown;
 }
 
 export interface ToolFailure {
@@ -54,7 +59,11 @@ export interface DataToolDefinition<Schema extends z.ZodType> {
   execute(
     input: z.output<Schema>,
     context: ToolContext,
-  ): Promise<{ readonly output: unknown; readonly summary: string }>;
+  ): Promise<{
+    readonly output: unknown;
+    readonly summary: string;
+    readonly traceOutput?: unknown;
+  }>;
 }
 
 export function defineDataTool<Schema extends z.ZodType>(
@@ -74,8 +83,10 @@ export function defineDataTool<Schema extends z.ZodType>(
         return { ok: false, error: `Invalid arguments: ${formatIssues(parsed.error.issues)}` };
       }
       try {
-        const result = await definition.execute(parsed.data, context);
-        return { ok: true, output: result.output, summary: result.summary };
+        const { output, summary, traceOutput } = await definition.execute(parsed.data, context);
+        return traceOutput === undefined
+          ? { ok: true, output, summary }
+          : { ok: true, output, summary, traceOutput };
       } catch (error) {
         if (error instanceof ToolInputError) return { ok: false, error: error.message };
         throw error;

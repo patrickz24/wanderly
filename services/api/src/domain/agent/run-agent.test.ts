@@ -190,6 +190,30 @@ describe('runAgent: happy path', () => {
     expect(JSON.stringify(deps.trace.llmCalls)).not.toContain(CANARY);
   });
 
+  it('traces the retrieval score and ranks of each excerpt without sending them to the model', async () => {
+    const llm = new FakeLlm([gatherStep(), presentStep()]);
+    const deps = testDeps(llm);
+    await runAgent(runInput(), deps);
+
+    const search = deps.trace.toolCalls.find((call) => call.name === 'search_knowledge');
+    expect(search?.output).toMatchObject({
+      results: [
+        {
+          ref: { kind: 'chunk', id: 'chunk-sicily-hiking' },
+          score: 0.5,
+          ranks: { vector: 1, fullText: 1 },
+        },
+        { ref: { kind: 'chunk', id: 'chunk-sicily-etna' }, score: 0.5 },
+      ],
+    });
+    const sent = toolResults(llm.requests[1]?.messages.at(-1)).find(
+      (block) => block.toolCallId === search?.callId,
+    );
+    const modelView: unknown = JSON.parse(sent?.content ?? 'null');
+    expect(modelView).toMatchObject({ results: [{ ref: { id: 'chunk-sicily-hiking' } }, {}] });
+    expect(sent?.content).not.toMatch(/"score"|"ranks"/);
+  });
+
   it('keeps going when a listener throws', async () => {
     const llm = new FakeLlm([gatherStep(), presentStep()]);
     const deps = testDeps(llm, {

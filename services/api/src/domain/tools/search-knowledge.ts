@@ -41,6 +41,8 @@ export const searchKnowledgeTool = defineDataTool({
     context.evidence.recordChunks(chunks);
     return {
       output: { results: chunks.map(toResult) },
+      // The trace shows why each excerpt came back: fused RRF score and rank in each list.
+      traceOutput: { results: chunks.map(toTracedResult) },
       summary:
         chunks.length === 0
           ? `No guide excerpt for "${input.query}"`
@@ -55,6 +57,15 @@ function toResult(chunk: RetrievedChunk) {
     destinationId: chunk.destinationId,
     section: chunk.headingPath,
     text: excerpt(chunk.content, MAX_EXCERPT_CHARS),
+  };
+}
+
+/** A result as the model sees it, plus its fused score and 1-based rank in each list. */
+function toTracedResult(chunk: RetrievedChunk) {
+  return {
+    ...toResult(chunk),
+    score: chunk.score,
+    ranks: { vector: chunk.ranks.vector, fullText: chunk.ranks.fullText },
   };
 }
 
