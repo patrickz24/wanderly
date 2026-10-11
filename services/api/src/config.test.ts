@@ -46,6 +46,7 @@ describe('loadConfig', () => {
     });
     expect(config.agent.canaryToken.reveal()).toBe(deriveCanaryToken(SESSION_SECRET));
     expect(config.budget).toEqual({ dailyUsd: 2 });
+    expect(config.retention).toEqual({ days: 30 });
     expect(config.rateLimit).toEqual({ max: 10, windowMs: 600_000 });
     expect(config.apiRateLimit).toEqual({ max: 120, windowMs: 60_000 });
     expect(config.langfuse).toEqual({
@@ -70,6 +71,7 @@ describe('loadConfig', () => {
       ANTHROPIC_API_KEY: 'sk-ant-test',
       LLM_EFFORT: 'low',
       DAILY_BUDGET_USD: '0.5',
+      RETENTION_DAYS: '7',
       RATE_LIMIT_MAX: '3',
       LANGFUSE_PUBLIC_KEY: 'pk-lf-test',
       LANGFUSE_SECRET_KEY: 'sk-lf-test',
@@ -86,6 +88,7 @@ describe('loadConfig', () => {
     expect(config.llm.anthropicApiKey?.reveal()).toBe('sk-ant-test');
     expect(config.llm.effort).toBe('low');
     expect(config.budget.dailyUsd).toBe(0.5);
+    expect(config.retention.days).toBe(7);
     expect(config.rateLimit.max).toBe(3);
     expect(config.langfuse.publicKey).toBe('pk-lf-test');
     expect(config.langfuse.secretKey?.reveal()).toBe('sk-lf-test');
@@ -133,6 +136,9 @@ describe('loadConfig', () => {
     ['LLM_EFFORT', 'extreme'],
     ['AGENT_MAX_STEPS', '0'],
     ['DAILY_BUDGET_USD', '-1'],
+    ['RETENTION_DAYS', '0'],
+    ['RETENTION_DAYS', '1.5'],
+    ['RETENTION_DAYS', '3651'],
     ['RATE_LIMIT_WINDOW_MS', '1.5'],
     ['LANGFUSE_BASE_URL', 'ftp://langfuse.example'],
     ['CORS_ORIGINS', '*'],

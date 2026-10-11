@@ -1,5 +1,6 @@
 import type pg from 'pg';
 import type { ConversationRepository } from '../../application/ports/conversations.js';
+import type { RetentionStore } from '../../application/ports/retention.js';
 import type {
   FeedbackRepository,
   RunRepository,
@@ -8,6 +9,7 @@ import type {
 import type { UnitOfWork } from '../../application/ports/unit-of-work.js';
 import { poolDatabase, type Database } from './database.js';
 import { PgConversationRepository } from './pg-conversation-repository.js';
+import { PgRetentionStore } from './pg-retention-store.js';
 import { PgFeedbackRepository, PgRunRepository, PgSpendLedger } from './pg-run-repository.js';
 
 export interface Persistence {
@@ -15,6 +17,7 @@ export interface Persistence {
   readonly runs: RunRepository;
   readonly feedback: FeedbackRepository;
   readonly ledger: SpendLedger;
+  readonly retention: RetentionStore;
   readonly unitOfWork: UnitOfWork;
 }
 
@@ -35,6 +38,7 @@ export function createPgPersistence(pool: pg.Pool): Persistence {
     runs: new PgRunRepository(db),
     feedback: new PgFeedbackRepository(db),
     ledger: new PgSpendLedger(db),
+    retention: new PgRetentionStore(db),
     unitOfWork: createPgUnitOfWork(db),
   };
 }

@@ -216,6 +216,16 @@ export class PgConversationRepository implements ConversationRepository {
     );
     if (result.rowCount === 0) throw new NotFoundError('conversation', conversationId);
   }
+
+  async markActive(conversationId: string, at: Date): Promise<void> {
+    // Races with the retention purge resolve on the row lock: if the purge deleted the row first,
+    // no row is updated; if this update commits first, the purge re-checks the row and keeps it.
+    const result = await this.db.query(
+      `UPDATE conversations SET updated_at = GREATEST(updated_at, $2) WHERE id = $1`,
+      [conversationId, at],
+    );
+    if (result.rowCount === 0) throw new NotFoundError('conversation', conversationId);
+  }
 }
 
 function firstRow<Row>(rows: readonly Row[], statement: string): Row {

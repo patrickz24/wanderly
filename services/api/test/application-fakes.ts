@@ -23,6 +23,7 @@ import type {
 } from '../src/application/ports/runs.js';
 import type { IdGenerator } from '../src/application/ports/system.js';
 import type { UnitOfWork } from '../src/application/ports/unit-of-work.js';
+import { NotFoundError } from '../src/domain/errors.js';
 import type { LlmMessage } from '../src/domain/ports/llm.js';
 import type {
   Clock,
@@ -128,6 +129,13 @@ export class InMemoryStore {
         title: conversation.title ?? update.titleIfUnset,
         updatedAt: update.updatedAt,
       });
+    },
+    markActive: async (conversationId, at) => {
+      const conversation = this.conversations.get(conversationId);
+      if (conversation === undefined) throw new NotFoundError('conversation', conversationId);
+      if (at > conversation.updatedAt) {
+        this.conversations.set(conversationId, { ...conversation, updatedAt: at });
+      }
     },
   };
 

@@ -86,4 +86,11 @@ export interface ConversationRepository {
   appendMessages(conversationId: string, messages: readonly NewMessage[]): Promise<void>;
 
   updateAfterTurn(conversationId: string, update: ConversationUpdate): Promise<void>;
+
+  /**
+   * Moves `updatedAt` forward to `at` (never back) when a run starts, so the retention purge
+   * cannot delete the conversation while the run is in progress. Throws `NotFoundError` when the
+   * conversation no longer exists (purged since it was loaded).
+   */
+  markActive(conversationId: string, at: Date): Promise<void>;
 }

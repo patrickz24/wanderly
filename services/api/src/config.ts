@@ -44,6 +44,9 @@ export type TrustProxy = boolean | readonly string[];
 export const DEFAULT_CORS_ORIGINS = 'http://localhost:5173,http://localhost:8080';
 export const MIN_SESSION_SECRET_LENGTH = 32;
 export const MIN_CANARY_TOKEN_LENGTH = 16;
+/** What the UI announces; the session cookie lives as long. */
+export const DEFAULT_RETENTION_DAYS = 30;
+export const MAX_RETENTION_DAYS = 3650;
 
 export interface Config {
   readonly env: NodeEnv;
@@ -72,6 +75,8 @@ export interface Config {
     readonly canaryToken: Secret;
   };
   readonly budget: { readonly dailyUsd: number };
+  /** Conversations inactive for longer than this are deleted, with their messages and runs. */
+  readonly retention: { readonly days: number };
   /** Per-IP limit of the message route (each message starts a paid agent run). */
   readonly rateLimit: { readonly max: number; readonly windowMs: number };
   /** Looser per-IP limit of the other API routes. */
@@ -94,6 +99,14 @@ export class ConfigError extends Error {
 }
 
 const positiveInt = z.coerce.number().int().positive();
+
+/**
+ * Whole days, at least 1: the purge cutoff then always falls before the current UTC day, so the
+ * purge can never delete a run that the daily cost cap is summing.
+ */
+export const RetentionDaysSchema = positiveInt
+  .max(MAX_RETENTION_DAYS)
+  .default(DEFAULT_RETENTION_DAYS);
 
 function isPostgresUrl(value: string): boolean {
   if (!URL.canParse(value)) return false;
@@ -191,6 +204,7 @@ const EnvSchema = z
       )
       .optional(),
     DAILY_BUDGET_USD: z.coerce.number().nonnegative().max(1_000).default(2),
+    RETENTION_DAYS: RetentionDaysSchema,
     RATE_LIMIT_MAX: positiveInt.default(10),
     RATE_LIMIT_WINDOW_MS: positiveInt.default(600_000),
     API_RATE_LIMIT_MAX: positiveInt.default(120),
@@ -259,6 +273,7 @@ function toConfig(env: Env): Config {
       canaryToken: new Secret(env.AGENT_CANARY_TOKEN ?? deriveCanaryToken(env.SESSION_SECRET)),
     },
     budget: { dailyUsd: env.DAILY_BUDGET_USD },
+    retention: { days: env.RETENTION_DAYS },
     rateLimit: { max: env.RATE_LIMIT_MAX, windowMs: env.RATE_LIMIT_WINDOW_MS },
     apiRateLimit: { max: env.API_RATE_LIMIT_MAX, windowMs: env.API_RATE_LIMIT_WINDOW_MS },
     langfuse: {

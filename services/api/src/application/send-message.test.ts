@@ -357,6 +357,40 @@ describe('SendMessage — pre-flight checks', () => {
     expect(runAgent.calls).toEqual([]);
   });
 
+  it('marks the conversation active when a run starts, even if the run fails', async () => {
+    clock.set('2026-10-10T09:30:00.000Z');
+    const failing = scriptedRunAgent((input) =>
+      errorResult(input, new LlmTimeoutError(45_000), 'llm_timeout'),
+    );
+
+    await expect(sendMessage(failing).execute(command(), io())).rejects.toBeInstanceOf(
+      LlmTimeoutError,
+    );
+
+    expect(store.conversations.get(CONVERSATION_ID)?.updatedAt).toEqual(
+      new Date('2026-10-10T09:30:00.000Z'),
+    );
+  });
+
+  it('answers NotFound when the conversation was purged after it was loaded, before any LLM call', async () => {
+    const runAgent = scriptedRunAgent();
+    const conversations = {
+      ...store.conversationRepository,
+      markActive: async (id: string) => {
+        store.conversations.delete(id);
+        throw new NotFoundError('conversation', id);
+      },
+    };
+    const sink = io();
+
+    await expect(
+      sendMessage(runAgent, { conversations }).execute(command(), sink),
+    ).rejects.toBeInstanceOf(NotFoundError);
+    expect(runAgent.calls).toEqual([]);
+    expect(sink.events).toEqual([]);
+    expect(store.runs).toEqual([]);
+  });
+
   it(`refuses a turn beyond ${MAX_USER_TURNS} completed turns, before any LLM call`, async () => {
     const runAgent = scriptedRunAgent();
     const send = sendMessage(runAgent, { maxUserTurns: 2 });

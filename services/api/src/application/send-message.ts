@@ -115,6 +115,9 @@ export function createSendMessage(deps: SendMessageDeps): SendMessage {
       try {
         const startedAt = deps.clock.now();
         await assertTurnAllowed(deps, conversation.id, startedAt);
+        // Before any LLM call: the retention purge now keeps this conversation, so the run can
+        // always be recorded and its spend reaches the daily cap's ledger.
+        await deps.conversations.markActive(conversation.id, startedAt);
         return await runTurn(deps, conversation, command.text, io, startedAt);
       } finally {
         inFlight.delete(conversation.id);
