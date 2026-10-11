@@ -67,7 +67,24 @@ RUN --mount=type=cache,target=/root/.npm,sharing=locked \
     && mkdir -p services/api/node_modules packages/contracts/node_modules
 
 # ---------------------------------------------------------------------------------------------
-# runtime: compiled JS + production node_modules + SQL migrations, non-root
+# model: download the embedding model at build time, through the API's own embedder (same model,
+# dtype and file set as at runtime), so that the runtime never downloads anything
+# ---------------------------------------------------------------------------------------------
+FROM prod-deps AS model
+# Must match the API default (services/api/src/config.ts); the runtime stage reuses this value.
+ARG EMBEDDING_MODEL=Xenova/bge-small-en-v1.5
+COPY --from=build /app/packages/contracts/dist packages/contracts/dist
+COPY --from=build /app/services/api/dist services/api/dist
+WORKDIR /app/services/api
+RUN EMBEDDING_MODEL="${EMBEDDING_MODEL}" node --input-type=module -e " \
+      const { TransformersEmbedder } = await import('./dist/infrastructure/embeddings/transformers-embedder.js'); \
+      const embedder = new TransformersEmbedder({ model: process.env.EMBEDDING_MODEL, cacheDir: '/models', allowRemoteModels: true }); \
+      await embedder.load(); \
+      await embedder.close();" \
+    && du -ah /models
+
+# ---------------------------------------------------------------------------------------------
+# runtime: compiled JS + production node_modules + SQL migrations + model + corpus, non-root
 # ---------------------------------------------------------------------------------------------
 FROM node:22-bookworm-slim@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392 AS runtime
 
@@ -76,10 +93,15 @@ LABEL org.opencontainers.image.title="wanderly-api" \
       org.opencontainers.image.source="https://github.com/patrickz24/wanderly" \
       org.opencontainers.image.licenses="MIT"
 
+ARG EMBEDDING_MODEL=Xenova/bge-small-en-v1.5
+# HF_HUB_OFFLINE=1: the embedder loads the baked-in model from EMBEDDING_CACHE_DIR and never
+# downloads (works without network egress and on a read-only root filesystem).
 ENV NODE_ENV=production \
     HOST=0.0.0.0 \
     PORT=3000 \
-    EMBEDDING_CACHE_DIR=/app/.cache/models
+    EMBEDDING_MODEL=${EMBEDDING_MODEL} \
+    EMBEDDING_CACHE_DIR=/app/.cache/models \
+    HF_HUB_OFFLINE=1
 
 # 1. Debian security updates released after the base image was built (the image scan fails on
 #    fixable HIGH/CRITICAL; the layer is rebuilt whenever Dependabot refreshes the base digest).
@@ -94,8 +116,7 @@ RUN apt-get update \
 
 WORKDIR /app
 
-# Application files stay owned by root (read-only for the runtime user); only the model cache
-# directory is writable by `node`.
+# Everything is owned by root and read-only for the runtime user, the model cache included.
 COPY --from=prod-deps /app/node_modules ./node_modules
 COPY package.json ./
 COPY --from=prod-deps /app/packages/contracts/node_modules ./packages/contracts/node_modules
@@ -105,8 +126,9 @@ COPY --from=prod-deps /app/services/api/node_modules ./services/api/node_modules
 COPY services/api/package.json ./services/api/
 COPY --from=build /app/services/api/dist ./services/api/dist
 COPY services/api/migrations ./services/api/migrations
-
-RUN mkdir -p /app/.cache/models && chown node:node /app/.cache/models
+COPY --from=model /models ./.cache/models
+# Read by the ingestion CLI (`node dist/cli/ingest.js`, the compose `seed` service).
+COPY data/corpus ./data/corpus
 
 # Same working directory as `npm start` / `npm run migrate` in the workspace.
 WORKDIR /app/services/api

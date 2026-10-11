@@ -37,7 +37,12 @@ infra
 docker-compose*.yml
 Makefile
 
-# Data and evals: only the evals manifest is needed (npm workspaces + lockfile check)
-data
+# Evals: only the manifest is needed (npm workspaces + lockfile check)
 evals/*
 !evals/package.json
+
+# Data: only the corpus, which the API image ships for the ingestion CLI (with its ATTRIBUTION.md);
+# not the download cache, the climate inputs or the generation scripts. Last, so that it also
+# re-includes the corpus Markdown excluded by **/*.md above.
+data/*
+!data/corpus
