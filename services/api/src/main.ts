@@ -7,10 +7,12 @@ import {
   createListConversations,
 } from './application/conversations.js';
 import type { IdGenerator } from './application/ports/system.js';
+import { createPurgeExpiredConversations } from './application/purge-expired-conversations.js';
 import { createReadinessProbe } from './application/readiness.js';
 import { createSendMessage } from './application/send-message.js';
 import { createSubmitFeedback } from './application/submit-feedback.js';
 import { agentLimits, createAgentLlm } from './composition/agent-deps.js';
+import { startRetentionSchedule } from './composition/retention-schedule.js';
 import { ConfigError, loadConfig, type Config } from './config.js';
 import { runAgent } from './domain/agent/run-agent.js';
 import { NOOP_TRACER, SYSTEM_CLOCK, type Tracer } from './domain/ports/tracer.js';
@@ -129,6 +131,14 @@ async function main(): Promise<void> {
     .then(() => app.log.info({ model: embedder.model }, 'embedding model loaded'))
     .catch((error: unknown) => app.log.error({ err: error }, 'embedding model failed to load'));
 
+  const purgeExpiredConversations = createPurgeExpiredConversations({
+    store: persistence.retention,
+    clock: SYSTEM_CLOCK,
+    retentionDays: config.retention.days,
+  });
+  // In the background, from startup: a slow or failing purge never delays or breaks serving.
+  const retention = startRetentionSchedule({ purge: purgeExpiredConversations, log: app.log });
+
   let shuttingDown = false;
   const shutdown = async (reason: string, exitCode: number): Promise<void> => {
     if (shuttingDown) return;
@@ -142,9 +152,11 @@ async function main(): Promise<void> {
     let code = exitCode;
     try {
       // Stop accepting connections and drain in-flight requests (their runs are recorded),
-      // then send the buffered traces and scores, then release the database.
+      // then send the buffered traces and scores, let a running purge finish, then release the
+      // database.
       await app.close();
       await tracing?.shutdown();
+      await retention.stop();
       await pool.end();
       app.log.info('shutdown complete');
     } catch (error) {

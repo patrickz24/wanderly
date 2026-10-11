@@ -26,6 +26,7 @@
     "migrate": "npm run migrate -w @wanderly/api",
     "test:integration": "npm run test:integration -w @wanderly/api",
     "ingest": "npm run ingest -w @wanderly/api",
+    "purge": "npm run purge -w @wanderly/api --",
     "chat": "npm run chat -w @wanderly/api --",
     "eval:retrieval": "npm run eval:retrieval -w @wanderly/evals --",
     "eval": "npm run eval -w @wanderly/evals",
