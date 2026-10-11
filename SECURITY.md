@@ -113,10 +113,27 @@ real model is measured by the agent evaluation, whose first run is pending.
   brief), messages (raw provider blocks, including the model's opaque reasoning blocks), runs (the
   user's text, the validated response, its sources, the tool call log with inputs and summaries,
   tokens, cost, latency, quality flags) and feedback (rating and an optional comment).
-- **Retention: planned, not implemented.** Conversations are meant to be deleted after **30 days**
-  (deleting a conversation cascades to its messages, runs and feedback; the session cookie lasts 30
-  days). The purge job does not exist yet, and the UI banner already announces the 30 days, so the
-  job must ship before the public demo opens.
+- **Retention: 30 days, implemented.** A conversation with no activity for **30 days**
+  (`RETENTION_DAYS`, whole days, at least 1) is deleted with its messages, runs and feedback (a
+  cascade). Activity is a completed turn or the start of a run. The API runs the purge at startup
+  and every 24 hours (failures are logged and retried at the next tick), and `npm run purge`
+  (`node dist/cli/purge.js` in the image, `--dry-run` to count only) runs it on demand or from a
+  cron job. Each purge logs its cutoff and the number of rows deleted, never content. The session
+  cookie expires 30 days after it is issued and is not renewed, so a browser can lose access to a
+  conversation before the purge deletes it.
+- **Retention never touches the daily cost cap.** The cap sums the cost of today's (UTC) runs in
+  `agent_runs`, and runs are deleted with their conversation, so deleting one of today's runs would
+  give back budget. Three rules prevent it: the cutoff is at least one whole day back, so it always
+  falls before the start of the current UTC day; a conversation that has any run recorded after
+  the cutoff is kept, whatever its `updated_at` (a failed run does not move it); and a run marks its
+  conversation active before any model call, so a run in progress cannot lose its conversation to
+  the purge and then fail to record its spend (if the purge won the race, the request gets a `404`
+  before anything is spent). An integration test checks that today's spend is the same before and
+  after a purge.
+- **Copies outside the database** are not reached by the purge: Langfuse traces follow the
+  retention of the Langfuse project, provider-side data follows Anthropic's API terms, and database
+  backups or point-in-time history keep deleted rows for their own window
+  ([DEPLOYMENT.md](docs/DEPLOYMENT.md)).
 - **Third parties:** conversation content is sent to **Anthropic** to generate responses, under
   Anthropic's API terms. When Langfuse keys are configured, traces are sent to **Langfuse Cloud (EU
   region)**: they contain the user's text, the full request of each model call (the conversation

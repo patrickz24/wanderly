@@ -168,7 +168,8 @@ Pour chaque choix : pourquoi, l'alternative, et ce que ça coûte. Les ADR déta
   le budget du jour.
 - **Préfixe gelé** : changer le catalogue, le canary ou une description d'outil invalide le
   raisonnement stocké des conversations en cours.
-- **Pas encore de purge à 30 jours**, alors que l'UI l'annonce : à livrer avant la démo publique.
+- **La purge à 30 jours ne touche que Postgres** : les traces Langfuse, les données côté
+  Anthropic et l'historique de restauration de la base suivent leurs propres durées.
 - **Observabilité incomplète** : les signaux de garde-fous ne sont pas des scores de trace, les
   rangs de récupération ne sont pas dans les traces ([OBSERVABILITY.md](OBSERVABILITY.md#5-known-gaps)).
 - **Embedder** : plante nativement sous Windows (on passe par des conteneurs), et pèse plusieurs

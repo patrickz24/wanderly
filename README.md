@@ -44,7 +44,7 @@ far. Everything below that needs one of them is marked _pending_.
 | Judge calibration        | **Pending**: needs a human to label outputs from the first real run.                                                                                                                                                          |
 | Observability            | Langfuse adapter implemented and tested against an in-memory exporter; no-op without keys. **No real trace yet** (no Langfuse keys). See [OBSERVABILITY.md](docs/OBSERVABILITY.md).                                           |
 | Deployment and live demo | **Pending deployment**: Fly.io + Neon configuration, `make deploy` and a manual deploy workflow are ready ([DEPLOYMENT.md](docs/DEPLOYMENT.md)); the accounts do not exist yet.                                               |
-| Data retention           | **Pending**: the 30-day purge job is not written yet; it must exist before the public demo opens.                                                                                                                             |
+| Data retention           | Implemented: conversations inactive for 30 days are deleted with their messages, runs and feedback (at startup, daily, or `npm run purge`); see [SECURITY.md](SECURITY.md#data-handling-and-retention).                       |
 | Human review of datasets | **Pending**: the retrieval labels and the agent cases were proposed by the build agent and are marked as such.                                                                                                                |
 
 **Live demo:** pending deployment. **Demo GIF:** pending (recorded once the demo is live).
@@ -331,7 +331,6 @@ retries timeouts, so the run enforces its own deadline with an `AbortSignal`.
 - **Frozen prompt prefix.** Changing the destination catalog, the canary or a tool description
   invalidates the stored reasoning of ongoing conversations.
 - **Corpus coverage is uneven** and cost figures are sparse ([data/README.md](data/README.md#known-limitations)).
-- **No retention purge yet** (see [Status](#status)).
 
 ## Out of scope
 
@@ -349,7 +348,7 @@ Next, in order (the first three need an account or a human):
 1. First real agent evaluation with `--reps 3`, then the soft gates from its proposed thresholds,
    and the Haiku vs Sonnet comparison.
 2. Human review of both datasets and judge calibration (agreement and Cohen's kappa).
-3. Deployment to Fly.io + Neon with the retention purge, then online dashboards and the first
+3. Deployment to Fly.io + Neon, then online dashboards and the first
    trace-based diagnosis in [OBSERVABILITY.md](docs/OBSERVABILITY.md).
 4. Observability gaps: injection and canary signals as trace scores, retrieval ranks and the
    prompt version in the traces ([known gaps](docs/OBSERVABILITY.md#5-known-gaps)).
