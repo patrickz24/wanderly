@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars -- learning skeleton: the parameters are used once the TODOs are implemented; remove this line at the end. */
 /**
  * Deadlines for LLM calls, tool executions and the whole run.
  *
@@ -28,41 +29,21 @@ export function withDeadline<T>(
   timeoutMs: number,
   parent: AbortSignal,
 ): Promise<T> {
-  if (parent.aborted) return Promise.reject(toError(parent.reason));
-  const controller = new AbortController();
-  return new Promise<T>((resolve, reject) => {
-    // Declared before use at call time only: the timer and the listener exist by then.
-    const cleanup = () => {
-      clearTimeout(timer);
-      parent.removeEventListener('abort', onParentAbort);
-    };
-    const abort = (reason: Error) => {
-      cleanup();
-      controller.abort(reason);
-      reject(reason);
-    };
-    const onParentAbort = () => abort(toError(parent.reason));
-    const timer = setTimeout(() => abort(new DeadlineExceeded('call', timeoutMs)), timeoutMs);
-    parent.addEventListener('abort', onParentAbort, { once: true });
-    let promise: Promise<T>;
-    try {
-      promise = task(controller.signal);
-    } catch (error) {
-      cleanup();
-      reject(toError(error));
-      return;
-    }
-    promise.then(
-      (value) => {
-        cleanup();
-        resolve(value);
-      },
-      (error: unknown) => {
-        cleanup();
-        reject(toError(error));
-      },
-    );
-  });
+  // TODO(learning) — étape 2. Spec : deadline.test.ts, describe('withDeadline').
+  // 1. Parent déjà annulé : rejette tout de suite (avec `toError(parent.reason)`), sans lancer
+  //    la tâche.
+  // 2. Crée un AbortController pour la tâche, puis une Promise qui fait la COURSE entre trois
+  //    événements :
+  //    - la tâche se termine (succès ou échec) ;
+  //    - ton minuteur expire : annule le contrôleur et rejette avec `DeadlineExceeded('call', …)` ;
+  //    - le parent annule : annule le contrôleur et rejette avec la raison du parent.
+  // 3. Quel que soit le gagnant : arrête le minuteur et retire l'écouteur posé sur le parent
+  //    (sinon fuite mémoire : le signal du run vit tout le run).
+  // 4. Une tâche peut aussi lever une exception SYNCHRONE avant de rendre sa promesse : elle doit
+  //    devenir un rejet, pas une exception qui s'échappe de `withDeadline`.
+  // Point clé : on rend la main à l'heure MÊME SI la tâche ignore son signal. Le résultat tardif
+  // est simplement jeté (une promesse ne se résout qu'une fois).
+  throw new Error('TODO(learning): withDeadline (agent-loop, step 2)');
 }
 
 export interface RunDeadline {
@@ -73,21 +54,13 @@ export interface RunDeadline {
 
 /** Starts the run's deadline timer, linked to the caller's cancellation signal if any. */
 export function startRunDeadline(timeoutMs: number, cancel: AbortSignal | undefined): RunDeadline {
-  const controller = new AbortController();
-  const timer = setTimeout(
-    () => controller.abort(new DeadlineExceeded('run', timeoutMs)),
-    timeoutMs,
-  );
-  const onCancel = () => controller.abort(cancel?.reason);
-  if (cancel?.aborted === true) onCancel();
-  else cancel?.addEventListener('abort', onCancel, { once: true });
-  return {
-    signal: controller.signal,
-    dispose() {
-      clearTimeout(timer);
-      cancel?.removeEventListener('abort', onCancel);
-    },
-  };
+  // TODO(learning) — étape 2. Spec : deadline.test.ts, describe('startRunDeadline').
+  // 1. Un AbortController pour le run, annulé par un minuteur avec `DeadlineExceeded('run', …)`.
+  // 2. Relie-le à l'annulation de l'appelant (`cancel`, optionnel) : même raison d'annulation.
+  //    Attention au cas où `cancel` est DÉJÀ annulé : un écouteur 'abort' ne se déclencherait
+  //    jamais.
+  // 3. `dispose()` arrête le minuteur et retire l'écouteur : `runAgent` l'appelle dans un `finally`.
+  throw new Error('TODO(learning): startRunDeadline (agent-loop, step 2)');
 }
 
 function toError(reason: unknown): Error {

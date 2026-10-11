@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars, no-unused-private-class-members -- learning skeleton: the imports, parameters and private members are used once the TODOs are implemented; remove this line at the end. */
 import type { AgentResponse, ToolCallSummary } from '@wanderly/contracts';
 import {
   InvalidOutputError,
@@ -47,6 +48,24 @@ import type {
 } from './types.js';
 import { buildUserTurn } from './user-turn.js';
 
+/*
+ * SQUELETTE D'EXERCICE (branche learning/agent-loop). Guide : docs/learning/agent-loop.md sur main.
+ *
+ * Ce qui est fourni : les imports (tout ce que la version d'origine utilise), les constantes, les
+ * types internes, l'état du run (champs de `AgentRun`) et les petites méthodes de tenue de
+ * registre (`#append`, `#recordSignals`, `#emit`, `#throwIfCancelled`, `#finish`, `describe`,
+ * `truncate`). Ce qui est à écrire : chaque corps qui lève `TODO(learning)`.
+ *
+ * Ordre conseillé (les numéros d'étape sont ceux de LEARNING.md à la racine de la branche) :
+ * - étape 5, chemin heureux : `runAgent`, `execute`, `#callModel` (succès), `#executeTools`,
+ *   `#executeTool` (succès), `#judge`, `#deliver` (sans canary), `#succeed` ;
+ * - étape 6, outils en échec : `#executeTool` (échecs), `toolFailureMessage` ;
+ * - étape 7, réparation et rappel : `repairMessage`, `#fail`, branches de réparation de `execute` ;
+ * - étape 8, garde-fous et tour suivant : canary dans `#deliver`, signaux d'injection ;
+ * - étape 9, échecs du modèle : `#callModel` (échecs), `#refused`, troncature ;
+ * - étape 10, limites, append-only et annulation.
+ */
+
 /**
  * The agent loop (plan §5.2): call the model, run the tools it asks for, feed the results back,
  * until it calls a terminal tool whose output passes validation, or a limit stops the run.
@@ -66,12 +85,11 @@ import { buildUserTurn } from './user-turn.js';
  *   attaches the scores (from `validFirstTry`, `repairs`, `toolCalls`, `signals`) and ends it.
  */
 export async function runAgent(input: AgentRunInput, deps: AgentRunDeps): Promise<AgentRunResult> {
-  const deadline = startRunDeadline(deps.limits.runDeadlineMs, deps.signal);
-  try {
-    return await new AgentRun(input, deps, deadline.signal).execute();
-  } finally {
-    deadline.dispose();
-  }
+  // TODO(learning) — étape 5.
+  // 1. Démarre la deadline du run (`startRunDeadline`), reliée à `deps.signal` (annulation).
+  // 2. Exécute un `AgentRun` avec le signal de cette deadline.
+  // 3. Libère la deadline quoi qu'il arrive (succès, échec ou exception) : minuteur et écouteur.
+  throw new Error('TODO(learning): runAgent (agent-loop, step 5)');
 }
 
 /** Sent (as a user message) when the model replies in plain text instead of a terminal tool. */
@@ -127,182 +145,64 @@ class AgentRun {
   }
 
   async execute(): Promise<AgentRunResult> {
-    const { limits } = this.#deps;
-    const catalog = createCatalog(await this.#deps.knowledge.listDestinations());
-    const base = {
-      system: buildSystemPrompt(catalog, this.#deps.canaryToken),
-      tools: AGENT_TOOL_SPECS,
-      maxTokens: limits.maxOutputTokens,
-    };
-    const staticChars = base.system.length + JSON.stringify(base.tools).length;
-    this.#append(buildUserTurn(this.#input));
-    this.#recordSignals('user', this.#input.userText);
-
-    while (this.#steps < limits.maxSteps) {
-      this.#throwIfCancelled();
-      if (this.#runSignal.aborted) {
-        return this.#fail('run_deadline', new LlmTimeoutError(limits.runDeadlineMs));
-      }
-      const promptChars = staticChars + JSON.stringify(this.#messages).length;
-      const nextCallMax = maxCallCostUsd(promptChars, limits.maxOutputTokens, this.#deps.pricing);
-      if (this.#costUsd + nextCallMax > limits.maxRunCostUsd) {
-        return this.#fail(
-          'cost_ceiling',
-          new InvalidOutputError([
-            `Run cost ceiling reached: spent ${this.#costUsd.toFixed(6)} USD, the next call could cost up to ${nextCallMax.toFixed(6)} USD, ceiling ${limits.maxRunCostUsd} USD.`,
-          ]),
-        );
-      }
-
-      this.#steps += 1;
-      const outcome = await this.#callModel(this.#steps, {
-        ...base,
-        messages: [...this.#messages],
-      });
-      if (!outcome.ok) return outcome.result;
-      const { response } = outcome;
-
-      // Refused or truncated output is not appended: it never becomes part of the conversation.
-      if (response.stopReason === 'refusal') return this.#refused(catalog);
-      if (response.stopReason === 'max_tokens') {
-        return this.#fail(
-          'truncated',
-          new InvalidOutputError([
-            `The model output was cut at max_tokens (${limits.maxOutputTokens}) before it was complete.`,
-          ]),
-        );
-      }
-
-      const assistant = assistantMessage(response.content);
-      const calls = toolCallsOf(assistant);
-      if (calls.length === 0) {
-        if (assistant.content.some((block) => block.type === 'text')) this.#append(assistant);
-        if (this.#nudged) {
-          return this.#fail(
-            'invalid_output',
-            new InvalidOutputError([
-              'The model answered in plain text again after a reminder to call a terminal tool.',
-            ]),
-          );
-        }
-        this.#nudged = true;
-        this.#append(userMessage([textBlock(NUDGE_TEXT)]));
-        continue;
-      }
-
-      this.#append(assistant);
-      const terminalCalls = calls.filter((call) => isTerminalToolName(call.name));
-      const [terminal] = terminalCalls;
-      if (terminal === undefined) {
-        this.#append(userMessage(await this.#executeTools(this.#steps, calls, catalog, new Map())));
-        continue;
-      }
-
-      const verdict =
-        terminalCalls.length > 1
-          ? {
-              ok: false as const,
-              issues: [
-                `Call exactly one terminal tool per turn; this message called ${terminalCalls.length}.`,
-              ],
-            }
-          : this.#judge(terminal, catalog);
-      if (verdict.ok) return this.#deliver(verdict.response, terminal, catalog);
-      if (this.#repairs >= limits.maxRepairs) {
-        return this.#fail('invalid_output', new InvalidOutputError(verdict.issues));
-      }
-      this.#repairs += 1;
-      const overrides = new Map<string, ToolResultBlock>(
-        terminalCalls.map((call) => [
-          call.id,
-          toolResult(
-            call.id,
-            call === terminal
-              ? repairMessage(call.name, verdict.issues)
-              : 'Ignored: call exactly one terminal tool per turn.',
-            true,
-          ),
-        ]),
-      );
-      this.#append(userMessage(await this.#executeTools(this.#steps, calls, catalog, overrides)));
-    }
-
-    return this.#fail(
-      'step_limit',
-      new InvalidOutputError([
-        `Step limit reached: ${limits.maxSteps} model calls without a valid terminal tool call.`,
-      ]),
-    );
+    // TODO(learning) — étapes 5 à 10 : la boucle. Écris-la par petits morceaux, test par test.
+    // Avant la boucle :
+    // 1. Le catalogue (`createCatalog` sur `knowledge.listDestinations()`) et la partie fixe de
+    //    chaque requête : { system, tools, maxTokens } (`buildSystemPrompt` avec le canary,
+    //    `AGENT_TOOL_SPECS`, `limits.maxOutputTokens`). Mesure aussi sa taille en caractères :
+    //    elle servira au plafond de coût.
+    // 2. Ajoute le tour utilisateur (`buildUserTurn`) et relève les signaux d'injection du texte
+    //    de l'utilisateur.
+    // Puis, tant que `#steps < limits.maxSteps` :
+    // 3. Annulation par l'appelant ? (`#throwIfCancelled`). Deadline du run déjà passée ?
+    //    -> échec `run_deadline`.
+    // 4. Plafond de coût, AVANT l'appel : déjà dépensé + pire cas du prochain appel
+    //    (`maxCallCostUsd` sur la taille du prompt complet) > `limits.maxRunCostUsd` ?
+    //    -> échec `cost_ceiling`.
+    // 5. Compte le pas, appelle le modèle (`#callModel`) avec une COPIE des messages.
+    // 6. `refusal` -> `#refused`. `max_tokens` -> échec `truncated`. Dans les deux cas, la sortie
+    //    n'entre pas dans l'historique.
+    // 7. Aucun appel d'outil : c'est du texte libre (violation du contrat). Garde le message s'il
+    //    contient du texte (pas s'il est vide), envoie UN rappel (`NUDGE_TEXT`), et échoue en
+    //    `invalid_output` si ça recommence.
+    // 8. Seulement des outils de données : exécute-les (`#executeTools`) et renvoie TOUS les
+    //    résultats dans UN SEUL message utilisateur.
+    // 9. Au moins un appel terminal : exactement un est permis. Valide-le (`#judge`). Valide ->
+    //    `#deliver`. Invalide -> une réparation : chaque appel terminal reçoit un `tool_result` en
+    //    erreur (`repairMessage` pour celui qu'on a jugé), les autres appels sont exécutés
+    //    normalement, et on reboucle. Plus de réparation possible -> échec `invalid_output`.
+    // Après la boucle : échec `step_limit`.
+    throw new Error('TODO(learning): AgentRun.execute (agent-loop, steps 5 to 10)');
   }
 
   // --- Model calls ------------------------------------------------------------------------------
 
   async #callModel(step: number, request: LlmRequest): Promise<CallOutcome> {
-    const { llm, clock, trace, limits, pricing } = this.#deps;
-    const startedAt = clock.now();
-    const input = { messages: request.messages, tools: request.tools.map((tool) => tool.name) };
-    try {
-      const response = await withDeadline(
-        (signal) => llm.generate(request, { signal }),
-        limits.llmTimeoutMs,
-        this.#runSignal,
-      );
-      const cost = costUsd(response.usage, pricing);
-      this.#usage = addUsage(this.#usage, response.usage);
-      this.#costUsd += cost;
-      trace.llmCall({
-        step,
-        model: response.model,
-        startedAt,
-        endedAt: clock.now(),
-        usage: response.usage,
-        costUsd: cost,
-        stopReason: response.stopReason,
-        input,
-        output: response.content,
-        error: null,
-      });
-      return { ok: true, response };
-    } catch (error) {
-      trace.llmCall({
-        step,
-        model: llm.model,
-        startedAt,
-        endedAt: clock.now(),
-        usage: ZERO_USAGE,
-        costUsd: 0,
-        stopReason: null,
-        input,
-        output: null,
-        error: describe(error),
-      });
-      this.#throwIfCancelled();
-      if (error instanceof DeadlineExceeded) {
-        const reason = error.scope === 'run' ? 'run_deadline' : 'llm_timeout';
-        return {
-          ok: false,
-          result: this.#fail(reason, new LlmTimeoutError(error.timeoutMs, { cause: error })),
-        };
-      }
-      if (error instanceof LlmTimeoutError) {
-        return { ok: false, result: this.#fail('llm_timeout', error) };
-      }
-      if (error instanceof ProviderUnavailableError) {
-        return { ok: false, result: this.#fail('provider_unavailable', error) };
-      }
-      throw error;
-    }
+    // TODO(learning) — étape 5 (succès) et étape 9 (échecs).
+    // 1. Heure de début (`clock.now()`) et entrée de trace : les messages et les NOMS des outils,
+    //    jamais le prompt système (il contient le canary).
+    // 2. Appelle `llm.generate` à travers `withDeadline(…, limits.llmTimeoutMs, this.#runSignal)`
+    //    en passant le signal reçu au port.
+    // 3. Succès : coût de l'appel (`costUsd` avec `deps.pricing`), cumul de l'usage (`addUsage`) et
+    //    du coût, un enregistrement `trace.llmCall`, puis `{ ok: true, response }`.
+    // 4. Échec : un enregistrement `trace.llmCall` avec l'erreur (`describe`) et un usage nul, puis :
+    //    - annulation par l'appelant -> relance (`#throwIfCancelled`) ;
+    //    - `DeadlineExceeded` -> `run_deadline` ou `llm_timeout` selon `error.scope`, sous forme de
+    //      `LlmTimeoutError(error.timeoutMs, { cause })` ;
+    //    - `LlmTimeoutError` -> `llm_timeout` ; `ProviderUnavailableError` -> `provider_unavailable`
+    //      (garde l'erreur d'origine) ;
+    //    - toute autre erreur est un bug ou une requête rejetée : relance-la.
+    throw new Error('TODO(learning): AgentRun.#callModel (agent-loop, steps 5 and 9)');
   }
 
   // --- Terminal calls ---------------------------------------------------------------------------
 
   #judge(call: ToolCallBlock, catalog: DestinationCatalog): TerminalVerdict {
-    const tool = findTerminalTool(call.name);
-    if (tool === undefined) return { ok: false, issues: [`Unknown terminal tool "${call.name}".`] };
-    const parsed = tool.parse(call.input);
-    if (!parsed.ok) return parsed;
-    const issues = validateResponse(parsed.response, { evidence: this.#evidence, catalog });
-    return issues.length === 0 ? { ok: true, response: parsed.response } : { ok: false, issues };
+    // TODO(learning) — étape 5.
+    // 1. Retrouve l'outil terminal (`findTerminalTool`) ; inconnu -> une issue.
+    // 2. La FORME : `tool.parse(call.input)` (Zod). Échec -> ses issues.
+    // 3. Le FOND : `validateResponse` avec le registre de preuves de ce run et le catalogue.
+    throw new Error('TODO(learning): AgentRun.#judge (agent-loop, step 5)');
   }
 
   /**
@@ -315,37 +215,19 @@ class AgentRun {
     terminal: ToolCallBlock,
     catalog: DestinationCatalog,
   ): AgentRunResult {
-    if (containsCanary(response, this.#deps.canaryToken)) {
-      this.#canaryLeak = true;
-      this.#append(
-        userMessage([
-          toolResult(
-            terminal.id,
-            'Blocked by a safety check: this output revealed confidential instructions and was not shown to the user.',
-            true,
-          ),
-        ]),
-      );
-      return this.#succeed(
-        {
-          type: 'decline',
-          reason: 'unsafe',
-          message: CANARY_MESSAGE,
-          brief: this.#input.brief,
-        },
-        catalog,
-      );
-    }
-    return this.#succeed(response, catalog);
+    // TODO(learning) — étape 5 (sans canary) puis étape 8 (canary).
+    // 1. Si la réponse contient le canary (`containsCanary`) : lève le signal, ferme l'appel
+    //    terminal par un `tool_result` en erreur (explique au modèle pourquoi), et réussis avec un
+    //    `decline` de raison `unsafe` (`CANARY_MESSAGE`, brief d'entrée inchangé).
+    // 2. Sinon : réussis avec la réponse. L'appel terminal reste OUVERT (voir le docstring).
+    throw new Error('TODO(learning): AgentRun.#deliver (agent-loop, steps 5 and 8)');
   }
 
   /** The provider's safety classifiers declined: answer with a decline, keep the brief. */
   #refused(catalog: DestinationCatalog): AgentRunResult {
-    this.#providerRefusal = true;
-    return this.#succeed(
-      { type: 'decline', reason: 'unsafe', message: REFUSAL_MESSAGE, brief: this.#input.brief },
-      catalog,
-    );
+    // TODO(learning) — étape 9. Lève le signal `#providerRefusal` et réussis avec un `decline`
+    // `unsafe` (`REFUSAL_MESSAGE`, brief d'entrée inchangé). Un refus n'est pas une panne.
+    throw new Error('TODO(learning): AgentRun.#refused (agent-loop, step 9)');
   }
 
   // --- Tools ------------------------------------------------------------------------------------
@@ -356,19 +238,12 @@ class AgentRun {
     catalog: DestinationCatalog,
     overrides: ReadonlyMap<string, ToolResultBlock>,
   ): Promise<ToolResultBlock[]> {
-    const executions = await Promise.all(
-      calls.map(async (call): Promise<ToolExecution | ToolResultBlock> => {
-        const override = overrides.get(call.id);
-        return override ?? this.#executeTool(step, call, catalog);
-      }),
-    );
-    return executions.map((execution) => {
-      if ('summary' in execution) {
-        this.#toolCalls.push(execution.summary);
-        return execution.block;
-      }
-      return execution;
-    });
+    // TODO(learning) — étape 5.
+    // 1. Lance TOUS les appels en parallèle (`Promise.all`) : un appel présent dans `overrides`
+    //    (réparation) n'est pas exécuté, son résultat est déjà écrit.
+    // 2. Renvoie les blocs `tool_result` dans l'ORDRE DES APPELS, et ajoute le résumé de chaque
+    //    outil réellement exécuté à `#toolCalls`.
+    throw new Error('TODO(learning): AgentRun.#executeTools (agent-loop, step 5)');
   }
 
   async #executeTool(
@@ -376,74 +251,22 @@ class AgentRun {
     call: ToolCallBlock,
     catalog: DestinationCatalog,
   ): Promise<ToolExecution> {
-    const { clock, trace, limits } = this.#deps;
-    this.#emit({ type: 'tool.started', callId: call.id, name: call.name, input: call.input });
-    const startedAt = clock.now();
-    const evidence = new EvidenceRegistry();
-    let result: ToolResult;
-    let internalError: string | null = null;
-    const tool = findDataTool(call.name);
-    if (tool === undefined) {
-      result = {
-        ok: false,
-        error: isTerminalToolName(call.name)
-          ? 'Ignored: call exactly one terminal tool per turn.'
-          : `Unknown tool "${call.name}". Use only the tools you were given.`,
-      };
-    } else {
-      try {
-        result = await withDeadline(
-          () =>
-            tool.run(call.input, {
-              callId: call.id,
-              retriever: this.#deps.retriever,
-              knowledge: this.#deps.knowledge,
-              catalog,
-              evidence,
-            }),
-          limits.toolTimeoutMs,
-          this.#runSignal,
-        );
-      } catch (error) {
-        internalError = describe(error);
-        result = { ok: false, error: toolFailureMessage(call.name, error, limits.toolTimeoutMs) };
-      }
-    }
-    const endedAt = clock.now();
-    if (result.ok) {
-      // Only results the model actually receives become citable evidence.
-      this.#evidence.merge(evidence);
-      this.#recordSignals('tool', JSON.stringify(result.output));
-    }
-    trace.toolCall({
-      step,
-      callId: call.id,
-      name: call.name,
-      startedAt,
-      endedAt,
-      input: call.input,
-      // What the model received, or the tool's richer trace view of it (never sent to the model).
-      output: result.ok ? (result.traceOutput ?? result.output) : null,
-      ok: result.ok,
-      error: result.ok ? null : (internalError ?? result.error),
-    });
-    const summary: ToolCallSummary = {
-      callId: call.id,
-      name: call.name,
-      input: call.input,
-      ok: result.ok,
-      durationMs: Math.max(0, endedAt.getTime() - startedAt.getTime()),
-      summary: truncate(result.ok ? result.summary : result.error, MAX_SUMMARY_CHARS),
-    };
-    this.#emit({ type: 'tool.finished', call: summary });
-    return {
-      block: toolResult(
-        call.id,
-        result.ok ? JSON.stringify(result.output) : result.error,
-        !result.ok,
-      ),
-      summary,
-    };
+    // TODO(learning) — étape 5 (succès) et étape 6 (échecs).
+    // 1. Émets `tool.started`, note l'heure de début.
+    // 2. Outil de données inconnu (`findDataTool`) -> un échec : « un seul terminal par tour » si
+    //    c'est un nom d'outil terminal, sinon « outil inconnu » (le message doit nommer l'outil).
+    // 3. Sinon : `tool.run(call.input, { callId, retriever, knowledge, catalog, evidence })` à
+    //    travers `withDeadline(…, limits.toolTimeoutMs, this.#runSignal)`, avec un registre de
+    //    preuves NEUF pour cet appel. Exception -> garde le détail pour la trace, et donne au
+    //    modèle un message sans détail interne (`toolFailureMessage`).
+    // 4. Succès seulement : fusionne les preuves de l'appel dans celles du run (seul ce que le
+    //    modèle a reçu devient citable) et relève les signaux d'injection de la sortie de l'outil.
+    // 5. `trace.toolCall` : en sortie, la vue de trace de l'outil (`traceOutput`) s'il en a une,
+    //    sinon ce que le modèle a reçu (`output`). Puis le résumé `ToolCallSummary` (durée, résumé
+    //    tronqué à MAX_SUMMARY_CHARS), `tool.finished`, et le bloc `tool_result` : la sortie
+    //    `output` en JSON compact (jamais `traceOutput`, que le modèle n'a pas à payer en tokens),
+    //    ou l'erreur.
+    throw new Error('TODO(learning): AgentRun.#executeTool (agent-loop, steps 5 and 6)');
   }
 
   // --- Run bookkeeping --------------------------------------------------------------------------
@@ -472,33 +295,20 @@ class AgentRun {
   }
 
   #succeed(response: AgentResponse, catalog: DestinationCatalog): AgentRunResult {
-    const common = this.#finish();
-    return {
-      ...common,
-      status: 'ok',
-      response,
-      sources: resolveSources(response, this.#evidence, catalog),
-      validFirstTry: this.#repairs === 0,
-    };
+    // TODO(learning) — étape 5. Le résultat commun (`#finish`), plus : statut `ok`, la réponse,
+    // ses sources résolues pour l'affichage (`resolveSources`), et `validFirstTry` (aucune
+    // réparation utilisée).
+    throw new Error('TODO(learning): AgentRun.#succeed (agent-loop, step 5)');
   }
 
   /** Failure. Calls left open by the last assistant message are closed so the history stays valid. */
   #fail(reason: AgentFailureReason, error: KnownDomainError): AgentRunResult {
-    const open = pendingToolCalls(this.#messages);
-    if (open.length > 0) {
-      this.#append(
-        userMessage(
-          open.map((call) =>
-            toolResult(
-              call.id,
-              `Not delivered: the run stopped (${reason}) and the user saw an error message instead.`,
-              true,
-            ),
-          ),
-        ),
-      );
-    }
-    return { ...this.#finish(), status: 'error', error, reason };
+    // TODO(learning) — étape 7.
+    // 1. Si le dernier message est un message assistant avec des appels d'outils
+    //    (`pendingToolCalls`), ferme-les TOUS dans un message utilisateur : un `tool_result` en
+    //    erreur par appel, qui dit que rien n'a été livré et pourquoi (`reason`).
+    // 2. Le résultat commun (`#finish`), plus : statut `error`, l'erreur et la raison.
+    throw new Error('TODO(learning): AgentRun.#fail (agent-loop, step 7)');
   }
 
   #finish() {
@@ -521,20 +331,20 @@ class AgentRun {
 }
 
 export function repairMessage(toolName: string, issues: readonly string[]): string {
-  return [
-    `Your ${toolName} call was rejected and NOT shown to the user. Fix every issue below, then call a terminal tool again:`,
-    ...issues.map((issue) => `- ${issue}`),
-  ].join('\n');
+  // TODO(learning) — étape 7. Un message pour le MODÈLE : son appel a été rejeté et n'a PAS été
+  // montré à l'utilisateur (le test cherche « NOT shown to the user »), puis une issue par ligne,
+  // et la consigne de rappeler un outil terminal une fois tout corrigé.
+  throw new Error('TODO(learning): repairMessage (agent-loop, step 7)');
 }
 
 function toolFailureMessage(name: string, error: unknown, toolTimeoutMs: number): string {
-  if (error instanceof DeadlineExceeded) {
-    return error.scope === 'call'
-      ? `${name} timed out after ${toolTimeoutMs} ms. Retry once, or continue without it.`
-      : `${name} was stopped: the turn ran out of time.`;
-  }
-  // Internal details go to the trace, not to the model (it could repeat them to the user).
-  return `${name} failed with an internal error. Retry once, or continue without it and say what is missing.`;
+  // TODO(learning) — étape 6.
+  // - `DeadlineExceeded` de portée 'call' : l'outil a dépassé SON délai (« timed out after
+  //   <n> ms ») ; le modèle peut réessayer une fois ou continuer sans.
+  // - `DeadlineExceeded` de portée 'run' : c'est le tour entier qui n'a plus de temps.
+  // - Toute autre erreur : « internal error », SANS le message d'origine (il peut contenir une
+  //   adresse, une requête SQL… que le modèle répéterait à l'utilisateur). Le détail va à la trace.
+  throw new Error('TODO(learning): toolFailureMessage (agent-loop, step 6)');
 }
 
 function describe(error: unknown): string {

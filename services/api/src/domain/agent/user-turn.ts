@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars -- learning skeleton: the imports and parameters are used once the TODOs are implemented; remove this line at the end. */
 import type { TripBrief } from '@wanderly/contracts';
 import type { LlmMessage, ToolCallBlock, ToolResultBlock } from '../ports/llm.js';
 import { isTerminalToolName } from '../tools/terminal-tools.js';
@@ -27,41 +28,37 @@ export const DELIVERED_RESULT = 'Delivered to the user.';
 export const NOT_EXECUTED_RESULT = 'Not executed: the turn ended before this call ran.';
 
 export function buildUserTurn(input: UserTurnInput): LlmMessage {
-  return userMessage([
-    ...answerOpenCalls(pendingToolCalls(input.history)),
-    textBlock(contextBlock(input.today, input.brief)),
-    textBlock(input.userText),
-  ]);
+  // TODO(learning) — étape 1. Spec : user-turn.test.ts, describe('buildUserTurn').
+  // 1. Retrouve les appels d'outils restés ouverts à la fin de l'historique (`pendingToolCalls`).
+  // 2. Réponds à chacun par un `tool_result` (`answerOpenCalls`, plus bas).
+  // 3. Ajoute le bloc de contexte de l'application (`contextBlock`), puis le texte de
+  //    l'utilisateur dans SON PROPRE bloc texte : jamais de mélange application / utilisateur.
+  // 4. Construis le message avec `userMessage` : il gèle le message (historique append-only).
+  // L'ordre n'est pas libre : l'API exige les `tool_result` en tête du message utilisateur.
+  throw new Error('TODO(learning): buildUserTurn (agent-loop, step 1)');
 }
 
 function answerOpenCalls(calls: readonly ToolCallBlock[]): ToolResultBlock[] {
-  return calls.map((call) =>
-    isTerminalToolName(call.name)
-      ? toolResult(call.id, DELIVERED_RESULT, false)
-      : toolResult(call.id, NOT_EXECUTED_RESULT, true),
-  );
+  // TODO(learning) — étape 1.
+  // Un appel terminal resté ouvert a été livré à l'utilisateur : DELIVERED_RESULT, sans erreur.
+  // Un appel d'outil de données resté ouvert n'a jamais tourné : NOT_EXECUTED_RESULT, en erreur.
+  // Outils utiles : `isTerminalToolName`, `toolResult`.
+  throw new Error('TODO(learning): answerOpenCalls (agent-loop, step 1)');
 }
 
 export function contextBlock(today: string, brief: TripBrief): string {
-  return [
-    '<context>',
-    'Written by the Wanderly application, not by the user.',
-    `Today's date: ${today}`,
-    `Trip brief so far: ${serializeBrief(brief)}`,
-    '</context>',
-  ].join('\n');
+  // TODO(learning) — étape 1. Spec : describe('contextBlock').
+  // Cinq lignes, dans l'ordre exact du test : balise ouvrante, une phrase qui dit que
+  // l'application (et pas l'utilisateur) a écrit ce bloc, la date du jour, le brief sérialisé
+  // (`serializeBrief`), balise fermante.
+  throw new Error('TODO(learning): contextBlock (agent-loop, step 1)');
 }
 
 /** Fixed key order: the stored turn is replayed verbatim, and the text should not depend on how the brief was loaded. */
 export function serializeBrief(brief: TripBrief): string {
-  return JSON.stringify({
-    destinationId: brief.destinationId,
-    month: brief.month,
-    startDate: brief.startDate,
-    durationDays: brief.durationDays,
-    travelers: brief.travelers,
-    budgetLevel: brief.budgetLevel,
-    interests: brief.interests,
-    constraints: brief.constraints,
-  });
+  // TODO(learning) — étape 1. Spec : describe('serializeBrief').
+  // `JSON.stringify(brief)` ne suffit pas : l'ordre des clés dépend de la façon dont l'objet a été
+  // construit (lu en base, reçu du modèle…). Or ce texte est rejoué octet par octet aux tours
+  // suivants (cache de prompt, blocs de raisonnement signés). Fixe l'ordre des huit champs.
+  throw new Error('TODO(learning): serializeBrief (agent-loop, step 1)');
 }

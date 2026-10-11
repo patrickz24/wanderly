@@ -77,20 +77,24 @@ export function defineDataTool<Schema extends z.ZodType>(
   });
   return Object.freeze({
     spec,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- learning skeleton: remove this line with the TODO.
     async run(rawInput: unknown, context: ToolContext): Promise<ToolResult> {
-      const parsed = definition.input.safeParse(rawInput);
-      if (!parsed.success) {
-        return { ok: false, error: `Invalid arguments: ${formatIssues(parsed.error.issues)}` };
-      }
-      try {
-        const { output, summary, traceOutput } = await definition.execute(parsed.data, context);
-        return traceOutput === undefined
-          ? { ok: true, output, summary }
-          : { ok: true, output, summary, traceOutput };
-      } catch (error) {
-        if (error instanceof ToolInputError) return { ok: false, error: error.message };
-        throw error;
-      }
+      // TODO(learning) — étape 3. Spec : data-tools.test.ts (tous les appels à `.run`) et, plus
+      // tard, le test « answers unknown tools, invalid arguments… » de run-agent.test.ts.
+      // Les arguments viennent du MODÈLE : c'est une entrée non fiable, même avec `strict: true`
+      // (le mode strict ne vérifie ni les bornes, ni les longueurs).
+      // 1. Valide `rawInput` avec `definition.input.safeParse`. En cas d'échec, renvoie un échec
+      //    `{ ok: false, error }` dont le message commence par "Invalid arguments: " suivi des
+      //    issues formatées (`formatIssues`) : le modèle doit pouvoir se corriger.
+      // 2. Exécute `definition.execute(parsed.data, context)` et renvoie
+      //    `{ ok: true, output, summary }`, plus `traceOutput` SEULEMENT si l'outil en fournit un
+      //    (la vue enrichie pour la trace, jamais envoyée au modèle). Un test vérifie que la clé
+      //    est absente, et pas seulement `undefined`, pour les autres outils.
+      // 3. Une `ToolInputError` (arguments bien formés mais inutilisables, ex. destination
+      //    inconnue) devient aussi un échec `{ ok: false, error: message }`.
+      // 4. Toute autre exception (panne de base, bug) n'est PAS rattrapée ici : elle remonte à la
+      //    boucle, qui la trace et envoie au modèle un message générique (pas de détails internes).
+      throw new Error('TODO(learning): DataTool.run (agent-loop, step 3)');
     },
   });
 }
