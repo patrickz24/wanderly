@@ -203,11 +203,21 @@ of their own), the results are a development signal with the biases of their aut
 
 ### How a case runs
 
-`evals/runner/agent-harness.ts` runs each (case, rep) through `runAgent`, the entry point of the
-`SendMessage` use case, with the model adapter and limits built by the same factories as the API
-(`services/api/src/composition/agent-deps.ts`) and the production `PgRetriever` and
-`PgKnowledgeRepository`. Multi-turn cases keep one conversation: the history and the brief carry
-over as the API stores them. "Today" is fixed by the dataset so date reasoning does not drift.
+`evals/runner/agent-harness.ts` runs each (case, rep) through `runAgent`, the domain agent loop
+that the API's `SendMessage` use case wraps, with the model adapter and limits built by the same
+factories as the API (`services/api/src/composition/agent-deps.ts`) and the production
+`PgRetriever` and `PgKnowledgeRepository`. Multi-turn cases keep one conversation: the history
+and the brief carry over as the API stores them, but in memory. "Today" is fixed by the dataset so
+date reasoning does not drift.
+
+What this covers and what it does not:
+
+- **Covered:** the production system prompt, tools, guardrails (validation, grounding, the
+  repair, the canary), model adapter and limits, and the production retriever.
+- **Not covered:** what `SendMessage` adds around the loop: persistence (the append-only history
+  reloaded from Postgres, the recorded run), sessions, the turn cap, the daily cost cap, the
+  one-run-per-conversation guard, rate limits and the SSE stream. The API's unit tests and its
+  integration tests over a real Postgres (`services/api/test/integration/`) cover those.
 
 - **Isolation:** a fresh model adapter, canary and trace per attempt; tools are read-only.
 - **Wall clock:** a hard per-case ceiling (`--timeout-s`, default 300 s) that aborts the run.
@@ -224,6 +234,11 @@ over as the API stores them. "Today" is fixed by the dataset so date reasoning d
 - **Budget:** `--max-usd` caps the whole run; no case starts if its worst case (the per-run
   ceiling × its turns, for every case in flight) could cross the cap, and the report says when a
   run stopped early.
+- **Langfuse:** when `LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY` are set, every turn is also
+  traced like an API run, in the `eval` environment, with the tags `eval`, `case:<id>`,
+  `category:<category>` and `run:<results folder>`, one session per (case, rep), the prompt
+  version and the online scores ([OBSERVABILITY.md](OBSERVABILITY.md#evaluation-runs)). Without
+  the keys nothing is sent.
 - **Outputs:** `evals/results/<timestamp>-<mode>/` (not versioned) holds `results.jsonl`,
   `errors.jsonl`, one trace per (case, rep) with every message, tool call and result, the per-call
   tokens, cost, timing and served model, and the judge's verdicts, plus `summary.json` and

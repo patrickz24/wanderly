@@ -60,7 +60,8 @@ Guardrails in layers, each with tests (plan §7):
 
 - Add an input classifier only if the evaluation's injection cases show that layers 1 to 5 are
   not enough: a data-driven decision.
-- Report injection and canary signals as trace scores in the use case.
+- Done (2026-10-11): the use case reports the injection, canary and refusal signals as trace
+  scores (`injection_signals`, `canary_leak`, `provider_refusal`).
 
 ## Alternatives considered
 

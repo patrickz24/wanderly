@@ -324,7 +324,7 @@ retries timeouts, so the run enforces its own deadline with an `AbortSignal`.
   agent and pending human review. Only large differences are visible.
 - **The judge is uncalibrated** and belongs to the same model family as the agent.
 - **Injection heuristics are signals, not a barrier**, and the canary only detects verbatim leaks.
-  Signals are logged; they are not yet attached to traces as scores.
+  Signals are logged and scored on traces; they block nothing.
 - **Single instance.** The rate limiter and the one-run-per-conversation guard live in memory.
 - **The daily cap protects spending, not availability**: anyone can use up the demo's budget for
   the day, and concurrent runs can overshoot the cap by at most one per-run ceiling each.
@@ -350,8 +350,6 @@ Next, in order (the first three need an account or a human):
 2. Human review of both datasets and judge calibration (agreement and Cohen's kappa).
 3. Deployment to Fly.io + Neon, then online dashboards and the first
    trace-based diagnosis in [OBSERVABILITY.md](docs/OBSERVABILITY.md).
-4. Observability gaps: injection and canary signals as trace scores, retrieval ranks and the
-   prompt version in the traces ([known gaps](docs/OBSERVABILITY.md#5-known-gaps)).
 
 Candidates after that, not commitments: cross-conversation memory of preferences, a cross-encoder
 re-ranker, native BM25 (`pg_search`), an injection classifier if the evaluation shows the current

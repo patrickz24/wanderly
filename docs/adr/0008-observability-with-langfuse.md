@@ -20,13 +20,19 @@ the fact and with explicit timings. A Langfuse adapter
 
 - one **trace** per agent run: a root observation of type `agent`, named `agent-run`, with the
   user text as input and the response as output; `sessionId` = conversation id, so Langfuse
-  shows the cost per conversation; tags (`api`, the environment, or `eval` …);
+  shows the cost per conversation; tags (`api` and the environment for the API; `eval`,
+  `case:<id>`, `category:<category>` and `run:<results folder>` for the agent evaluation, which
+  traces in the `eval` environment when keys are set); the prompt version as Langfuse's
+  `version` (a hash of the system prompt template, the tool specs and the model id, also stored
+  in `agent_runs.prompt_version`);
 - one **generation** per LLM call, with the model, token usage (input, output, cache reads and
   writes) and **the cost we computed** from our own price table (`src/domain/pricing.ts`), the
   same number the daily budget cap uses;
 - one **tool** observation per tool call, at `ERROR` level when it failed;
-- numeric **scores**: `schema_valid_first_try`, `citations_ok`, `tool_errors` (online checks
-  of every run) and `user_feedback` (+1/-1, from the UI, attached to a past trace).
+- numeric **scores**: `schema_valid_first_try`, `citations_ok`, `tool_errors`, `repairs`,
+  and the guardrail signals `canary_leak`, `provider_refusal` and `injection_signals` (online
+  checks of every run, by the API and the evaluation alike) and `user_feedback` (+1/-1, from the
+  UI, attached to a past trace).
 
 Trace attributes (name, session, tags) are set on every observation, not only the root, because
 Langfuse aggregates by session only over observations that carry them. Observations are created

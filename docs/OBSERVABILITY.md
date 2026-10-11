@@ -53,15 +53,24 @@ The domain reports what happened through a port (`services/api/src/domain/ports/
 
 ### The mapping
 
-| Langfuse object                              | Created by                         | Contents                                                                                                                                                                                                                                                                                                                                                                                         |
-| -------------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Trace** `agent-run` (root of type `agent`) | `SendMessage`, one per run         | Input: the user's text. Output: the validated response (null for a failed run). Metadata: run id, model, status, response type, error code, steps, cost, token usage. **`sessionId` = conversation id**; tags `api` and the environment (`NODE_ENV`). `ERROR` level when the run failed.                                                                                                         |
-| **Generation** `llm-call-<step>`             | `runAgent`, one per model call     | The served model; input = the conversation so far and the tool names (not the system prompt, which holds the canary); output = the content blocks; usage (`input`, `output`, `cache_read_input_tokens`, `cache_creation_input_tokens`); **`costDetails.total` = the cost we computed**; step and stop reason. `ERROR` level with the error (timeout, provider unavailable) when the call failed. |
-| **Tool** `<tool name>`                       | `runAgent`, one per data tool call | Input: the arguments the model wrote. Output: exactly what the model received (null on failure). Call id and step. `ERROR` level with the error; when the tool threw, the **internal** message, which the model never sees.                                                                                                                                                                      |
-| **Score** `schema_valid_first_try`           | `SendMessage`, at the end of a run | 1 when the first terminal call passed validation, 0 when a repair was needed or the run failed with `INVALID_OUTPUT`; absent for other failures.                                                                                                                                                                                                                                                 |
-| **Score** `citations_ok`                     | `SendMessage`, successful runs     | 1 when every cited reference resolves to a displayed source. Trivially 1 for clarifications and declines, which cite nothing.                                                                                                                                                                                                                                                                    |
-| **Score** `tool_errors`                      | `SendMessage`, every run           | Number of failed data tool calls.                                                                                                                                                                                                                                                                                                                                                                |
-| **Score** `user_feedback`                    | `SubmitFeedback`, later            | +1 or −1 from the thumbs in the UI, with the optional comment, attached to the past trace through `agent_runs.trace_id`. The `feedback` table stays the source of truth.                                                                                                                                                                                                                         |
+| Langfuse object                              | Created by                               | Contents                                                                                                                                                                                                                                                                                                                                                                                                        |
+| -------------------------------------------- | ---------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Trace** `agent-run` (root of type `agent`) | `SendMessage`, one per run               | Input: the user's text. Output: the validated response (null for a failed run). Metadata: run id, model, **prompt version**, status, response type, error code, steps, cost, token usage. **`sessionId` = conversation id**; tags `api` and the environment (`NODE_ENV`); **`version` = the prompt version**, on every observation. `ERROR` level when the run failed.                                          |
+| **Generation** `llm-call-<step>`             | `runAgent`, one per model call           | The served model; input = the conversation so far and the tool names (not the system prompt, which holds the canary); output = the content blocks; usage (`input`, `output`, `cache_read_input_tokens`, `cache_creation_input_tokens`); **`costDetails.total` = the cost we computed**; step and stop reason. `ERROR` level with the error (timeout, provider unavailable) when the call failed.                |
+| **Tool** `<tool name>`                       | `runAgent`, one per data tool call       | Input: the arguments the model wrote. Output: what the model received (null on failure); for `search_knowledge`, each excerpt also carries its fused RRF `score` and its 1-based `ranks.vector` and `ranks.fullText` (null when absent from a list), which the model never receives. Call id and step. `ERROR` level with the error; when the tool threw, the **internal** message, which the model never sees. |
+| **Score** `schema_valid_first_try`           | `SendMessage`, at the end of a run       | 1 when the first terminal call passed validation, 0 when a repair was needed or the run failed with `INVALID_OUTPUT`; absent for other failures.                                                                                                                                                                                                                                                                |
+| **Score** `citations_ok`                     | `SendMessage`, successful runs           | 1 when every cited reference resolves to a displayed source. Trivially 1 for clarifications and declines, which cite nothing.                                                                                                                                                                                                                                                                                   |
+| **Score** `tool_errors`                      | `SendMessage`, every run                 | Number of failed data tool calls.                                                                                                                                                                                                                                                                                                                                                                               |
+| **Score** `repairs`                          | `SendMessage`, runs the runtime returned | Repair rounds used after invalid terminal calls.                                                                                                                                                                                                                                                                                                                                                                |
+| **Score** `canary_leak`                      | `SendMessage`, runs the runtime returned | 1 when the canary appeared in a terminal output, which was then replaced by a decline. The offline metric of the same name also looks at outputs that never passed validation ([EVALUATIONS.md](EVALUATIONS.md)).                                                                                                                                                                                               |
+| **Score** `provider_refusal`                 | `SendMessage`, runs the runtime returned | 1 when the provider's safety classifiers refused and a decline was returned instead.                                                                                                                                                                                                                                                                                                                            |
+| **Score** `injection_signals`                | `SendMessage`, runs the runtime returned | Number of distinct injection heuristics that matched the user text or a tool output; their names (`user:…`, `tool:…`) are in the score comment.                                                                                                                                                                                                                                                                 |
+| **Score** `user_feedback`                    | `SubmitFeedback`, later                  | +1 or −1 from the thumbs in the UI, with the optional comment, attached to the past trace through `agent_runs.trace_id`. The `feedback` table stays the source of truth.                                                                                                                                                                                                                                        |
+
+"Runs the runtime returned" excludes crashes: a run whose runtime threw has no repairs or guardrail
+signals to report, so those scores are left out rather than set to 0. The evaluation closes its
+traces with the same function (`application/run-trace.ts`), so each score means the same thing in
+production and in evaluation traces.
 
 Why these choices:
 
@@ -73,7 +82,15 @@ Why these choices:
 - **Trace attributes on every observation**, not only the root: Langfuse aggregates by session
   only over observations that carry them.
 - **The tool output as the model saw it.** Diagnosing a bad answer starts from what the model was
-  given, not from what the database holds.
+  given, not from what the database holds. Retrieval diagnostics (scores and ranks) are added to
+  the trace only, so they cost no prompt tokens.
+- **A computed prompt version.** `agent-v1-<12 hex>`: the hand-bumped label of
+  `system-prompt.ts` plus a SHA-256 prefix of the system prompt template, every tool spec (names,
+  descriptions, the strict schemas generated from the contracts) and the model id
+  (`domain/agent/prompt-version.ts`). It changes even when nobody bumps the label. The template is
+  rendered with a fixed catalog and a placeholder canary, so the version identifies the code, not
+  the ingested corpus, and reveals nothing about the canary. The API computes it once at startup
+  and logs it (`agent prompt version`); `agent_runs.prompt_version` stores it with every run.
 
 Privacy: each generation carries the conversation so far, so traces hold the user's messages, tool
 results and responses (see [SECURITY.md](../SECURITY.md#data-handling-and-retention)). The
@@ -87,10 +104,11 @@ results and responses (see [SECURITY.md](../SECURITY.md#data-handling-and-retent
 | `traceId`   | `agent_runs.trace_id`, the `run.finished` SSE event, the `agent run completed` log line. Null when tracing is off.         |
 | `requestId` | `X-Request-Id` response header, the error envelope, every API log line of the request, nginx (`$request_id`).              |
 
-### Signals that are logged, not traced
+### Guardrail signals: logged and scored
 
 The guardrails report what they saw in the run result (`signals`); the use case logs them with the
-run id, and the trace does not carry them yet (see [Known gaps](#5-known-gaps)):
+run id and scores them on the trace (`canary_leak`, `provider_refusal`, `injection_signals`).
+`agent_runs` does not store them, so without Langfuse keys the logs are their only record:
 
 - `prompt injection signals` (warn), with names such as `user:ignore_instructions` or
   `tool:fake_system_tag`: heuristics on the user's text and on every tool output.
@@ -98,25 +116,42 @@ run id, and the trace does not carry them yet (see [Known gaps](#5-known-gaps)):
   `decline` (`unsafe`).
 - `the provider refused to answer` (warn): a `refusal` stop reason, answered with a `decline`.
 
-### Offline evaluation runs
+### Evaluation runs
 
-The agent evaluation does not send traces to Langfuse. It records its own trajectories (every
-message, tool call and result, per-call tokens, cost, timing and served model) in
-`evals/results/<run>/traces/`, next to the scored rows ([EVALUATIONS.md](EVALUATIONS.md)).
+The agent evaluation always records its own trajectories (every message, tool call and result,
+per-call tokens, cost, timing and served model) in `evals/results/<run>/traces/`, next to the
+scored rows ([EVALUATIONS.md](EVALUATIONS.md)).
+
+When `LANGFUSE_PUBLIC_KEY` and `LANGFUSE_SECRET_KEY` are set (same rules as the API), it also
+traces every turn of every case through the same adapter, so an evaluation case can be compared
+with a production trace:
+
+| Field       | Value                                                                                 |
+| ----------- | ------------------------------------------------------------------------------------- |
+| Environment | `eval`, kept apart from the API's `NODE_ENV` environments                             |
+| Tags        | `eval`, `case:<id>`, `category:<category>`, `run:<results folder name>`               |
+| Session     | `eval:<results folder>:<case id>:rep<k>`: the turns of one evaluated conversation     |
+| Run id      | `<case id>-rep<k>-attempt<n>-turn<t>` in the metadata (a retried attempt has its own) |
+| Version     | the prompt version of the evaluated model                                             |
+| Scores      | the online scores above; the offline metrics stay in `results.jsonl` and the report   |
+
+Without the keys nothing is sent, which is the case in CI. `summary.json` records the run tag.
 
 ## 2. Metrics and where to see them
 
-| Metric                      | Definition                                                                | Langfuse (pending keys)                                 | `agent_runs` |
-| --------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------- | ------------ |
-| Cost per conversation       | Sum of run costs per conversation                                         | Sessions, sorted by cost                                | Query A      |
-| Daily spend against the cap | Sum of `cost_usd` per UTC day, the figure the cap checks                  | Cost over time                                          | Query B      |
-| Tool failure rate           | Failed calls / calls, per tool, and tool latency                          | Tool observations at `ERROR` level, score `tool_errors` | Query C      |
-| Latency distribution        | Run latency p50 / p95, steps per run; per model call in Langfuse          | Generation latency by model, trace latency              | Query D      |
-| Repair rate                 | Runs that needed a repair; first-try validity; `INVALID_OUTPUT` by reason | Score `schema_valid_first_try`                          | Query E      |
-| Decline rate                | Share of responses that are declines, by reason                           | Trace metadata `responseType`                           | Query F      |
-| Failures                    | Error code and finer failure reason, with their cost                      | Traces at `ERROR` level                                 | Query G      |
-| Cache efficiency            | Share of prompt tokens read from the cache                                | Generation usage details                                | Query H      |
-| User feedback               | Ratings per response type; negative ratings with their trace              | Score `user_feedback`                                   | Query I      |
+| Metric                      | Definition                                                                | Langfuse (pending keys)                                       | `agent_runs` |
+| --------------------------- | ------------------------------------------------------------------------- | ------------------------------------------------------------- | ------------ |
+| Cost per conversation       | Sum of run costs per conversation                                         | Sessions, sorted by cost                                      | Query A      |
+| Daily spend against the cap | Sum of `cost_usd` per UTC day, the figure the cap checks                  | Cost over time                                                | Query B      |
+| Tool failure rate           | Failed calls / calls, per tool, and tool latency                          | Tool observations at `ERROR` level, score `tool_errors`       | Query C      |
+| Latency distribution        | Run latency p50 / p95, steps per run; per model call in Langfuse          | Generation latency by model, trace latency                    | Query D      |
+| Repair rate                 | Runs that needed a repair; first-try validity; `INVALID_OUTPUT` by reason | Scores `schema_valid_first_try` and `repairs`                 | Query E      |
+| Decline rate                | Share of responses that are declines, by reason                           | Trace metadata `responseType`                                 | Query F      |
+| Failures                    | Error code and finer failure reason, with their cost                      | Traces at `ERROR` level                                       | Query G      |
+| Cache efficiency            | Share of prompt tokens read from the cache                                | Generation usage details                                      | Query H      |
+| User feedback               | Ratings per response type; negative ratings with their trace              | Score `user_feedback`                                         | Query I      |
+| Prompt version              | First-try rate, repairs, errors, cost and latency per prompt version      | Filter or group traces by `version`                           | Query J      |
+| Guardrail signals           | Runs with injection signals, blocked canary leaks, provider refusals      | Scores `injection_signals`, `canary_leak`, `provider_refusal` | Logs only    |
 
 The Langfuse dashboards will be built when the keys exist (milestone 7). Until then, and always for
 spending, the database answers. The queries below match the schema of
@@ -221,7 +256,28 @@ JOIN agent_runs r ON r.id = f.run_id
 WHERE f.rating = -1
 ORDER BY r.created_at DESC
 LIMIT 20;
+
+-- J. Prompt versions side by side, last 14 days: compare the runs before and after a change
+SELECT prompt_version,
+       min(created_at)                                              AS first_run,
+       max(created_at)                                              AS last_run,
+       count(*)                                                     AS runs,
+       round(avg(schema_valid_first_try::int), 3)                   AS first_try_rate,
+       round(avg(repairs), 3)                                       AS mean_repairs,
+       round(100.0 * count(*) FILTER (WHERE status = 'error') / count(*), 1)
+                                                                    AS error_pct,
+       round(avg(cost_usd), 6)                                      AS mean_cost_usd,
+       percentile_cont(0.95) WITHIN GROUP (ORDER BY latency_ms)     AS p95_ms
+FROM agent_runs
+WHERE created_at >= now() - interval '14 days'
+GROUP BY prompt_version
+ORDER BY first_run;
 ```
+
+In Langfuse, the same questions are filters on the traces table: `version` for a prompt version,
+a score (for example `injection_signals` above 0, `canary_leak` = 1 or `repairs` above 0) for
+the runs to open, and the environment (`production` or `eval`) so that evaluation traffic does
+not mix with users'.
 
 Reading notes:
 
@@ -232,6 +288,8 @@ Reading notes:
   Always read `failure_reason` with it. `LLM_TIMEOUT` splits into `llm_timeout` (one call) and
   `run_deadline` (the whole run); `INTERNAL_ERROR` splits into `crash` (the runtime threw) and
   `persistence` (the turn could not be committed); `CANCELLED` means the client left.
+- `prompt_version` is null for runs recorded before its migration; query J shows them as one
+  group.
 - `tool_call_log` holds the data tool calls only, each with `name`, `input`, `ok`, `durationMs`
   and the `summary` the UI shows (for a failure, the message the model received).
 
@@ -249,8 +307,10 @@ The method is the same for every symptom:
    (`npm run eval:agent -- --cases <ids>` or `--category <c>`), compare with an earlier run
    (`--compare <run dir>`), fix, and add the failing input as a new case so it stays fixed.
 
-The prompt version (`PROMPT_VERSION` in `system-prompt.ts`), the model (`LLM_MODEL`), the effort
-(`LLM_EFFORT`) and the deployed commit are the first things to compare across the two windows.
+The prompt version (`agent_runs.prompt_version`, the `version` of every trace, logged at startup;
+it changes with the system prompt template, any tool description or schema, and the model), the
+effort (`LLM_EFFORT`) and the deployed commit are the first things to compare across the two
+windows (query J).
 
 ### A sudden cost increase
 
@@ -329,7 +389,7 @@ destination the corpus covers, negative feedback on itineraries.
    ```
 
 2. **Read the `search_knowledge` observation** in the trace: its input (query, destination filter)
-   and its output (each excerpt with its `destinationId` and section).
+   and its output (each excerpt with its `destinationId`, section, fused `score` and `ranks`).
 3. **Usual causes, in order:**
    - **no destination filter**: the model searched the whole corpus and got look-alike sections of
      other destinations. The tool description asks for `destinationId` when it is known;
@@ -342,18 +402,20 @@ destination the corpus covers, negative feedback on itineraries.
    - **fewer results than asked with a filter**: the retriever uses pgvector's iterative index scan
      so that a destination filter cannot starve the HNSW result list; an integration test covers
      it, so this would be a regression in `pg-retriever.ts`.
-4. **See the ranks.** Traces do not show each excerpt's rank in the vector and full-text lists
-   yet. The retriever returns them (`ranks.vector`, `ranks.fullText`); replay the query through
-   `PgRetriever`, or add it to `evals/datasets/retrieval.yaml` with its labels, which also keeps it
-   as a regression test.
+4. **Read the ranks.** Each excerpt of the observation carries `ranks.vector` and
+   `ranks.fullText` (1-based, null when absent from that list): an excerpt that only one list
+   found shows which list brought it, and a right section missing from both lists is a recall
+   problem, not a fusion one. To keep the query as a regression test, add it to
+   `evals/datasets/retrieval.yaml` with its labels.
 5. **What protects the user meanwhile:** grounding rejects citations of chunks from another
    destination, so a wrong retrieval costs a repair or a decline, not a wrong citation.
 
 ### An injection attempt
 
 1. **Detect:** the warn log `prompt injection signals` (`user:` signals for direct attempts,
-   `tool:` signals for text planted in a guide), the error log about the canary, declines with
-   reason `unsafe` (query F), and provider refusals.
+   `tool:` signals for text planted in a guide) or traces whose `injection_signals` score is above
+   0 (the names are in its comment), the error log about the canary or `canary_leak` = 1, declines
+   with reason `unsafe` (query F), and provider refusals (`provider_refusal` = 1).
 2. **Read the trace:** the user's text in the trace input; for a `tool:` signal, the tool output
    that carried the planted text (the guides come from Wikivoyage, which anyone can edit); then
    whether the following generations changed course (unrelated searches, an answer quoting
@@ -396,17 +458,13 @@ history and the ADRs; **none of them was diagnosed with traces**.
 
 ## 5. Known gaps
 
-Found while writing this document; each is a small change, listed so nobody relies on data that
-is not there:
+Listed so nobody relies on data that is not there:
 
-- **Guardrail signals are not trace scores** yet (injection signals, canary leak, provider
-  refusal): they are only in the logs, so they cannot be filtered on in Langfuse
-  ([ADR 0010](adr/0010-layered-guardrails.md) follow-up).
-- **Retrieval ranks are not in traces**: `search_knowledge` returns the excerpts without their rank
-  in each list, so the tool observation does not show them.
-- **The prompt version is not in the trace metadata**; evaluation reports carry it.
-- **Repairs are not a trace score**; `agent_runs.repairs` has them.
+- **Guardrail signals are not in `agent_runs`**: they are logs and trace scores only, so without
+  Langfuse keys, counting injection attempts means searching the logs.
 - **No alerting.** Nothing pages anyone; platform metrics and Neon monitoring are listed in
   [DEPLOYMENT.md](DEPLOYMENT.md#14-monitoring).
 - **No sampling or masking.** Every run is traced in full; revisit if volume or privacy requires
   it.
+- **One Langfuse project for production and evaluation traces**, separated by environment and
+  tags: a dashboard that does not filter on the environment mixes them.

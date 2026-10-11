@@ -119,8 +119,9 @@ Exemple : « Plan 3 quiet days in Sicily in May, we like hiking ».
    `citations_ok`, réponse, sources, journal des outils). Pour un échec : seule la ligne
    `agent_runs` est écrite (avec `CANCELLED` si le client est parti), l'historique n'est pas
    touché.
-8. **Traces.** Scores `schema_valid_first_try`, `citations_ok`, `tool_errors`, puis fin de la
-   trace avec la sortie et le coût.
+8. **Traces.** Scores `schema_valid_first_try`, `citations_ok`, `tool_errors`, `repairs` et
+   les signaux de garde-fous (`canary_leak`, `provider_refusal`, `injection_signals`), puis fin
+   de la trace avec la sortie, le coût et la version du prompt.
 9. **Réponse.** Événements `response` puis `run.finished` (steps, tokens, coût, latence,
    `traceId`). Le client affiche l'itinéraire, ses sources, les appels d'outils et le coût du run.
    Le pouce haut ou bas part vers `POST /api/runs/:id/feedback` : table `feedback` et score
@@ -170,8 +171,9 @@ Pour chaque choix : pourquoi, l'alternative, et ce que ça coûte. Les ADR déta
   raisonnement stocké des conversations en cours.
 - **La purge à 30 jours ne touche que Postgres** : les traces Langfuse, les données côté
   Anthropic et l'historique de restauration de la base suivent leurs propres durées.
-- **Observabilité incomplète** : les signaux de garde-fous ne sont pas des scores de trace, les
-  rangs de récupération ne sont pas dans les traces ([OBSERVABILITY.md](OBSERVABILITY.md#5-known-gaps)).
+- **Observabilité sans alerte** : aucune alerte, pas d'échantillonnage, et les signaux de
+  garde-fous ne sont pas dans `agent_runs` (logs et scores de trace seulement)
+  ([OBSERVABILITY.md](OBSERVABILITY.md#5-known-gaps)).
 - **Embedder** : plante nativement sous Windows (on passe par des conteneurs), et pèse plusieurs
   centaines de Mo de RAM.
 
@@ -458,10 +460,14 @@ la compte comme un échec du modèle (`canary_leak`, hard gate à 0).
 Une trace par run (`sessionId` = conversation, donc le coût par conversation), une _generation_
 par appel au modèle avec l'usage en tokens (cache compris) et **notre** coût calculé avec la même
 table de prix que le plafond quotidien, une observation par appel d'outil avec ce que le modèle a
-reçu, et des scores : `schema_valid_first_try`, `citations_ok`, `tool_errors`, puis
-`user_feedback`. Le domaine ne voit qu'un port `Tracer` ; sans clés, c'est un no-op, et une erreur
-de tracing ne change jamais un run. La table `agent_runs` garde tout ce qu'il faut pour les
-agrégats et reste la source de vérité des dépenses. Aucune trace réelle n'existe encore.
+reçu (plus, pour `search_knowledge`, le score RRF et les rangs de chaque extrait, que le modèle
+ne reçoit pas), et des scores : `schema_valid_first_try`, `citations_ok`, `tool_errors`,
+`repairs`, `canary_leak`, `provider_refusal`, `injection_signals`, puis `user_feedback`. Chaque
+trace porte la version du prompt : un hash du gabarit du prompt système, des specs d'outils et du
+modèle, aussi stocké dans `agent_runs.prompt_version`. Le domaine ne voit qu'un port
+`Tracer` ; sans clés, c'est un no-op, et une erreur de tracing ne change jamais un run. La table
+`agent_runs` garde tout ce qu'il faut pour les agrégats et reste la source de vérité des
+dépenses. Aucune trace réelle n'existe encore.
 
 **Q30. Comment diagnostiqueriez-vous une hausse soudaine du coût ?**
 
@@ -516,7 +522,8 @@ sur les invariants.
 
 Elle appelle `runAgent`, pas la route HTTP : la persistance, les sessions, le plafond quotidien
 et le rate limit sont couverts par les tests unitaires et d'intégration, pas par l'éval. Elle ne
-passe pas non plus par Langfuse : elle écrit ses propres trajectoires. Et les contrôles sans clé
+trace dans Langfuse que si les clés sont là (environnement `eval`, tags `case:`, `category:`,
+`run:`) ; sinon, elle n'écrit que ses propres trajectoires. Et les contrôles sans clé
 utilisent un retriever par mots-clés en mémoire : ils testent le harnais et les scorers, pas la
 récupération, qui a sa propre éval.
 

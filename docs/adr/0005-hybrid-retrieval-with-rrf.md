@@ -68,7 +68,9 @@ human-reviewed dataset still shows no gain, vector-only is the simpler choice.
 
 - One database, no extra search service; rank fusion needs no score calibration.
 - Paraphrases and exact names each have a list that can find them, and each result carries its rank in both lists,
-  which makes a bad retrieval easy to diagnose (traces show `ranks.vector` / `ranks.fullText`).
+  which makes a bad retrieval easy to diagnose: the `search_knowledge` observation of a trace shows
+  each excerpt's fused score and `ranks.vector` / `ranks.fullText`. The tool result sent to the
+  model leaves them out, so the diagnostics cost no prompt tokens.
 
 ### Negative
 
