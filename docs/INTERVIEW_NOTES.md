@@ -184,7 +184,7 @@ Pour chaque choix : pourquoi, l'alternative, et ce que ça coûte. Les ADR déta
 - La récupération : le tableau de [EVALUATIONS.md](EVALUATIONS.md#results) (run du 2026-10-10,
   53 requêtes), avec intervalles bootstrap et différences appariées.
 - Les contrôles du harnais d'éval (oracle, deux baselines nulles), relancés le 2026-10-11.
-- Les tests : 1 115 tests unitaires et de composants, 49 tests d'intégration sur un vrai Postgres.
+- Les tests : 1 173 tests unitaires et de composants, 55 tests d'intégration sur un vrai Postgres.
 - L'embedder sur la machine de dev ([ADR 0004](adr/0004-local-embeddings.md)) : chargement,
   mémoire, débit d'ingestion, latence de recherche.
 - L'estimation de tokens du chunker, calibrée contre le vrai tokenizer
