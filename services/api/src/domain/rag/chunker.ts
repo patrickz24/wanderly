@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars -- learning skeleton: the parameters and helpers are used once the TODOs are implemented; remove this line at the end. */
 import { estimateTokens, type TokenEstimator } from './tokens.js';
 
 /**
@@ -16,6 +17,22 @@ import { estimateTokens, type TokenEstimator } from './tokens.js';
  *    prefixed to the embedded text when `contextualHeader` is on (contextual chunk header).
  *
  * Budgets apply to the chunk body and are counted with a token estimate (see `tokens.ts`).
+ */
+
+/*
+ * SQUELETTE D'EXERCICE (branche learning/chunking-rrf). Guide : docs/learning/chunking-rrf.md sur
+ * main ; ordre des étapes : LEARNING.md à la racine de la branche.
+ *
+ * Fourni : les types, les options et leur validation, l'empreinte, la fabrique `markdownChunker`,
+ * les expressions régulières, le découpage des lignes en blocs (`toBlocks`) et les petites aides
+ * (`toUnit`, `commonPrefix`, `sumTokens`, `joinBlocks`, `isBlank`).
+ * À écrire : le pipeline (`chunkMarkdown`), les sections (`parseSections`), la fusion des petites
+ * sections, le découpage des longues sections avec chevauchement, et les phrases.
+ *
+ * Le vocabulaire : un BLOC est un paragraphe, un élément de liste (avec ses lignes de suite), une
+ * citation ou un bloc de code ; une SECTION est un chemin de titres + ses blocs ; une UNITÉ est une
+ * section ou plusieurs petites sections sœurs fusionnées ; une PARTIE est un morceau d'unité, qui
+ * deviendra un chunk.
  */
 
 export interface ChunkingOptions {
@@ -151,31 +168,18 @@ export function chunkMarkdown(
   options: ChunkingOptions,
   estimate: TokenEstimator = estimateTokens,
 ): Chunk[] {
-  validateChunkingOptions(options);
-  const sections = parseSections(document.markdown, estimate);
-  const units = mergeSmallSiblings(
-    sections.map((section) => toUnit(section)),
-    options,
-    estimate,
-  );
-
-  const chunks: Chunk[] = [];
-  for (const unit of units) {
-    for (const part of splitUnit(unit, options, estimate)) {
-      const headingPath = [document.title, ...unit.path].join(BREADCRUMB_SEPARATOR);
-      const content = joinBlocks(part.blocks);
-      const text = options.contextualHeader ? `${headingPath}\n\n${content}` : content;
-      chunks.push({
-        ordinal: chunks.length,
-        headingPath,
-        sections: unit.sections.map((path) => path.join(BREADCRUMB_SEPARATOR)),
-        content,
-        text,
-        tokenCount: estimate(text),
-      });
-    }
-  }
-  return chunks;
+  // TODO(learning) — étape 3 (version minimale), complétée aux étapes 4 et 6.
+  // Le pipeline, dans l'ordre :
+  // 1. Valide les options (les tests attendent une RangeError même sur un document vide).
+  // 2. Markdown -> sections (`parseSections`) -> unités (`toUnit`).
+  // 3. Fusionne les petites unités sœurs (`mergeSmallSiblings`). À l'étape 3, tu peux sauter
+  //    cette étape : les tests « one chunk per section » n'ont pas de petite section.
+  // 4. Découpe chaque unité en parties (`splitUnit`). À l'étape 3, une unité = une partie.
+  // 5. Une partie = un chunk : `ordinal` (position dans le document), `headingPath` (titre du
+  //    document + chemin de l'unité, séparés par BREADCRUMB_SEPARATOR), `sections` (chaque chemin
+  //    couvert, relatif au document), `content` (`joinBlocks`), `text` (fil d'Ariane + ligne vide +
+  //    contenu si `contextualHeader`, sinon le contenu seul) et `tokenCount` (estimation de `text`).
+  throw new Error('TODO(learning): chunkMarkdown (chunking-rrf, step 3)');
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -188,41 +192,21 @@ const TOP_LEVEL_ITEM = /^ ?(?:[-*+]|\d{1,9}[.)])[ \t]+\S/;
 const QUOTE = /^[ \t]{0,3}>/;
 
 function parseSections(markdown: string, estimate: TokenEstimator): Section[] {
-  const lines = markdown.replace(/\r\n?/g, '\n').split('\n');
-  const sections: Section[] = [];
-  let path: string[] = [];
-  let currentH2: string | null = null;
-  let buffer: string[] = [];
-  let seenTitle = false;
-
-  const flush = (): void => {
-    const blocks = toBlocks(buffer, estimate);
-    if (blocks.length > 0) sections.push({ path, blocks });
-    buffer = [];
-  };
-
-  let inFence = false;
-  for (const line of lines) {
-    if (FENCE.test(line)) inFence = !inFence;
-    const heading = inFence ? null : HEADING.exec(line);
-    const level = heading?.[1]?.length ?? 0;
-    const title = heading?.[2]?.trim() ?? '';
-
-    if (heading === null || level >= 4 || title === '') {
-      buffer.push(line);
-    } else if (level === 1 && !seenTitle && sections.length === 0 && isBlank(buffer)) {
-      seenTitle = true; // the document title is the breadcrumb root, not a section
-    } else if (level <= 2) {
-      flush();
-      currentH2 = title;
-      path = [title];
-    } else {
-      flush();
-      path = currentH2 === null ? [title] : [currentH2, title];
-    }
-  }
-  flush();
-  return sections;
+  // TODO(learning) — étape 3. Spec : describe('chunkMarkdown: one chunk per section').
+  // Parcours ligne par ligne (normalise d'abord les fins de ligne Windows), avec un tampon de
+  // lignes pour la section en cours et le chemin de titres courant.
+  // - Une ligne qui ouvre ou ferme un bloc de code (FENCE) bascule un état « dans le code » : un
+  //   `## …` dans du code n'est pas un titre.
+  // - Pas un titre, titre de niveau ≥ 4, ou titre vide : la ligne reste dans le tampon (elle sera
+  //   collée au bloc suivant par `toBlocks`).
+  // - Un `# Titre` tout au début (aucune section, tampon vide) est le titre du document : on
+  //   l'ignore, il est déjà la racine du fil d'Ariane. Un `#` plus loin compte comme un `##`.
+  // - `#`/`##` : vide le tampon dans une section, puis nouveau chemin [titre] (retiens ce titre).
+  // - `###` : vide le tampon, puis chemin [titre ## courant, titre], ou [titre] s'il n'y a pas
+  //   encore eu de `##`.
+  // - Vider le tampon = `toBlocks(tampon, estimate)` ; ne crée une section que si elle a des
+  //   blocs (un titre qui ne fait qu'introduire des sous-sections ne donne pas de chunk).
+  throw new Error('TODO(learning): parseSections (chunking-rrf, step 3)');
 }
 
 function isBlank(lines: readonly string[]): boolean {
@@ -319,10 +303,10 @@ function toUnit(section: Section): Unit {
  * `###` subsections), or when both are top-level `##` sections without subsections.
  */
 function areSiblings(left: Unit, right: Unit): boolean {
-  const all = [...left.sections, ...right.sections];
-  const first = all[0]?.[0];
-  if (all.every((path) => path.length >= 1 && path[0] === first)) return true;
-  return all.every((path) => path.length === 1);
+  // TODO(learning) — étape 4. Regarde TOUTES les sections couvertes par les deux unités (une unité
+  // fusionnée en couvre plusieurs) : même premier élément de chemin pour toutes, ou toutes de
+  // longueur 1 (des `##` sans sous-section, qui fusionnent alors sous la racine du document).
+  throw new Error('TODO(learning): areSiblings (chunking-rrf, step 4)');
 }
 
 function mergeSmallSiblings(
@@ -330,43 +314,30 @@ function mergeSmallSiblings(
   options: ChunkingOptions,
   estimate: TokenEstimator,
 ): Unit[] {
-  const merged: Unit[] = [];
-  for (const unit of units) {
-    const previous = merged.at(-1);
-    const small = (candidate: Unit): boolean => candidate.tokens < options.minTokens;
-    if (previous !== undefined && (small(previous) || small(unit)) && areSiblings(previous, unit)) {
-      const candidate = mergeUnits(previous, unit, estimate);
-      if (candidate.tokens <= options.targetTokens) {
-        merged[merged.length - 1] = candidate;
-        continue;
-      }
-    }
-    merged.push(unit);
-  }
-  return merged;
+  // TODO(learning) — étape 4. Spec : describe('chunkMarkdown: merging small sections').
+  // Un seul passage de gauche à droite, en comparant chaque unité à la DERNIÈRE unité gardée :
+  // si l'une des deux est petite (< minTokens) et qu'elles sont sœurs, essaie de les fusionner
+  // (`mergeUnits`) ; garde la fusion seulement si elle tient dans `targetTokens`. Comme on compare
+  // au résultat de la fusion précédente, de petites sœurs s'enchaînent tant qu'elles tiennent.
+  throw new Error('TODO(learning): mergeSmallSiblings (chunking-rrf, step 4)');
 }
 
 function mergeUnits(left: Unit, right: Unit, estimate: TokenEstimator): Unit {
-  const path = commonPrefix(left.path, right.path);
-  const blocks = [...withHeading(left, path, estimate), ...withHeading(right, path, estimate)];
-  return {
-    path,
-    sections: [...left.sections, ...right.sections],
-    blocks,
-    tokens: sumTokens(blocks),
-  };
+  // TODO(learning) — étape 4. Le chemin de l'unité fusionnée est le préfixe commun des deux
+  // chemins (`commonPrefix`) ; ses blocs sont ceux de gauche puis de droite, chacun précédé de son
+  // propre titre s'il « descend » sous ce chemin (`withHeading`) ; ses sections sont la
+  // concaténation des deux listes ; ses tokens sont recalculés (`sumTokens`).
+  throw new Error('TODO(learning): mergeUnits (chunking-rrf, step 4)');
 }
 
 /** Prefixes a unit's blocks with its own heading when it moves under a shorter path. */
 function withHeading(unit: Unit, path: readonly string[], estimate: TokenEstimator): Block[] {
-  if (unit.path.length <= path.length) return [...unit.blocks];
-  const headings = unit.path
-    .slice(path.length)
-    .map((title, index) => `${'#'.repeat(path.length + index + 2)} ${title}`);
-  const [first, ...rest] = unit.blocks;
-  if (first === undefined) return [];
-  const text = [...headings, first.text].join('\n');
-  return [{ ...first, text, tokens: estimate(text) }, ...rest];
+  // TODO(learning) — étape 4. Si le chemin de l'unité n'est pas plus long que `path`, ses blocs
+  // restent tels quels. Sinon, recrée en Markdown les titres perdus (niveau = profondeur + 2 :
+  // sous la racine, « Respect » redevient `## Respect` ; sous « Do », « Fishing » redevient
+  // `### Fishing`), colle-les au PREMIER bloc (avec un saut de ligne) et ré-estime ses tokens.
+  // Les tests montrent le contenu exact attendu.
+  throw new Error('TODO(learning): withHeading (chunking-rrf, step 4)');
 }
 
 function commonPrefix(left: readonly string[], right: readonly string[]): string[] {
@@ -383,117 +354,60 @@ function commonPrefix(left: readonly string[], right: readonly string[]): string
 // ---------------------------------------------------------------------------------------------
 
 function splitUnit(unit: Unit, options: ChunkingOptions, estimate: TokenEstimator): Part[] {
-  if (unit.tokens <= options.maxTokens) {
-    return [{ blocks: unit.blocks, tokens: unit.tokens, overlap: 0 }];
-  }
-
-  const blocks = unit.blocks.flatMap((block) =>
-    block.tokens > options.maxTokens && (block.kind === 'paragraph' || block.kind === 'quote')
-      ? splitParagraph(block, options.targetTokens, estimate)
-      : [block],
-  );
-
-  const parts: Part[] = [];
-  let current: Block[] = [];
-  let currentTokens = 0;
-  let overlapCount = 0;
-
-  for (const block of blocks) {
-    const hasFreshBlocks = current.length > overlapCount;
-    if (hasFreshBlocks && currentTokens + block.tokens > options.targetTokens) {
-      parts.push({ blocks: current, tokens: currentTokens, overlap: overlapCount });
-      const overlap = overlapFrom(current, options.overlapTokens, estimate);
-      current = sumTokens(overlap) + block.tokens <= options.maxTokens ? overlap : [];
-      currentTokens = sumTokens(current);
-      overlapCount = current.length;
-    }
-    current.push(block);
-    currentTokens += block.tokens;
-  }
-  parts.push({ blocks: current, tokens: currentTokens, overlap: overlapCount });
-
-  return absorbSmallTail(parts, options);
+  // TODO(learning) — étape 6. Spec : describe('chunkMarkdown: splitting long sections').
+  // 1. Une unité qui tient dans `maxTokens` reste entière : une seule partie, sans chevauchement.
+  // 2. Sinon, redécoupe d'abord les paragraphes (et citations) trop longs pour `maxTokens` en
+  //    morceaux de phrases (`splitParagraph` vers `targetTokens`). Un élément de liste, lui, n'est
+  //    JAMAIS coupé, même s'il dépasse tout seul.
+  // 3. Remplissage glouton vers `targetTokens` : quand ajouter le bloc suivant dépasserait la
+  //    cible ET que la partie en cours contient au moins un bloc « neuf » (pas seulement le
+  //    chevauchement), ferme la partie. La suivante commence par le chevauchement
+  //    (`overlapFrom`), sauf si chevauchement + bloc dépasserait `maxTokens` : alors sans.
+  //    Retiens, pour chaque partie, combien de blocs de tête viennent du chevauchement.
+  // 4. Termine par `absorbSmallTail`.
+  throw new Error('TODO(learning): splitUnit (chunking-rrf, step 6)');
 }
 
 /** A tiny last part is folded into the previous one (without its overlap) when that fits. */
 function absorbSmallTail(parts: readonly Part[], options: ChunkingOptions): Part[] {
-  const last = parts.at(-1);
-  const previous = parts.at(-2);
-  if (last === undefined || previous === undefined) return [...parts];
-  const fresh = last.blocks.slice(last.overlap);
-  const freshTokens = sumTokens(fresh);
-  if (freshTokens >= options.minTokens || previous.tokens + freshTokens > options.maxTokens) {
-    return [...parts];
-  }
-  const blocks = [...previous.blocks, ...fresh];
-  return [...parts.slice(0, -2), { blocks, tokens: sumTokens(blocks), overlap: previous.overlap }];
+  // TODO(learning) — étape 6. Ne regarde que les blocs NEUFS de la dernière partie (sans son
+  // chevauchement, qui est déjà dans l'avant-dernière). S'ils pèsent moins que `minTokens` et
+  // tiennent avec l'avant-dernière partie dans `maxTokens`, ajoute-les à celle-ci et supprime la
+  // dernière. Sinon, ne change rien.
+  throw new Error('TODO(learning): absorbSmallTail (chunking-rrf, step 6)');
 }
 
 /** Whole trailing blocks within the budget; for a long trailing paragraph, its last sentences. */
 function overlapFrom(blocks: readonly Block[], budget: number, estimate: TokenEstimator): Block[] {
-  if (budget <= 0) return [];
-  const overlap: Block[] = [];
-  let used = 0;
-  for (let index = blocks.length - 1; index >= 0; index--) {
-    const block = blocks[index] as Block;
-    if (used + block.tokens <= budget) {
-      overlap.unshift(block);
-      used += block.tokens;
-      continue;
-    }
-    if (overlap.length === 0 && block.kind === 'paragraph') {
-      const tail = trailingSentences(block.text, budget, estimate);
-      if (tail !== '') overlap.unshift({ kind: 'paragraph', text: tail, tokens: estimate(tail) });
-    }
-    break;
-  }
-  return overlap;
+  // TODO(learning) — étape 6. Budget nul -> pas de chevauchement. Sinon, remonte depuis la fin et
+  // garde des blocs ENTIERS tant qu'ils tiennent dans le budget. Cas particulier : si le tout
+  // dernier bloc ne tient pas et que c'est un paragraphe, prends ses dernières phrases
+  // (`trailingSentences`) à la place. Jamais un morceau d'élément de liste.
+  throw new Error('TODO(learning): overlapFrom (chunking-rrf, step 6)');
 }
 
 const SENTENCE_BOUNDARY = /(?<=[.!?…])\s+(?=["'“‘([]?[\p{Lu}\p{N}])/u;
 
 export function splitSentences(text: string): string[] {
-  return text
-    .split(SENTENCE_BOUNDARY)
-    .map((sentence) => sentence.trim())
-    .filter((sentence) => sentence !== '');
+  // TODO(learning) — étape 5. Spec : describe('splitSentences'). Coupe sur SENTENCE_BOUNDARY (une
+  // ponctuation de fin de phrase, des espaces, puis une majuscule ou un chiffre, éventuellement
+  // après un guillemet ou une parenthèse), nettoie les espaces, retire les morceaux vides.
+  throw new Error('TODO(learning): splitSentences (chunking-rrf, step 5)');
 }
 
 function trailingSentences(text: string, budget: number, estimate: TokenEstimator): string {
-  const sentences = splitSentences(text);
-  const kept: string[] = [];
-  let used = 0;
-  for (let index = sentences.length - 1; index >= 0; index--) {
-    const sentence = sentences[index] as string;
-    const tokens = estimate(sentence);
-    if (used + tokens > budget) break;
-    kept.unshift(sentence);
-    used += tokens;
-  }
-  return kept.join(' ');
+  // TODO(learning) — étape 6. Les dernières phrases de `text` qui tiennent ensemble dans le
+  // budget, dans leur ordre d'origine, jointes par une espace (chaîne vide si aucune ne tient).
+  throw new Error('TODO(learning): trailingSentences (chunking-rrf, step 6)');
 }
 
 /** Splits an over-long paragraph between sentences into pieces of about `target` tokens. */
 function splitParagraph(block: Block, target: number, estimate: TokenEstimator): Block[] {
-  const pieces: Block[] = [];
-  let current: string[] = [];
-  let tokens = 0;
-  for (const sentence of splitSentences(block.text)) {
-    const sentenceTokens = estimate(sentence);
-    if (current.length > 0 && tokens + sentenceTokens > target) {
-      const text = current.join(' ');
-      pieces.push({ kind: block.kind, text, tokens: estimate(text) });
-      current = [];
-      tokens = 0;
-    }
-    current.push(sentence);
-    tokens += sentenceTokens;
-  }
-  if (current.length > 0) {
-    const text = current.join(' ');
-    pieces.push({ kind: block.kind, text, tokens: estimate(text) });
-  }
-  return pieces;
+  // TODO(learning) — étape 6. Remplissage glouton de phrases : ferme le morceau en cours quand la
+  // phrase suivante le ferait dépasser `target` (un morceau n'est jamais vide, donc une phrase
+  // très longue forme un morceau à elle seule). Chaque morceau garde le `kind` du bloc d'origine
+  // et ré-estime ses tokens.
+  throw new Error('TODO(learning): splitParagraph (chunking-rrf, step 6)');
 }
 
 // ---------------------------------------------------------------------------------------------

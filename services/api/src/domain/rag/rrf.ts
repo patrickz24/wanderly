@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars -- learning skeleton: the parameters are used once the TODOs are implemented; remove this line at the end. */
 /**
  * Reciprocal Rank Fusion (Cormack, Clarke & Büttcher, SIGIR 2009):
  * `score(d) = Σ over lists of 1 / (k + rank_list(d))`, 1-based ranks, absent = no contribution.
@@ -31,42 +32,17 @@ export function reciprocalRankFusion<ListName extends string>(
   lists: Readonly<Record<ListName, readonly string[]>>,
   options: RrfOptions = {},
 ): FusedResult<ListName>[] {
-  const k = options.k ?? DEFAULT_RRF_K;
-  if (!Number.isFinite(k) || k <= 0) throw new RangeError(`k must be a positive number (got ${k})`);
-  const limit = options.limit;
-  if (limit !== undefined && (!Number.isInteger(limit) || limit < 0)) {
-    throw new RangeError(`limit must be a non-negative integer (got ${limit})`);
-  }
-
-  const names = Object.keys(lists) as ListName[];
-  const ranksById = new Map<string, Record<ListName, number | null>>();
-
-  for (const name of names) {
-    lists[name].forEach((id, index) => {
-      let ranks = ranksById.get(id);
-      if (ranks === undefined) {
-        ranks = Object.fromEntries(names.map((other) => [other, null])) as Record<
-          ListName,
-          number | null
-        >;
-        ranksById.set(id, ranks);
-      }
-      if (ranks[name] === null) ranks[name] = index + 1;
-    });
-  }
-
-  const fused = [...ranksById].map(([id, ranks]) => ({
-    id,
-    ranks,
-    // Summed in list order so that the floating-point result does not depend on map order.
-    score: names.reduce((total, name) => {
-      const rank = ranks[name];
-      return rank === null ? total : total + 1 / (k + rank);
-    }, 0),
-  }));
-
-  fused.sort((left, right) => compare(left, right, names));
-  return limit === undefined ? fused : fused.slice(0, limit);
+  // TODO(learning) — étape 2. Spec : rrf.test.ts.
+  // 1. Valide les options : `k` (défaut DEFAULT_RRF_K) doit être un nombre fini > 0 ; `limit`, s'il
+  //    est donné, un entier ≥ 0. Sinon : RangeError.
+  // 2. Pour chaque liste (dans l'ordre des clés) et chaque id : retiens son rang 1-based dans
+  //    cette liste, `null` dans les listes où il n'apparaît pas. Un id répété dans une même liste
+  //    garde son PREMIER rang.
+  // 3. Score de chaque id : somme de 1 / (k + rang) sur les listes où il apparaît. Additionne
+  //    toujours dans le même ordre (celui des listes) : l'addition flottante n'est pas
+  //    associative, et le test de déterminisme compare des scores au bit près.
+  // 4. Trie (`compare`), puis applique `limit` APRÈS la fusion.
+  throw new Error('TODO(learning): reciprocalRankFusion (chunking-rrf, step 2)');
 }
 
 function compare<ListName extends string>(
@@ -74,17 +50,10 @@ function compare<ListName extends string>(
   right: FusedResult<ListName>,
   names: readonly ListName[],
 ): number {
-  if (left.score !== right.score) return right.score - left.score;
-  // Every fused id appears in at least one list, so its best rank is finite.
-  const bestRank = (result: FusedResult<ListName>): number =>
-    Math.min(...names.map((name) => result.ranks[name] ?? Number.POSITIVE_INFINITY));
-  const byBest = bestRank(left) - bestRank(right);
-  if (byBest !== 0) return byBest;
-  // Two distinct ids never share a rank in the same list, so this always decides.
-  for (const name of names) {
-    const a = left.ranks[name] ?? Number.POSITIVE_INFINITY;
-    const b = right.ranks[name] ?? Number.POSITIVE_INFINITY;
-    if (a !== b) return a - b;
-  }
-  return 0;
+  // TODO(learning) — étape 2. Ordre total et déterministe (sinon deux recherches identiques
+  // pourraient rendre des résultats dans un ordre différent) :
+  // 1. score décroissant ;
+  // 2. à égalité, le meilleur rang (le plus petit, toutes listes confondues) d'abord ;
+  // 3. encore à égalité, le rang dans la première liste, puis la deuxième, etc. (absent = +∞).
+  throw new Error('TODO(learning): compare (chunking-rrf, step 2)');
 }

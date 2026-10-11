@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars -- learning skeleton: the parameter and constant are used once the TODO is implemented; remove this line at the end. */
 /**
  * Token estimation for chunk budgets, without loading the embedding model's tokenizer (the
  * chunker is pure and runs in unit tests and at ingestion before any model is loaded).
@@ -14,17 +15,17 @@
  * tokens, so chunk sizes stay well below that.
  */
 
-const PIECE = /[\p{L}\p{M}\p{N}]+|[^\s\p{L}\p{M}\p{N}]/gu;
-const WORD_RUN = /^[\p{L}\p{M}\p{N}]/u;
 const CHARS_PER_SUBWORD = 7;
 
 export function estimateTokens(text: string): number {
-  let tokens = 0;
-  for (const match of text.matchAll(PIECE)) {
-    const piece = match[0];
-    tokens += WORD_RUN.test(piece) ? Math.ceil(piece.length / CHARS_PER_SUBWORD) : 1;
-  }
-  return tokens;
+  // TODO(learning) — étape 1. Spec : tokens.test.ts.
+  // 1. Découpe le texte en « morceaux » : soit une suite de lettres (y compris accentuées et non
+  //    latines), de marques diacritiques et de chiffres, soit UN symbole isolé (ponctuation, €,
+  //    parenthèse…). Les espaces ne comptent pas. Une seule regex Unicode globale suffit (pense
+  //    aux classes de propriétés \p{…} et au drapeau `u`).
+  // 2. Un symbole compte 1 ; une suite compte 1 token par tranche ENTAMÉE de CHARS_PER_SUBWORD
+  //    caractères (« accommodation », 13 caractères, compte 2).
+  throw new Error('TODO(learning): estimateTokens (chunking-rrf, step 1)');
 }
 
 export type TokenEstimator = (text: string) => number;
