@@ -4,7 +4,8 @@
 # equivalents below:
 #   make install           npm ci
 #   make env               cp .env.example .env, then set SESSION_SECRET (>= 32 random chars)
-#   make up                docker compose up --build -d --wait
+#   make up                docker compose up --build -d --wait   (first run: several minutes of seeding)
+#   make seed              docker compose run --rm --build seed
 #   make down              docker compose down
 #   make logs              docker compose logs -f --tail=100
 #   make db                docker compose up -d --wait db
@@ -26,14 +27,20 @@
 COMPOSE ?= docker compose
 MAX_USD ?= 2
 
-# Runs a shell command in a Linux Node 22 container with the repository mounted and Linux
-# dependencies in anonymous volumes, against the Compose database (used on Windows, where the
-# ONNX runtime of the local embedder crashes natively).
+# Runs a shell command in a Linux Node 22 container: repository mounted, Linux dependencies in
+# anonymous volumes, on the compose network against the compose database. Needed on Windows,
+# where the ONNX runtime of the local embedder crashes natively (ADR 0004); works on any OS.
 HOST_DIR := $(shell pwd -W 2>/dev/null || pwd)
-LINUX_NODE = MSYS_NO_PATHCONV=1 docker run --rm -v "$(HOST_DIR):/repo" -w /repo 	-v /repo/node_modules -v /repo/evals/node_modules -v /repo/services/api/node_modules 	-v /repo/apps/web/node_modules -v /repo/packages/contracts/node_modules -v /repo/data/node_modules 	--env-file .env -e DATABASE_URL=postgres://wanderly:wanderly@host.docker.internal:5432/wanderly 	node:22-bookworm-slim bash -c
+COMPOSE_DB_URL := postgres://wanderly:wanderly@db:5432/wanderly
+LINUX_NODE = MSYS_NO_PATHCONV=1 docker run --rm --network wanderly_backend \
+	-v "$(HOST_DIR):/repo" -w /repo \
+	-v /repo/node_modules -v /repo/evals/node_modules -v /repo/services/api/node_modules \
+	-v /repo/apps/web/node_modules -v /repo/packages/contracts/node_modules -v /repo/data/node_modules \
+	--env-file .env -e DATABASE_URL=$(COMPOSE_DB_URL) -e EVAL_SEED_DATABASE_URL=$(COMPOSE_DB_URL) \
+	node:22-bookworm-slim bash -c
 SERVICE ?=
 LOCAL_DATABASE_URL := postgres://wanderly:wanderly@localhost:5432/wanderly
-# A DATABASE_URL given on the command line wins over .env (e.g. `DATABASE_URL=<neon> make seed`).
+# A DATABASE_URL given on the command line wins over .env (e.g. `DATABASE_URL=<neon> make migrate`).
 WITH_ENV = caller_db="$${DATABASE_URL:-}"; set -a; if [ -f .env ]; then . ./.env; fi; set +a; \
 	export DATABASE_URL="$${caller_db:-$${DATABASE_URL:-$(LOCAL_DATABASE_URL)}}";
 
@@ -55,13 +62,14 @@ endef
 
 .DEFAULT_GOAL := help
 
-.PHONY: help install env up down logs ps db migrate seed dev dev-api dev-web test \
-	test-integration lint typecheck eval build deploy deploy-api deploy-web clean
+.PHONY: help install env up down logs ps db migrate seed seed-remote dev dev-api dev-web test \
+	test-integration lint typecheck eval eval-agent eval-agent-docker eval-retrieval \
+	eval-retrieval-docker build deploy deploy-api deploy-web clean
 
 help: ## List available commands
 	@echo "Usage: make <target>"
 	@echo ""
-	@awk 'BEGIN { FS = ":.*## " } /^[a-zA-Z_-]+:.*## / { printf "  %-18s %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
+	@awk 'BEGIN { FS = ":.*## " } /^[a-zA-Z_-]+:.*## / { printf "  %-22s %s\n", $$1, $$2 }' $(MAKEFILE_LIST)
 
 install: ## Install dependencies from the lockfile (npm ci)
 	npm ci
@@ -77,12 +85,12 @@ env: ## Create .env from .env.example with a random SESSION_SECRET (never overwr
 		echo "Created .env with a random SESSION_SECRET. Add ANTHROPIC_API_KEY there when needed."; \
 	fi
 
-up: env ## Build and start the whole stack (db, migrate, api, web) and wait until healthy
+up: env ## Build and start db, migrate, seed, api and web (first run: several minutes of seeding)
 	$(COMPOSE) up --build -d --wait
 	@echo ""
 	@echo "Web: http://localhost:$${WEB_PORT:-8080}   API: http://localhost:$${API_PORT:-3000}/health"
 
-down: ## Stop the stack (keeps the database and model volumes)
+down: ## Stop the stack (keeps the database volume, so the next up skips the seeding)
 	$(COMPOSE) down
 
 logs: ## Follow logs (one service: make logs SERVICE=api)
@@ -97,11 +105,13 @@ db: ## Start only Postgres (for host-side development and integration tests)
 migrate: ## Apply pending SQL migrations to DATABASE_URL (from .env, else local compose db)
 	@$(WITH_ENV) npm run migrate
 
-seed: db migrate ## Load the travel corpus (embeds ~2,100 chunks on CPU the first time; idempotent)
-	@$(WITH_ENV) npm run ingest
+# The compose `seed` service: the API image's ingestion CLI, model and corpus, on any OS.
+seed: ## Load the corpus into the compose db (minutes of CPU the first time, then seconds)
+	SEED_DATABASE_URL= $(COMPOSE) run --rm --build seed
 
-seed-docker: db ## Same as seed inside a Linux container (Windows: onnxruntime crashes natively, ADR 0004)
-	$(LINUX_NODE) "npm ci --ignore-scripts && npm run migrate && npm run ingest"
+seed-remote: ## Load the corpus into SEED_DATABASE_URL (e.g. Neon, docs/DEPLOYMENT.md section 8)
+	@[ -n "$$SEED_DATABASE_URL" ] || { echo "Set SEED_DATABASE_URL (direct, non-pooled URL)." >&2; exit 1; }
+	$(COMPOSE) run --rm --build --no-deps seed
 
 dev: env db migrate ## Run the API (:3000) and web (:5173) dev servers against the compose database
 	@echo "API on http://localhost:3000, web on http://localhost:5173 (Ctrl+C stops both)."
@@ -129,14 +139,17 @@ typecheck: ## Type-check every workspace
 eval: ## Keyless evaluation controls: oracle and null baselines through the real agent loop
 	npm run eval:controls
 
-eval-agent: ## Real agent eval with Claude (needs ANTHROPIC_API_KEY and a seeded DB; MAX_USD caps spend)
+eval-agent: ## Real agent eval with Claude on the host (Linux/macOS; ANTHROPIC_API_KEY, seeded DB)
 	@$(WITH_ENV) npm run eval:agent -- --max-usd $(MAX_USD)
 
-eval-agent-docker: db ## Same as eval-agent inside a Linux container (Windows), seeding the corpus first
-	$(LINUX_NODE) "npm ci --ignore-scripts && npm run migrate && npm run ingest && npm run eval:agent -- --max-usd $(MAX_USD)"
+eval-agent-docker: env seed ## Same as eval-agent in a Linux container (any OS), after make seed
+	$(LINUX_NODE) "npm ci --ignore-scripts && npm run eval:agent -- --max-usd $(MAX_USD)"
 
-eval-retrieval: ## Retrieval eval (vector / full text / hybrid, chunking variants) against DATABASE_URL
+eval-retrieval: ## Retrieval eval on the host (Linux/macOS) against DATABASE_URL
 	@$(WITH_ENV) npm run eval:retrieval
+
+eval-retrieval-docker: env seed ## Same as eval-retrieval in a Linux container (any OS), after make seed
+	$(LINUX_NODE) "npm ci --ignore-scripts && npm run eval:retrieval"
 
 build: ## Build every workspace (contracts first)
 	npm run build
