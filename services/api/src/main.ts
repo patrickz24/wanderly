@@ -14,6 +14,7 @@ import { createSubmitFeedback } from './application/submit-feedback.js';
 import { agentLimits, createAgentLlm } from './composition/agent-deps.js';
 import { startRetentionSchedule } from './composition/retention-schedule.js';
 import { ConfigError, loadConfig, type Config } from './config.js';
+import { agentPromptVersion } from './domain/agent/prompt-version.js';
 import { runAgent } from './domain/agent/run-agent.js';
 import { NOOP_TRACER, SYSTEM_CLOCK, type Tracer } from './domain/ports/tracer.js';
 import { listMigrationNames } from './infrastructure/db/migration-files.js';
@@ -65,6 +66,8 @@ async function main(): Promise<void> {
   ]);
 
   const tracer: Tracer = tracing?.tracer ?? NOOP_TRACER;
+  // Once per process: the prompt, tools and model cannot change while it runs.
+  const promptVersion = agentPromptVersion(config.llm.model);
   const conversationDeps = {
     conversations: persistence.conversations,
     ids: UUIDS,
@@ -104,6 +107,7 @@ async function main(): Promise<void> {
             }),
             pricing: pricingFor(config.llm.model),
             canaryToken: config.agent.canaryToken.reveal(),
+            promptVersion,
           },
           tracer,
           clock: SYSTEM_CLOCK,
@@ -125,6 +129,7 @@ async function main(): Promise<void> {
     app.log.warn('ANTHROPIC_API_KEY is not set: agent runs will fail as provider unavailable');
   }
   app.log.info({ enabled: tracing !== undefined }, 'Langfuse tracing');
+  app.log.info({ model: config.llm.model, promptVersion }, 'agent prompt version');
   // Loaded in the background: /health answers at once, /ready waits for the model.
   embedder
     .load()

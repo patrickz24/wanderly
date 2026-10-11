@@ -46,6 +46,8 @@ export interface AgentRuntime {
   readonly pricing: ModelPricing;
   /** Secret marker of the system prompt (leak detection), stable across restarts. */
   readonly canaryToken: string;
+  /** `agentPromptVersion(llm.model)`, computed once at startup (traces and `agent_runs`). */
+  readonly promptVersion: string;
 }
 
 export interface SendMessageDeps {
@@ -184,6 +186,7 @@ async function runTurn(
     runId,
     conversationId: conversation.id,
     model: agent.llm.model,
+    promptVersion: agent.promptVersion,
     userText: text,
     tags: deps.traceTags ?? [],
   });
@@ -323,6 +326,7 @@ function baseRecord(context: RunContext) {
     conversationId: context.conversation.id,
     traceId: context.trace.traceId,
     model: context.deps.agent.llm.model,
+    promptVersion: context.deps.agent.promptVersion,
     userText: context.text,
     createdAt: context.completedAt,
   };

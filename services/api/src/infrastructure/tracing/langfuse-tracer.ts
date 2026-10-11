@@ -72,13 +72,15 @@ export function usageDetails(usage: LlmUsage): Record<string, number> {
 
 /**
  * Trace-level attributes, set on every observation of the run (not only the root): Langfuse
- * aggregations such as cost per session only include observations that carry them.
+ * aggregations such as cost per session only include observations that carry them. The prompt
+ * version is Langfuse's `version` attribute, which its UI can filter and compare on.
  */
 function traceAttributes(start: RunTraceStart) {
   return {
     [LangfuseOtelSpanAttributes.TRACE_NAME]: TRACE_NAME,
     [LangfuseOtelSpanAttributes.TRACE_SESSION_ID]: start.conversationId,
     [LangfuseOtelSpanAttributes.TRACE_TAGS]: [...start.tags],
+    [LangfuseOtelSpanAttributes.VERSION]: start.promptVersion,
   };
 }
 
@@ -89,7 +91,7 @@ function startRunTrace(start: RunTraceStart, options: LangfuseTracerOptions): Ru
     TRACE_NAME,
     {
       input: { userText: start.userText },
-      metadata: { runId: start.runId, model: start.model },
+      metadata: { runId: start.runId, model: start.model, promptVersion: start.promptVersion },
     },
     { asType: 'agent' },
   );
@@ -158,6 +160,7 @@ function startRunTrace(start: RunTraceStart, options: LangfuseTracerOptions): Ru
           metadata: {
             runId: start.runId,
             model: start.model,
+            promptVersion: start.promptVersion,
             status: result.status,
             responseType: result.responseType,
             errorCode: result.errorCode,

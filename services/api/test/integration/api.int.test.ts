@@ -65,6 +65,7 @@ beforeAll(async () => {
             limits: TEST_LIMITS,
             pricing: TEST_PRICING,
             canaryToken: 'canary-0123456789abcdef',
+            promptVersion: 'agent-v1-test',
           },
           tracer,
           clock: SYSTEM_CLOCK,

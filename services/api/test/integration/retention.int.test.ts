@@ -64,6 +64,7 @@ function runRecord(conversationId: string, overrides: Partial<RunRecord>): RunRe
     conversationId,
     traceId: null,
     model: 'fake-model',
+    promptVersion: 'agent-v1-test',
     status: 'error',
     responseType: null,
     errorCode: 'LLM_TIMEOUT',

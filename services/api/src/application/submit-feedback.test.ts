@@ -24,6 +24,7 @@ function run(overrides: Partial<RunRecord> = {}): RunRecord {
     conversationId: CONVERSATION_ID,
     traceId: 'trace-77',
     model: 'fake-model',
+    promptVersion: 'agent-v1-test',
     status: 'error',
     responseType: null,
     errorCode: 'LLM_TIMEOUT',

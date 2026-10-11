@@ -116,6 +116,7 @@ describe('GetConversation', () => {
       conversationId: id,
       traceId: 'trace-1',
       model: 'fake-model',
+      promptVersion: 'agent-v1-test',
       status: 'ok',
       responseType: 'answer',
       errorCode: null,

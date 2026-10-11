@@ -64,6 +64,7 @@ function runRecord(conversationId: string, overrides: Partial<RunRecord> = {}): 
     conversationId,
     traceId: 'trace-1',
     model: 'fake-model',
+    promptVersion: 'agent-v1-test',
     status: 'error',
     responseType: null,
     errorCode: 'LLM_TIMEOUT',
@@ -313,6 +314,7 @@ describe('PgRunRepository, PgSpendLedger and PgFeedbackRepository', () => {
 
     const { rows } = await pool.query('SELECT * FROM agent_runs WHERE id = $1', [run.id]);
     expect(rows[0]).toMatchObject({
+      prompt_version: 'agent-v1-test',
       status: 'error',
       error_code: 'CANCELLED',
       failure_reason: 'cancelled',

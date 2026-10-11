@@ -317,6 +317,14 @@ describe('SQL migrations on a fresh pgvector database', () => {
         `INSERT INTO feedback (run_id, rating)
          SELECT id, 0 FROM agent_runs WHERE status = 'error' LIMIT 1`,
       );
+
+      // The prompt version is optional (older runs) and bounded to a short identifier.
+      await client.query(`UPDATE agent_runs SET prompt_version = 'agent-v1-0123456789ab'`);
+      await expectSqlState(
+        client,
+        '23514',
+        `UPDATE agent_runs SET prompt_version = 'agent v1; DROP TABLE agent_runs'`,
+      );
     });
   });
 

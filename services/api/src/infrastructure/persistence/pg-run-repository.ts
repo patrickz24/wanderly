@@ -20,9 +20,9 @@ export class PgRunRepository implements RunRepository {
          input_tokens, output_tokens, cache_read_tokens, cache_write_tokens, cost_usd, latency_ms,
          schema_valid_first_try, citations_ok,
          user_text, user_message_id, assistant_message_id, response, sources, tool_call_log,
-         created_at)
+         created_at, prompt_version)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18,
-               $19, $20, $21, $22, $23, $24, $25, $26, $27)`,
+               $19, $20, $21, $22, $23, $24, $25, $26, $27, $28)`,
       [
         run.id,
         run.conversationId,
@@ -51,6 +51,7 @@ export class PgRunRepository implements RunRepository {
         JSON.stringify(run.sources),
         JSON.stringify(run.toolCalls),
         run.createdAt,
+        run.promptVersion,
       ],
     );
   }

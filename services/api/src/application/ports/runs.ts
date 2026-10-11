@@ -16,6 +16,8 @@ export interface RunRecord {
   readonly conversationId: string;
   readonly traceId: string | null;
   readonly model: string;
+  /** Version of the prompt, tools and model that drove the run (`agent-v1-<hash>`). */
+  readonly promptVersion: string;
   readonly status: 'ok' | 'error';
   readonly responseType: AgentResponseType | null;
   readonly errorCode: RunErrorCode | null;

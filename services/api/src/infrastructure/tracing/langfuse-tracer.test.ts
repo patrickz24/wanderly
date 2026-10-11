@@ -23,6 +23,7 @@ const START = {
   runId: 'run-1',
   conversationId: 'conversation-1',
   model: 'claude-haiku-5-5',
+  promptVersion: 'agent-v1-0123456789ab',
   userText: 'Sicily in May?',
   tags: ['api'],
 };
@@ -148,8 +149,10 @@ describe('Langfuse tracer mapping', () => {
       expect(attr(span, 'langfuse.trace.name')).toBe(TRACE_NAME);
       expect(attr(span, 'session.id')).toBe('conversation-1');
       expect(attr(span, 'langfuse.trace.tags')).toEqual(['api']);
+      expect(attr(span, 'langfuse.version')).toBe('agent-v1-0123456789ab');
     }
     expect(attr(root, 'langfuse.observation.metadata.runId')).toBe('run-1');
+    expect(attr(root, 'langfuse.observation.metadata.promptVersion')).toBe('agent-v1-0123456789ab');
     expect(attr(root, 'langfuse.observation.metadata.status')).toBe('ok');
   });
 

@@ -78,6 +78,7 @@ function sendMessage(
       limits: TEST_LIMITS,
       pricing: TEST_PRICING,
       canaryToken: CANARY,
+      promptVersion: 'agent-v1-test',
     },
     tracer,
     clock,
@@ -204,6 +205,7 @@ describe('SendMessage — a completed turn', () => {
         conversationId: CONVERSATION_ID,
         traceId: 'trace-abc',
         model: 'fake-model',
+        promptVersion: 'agent-v1-test',
         status: 'ok',
         responseType: 'answer',
         errorCode: null,
@@ -246,6 +248,7 @@ describe('SendMessage — a completed turn', () => {
       runId: ids.issued[0],
       conversationId: CONVERSATION_ID,
       model: 'fake-model',
+      promptVersion: 'agent-v1-test',
       userText: 'Sicily in May?',
       tags: ['api'],
     });

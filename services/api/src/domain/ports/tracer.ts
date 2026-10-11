@@ -10,6 +10,8 @@ export interface RunTraceStart {
   /** Groups the runs of one conversation (Langfuse session). */
   readonly conversationId: string;
   readonly model: string;
+  /** Version of the prompt, tools and model (`agent-v1-<hash>`): ties behaviour to a prompt change. */
+  readonly promptVersion: string;
   readonly userText: string;
   /** Free-form tags, e.g. ["eval", "case:ambiguous-03"]. */
   readonly tags: readonly string[];
