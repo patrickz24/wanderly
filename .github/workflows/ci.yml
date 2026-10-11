@@ -57,6 +57,9 @@ jobs:
       # Coverage thresholds, when configured, live in each workspace's vitest config.
       - name: Vitest (all workspaces) with coverage
         run: npm run test --workspaces --if-present -- --coverage
+      # data/ is not a workspace: the root `npm test` runs it separately, and so does CI.
+      - name: Vitest (data scripts)
+        run: npx vitest run --root data
       - name: Upload coverage reports
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v7
