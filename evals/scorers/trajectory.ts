@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars -- learning skeleton: the schemas and helpers are used once the TODOs are implemented; remove this line at the end. */
 import type { BudgetLevel } from '@wanderly/contracts';
 import { z } from 'zod';
 import type { LlmMessage } from '../../services/api/src/domain/ports/llm.js';
@@ -75,72 +76,20 @@ const BudgetOutput = z.object({
 
 /** Builds the evidence index of one turn from its messages (assistant calls + user results). */
 export function collectEvidence(messages: readonly LlmMessage[]): TrajectoryEvidence {
-  const calls = new Map<string, string>();
-  for (const message of messages) {
-    if (message.role !== 'assistant') continue;
-    for (const block of message.content) {
-      if (block.type === 'tool_call') calls.set(block.id, block.name);
-    }
-  }
-  const chunks = new Map<string, ChunkEvidence>();
-  const pois = new Map<string, PoiEvidence>();
-  const weather = new Map<string, WeatherEvidence>();
-  const budgets = new Map<string, BudgetEvidence>();
-  let dataToolCalls = 0;
-  let dataToolErrors = 0;
-  for (const message of messages) {
-    if (message.role !== 'user') continue;
-    for (const block of message.content) {
-      if (block.type !== 'tool_result') continue;
-      const name = calls.get(block.toolCallId);
-      if (name === undefined || TERMINAL.has(name)) continue;
-      dataToolCalls += 1;
-      if (block.isError) {
-        dataToolErrors += 1;
-        continue;
-      }
-      const output = parseJson(block.content);
-      switch (name) {
-        case 'search_knowledge': {
-          const parsed = KnowledgeOutput.safeParse(output);
-          if (!parsed.success) break;
-          for (const result of parsed.data.results) {
-            if (result.ref.kind === 'chunk') {
-              chunks.set(result.ref.id, { id: result.ref.id, destinationId: result.destinationId });
-            }
-          }
-          break;
-        }
-        case 'search_pois': {
-          const parsed = PoisOutput.safeParse(output);
-          if (!parsed.success) break;
-          for (const result of parsed.data.results) {
-            pois.set(result.poiId, { id: result.poiId, kinds: result.kinds });
-          }
-          break;
-        }
-        case 'get_seasonal_weather': {
-          const parsed = WeatherOutput.safeParse(output);
-          if (parsed.success) {
-            const { weatherId, destinationId, month } = parsed.data;
-            weather.set(weatherId, { id: weatherId, destinationId, month });
-          }
-          break;
-        }
-        case 'estimate_budget': {
-          const parsed = BudgetOutput.safeParse(output);
-          if (parsed.success) {
-            const { estimateId, ...rest } = parsed.data;
-            budgets.set(estimateId, { id: estimateId, ...rest });
-          }
-          break;
-        }
-        default:
-          break;
-      }
-    }
-  }
-  return { chunks, pois, weather, budgets, dataToolCalls, dataToolErrors };
+  // TODO(learning) — étape 4. Pas de test direct : la spec, ce sont les tests de
+  // agent-metrics.test.ts qui lisent les preuves (citation_integrity, numbers_grounded,
+  // tool_error_rate, interest_coverage).
+  // 1. Premier passage sur les messages ASSISTANT : associe chaque id d'appel à son nom d'outil.
+  // 2. Second passage sur les `tool_result` des messages UTILISATEUR :
+  //    - ignore un résultat dont l'appel est inconnu, ou qui répond à un outil terminal ;
+  //    - compte chaque appel d'outil de données, et ses erreurs (`isError`) : une erreur ne
+  //      fournit AUCUNE preuve ;
+  //    - sinon parse le JSON (`parseJson`) et valide-le avec le schéma Zod de l'outil (sortie
+  //      inattendue -> on l'ignore, sans planter), puis indexe : chunks (refs de kind 'chunk'),
+  //      POI (avec leurs kinds), météo (seulement si `found`), budget (par `estimateId`).
+  // On re-dérive tout depuis le texte brut que le modèle a reçu, sans réutiliser le registre de
+  // preuves du runtime : un bug des garde-fous ne peut pas se cacher lui-même.
+  throw new Error('TODO(learning): collectEvidence (eval-metrics, step 4)');
 }
 
 function parseJson(text: string): unknown {
@@ -153,13 +102,8 @@ function parseJson(text: string): unknown {
 
 /** Every string the model produced in the turn: text blocks and tool call arguments. */
 export function modelOutputs(messages: readonly LlmMessage[]): string[] {
-  const outputs: string[] = [];
-  for (const message of messages) {
-    if (message.role !== 'assistant') continue;
-    for (const block of message.content) {
-      if (block.type === 'text') outputs.push(block.text);
-      if (block.type === 'tool_call') outputs.push(JSON.stringify(block.input));
-    }
-  }
-  return outputs;
+  // TODO(learning) — étape 4. Tout ce que le MODÈLE a écrit (messages assistant seulement) : le
+  // texte des blocs texte et les arguments des appels d'outils sérialisés en JSON. Les blocs
+  // opaques (raisonnement) ne sont pas lisibles et ne comptent pas. Sert à chercher le canary.
+  throw new Error('TODO(learning): modelOutputs (eval-metrics, step 4)');
 }

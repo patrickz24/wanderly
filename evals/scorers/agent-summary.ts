@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars -- learning skeleton: the parameters are used once the TODOs are implemented; remove this line at the end. */
 import type { CaseCategory } from '../runner/agent-dataset.js';
 import {
   AGENT_METRICS,
@@ -16,6 +17,12 @@ import {
  * Aggregation of the per-(case, rep) scores: per metric, the mean over cases of each case's mean
  * over reps (every case weighs the same whatever its rep count), with a 95 % percentile bootstrap
  * interval over cases. Not-applicable scores (null) are left out of their metric only.
+ */
+
+/*
+ * SQUELETTE D'EXERCICE (branche learning/eval-metrics), étape 9 : la partie statistique
+ * (`perCaseMeans`, `summarizeMetric`, `percentile`, `compareRuns`). `summarizeRun`, qui assemble
+ * le résumé du run, est fourni.
  */
 
 /** One scored (case, rep): what results.jsonl holds. */
@@ -70,32 +77,29 @@ export function perCaseMeans(
   rows: readonly ScoredRow[],
   read: (row: ScoredRow) => number | null,
 ): Map<string, number> {
-  const byCase = new Map<string, number[]>();
-  for (const row of rows) {
-    const value = read(row);
-    if (value === null) continue;
-    const values = byCase.get(row.caseId) ?? [];
-    values.push(value);
-    byCase.set(row.caseId, values);
-  }
-  return new Map([...byCase].map(([caseId, values]) => [caseId, mean(values)]));
+  // TODO(learning) — étape 9. Spec : agent-summary.test.ts, describe('summarizeRun').
+  // Regroupe les valeurs par cas en IGNORANT les null (non applicable), puis fais la moyenne de
+  // chaque cas sur ses répétitions. Un cas sans aucune valeur applicable est absent du résultat.
+  // Pourquoi d'abord par cas : avec `--reps`, un cas répété 3 fois ne doit pas peser 3 fois plus.
+  throw new Error('TODO(learning): perCaseMeans (eval-metrics, step 9)');
 }
 
 export function summarizeMetric(
   rows: readonly ScoredRow[],
   read: (row: ScoredRow) => number | null,
 ): MetricSummary | undefined {
-  const values = [...perCaseMeans(rows, read).values()];
-  if (values.length === 0) return undefined;
-  return { mean: mean(values), n: values.length, interval: bootstrapMeanInterval(values) };
+  // TODO(learning) — étape 9. Moyenne des moyennes par cas, `n` = nombre de cas notés, et
+  // l'intervalle bootstrap de cette moyenne (sur les CAS, l'unité d'échantillonnage). Aucune
+  // valeur applicable -> undefined (la métrique est absente du rapport, pas « 0 % »).
+  throw new Error('TODO(learning): summarizeMetric (eval-metrics, step 9)');
 }
 
 /** Nearest-rank percentile (p in [0, 100]). */
 export function percentile(values: readonly number[], p: number): number {
-  if (values.length === 0) return 0;
-  const sorted = [...values].sort((left, right) => left - right);
-  const rank = Math.ceil((p / 100) * sorted.length);
-  return sorted[Math.min(sorted.length - 1, Math.max(0, rank - 1))] as number;
+  // TODO(learning) — étape 9. Spec : describe('percentile'). Méthode du rang le plus proche :
+  // trie une COPIE, prends l'élément de rang ceil(p / 100 × n) (1-based), borné au tableau.
+  // Liste vide -> 0.
+  throw new Error('TODO(learning): percentile (eval-metrics, step 9)');
 }
 
 export const JUDGE_METRICS = ['faithfulness_rate', 'faithful', 'request_fit'] as const;
@@ -168,13 +172,11 @@ export function compareRuns(
   b: readonly ScoredRow[],
   metric: AgentMetric,
 ): (Interval & { readonly mean: number; readonly n: number }) | undefined {
-  const left = perCaseMeans(a, (row) => row.scores[metric]);
-  const right = perCaseMeans(b, (row) => row.scores[metric]);
-  const shared = [...left.keys()].filter((caseId) => right.has(caseId)).sort();
-  if (shared.length === 0) return undefined;
-  const interval = pairedDifferenceInterval(
-    shared.map((caseId) => right.get(caseId) as number),
-    shared.map((caseId) => left.get(caseId) as number),
-  );
-  return { ...interval, n: shared.length };
+  // TODO(learning) — étape 9. Spec : describe('compareRuns').
+  // 1. Moyennes par cas de la métrique, pour chaque run.
+  // 2. Ne garde que les cas notés dans LES DEUX runs (triés, pour un ordre stable) ; aucun ->
+  //    undefined.
+  // 3. Différence appariée B − A (`pairedDifferenceInterval`, attention à l'ordre des arguments),
+  //    avec `n` = nombre de cas partagés.
+  throw new Error('TODO(learning): compareRuns (eval-metrics, step 9)');
 }
