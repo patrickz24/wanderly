@@ -555,10 +555,12 @@ d'enregistrer, d'où le hook passé en `--no-revert --fail-on-changes` (commits 
 - **Parle de la méthode.** Contrats partagés et ports définis d'abord, puis des agents en
   parallèle sur des périmètres disjoints, une convention de commit commune, des revues.
 
-**Le kit d'apprentissage (prévu).** Le plan réservait trois parties au « mode apprentissage » :
-la boucle agent, le chunking avec RRF, et les métriques d'éval (Recall@k, MRR, bootstrap,
-noise floor). Le kit prévu te fera les réimplémenter contre les tests existants, qui servent de
-spécification exécutable. C'est la meilleure préparation aux questions de type « écrivez-moi la
+**Le kit d'apprentissage ([`LEARNING.md`](LEARNING.md)).** Le plan réservait trois parties au
+« mode apprentissage » : la boucle agent, le chunking avec RRF, et les métriques d'éval
+(Recall@k, MRR, bootstrap, noise floor). Le kit te les fait réimplémenter sur les branches
+`learning/agent-loop`, `learning/chunking-rrf` et `learning/eval-metrics`, contre les tests
+existants qui servent de spécification exécutable, avec un guide par sujet dans
+[`learning/`](learning/). C'est la meilleure préparation aux questions de type « écrivez-moi la
 boucle au tableau » : fais-le avant les entretiens.
 
 ## 9. Chiffres à connaître et leur source

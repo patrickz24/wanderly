@@ -25,7 +25,7 @@ Related files at the repository root and elsewhere:
 
 ## Conventions
 
-- English, except `INTERVIEW_NOTES.md`.
+- English, except `INTERVIEW_NOTES.md` and the learning kit (`LEARNING.md`, `learning/`), written in French for the project owner.
 - Numbers come from running code. Evaluation results are written by the runners between markers in
   `EVALUATIONS.md`; the methodology around them is written by hand. What is not measured yet is
   marked pending, never filled with a placeholder figure.
