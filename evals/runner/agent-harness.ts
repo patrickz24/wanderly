@@ -1,4 +1,9 @@
 import { EMPTY_TRIP_BRIEF, type AgentResponse, type TripBrief } from '@wanderly/contracts';
+import {
+  closeRunTrace,
+  traceSummaryOf,
+  type RunTraceSummary,
+} from '../../services/api/src/application/run-trace.js';
 import { runAgent } from '../../services/api/src/domain/agent/run-agent.js';
 import type {
   AgentLimits,
@@ -17,16 +22,22 @@ import {
   type LlmUsage,
   type StopReason,
 } from '../../services/api/src/domain/ports/llm.js';
-import { SYSTEM_CLOCK, type RunTrace } from '../../services/api/src/domain/ports/tracer.js';
+import {
+  NOOP_RUN_TRACE,
+  SYSTEM_CLOCK,
+  type RunTrace,
+  type Tracer,
+} from '../../services/api/src/domain/ports/tracer.js';
 import type { RunObservation, RunStatus } from '../scorers/agent-metrics.js';
 import type { AgentCase } from './agent-dataset.js';
 import { assertServedModel, poisonRetriever, ServedModelMismatchError } from './agent-wrappers.js';
 
 /**
- * Runs one (case, rep) through the production agent loop (`runAgent`, the entry point of the
- * SendMessage use case) with fresh ports, a hard wall-clock ceiling, and bounded retries of
+ * Runs one (case, rep) through the production agent loop (`runAgent`, the domain loop that the
+ * SendMessage use case wraps) with fresh ports, a hard wall-clock ceiling, and bounded retries of
  * infrastructure failures. Turns of a multi-turn case run in one conversation: the history and
- * the brief carry over exactly as SendMessage stores them.
+ * the brief carry over as SendMessage stores them, but in memory (no database, session, turn cap
+ * or daily cap: the API's integration tests cover those).
  *
  * An attempt either produced an outcome to score (`scored`, even when the model failed) or it
  * failed for infrastructure reasons (`infra`): those go to errors.jsonl, never into the scores.
@@ -131,9 +142,56 @@ const INFRA_REASONS: ReadonlyMap<string, InfraFailure> = new Map([
   ['run_deadline', 'run_deadline'],
 ]);
 
+/** Langfuse tracing of one attempt; the runner sets it only when Langfuse keys are configured. */
+export interface AttemptTracing {
+  readonly tracer: Tracer;
+  /** Name of this evaluation run's results folder, the `run:<id>` tag. */
+  readonly evalRunId: string;
+  readonly promptVersion: string;
+  readonly rep: number;
+  readonly attempt: number;
+}
+
 export interface AttemptOptions {
   readonly today: string;
   readonly ceilingMs: number;
+  readonly tracing?: AttemptTracing;
+}
+
+/** Tags of every trace of an evaluation case, to filter one case, category or run in Langfuse. */
+export function evalTraceTags(
+  testCase: Pick<AgentCase, 'id' | 'category'>,
+  evalRunId: string,
+): string[] {
+  return ['eval', `case:${testCase.id}`, `category:${testCase.category}`, `run:${evalRunId}`];
+}
+
+/** One Langfuse session per (run, case, rep): the turns of one evaluated conversation. */
+export function evalSessionId(evalRunId: string, caseId: string, rep: number): string {
+  return `eval:${evalRunId}:${caseId}:rep${rep}`;
+}
+
+/** Sends every record to both traces; the trace id is the second one's when it has one. */
+export function teeRunTrace(first: RunTrace, second: RunTrace): RunTrace {
+  return {
+    traceId: second.traceId ?? first.traceId,
+    llmCall: (record) => {
+      first.llmCall(record);
+      second.llmCall(record);
+    },
+    toolCall: (record) => {
+      first.toolCall(record);
+      second.toolCall(record);
+    },
+    score: (name, value, comment) => {
+      first.score(name, value, comment);
+      second.score(name, value, comment);
+    },
+    end: (result) => {
+      first.end(result);
+      second.end(result);
+    },
+  };
 }
 
 /** One attempt of one (case, rep). Never throws: every failure is classified. */
@@ -193,29 +251,38 @@ async function runTurns(
   let last: AgentRunResult | undefined;
 
   for (const [index, userText] of testCase.turns.entries()) {
-    recorder.turn = index + 1;
-    const result = await runAgent(
-      {
-        runId: `${testCase.id}-turn-${index + 1}`,
-        conversationId: testCase.id,
-        history,
-        userText,
-        brief,
-        today: options.today,
-      },
-      {
-        llm,
-        retriever,
-        knowledge: ports.knowledge,
-        trace: recorder.trace(),
-        clock: SYSTEM_CLOCK,
-        limits: ports.limits,
-        pricing: ports.pricing,
-        onEvent: () => undefined,
-        canaryToken: ports.canaryToken,
-        signal,
-      },
-    );
+    const turn = index + 1;
+    recorder.turn = turn;
+    const live = startTurnTrace(testCase, turn, userText, llm.model, options.tracing);
+    let result: AgentRunResult;
+    try {
+      result = await runAgent(
+        {
+          runId: `${testCase.id}-turn-${turn}`,
+          conversationId: testCase.id,
+          history,
+          userText,
+          brief,
+          today: options.today,
+        },
+        {
+          llm,
+          retriever,
+          knowledge: ports.knowledge,
+          trace: teeRunTrace(recorder.trace(), live),
+          clock: SYSTEM_CLOCK,
+          limits: ports.limits,
+          pricing: ports.pricing,
+          onEvent: () => undefined,
+          canaryToken: ports.canaryToken,
+          signal,
+        },
+      );
+    } catch (error) {
+      closeRunTrace(live, recorder.interruptedSummary(turn, signal.aborted));
+      throw error;
+    }
+    closeRunTrace(live, traceSummaryOf(result));
     turns.push(turnLog(userText, result));
     last = result;
     if (result.status === 'error') {
@@ -264,6 +331,25 @@ async function runTurns(
   return { kind: 'scored', outcome, spentUsd: recorder.spentUsd };
 }
 
+/** A Langfuse trace per turn, as the API traces each run; a no-op without tracing. */
+function startTurnTrace(
+  testCase: AgentCase,
+  turn: number,
+  userText: string,
+  model: string,
+  tracing: AttemptTracing | undefined,
+): RunTrace {
+  if (tracing === undefined) return NOOP_RUN_TRACE;
+  return tracing.tracer.startRun({
+    runId: `${testCase.id}-rep${tracing.rep}-attempt${tracing.attempt}-turn${turn}`,
+    conversationId: evalSessionId(tracing.evalRunId, testCase.id, tracing.rep),
+    model,
+    promptVersion: tracing.promptVersion,
+    userText,
+    tags: evalTraceTags(testCase, tracing.evalRunId),
+  });
+}
+
 function statusOf(result: AgentRunResult): RunStatus {
   if (result.status === 'ok') return result.signals.providerRefusal ? 'refusal' : 'ok';
   return result.reason === 'truncated' ? 'truncated' : 'model_error';
@@ -292,6 +378,24 @@ class CallRecorder {
 
   get spentUsd(): number {
     return this.llmCalls.reduce((sum, logged) => sum + logged.costUsd, 0);
+  }
+
+  /** What a turn that threw (cancelled or crashed) had spent, for its trace. */
+  interruptedSummary(turn: number, cancelled: boolean): RunTraceSummary {
+    const calls = this.llmCalls.filter((logged) => logged.turn === turn);
+    return {
+      status: 'error',
+      responseType: null,
+      errorCode: cancelled ? 'CANCELLED' : 'INTERNAL_ERROR',
+      output: null,
+      usage: calls.reduce((sum, logged) => addUsage(sum, logged.usage), ZERO_USAGE),
+      costUsd: calls.reduce((sum, logged) => sum + logged.costUsd, 0),
+      steps: calls.length,
+      validFirstTry: null,
+      citationsOk: null,
+      toolErrorCount: this.toolCalls.filter((logged) => logged.turn === turn && !logged.ok).length,
+      runtime: null,
+    };
   }
 
   trace(): RunTrace {
@@ -361,13 +465,13 @@ export interface RetriedResult {
  * is never retried: a model failure is a result, not noise to reroll.
  */
 export async function withRetries(
-  attempt: () => Promise<AttemptResult>,
+  attempt: (attemptNumber: number) => Promise<AttemptResult>,
   policy: RetryPolicy = DEFAULT_RETRY_POLICY,
 ): Promise<RetriedResult> {
   const failures: Extract<AttemptResult, { kind: 'infra' }>[] = [];
   let spentUsd = 0;
   for (let index = 1; ; index++) {
-    const result = await attempt();
+    const result = await attempt(index);
     spentUsd += result.spentUsd;
     if (result.kind === 'scored') return { final: result, attempts: index, failures, spentUsd };
     failures.push(result);

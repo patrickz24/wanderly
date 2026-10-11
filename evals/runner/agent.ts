@@ -14,6 +14,11 @@
  * --concurrency N, --timeout-s <per-case wall clock, default 300>, --gate (exit 1 when a gate
  * fails), --write (real mode: update evals/baselines/agent.json and docs/EVALUATIONS.md).
  *
+ * When LANGFUSE_PUBLIC_KEY and LANGFUSE_SECRET_KEY are set (same rules as the API), every turn is
+ * also traced in Langfuse like an API run (environment `eval`, one session per case and rep, tags
+ * `eval`, `case:<id>`, `category:<category>`, `run:<results folder>`, the online scores);
+ * without them nothing is sent anywhere.
+ *
  * Writes evals/results/<timestamp>-<mode>/: results.jsonl (one scored row per case and rep),
  * errors.jsonl (infrastructure and judge failures, never scored), traces/<case>_rep<k>.json (full
  * trajectory, per-call usage, judge verdicts), summary.json and report.md. In GitHub Actions the
@@ -28,9 +33,9 @@ import { parseArgs } from 'node:util';
 import pg from 'pg';
 import { z } from 'zod';
 import { agentLimits, createAgentLlm } from '../../services/api/src/composition/agent-deps.js';
-import { loadConfig } from '../../services/api/src/config.js';
+import { loadConfig, loadLangfuseConfig, type Config } from '../../services/api/src/config.js';
 import { DEFAULT_AGENT_LIMITS } from '../../services/api/src/domain/agent/limits.js';
-import { PROMPT_VERSION } from '../../services/api/src/domain/agent/system-prompt.js';
+import { agentPromptVersion } from '../../services/api/src/domain/agent/prompt-version.js';
 import type { AgentLimits } from '../../services/api/src/domain/agent/types.js';
 import type {
   KnowledgeRepository,
@@ -41,6 +46,10 @@ import { FsCorpusSource } from '../../services/api/src/infrastructure/knowledge/
 import { PgKnowledgeRepository } from '../../services/api/src/infrastructure/knowledge/pg-knowledge-repository.js';
 import { PgRetriever } from '../../services/api/src/infrastructure/knowledge/pg-retriever.js';
 import { pricingFor } from '../../services/api/src/infrastructure/llm/pricing.js';
+import {
+  startLangfuseTracing,
+  type LangfuseTracing,
+} from '../../services/api/src/infrastructure/tracing/langfuse-tracer.js';
 import { createAnthropicJudge, isJudgeable, type Judge, type JudgeResult } from '../judge/judge.js';
 import { JUDGE_PROMPT_VERSION } from '../judge/judge-prompts.js';
 import { renderAgentReport, renderComparison, replaceSection } from '../report/agent-report.js';
@@ -265,6 +274,26 @@ async function realBackend(options: Options): Promise<Backend> {
   };
 }
 
+/** Langfuse environment of evaluation traces, kept apart from the API's dashboards. */
+const EVAL_ENVIRONMENT = 'eval';
+
+/** Langfuse when both keys are set; otherwise the evaluation is not traced (a no-op). */
+function startEvalTracing(langfuse: Config['langfuse']): LangfuseTracing | undefined {
+  const { publicKey, secretKey, baseUrl } = langfuse;
+  if (publicKey === undefined || secretKey === undefined) return undefined;
+  return startLangfuseTracing({
+    publicKey,
+    secretKey: secretKey.reveal(),
+    baseUrl,
+    environment: EVAL_ENVIRONMENT,
+    onError: (error, operation) =>
+      console.warn(
+        `Langfuse tracing failed (${operation}):`,
+        error instanceof Error ? error.message : error,
+      ),
+  });
+}
+
 function canary(): string {
   return `wanderly-eval-canary-${randomBytes(12).toString('hex')}`;
 }
@@ -285,6 +314,8 @@ interface ErrorRow {
 
 async function main(): Promise<void> {
   const options = parseOptions();
+  // Validated before anything is spent: one Langfuse key without the other is an error.
+  const langfuse = loadLangfuseConfig(process.env);
   const dataset = await loadAgentDataset(DATASET_FILE);
   const problems = findCorpusProblems(dataset, await new FsCorpusSource().load());
   if (problems.length > 0)
@@ -303,8 +334,11 @@ async function main(): Promise<void> {
     `${startedAt.toISOString().replace(/[:.]/g, '-')}-${options.mode}`,
   );
   await mkdir(path.join(outDir, 'traces'), { recursive: true });
+  const evalRunId = path.basename(outDir);
+  const promptVersion = agentPromptVersion(backend.agentModel);
+  const tracing = startEvalTracing(langfuse);
   console.log(
-    `${cases.length} case(s) × ${options.reps} rep(s), mode ${options.mode}, agent ${backend.agentModel}, judge ${backend.judge?.model ?? 'off'}, cap $${options.maxUsd}`,
+    `${cases.length} case(s) × ${options.reps} rep(s), mode ${options.mode}, agent ${backend.agentModel}, judge ${backend.judge?.model ?? 'off'}, cap $${options.maxUsd}, Langfuse ${tracing === undefined ? 'off' : `on (tag run:${evalRunId})`}`,
   );
 
   const rows: ScoredRow[] = [];
@@ -335,10 +369,13 @@ async function main(): Promise<void> {
     }
     inFlight += 1;
     try {
-      const retried = await withRetries(async () =>
+      const retried = await withRetries(async (attempt) =>
         runAttempt(testCase, await backend.ports(testCase), {
           today: dataset.today,
           ceilingMs: options.timeoutMs,
+          ...(tracing === undefined
+            ? {}
+            : { tracing: { tracer: tracing.tracer, evalRunId, promptVersion, rep, attempt } }),
         }),
       );
       spentUsd += retried.spentUsd;
@@ -445,6 +482,8 @@ async function main(): Promise<void> {
   );
   process.stdout.write('\n');
   await backend.close();
+  // Sends the buffered traces and scores before the report is written.
+  await tracing?.shutdown();
   if (errors.length > 0) {
     await writeFile(
       path.join(outDir, 'errors.jsonl'),
@@ -492,7 +531,7 @@ async function main(): Promise<void> {
         mode: options.mode,
         agentModel: backend.agentModel,
         judgeModel: backend.judge?.model ?? null,
-        promptVersion: PROMPT_VERSION,
+        promptVersion,
         gitSha,
         command,
         infraFailures,
@@ -514,8 +553,10 @@ async function main(): Promise<void> {
     mode: options.mode,
     agentModel: backend.agentModel,
     judgeModel: backend.judge?.model ?? null,
-    promptVersion: PROMPT_VERSION,
+    promptVersion,
     judgePromptVersion: JUDGE_PROMPT_VERSION,
+    langfuse:
+      tracing === undefined ? null : { environment: EVAL_ENVIRONMENT, runTag: `run:${evalRunId}` },
     gitSha,
     datasetCases: cases.length,
     reps: options.reps,

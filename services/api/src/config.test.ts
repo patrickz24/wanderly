@@ -1,6 +1,12 @@
 import { inspect } from 'node:util';
 import { describe, expect, it } from 'vitest';
-import { ConfigError, Secret, deriveCanaryToken, loadConfig } from './config.js';
+import {
+  ConfigError,
+  Secret,
+  deriveCanaryToken,
+  loadConfig,
+  loadLangfuseConfig,
+} from './config.js';
 
 const SESSION_SECRET = 'test-session-secret-0123456789abcdef';
 const DATABASE_URL = 'postgres://wanderly:s3cr3t-db-password@localhost:5432/wanderly';
@@ -221,6 +227,40 @@ describe('agent and API limits', () => {
     expect(error.issues).toEqual([
       'AGENT_CANARY_TOKEN: must contain at least 16 letters or digits',
     ]);
+  });
+});
+
+describe('loadLangfuseConfig', () => {
+  it('needs neither the database nor the session secret, and is off without keys', () => {
+    expect(loadLangfuseConfig({ LANGFUSE_PUBLIC_KEY: ' ' })).toEqual({
+      publicKey: undefined,
+      secretKey: undefined,
+      baseUrl: 'https://cloud.langfuse.com',
+    });
+  });
+
+  it('reads both keys, the secret one wrapped, and a custom base URL', () => {
+    const langfuse = loadLangfuseConfig({
+      LANGFUSE_PUBLIC_KEY: 'pk-lf-eval',
+      LANGFUSE_SECRET_KEY: 'sk-lf-eval',
+      LANGFUSE_BASE_URL: 'https://us.cloud.langfuse.com',
+    });
+    expect(langfuse.publicKey).toBe('pk-lf-eval');
+    expect(langfuse.secretKey?.reveal()).toBe('sk-lf-eval');
+    expect(String(langfuse.secretKey)).toBe('[redacted]');
+    expect(langfuse.baseUrl).toBe('https://us.cloud.langfuse.com');
+  });
+
+  it('applies the same rules as the API config, without echoing the key', () => {
+    const attempt = () => loadLangfuseConfig({ LANGFUSE_SECRET_KEY: 'sk-lf-only' });
+    expect(attempt).toThrow(ConfigError);
+    expect(attempt).toThrow(
+      'LANGFUSE_SECRET_KEY: LANGFUSE_PUBLIC_KEY and LANGFUSE_SECRET_KEY must be set together',
+    );
+    expect(attempt).not.toThrow(/sk-lf-only/);
+    expect(() => loadLangfuseConfig({ LANGFUSE_BASE_URL: 'ftp://langfuse.example' })).toThrow(
+      /LANGFUSE_BASE_URL: /,
+    );
   });
 });
 

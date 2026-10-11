@@ -165,6 +165,27 @@ const trustProxy = z.string().transform((value, ctx): TrustProxy => {
   return entries;
 });
 
+/** Langfuse variables, shared by the API and the agent evaluation (`loadLangfuseConfig`). */
+const LANGFUSE_ENV = {
+  LANGFUSE_PUBLIC_KEY: z.string().optional(),
+  LANGFUSE_SECRET_KEY: z.string().optional(),
+  LANGFUSE_BASE_URL: z.url({ protocol: /^https?$/ }).default('https://cloud.langfuse.com'),
+};
+
+/** One Langfuse key without the other is a configuration mistake, never a silent no-op. */
+function checkLangfusePair(
+  env: { readonly LANGFUSE_PUBLIC_KEY?: string; readonly LANGFUSE_SECRET_KEY?: string },
+  ctx: z.RefinementCtx,
+): void {
+  if ((env.LANGFUSE_PUBLIC_KEY === undefined) !== (env.LANGFUSE_SECRET_KEY === undefined)) {
+    ctx.addIssue({
+      code: 'custom',
+      path: ['LANGFUSE_SECRET_KEY'],
+      message: 'LANGFUSE_PUBLIC_KEY and LANGFUSE_SECRET_KEY must be set together',
+    });
+  }
+}
+
 /**
  * Raw environment contract. Only DATABASE_URL and SESSION_SECRET are required at
  * milestone 1; variables used by later milestones are optional or defaulted.
@@ -209,9 +230,7 @@ const EnvSchema = z
     RATE_LIMIT_WINDOW_MS: positiveInt.default(600_000),
     API_RATE_LIMIT_MAX: positiveInt.default(120),
     API_RATE_LIMIT_WINDOW_MS: positiveInt.default(60_000),
-    LANGFUSE_PUBLIC_KEY: z.string().optional(),
-    LANGFUSE_SECRET_KEY: z.string().optional(),
-    LANGFUSE_BASE_URL: z.url({ protocol: /^https?$/ }).default('https://cloud.langfuse.com'),
+    ...LANGFUSE_ENV,
     EMBEDDING_MODEL: z.string().default('Xenova/bge-small-en-v1.5'),
     EMBEDDING_CACHE_DIR: z.string().default('.cache/models'),
   })
@@ -223,14 +242,10 @@ const EnvSchema = z
         message: 'must be greater than or equal to LLM_TIMEOUT_MS',
       });
     }
-    if ((env.LANGFUSE_PUBLIC_KEY === undefined) !== (env.LANGFUSE_SECRET_KEY === undefined)) {
-      ctx.addIssue({
-        code: 'custom',
-        path: ['LANGFUSE_SECRET_KEY'],
-        message: 'LANGFUSE_PUBLIC_KEY and LANGFUSE_SECRET_KEY must be set together',
-      });
-    }
+    checkLangfusePair(env, ctx);
   });
+
+const LangfuseEnvSchema = z.object(LANGFUSE_ENV).superRefine(checkLangfusePair);
 
 type Env = z.output<typeof EnvSchema>;
 
@@ -276,12 +291,16 @@ function toConfig(env: Env): Config {
     retention: { days: env.RETENTION_DAYS },
     rateLimit: { max: env.RATE_LIMIT_MAX, windowMs: env.RATE_LIMIT_WINDOW_MS },
     apiRateLimit: { max: env.API_RATE_LIMIT_MAX, windowMs: env.API_RATE_LIMIT_WINDOW_MS },
-    langfuse: {
-      publicKey: env.LANGFUSE_PUBLIC_KEY,
-      secretKey: optionalSecret(env.LANGFUSE_SECRET_KEY),
-      baseUrl: env.LANGFUSE_BASE_URL,
-    },
+    langfuse: toLangfuseConfig(env),
     embeddings: { model: env.EMBEDDING_MODEL, cacheDir: env.EMBEDDING_CACHE_DIR },
+  };
+}
+
+function toLangfuseConfig(env: z.output<typeof LangfuseEnvSchema>): Config['langfuse'] {
+  return {
+    publicKey: env.LANGFUSE_PUBLIC_KEY,
+    secretKey: optionalSecret(env.LANGFUSE_SECRET_KEY),
+    baseUrl: env.LANGFUSE_BASE_URL,
   };
 }
 
@@ -312,12 +331,27 @@ export function loadConfig(
   env: Readonly<Record<string, string | undefined>> = process.env,
 ): Config {
   const result = EnvSchema.safeParse(normalize(env));
-  if (!result.success) {
-    const issues = result.error.issues.map((issue) => {
+  if (!result.success) throw configError(result.error);
+  return deepFreeze(toConfig(result.data));
+}
+
+/**
+ * The Langfuse settings alone, with the API's rules (both keys or neither, http(s) base URL), for
+ * tools that trace without running the API (the agent evaluation). Throws a ConfigError.
+ */
+export function loadLangfuseConfig(
+  env: Readonly<Record<string, string | undefined>> = process.env,
+): Config['langfuse'] {
+  const result = LangfuseEnvSchema.safeParse(normalize(env));
+  if (!result.success) throw configError(result.error);
+  return deepFreeze(toLangfuseConfig(result.data));
+}
+
+function configError(error: z.ZodError): ConfigError {
+  return new ConfigError(
+    error.issues.map((issue) => {
       const key = issue.path.length > 0 ? issue.path.map(String).join('.') : '(root)';
       return `${key}: ${issue.message}`;
-    });
-    throw new ConfigError(issues);
-  }
-  return deepFreeze(toConfig(result.data));
+    }),
+  );
 }
