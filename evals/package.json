@@ -14,7 +14,7 @@
     "eval": "npm run eval:retrieval && npm run eval:agent"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.132.1",
+    "@anthropic-ai/sdk": "^0.133.0",
     "@wanderly/contracts": "*",
     "node-pg-migrate": "^9.0.0",
     "pg": "^8.23.1",
