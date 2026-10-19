@@ -14,12 +14,12 @@
     "eval": "npm run eval:retrieval && npm run eval:agent"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.132.1",
+    "@anthropic-ai/sdk": "^0.135.0",
     "@wanderly/contracts": "*",
     "node-pg-migrate": "^9.0.0",
     "pg": "^8.23.1",
     "yaml": "^2.9.1",
-    "zod": "^4.6.5"
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/pg": "^8.23.1"
