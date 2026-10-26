@@ -17,7 +17,7 @@
 # ---------------------------------------------------------------------------------------------
 # base: shared npm settings + workspace manifests
 # ---------------------------------------------------------------------------------------------
-FROM node:22-bookworm-slim@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392 AS base
+FROM node:22-bookworm-slim@sha256:de170b39439eb0e5a3444ad7d60b015614a381e10fecae2e30ec9e735122f38d AS base
 WORKDIR /app
 ENV npm_config_update_notifier=false \
     npm_config_fund=false \
@@ -86,7 +86,7 @@ RUN EMBEDDING_MODEL="${EMBEDDING_MODEL}" node --input-type=module -e " \
 # ---------------------------------------------------------------------------------------------
 # runtime: compiled JS + production node_modules + SQL migrations + model + corpus, non-root
 # ---------------------------------------------------------------------------------------------
-FROM node:22-bookworm-slim@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392 AS runtime
+FROM node:22-bookworm-slim@sha256:de170b39439eb0e5a3444ad7d60b015614a381e10fecae2e30ec9e735122f38d AS runtime
 
 LABEL org.opencontainers.image.title="wanderly-api" \
       org.opencontainers.image.description="Wanderly API (Fastify, agent runtime, hybrid RAG)" \
