@@ -14,7 +14,7 @@
 # ---------------------------------------------------------------------------------------------
 # deps: contracts + web dependency tree (dev included: Vite, TypeScript, Tailwind)
 # ---------------------------------------------------------------------------------------------
-FROM node:22-bookworm-slim@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392 AS deps
+FROM node:22-bookworm-slim@sha256:de170b39439eb0e5a3444ad7d60b015614a381e10fecae2e30ec9e735122f38d AS deps
 WORKDIR /app
 ENV npm_config_update_notifier=false \
     npm_config_fund=false \
@@ -44,7 +44,7 @@ RUN npm run build --workspace @wanderly/contracts --workspace @wanderly/web
 # ---------------------------------------------------------------------------------------------
 # runtime: static files + nginx config, non-root
 # ---------------------------------------------------------------------------------------------
-FROM nginxinc/nginx-unprivileged:stable-alpine@sha256:15c994d10d6d78658721c3bcafff14cb281fba2a4bdf9d5ba92c416a472516e3 AS runtime
+FROM nginxinc/nginx-unprivileged:stable-alpine@sha256:f5116ed4606f3eb015dd4a8e28cb9b351476dc0ad4bc6e9f93b19cec130cdf03 AS runtime
 
 LABEL org.opencontainers.image.title="wanderly-web" \
       org.opencontainers.image.description="Wanderly web client (React SPA served by nginx)" \
